@@ -1,11 +1,11 @@
 <?php
 
-// Include the kaltura client
-require_once(  dirname( __FILE__ ) . '/kaltura_client_v3/KalturaClient.php' );
-// Include the kaltura named multi request helper class: 
-require_once(  dirname( __FILE__ ) . '/KalturaNamedMultiRequest.php');
+// Include the borhan client
+require_once(  dirname( __FILE__ ) . '/borhan_client_v3/BorhanClient.php' );
+// Include the borhan named multi request helper class: 
+require_once(  dirname( __FILE__ ) . '/BorhanNamedMultiRequest.php');
 
-class KalturaClientHelper {
+class BorhanClientHelper {
 
 	private $options = array();
 	var $ks = null;
@@ -27,7 +27,7 @@ class KalturaClientHelper {
 
 		// Check if client already exists
 		if( ! $this->client ) {
-			$conf = new KalturaConfiguration( null );
+			$conf = new BorhanConfiguration( null );
 
 			$conf->serviceUrl = $this->getOption('ServiceUrl');
 			$conf->serviceBase = $this->getOption( 'ServiceBase' );
@@ -45,7 +45,7 @@ class KalturaClientHelper {
 				$conf->setLogger( $this->getOption('Logger') );
 			}
 			
-			$this->client = new KalturaClient( $conf );
+			$this->client = new BorhanClient( $conf );
 
 			if( $this->getOption('KS') ) {
 				$this->setKS( $this->getOption('KS') );
@@ -62,7 +62,7 @@ class KalturaClientHelper {
 			$session = $this->getClient()->session->startWidgetSession( $widgetId );
 			$this->partnerId = $session->partnerId;
 		} catch ( Exception $e ){
-			throw new Exception( KALTURA_GENERIC_SERVER_ERROR . "\n" . $e->getMessage() );
+			throw new Exception( BORHAN_GENERIC_SERVER_ERROR . "\n" . $e->getMessage() );
 		}
 		// Save KS to the client
 		$this->setKS( $session->ks );

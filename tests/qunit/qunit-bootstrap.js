@@ -76,7 +76,7 @@ if( document.URL.indexOf('runQunitTests') != -1 || document.URL.indexOf('runFlas
 } else {
 	window.addRunTestLink = function(){
 		// don't add testing links if in a documentation iframe: 
-		if( window.isKalturaDocsIframe ){
+		if( window.isBorhanDocsIframe ){
 			return ;
 		}
 		

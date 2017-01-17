@@ -1,5 +1,5 @@
 /*
- * The "kaltura player" embedPlayer interface for fallback h.264 and flv video format support
+ * The "borhan player" embedPlayer interface for fallback h.264 and flv video format support
  */
 (function (mw, $) {
 	"use strict";
@@ -96,7 +96,7 @@
 			var deferred = $.Deferred();
 			$.ajax( {
 				url: resolvedSrc ,
-				timeout: this.getKalturaConfig( null , 'multicastKESKtimeout' ) || this.defaultMulticastKESKtimeout ,
+				timeout: this.getBorhanConfig( null , 'multicastKESKtimeout' ) || this.defaultMulticastKESKtimeout ,
 				dataType: 'jsonp' ,
 				success: function ( response ) {
 					return deferred.resolve( response );
@@ -133,7 +133,7 @@
 				obj.flavors.push({uri: uri, bitrate: flavor.bitrate});
 			});
 
-			var maxAllowedMulticastBitrate= this.getKalturaConfig( null , 'maxAllowedMulticastBitrate' ) || this.defaultMaxAllowedMulticastBitrate;
+			var maxAllowedMulticastBitrate= this.getBorhanConfig( null , 'maxAllowedMulticastBitrate' ) || this.defaultMaxAllowedMulticastBitrate;
 
 			this._availableMulticastManifests=[];
 			for(var key in KESMapping) {
@@ -267,10 +267,10 @@
 					return;
 				}
 
-				var retryTime= _this.getKalturaConfig( null , 'multicastKESStartInterval' ) || _this.defaultMulticastKESStartInterval;
+				var retryTime= _this.getBorhanConfig( null , 'multicastKESStartInterval' ) || _this.defaultMulticastKESStartInterval;
 
 				if (_this.isOnline && _this.multicastSessionId)
-					retryTime=_this.getKalturaConfig( null , 'multicastKeepAliveInterval' ) || _this.defaultMulticastKeepAliveInterval;
+					retryTime=_this.getBorhanConfig( null , 'multicastKeepAliveInterval' ) || _this.defaultMulticastKeepAliveInterval;
 
 				_this.keepAliveMCTimeout = setTimeout( function () {
 					try {
@@ -304,7 +304,7 @@
 			}
 			this.stopped = true;
 
-			var disableMulticastFallback = _this.getKalturaConfig( null , 'disableMulticastFallback' ) || _this.defaultDisableMulticastFallback;
+			var disableMulticastFallback = _this.getBorhanConfig( null , 'disableMulticastFallback' ) || _this.defaultDisableMulticastFallback;
 			if ( !disableMulticastFallback ) {
 				mw.log( 'fallbackToUnicast: try unicast' );
 				//remove current source to fallback to unicast if multicast failed
@@ -401,12 +401,12 @@
 					if ( isMimeType( "video/playreadySmooth" ) ) {
 						flashvars.preload = "none";
 						//Check for user defined DRM server else use uDRM
-						var overrideDrmServerURL = mw.getConfig('Kaltura.overrideDrmServerURL');
+						var overrideDrmServerURL = mw.getConfig('Borhan.overrideDrmServerURL');
 						var licenseUrl;
 						if (overrideDrmServerURL) {
 							licenseUrl = overrideDrmServerURL;
 						} else {
-							var licenseBaseUrl = mw.getConfig('Kaltura.UdrmServerURL');
+							var licenseBaseUrl = mw.getConfig('Borhan.UdrmServerURL');
 							if (!licenseBaseUrl) {
 								_this.log('Error:: failed to retrieve playready UDRM license URL ');
 							}
@@ -473,7 +473,7 @@
 					//flashvars.debug = true;
 
 					//check if multicast not available
-					var timeout = _this.getKalturaConfig( null , 'multicastStartTimeout' ) || _this.defaultMulticastStartTimeout;
+					var timeout = _this.getBorhanConfig( null , 'multicastStartTimeout' ) || _this.defaultMulticastStartTimeout;
 					_this.isError = false;
 					setTimeout( function () {
 						if ( !_this.gotFirstMulticastFrame ) {
@@ -596,7 +596,7 @@
 		} ,
 
 		/**
-		 * on Pause callback from the kaltura flash player calls parent_pause to
+		 * on Pause callback from the borhan flash player calls parent_pause to
 		 * update the interface
 		 */
 		onPause: function () {
@@ -604,7 +604,7 @@
 		} ,
 
 		/**
-		 * onPlay function callback from the kaltura flash player directly call the
+		 * onPlay function callback from the borhan flash player directly call the
 		 * parent_play
 		 */
 		onPlay: function () {
@@ -701,7 +701,7 @@
 		},
 
 		handlePlayerError: function ( data ) {
-			var messageText = this.getKalturaMsg( 'ks-CLIP_NOT_FOUND' );
+			var messageText = this.getBorhanMsg( 'ks-CLIP_NOT_FOUND' );
 			if ( data && data.errorMessage ) {
 				messageText = data.errorMessage;
 				var dataParams = messageText.split( " " );
@@ -802,7 +802,7 @@
 		 */
 		doSeek: function ( seekTime ) {
 			var _this = this;
-			// Include a fallback seek timer: in case the kdp does not fire 'playerSeekEnd'
+			// Include a fallback seek timer: in case the bdp does not fire 'playerSeekEnd'
 			var orgTime = this.slCurrentTime;
 			this.seekInterval = setInterval( function () {
 				if ( (_this.slCurrentTime != orgTime) && _this.seeking ) {//TODO - check seeking also
@@ -916,7 +916,7 @@
 			if ( this.requestedSrcIndex !== null && value.newIndex !== this.requestedSrcIndex ) {
 				return;
 			}
-			mw.log( 'EmbedPlayerKalturaSplayer: switchingChangeComplete: new index: ' + value.newIndex );
+			mw.log( 'EmbedPlayerBorhanSplayer: switchingChangeComplete: new index: ' + value.newIndex );
 			this.mediaElement.setSourceByIndex( value.newIndex );
 			$( this ).trigger( 'sourceSwitchingEnd' , [data] );
 		} ,

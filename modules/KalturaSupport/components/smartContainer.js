@@ -48,7 +48,7 @@
 				// hide specified plugins
 				var config = _this.getConfig('config');
 				config.plugins.forEach(function (plugin, index) {
-					_this.embedPlayer.setKalturaConfig( plugin.pluginName, "visible", false );
+					_this.embedPlayer.setBorhanConfig( plugin.pluginName, "visible", false );
 				});
 				_this.embedPlayer.triggerHelper("updateComponentsVisibilityDone");
 			});
@@ -75,7 +75,7 @@
 			var _this = this;
 			var rightPosition = this.embedPlayer.getVideoHolder().width() - x - this.getComponent().width()/2; // set right position for the menu according to the mouse click x position
 			var bottomPosition = 0; // set the menu bottom to the video holder bottom
-			if  ( this.embedPlayer.getKalturaConfig( "controlBarContainer", "hover" ) === true ){
+			if  ( this.embedPlayer.getBorhanConfig( "controlBarContainer", "hover" ) === true ){
 				bottomPosition = this.embedPlayer.getInterface().find(".controlBarContainer").height(); // for hovering controls, update the menu bottom to the controls bar height
 			}
 			this.getMenu().css({"bottom": bottomPosition, "right": rightPosition}).show();
@@ -137,9 +137,9 @@
 			var _this = this;
 			var config = this.getConfig('config');
 			config.plugins.forEach(function (plugin, index) {
-				var iconClass = _this.embedPlayer.getKalturaConfig( plugin.pluginName, "iconClass" );
+				var iconClass = _this.embedPlayer.getBorhanConfig( plugin.pluginName, "iconClass" );
 				plugin.properties.forEach(function (property, index) {
-					var initialValue = _this.embedPlayer.getKalturaConfig( plugin.pluginName, property.property );
+					var initialValue = _this.embedPlayer.getBorhanConfig( plugin.pluginName, property.property );
 					switch (property.type){
 						case 'boolean':
 							var propField = $('<input class="pluginProperty checkbox" type="checkbox">')

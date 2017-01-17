@@ -1,6 +1,6 @@
 <?php
 
-class KalturaLogger implements IKalturaLogger {
+class BorhanLogger implements IBorhanLogger {
 
 	var $logDir = null;
 	var $enabled = false;

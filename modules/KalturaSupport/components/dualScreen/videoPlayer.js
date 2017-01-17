@@ -35,9 +35,9 @@
             });
         },
 
-        //Native src = http://cdnapi.kaltura.com/p/1726172/sp/172617200/playManifest/entryId/0_14ytdv7d/flavorId/0_i7jx15cw/format/url/protocol/http/a.mp4?referrer=aHR0cDovL2xvY2FsaG9zdA==&amp;playSessionId=5b361a4d-742e-8700-21f6-00d87628b56b&amp;clientTag=html5:v2.33.rc2
-        //Kplayer src = http://cdnapi.kaltura.com/p/1726172/sp/172617200/playManifest/entryId/0_14ytdv7d/flavorId/0_i7jx15cw/format/url/protocol/http/a.mp4?referrer=aHR0cDovL2xvY2FsaG9zdA==&playSessionId=5b361a4d-742e-8700-21f6-00d87628b56b&clientTag=html5:v2.33.rc2
-        //splayer src = http://cdnapi.kaltura.com/p/1726172/sp/172617200/playManifest/entryId/0_14ytdv7d/flavorId/0_i7jx15cw/format/url/protocol/http/a.mp4?referrer=aHR0cDovL2xvY2FsaG9zdA==&playSessionId=5b361a4d-742e-8700-21f6-00d87628b56b&clientTag=html5:v2.33.rc2
+        //Native src = http://cdnapi.borhan.com/p/1726172/sp/172617200/playManifest/entryId/0_14ytdv7d/flavorId/0_i7jx15cw/format/url/protocol/http/a.mp4?referrer=aHR0cDovL2xvY2FsaG9zdA==&amp;playSessionId=5b361a4d-742e-8700-21f6-00d87628b56b&amp;clientTag=html5:v2.33.rc2
+        //Kplayer src = http://cdnapi.borhan.com/p/1726172/sp/172617200/playManifest/entryId/0_14ytdv7d/flavorId/0_i7jx15cw/format/url/protocol/http/a.mp4?referrer=aHR0cDovL2xvY2FsaG9zdA==&playSessionId=5b361a4d-742e-8700-21f6-00d87628b56b&clientTag=html5:v2.33.rc2
+        //splayer src = http://cdnapi.borhan.com/p/1726172/sp/172617200/playManifest/entryId/0_14ytdv7d/flavorId/0_i7jx15cw/format/url/protocol/http/a.mp4?referrer=aHR0cDovL2xvY2FsaG9zdA==&playSessionId=5b361a4d-742e-8700-21f6-00d87628b56b&clientTag=html5:v2.33.rc2
 
         getComponent: function () {
             if (!this.$el) {

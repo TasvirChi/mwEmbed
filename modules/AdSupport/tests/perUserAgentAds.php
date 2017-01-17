@@ -2,15 +2,15 @@
 $ads = Array(
 	array(
 		'http://www.doritos.com/',
-		'http://cdnbakmi.kaltura.com/p/243342/sp/24334200/playManifest/entryId/0_89sweeeo/flavorId/0_wyow3go7/format/url/protocol/http/a.mp4'
+		'http://cdnbakmi.borhan.com/p/243342/sp/24334200/playManifest/entryId/0_89sweeeo/flavorId/0_wyow3go7/format/url/protocol/http/a.mp4'
 	),
 	array(
 		'http://www.mcdonalds.com/',
-		'http://cdnbakmi.kaltura.com/p/243342/sp/24334200/playManifest/entryId/0_0y7z1ohl/flavorId/0_le6sb2lo/format/url/protocol/http/a.mp4'
+		'http://cdnbakmi.borhan.com/p/243342/sp/24334200/playManifest/entryId/0_0y7z1ohl/flavorId/0_le6sb2lo/format/url/protocol/http/a.mp4'
 	),
 	array(
 		'https://www.dominos.com/',
-		'http://cdnbakmi.kaltura.com/p/243342/sp/24334200/playManifest/entryId/0_pbgnzgd1/flavorId/0_prj86bk6/format/url/protocol/http/a.mp4'
+		'http://cdnbakmi.borhan.com/p/243342/sp/24334200/playManifest/entryId/0_pbgnzgd1/flavorId/0_prj86bk6/format/url/protocol/http/a.mp4'
 	)
 );
 $ua = $_SERVER['HTTP_USER_AGENT'];
@@ -45,16 +45,16 @@ echo '<?xml version="1.0" encoding="UTF-8" standalone="no"?>';
                     <CompanionAds>
                     <Companion id="banner" width="468" height="60" >
                         <StaticResource creativeType="image/png">
-                            <![CDATA[ttp://projects.kaltura.com/mdale/adcreatives/468x60.png]]>
+                            <![CDATA[ttp://projects.borhan.com/mdale/adcreatives/468x60.png]]>
                         </StaticResource>
                         <CompanionClickThrough>
-                            <![CDATA[http://kaltura.com]]>
+                            <![CDATA[http://borhan.com]]>
                         </CompanionClickThrough>
                     </Companion>
                     <Companion id="expanding_banner" width="300" height="250" expandedWidth="300" expandedHeight="250" >
-                        <StaticResource creativeType="image/png"><![CDATA[http://projects.kaltura.com/mdale/adcreatives/300x250.png]]></StaticResource>
+                        <StaticResource creativeType="image/png"><![CDATA[http://projects.borhan.com/mdale/adcreatives/300x250.png]]></StaticResource>
                         <CompanionClickThrough>
-                            <![CDATA[http://kaltura.com]]>
+                            <![CDATA[http://borhan.com]]>
                         </CompanionClickThrough>
                     </Companion>
                 </CompanionAds>
@@ -90,14 +90,14 @@ echo '<?xml version="1.0" encoding="UTF-8" standalone="no"?>';
                 <Creative sequence="1" AdID="">
                     <CompanionAds>
                         <Companion id="1" width="300" height="250">
-                            <StaticResource creativeType="image/png"><![CDATA[http://projects.kaltura.com/mdale/adcreatives/300x250.png]]></StaticResource>
-                            <CompanionClickThrough><![CDATA[http://kaltura.com]]></CompanionClickThrough>
+                            <StaticResource creativeType="image/png"><![CDATA[http://projects.borhan.com/mdale/adcreatives/300x250.png]]></StaticResource>
+                            <CompanionClickThrough><![CDATA[http://borhan.com]]></CompanionClickThrough>
                             <AltText></AltText>
                             <AdParameters></AdParameters>
                         </Companion>
                         <Companion id="2" width="728" height="90">
-                            <StaticResource creativeType="image/png"><![CDATA[http://projects.kaltura.com/mdale/adcreatives/728x90.png]]></StaticResource>
-                            <CompanionClickThrough><![CDATA[http://kaltura.com]]></CompanionClickThrough>
+                            <StaticResource creativeType="image/png"><![CDATA[http://projects.borhan.com/mdale/adcreatives/728x90.png]]></StaticResource>
+                            <CompanionClickThrough><![CDATA[http://borhan.com]]></CompanionClickThrough>
                             <AltText></AltText>
                             <AdParameters></AdParameters>
                         </Companion>

@@ -20,7 +20,7 @@ class RequestHelper {
 		'flashvars' => null,
 		'playlist_id' => null,
 		'urid' => null,
-		// Custom service url properties ( only used when wgKalturaAllowIframeRemoteService is set to true ) 
+		// Custom service url properties ( only used when wgBorhanAllowIframeRemoteService is set to true ) 
 		'ServiceUrl'=> null,
 		'ServiceBase'=>null,
 		'CdnUrl'=> null,
@@ -50,8 +50,8 @@ class RequestHelper {
 
 	// Parse the embedFrame request and sanitize input
 	private function parseRequest(){
-		global $wgEnableScriptDebug, $wgKalturaUseAppleAdaptive,
-				$wgKalturaPartnerDisableAppleAdaptive;
+		global $wgEnableScriptDebug, $wgBorhanUseAppleAdaptive,
+				$wgBorhanPartnerDisableAppleAdaptive;
 		// Support /key/value path request:
 		if( isset( $_SERVER['PATH_INFO'] ) ){
 			$urlParts = explode( '/', $_SERVER['PATH_INFO'] );
@@ -139,10 +139,10 @@ class RequestHelper {
 	}
 
 	function getServiceConfig( $name ){
-		global $wgKalturaAllowIframeRemoteService;
+		global $wgBorhanAllowIframeRemoteService;
 		
 		// Check if we allow URL override: 
-		if(( $wgKalturaAllowIframeRemoteService == true ) || $this->isEmbedServicesEnabled()){
+		if(( $wgBorhanAllowIframeRemoteService == true ) || $this->isEmbedServicesEnabled()){
 			// Check for urlParameters
 			if( $this->get( $name ) ){
 				return $this->get( $name );
@@ -152,27 +152,27 @@ class RequestHelper {
 		// Else use the global config: 
 		switch( $name ){
 			case 'ServiceUrl' : 
-				global $wgKalturaServiceUrl;
-				return $wgKalturaServiceUrl;
+				global $wgBorhanServiceUrl;
+				return $wgBorhanServiceUrl;
 				break;
 			case 'ServiceBase':
-				global $wgKalturaServiceBase;
-				return $wgKalturaServiceBase;
+				global $wgBorhanServiceBase;
+				return $wgBorhanServiceBase;
 				break;
 			case 'CdnUrl':
-				global $wgKalturaCDNUrl;
-				return $wgKalturaCDNUrl;
+				global $wgBorhanCDNUrl;
+				return $wgBorhanCDNUrl;
 				break;
 			case 'UseManifestUrls':
-				global $wgKalturaUseManifestUrls;
-				return $wgKalturaUseManifestUrls;
+				global $wgBorhanUseManifestUrls;
+				return $wgBorhanUseManifestUrls;
 				break;
 		}
 	}
 
 	function isEmbedServicesEnabled(){
-	    global $wgEnableKalturaEmbedServicesRouting, $wgKalturaAuthEmbedServicesDomains;
-	    if ($wgEnableKalturaEmbedServicesRouting){
+	    global $wgEnableBorhanEmbedServicesRouting, $wgBorhanAuthEmbedServicesDomains;
+	    if ($wgEnableBorhanEmbedServicesRouting){
 	        return true;
 	    } else {
 	        return false;
@@ -193,9 +193,9 @@ class RequestHelper {
 	}
 
 	public function getReferer(){
-		global $wgKalturaForceReferer;
-		if( $wgKalturaForceReferer !== false ){
-			return $wgKalturaForceReferer;
+		global $wgBorhanForceReferer;
+		if( $wgBorhanForceReferer !== false ){
+			return $wgBorhanForceReferer;
 		}
 		if( isset( $_SERVER['HTTP_REFERER'] ) ){
 			$urlParts = parse_url( $_SERVER['HTTP_REFERER'] );
@@ -203,7 +203,7 @@ class RequestHelper {
 				return $urlParts['scheme'] . "://" . $urlParts['host'] . "/";
 			}
 		}
-		return 'http://www.kaltura.com/';
+		return 'http://www.borhan.com/';
 	}
 
 	// Check if private IP
@@ -253,8 +253,8 @@ class RequestHelper {
 	}
 
 	public function getRemoteAddrHeader(){
-		global $wgKalturaRemoteAddressSalt, $wgKalturaForceIP;
-		if( $wgKalturaRemoteAddressSalt === false ){
+		global $wgBorhanRemoteAddressSalt, $wgBorhanForceIP;
+		if( $wgBorhanRemoteAddressSalt === false ){
 			return '';
 		}
 		$ip = null;
@@ -271,13 +271,13 @@ class RequestHelper {
 		if( !$ip ){
 			$ip = $_SERVER['REMOTE_ADDR'];
 		}
-		if( $wgKalturaForceIP ){
-			$ip = $wgKalturaForceIP;
+		if( $wgBorhanForceIP ){
+			$ip = $wgBorhanForceIP;
 		}
 		// make sure there is no white space
 		$ip = trim( $ip );
 		$s = $ip . "," . time() . "," . microtime( true );
-		return "X-KALTURA-REMOTE-ADDR: " . $s . ',' . md5( $s . "," . $wgKalturaRemoteAddressSalt );
+		return "X-BORHAN-REMOTE-ADDR: " . $s . ',' . md5( $s . "," . $wgBorhanRemoteAddressSalt );
 	}
 
 	public function getCacheSt(){

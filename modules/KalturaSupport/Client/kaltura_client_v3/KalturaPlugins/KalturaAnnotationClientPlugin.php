@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,19 +28,19 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
-require_once(dirname(__FILE__) . "/KalturaCuePointClientPlugin.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
+require_once(dirname(__FILE__) . "/BorhanCuePointClientPlugin.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAnnotationOrderBy
+class BorhanAnnotationOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const DURATION_ASC = "+duration";
@@ -57,10 +57,10 @@ class KalturaAnnotationOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAnnotation extends KalturaCuePoint
+class BorhanAnnotation extends BorhanCuePoint
 {
 	/**
 	 * 
@@ -125,15 +125,15 @@ class KalturaAnnotation extends KalturaCuePoint
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAnnotationListResponse extends KalturaObjectBase
+class BorhanAnnotationListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaAnnotation
+	 * @var array of BorhanAnnotation
 	 * @readonly
 	 */
 	public $objects;
@@ -150,10 +150,10 @@ class KalturaAnnotationListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaAnnotationBaseFilter extends KalturaCuePointFilter
+abstract class BorhanAnnotationBaseFilter extends BorhanCuePointFilter
 {
 	/**
 	 * 
@@ -222,22 +222,22 @@ abstract class KalturaAnnotationBaseFilter extends KalturaCuePointFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAnnotationFilter extends KalturaAnnotationBaseFilter
+class BorhanAnnotationFilter extends BorhanAnnotationBaseFilter
 {
 
 }
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAnnotationService extends KalturaServiceBase
+class BorhanAnnotationService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -245,10 +245,10 @@ class KalturaAnnotationService extends KalturaServiceBase
 	/**
 	 * Allows you to add an annotation object associated with an entry
 	 * 
-	 * @param KalturaCuePoint $annotation 
-	 * @return KalturaAnnotation
+	 * @param BorhanCuePoint $annotation 
+	 * @return BorhanAnnotation
 	 */
-	function add(KalturaCuePoint $annotation)
+	function add(BorhanCuePoint $annotation)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "annotation", $annotation->toParams());
@@ -257,7 +257,7 @@ class KalturaAnnotationService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAnnotation");
+		$this->client->validateObjectType($resultObject, "BorhanAnnotation");
 		return $resultObject;
 	}
 
@@ -265,10 +265,10 @@ class KalturaAnnotationService extends KalturaServiceBase
 	 * Update annotation by id
 	 * 
 	 * @param string $id 
-	 * @param KalturaCuePoint $annotation 
-	 * @return KalturaAnnotation
+	 * @param BorhanCuePoint $annotation 
+	 * @return BorhanAnnotation
 	 */
-	function update($id, KalturaCuePoint $annotation)
+	function update($id, BorhanCuePoint $annotation)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -278,18 +278,18 @@ class KalturaAnnotationService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAnnotation");
+		$this->client->validateObjectType($resultObject, "BorhanAnnotation");
 		return $resultObject;
 	}
 
 	/**
 	 * List annotation objects by filter and pager
 	 * 
-	 * @param KalturaCuePointFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaAnnotationListResponse
+	 * @param BorhanCuePointFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanAnnotationListResponse
 	 */
-	function listAction(KalturaCuePointFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanCuePointFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -301,7 +301,7 @@ class KalturaAnnotationService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAnnotationListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanAnnotationListResponse");
 		return $resultObject;
 	}
 
@@ -309,7 +309,7 @@ class KalturaAnnotationService extends KalturaServiceBase
 	 * Allows you to add multiple cue points objects by uploading XML that contains multiple cue point definitions
 	 * 
 	 * @param file $fileData 
-	 * @return KalturaCuePointListResponse
+	 * @return BorhanCuePointListResponse
 	 */
 	function addFromBulk($fileData)
 	{
@@ -321,18 +321,18 @@ class KalturaAnnotationService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCuePointListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanCuePointListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * Download multiple cue points objects as XML definitions
 	 * 
-	 * @param KalturaCuePointFilter $filter 
-	 * @param KalturaFilterPager $pager 
+	 * @param BorhanCuePointFilter $filter 
+	 * @param BorhanFilterPager $pager 
 	 * @return file
 	 */
-	function serveBulk(KalturaCuePointFilter $filter = null, KalturaFilterPager $pager = null)
+	function serveBulk(BorhanCuePointFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -349,7 +349,7 @@ class KalturaAnnotationService extends KalturaServiceBase
 	 * Retrieve an CuePoint object by id
 	 * 
 	 * @param string $id 
-	 * @return KalturaCuePoint
+	 * @return BorhanCuePoint
 	 */
 	function get($id)
 	{
@@ -360,17 +360,17 @@ class KalturaAnnotationService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCuePoint");
+		$this->client->validateObjectType($resultObject, "BorhanCuePoint");
 		return $resultObject;
 	}
 
 	/**
 	 * Count cue point objects by filter
 	 * 
-	 * @param KalturaCuePointFilter $filter 
+	 * @param BorhanCuePointFilter $filter 
 	 * @return int
 	 */
-	function count(KalturaCuePointFilter $filter = null)
+	function count(BorhanCuePointFilter $filter = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -404,32 +404,32 @@ class KalturaAnnotationService extends KalturaServiceBase
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAnnotationClientPlugin extends KalturaClientPlugin
+class BorhanAnnotationClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaAnnotationService
+	 * @var BorhanAnnotationService
 	 */
 	public $annotation = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->annotation = new KalturaAnnotationService($client);
+		$this->annotation = new BorhanAnnotationService($client);
 	}
 
 	/**
-	 * @return KalturaAnnotationClientPlugin
+	 * @return BorhanAnnotationClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaAnnotationClientPlugin($client);
+		return new BorhanAnnotationClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

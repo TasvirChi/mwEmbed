@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,19 +28,19 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
-require_once(dirname(__FILE__) . "/KalturaMetadataClientPlugin.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
+require_once(dirname(__FILE__) . "/BorhanMetadataClientPlugin.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionAction
+class BorhanDistributionAction
 {
 	const SUBMIT = 1;
 	const UPDATE = 2;
@@ -49,10 +49,10 @@ class KalturaDistributionAction
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionErrorType
+class BorhanDistributionErrorType
 {
 	const MISSING_FLAVOR = 1;
 	const MISSING_THUMBNAIL = 2;
@@ -62,10 +62,10 @@ class KalturaDistributionErrorType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionFieldRequiredStatus
+class BorhanDistributionFieldRequiredStatus
 {
 	const NOT_REQUIRED = 0;
 	const REQUIRED_BY_PROVIDER = 1;
@@ -73,10 +73,10 @@ class KalturaDistributionFieldRequiredStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionProfileActionStatus
+class BorhanDistributionProfileActionStatus
 {
 	const DISABLED = 1;
 	const AUTOMATIC = 2;
@@ -84,10 +84,10 @@ class KalturaDistributionProfileActionStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionProfileStatus
+class BorhanDistributionProfileStatus
 {
 	const DISABLED = 1;
 	const ENABLED = 2;
@@ -95,10 +95,10 @@ class KalturaDistributionProfileStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionProtocol
+class BorhanDistributionProtocol
 {
 	const FTP = 1;
 	const SCP = 2;
@@ -109,10 +109,10 @@ class KalturaDistributionProtocol
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionValidationErrorType
+class BorhanDistributionValidationErrorType
 {
 	const CUSTOM_ERROR = 0;
 	const STRING_EMPTY = 1;
@@ -122,10 +122,10 @@ class KalturaDistributionValidationErrorType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEntryDistributionFlag
+class BorhanEntryDistributionFlag
 {
 	const NONE = 0;
 	const SUBMIT_REQUIRED = 1;
@@ -136,10 +136,10 @@ class KalturaEntryDistributionFlag
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEntryDistributionStatus
+class BorhanEntryDistributionStatus
 {
 	const PENDING = 0;
 	const QUEUED = 1;
@@ -157,10 +157,10 @@ class KalturaEntryDistributionStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEntryDistributionSunStatus
+class BorhanEntryDistributionSunStatus
 {
 	const BEFORE_SUNRISE = 1;
 	const AFTER_SUNRISE = 2;
@@ -168,10 +168,10 @@ class KalturaEntryDistributionSunStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProviderParser
+class BorhanGenericDistributionProviderParser
 {
 	const XSL = 1;
 	const XPATH = 2;
@@ -179,20 +179,20 @@ class KalturaGenericDistributionProviderParser
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProviderStatus
+class BorhanGenericDistributionProviderStatus
 {
 	const ACTIVE = 2;
 	const DELETED = 3;
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaConfigurableDistributionProfileOrderBy
+class BorhanConfigurableDistributionProfileOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const UPDATED_AT_ASC = "+updatedAt";
@@ -201,10 +201,10 @@ class KalturaConfigurableDistributionProfileOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionProfileOrderBy
+class BorhanDistributionProfileOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const UPDATED_AT_ASC = "+updatedAt";
@@ -213,18 +213,18 @@ class KalturaDistributionProfileOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionProviderOrderBy
+class BorhanDistributionProviderOrderBy
 {
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionProviderType
+class BorhanDistributionProviderType
 {
 	const IDETIC = "ideticDistribution.IDETIC";
 	const YOUTUBE_API = "youtubeApiDistribution.YOUTUBE_API";
@@ -233,10 +233,10 @@ class KalturaDistributionProviderType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEntryDistributionOrderBy
+class BorhanEntryDistributionOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const SUBMITTED_AT_ASC = "+submittedAt";
@@ -251,10 +251,10 @@ class KalturaEntryDistributionOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProfileOrderBy
+class BorhanGenericDistributionProfileOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const UPDATED_AT_ASC = "+updatedAt";
@@ -263,10 +263,10 @@ class KalturaGenericDistributionProfileOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProviderActionOrderBy
+class BorhanGenericDistributionProviderActionOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const UPDATED_AT_ASC = "+updatedAt";
@@ -275,10 +275,10 @@ class KalturaGenericDistributionProviderActionOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProviderOrderBy
+class BorhanGenericDistributionProviderOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const UPDATED_AT_ASC = "+updatedAt";
@@ -287,10 +287,10 @@ class KalturaGenericDistributionProviderOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSyndicationDistributionProfileOrderBy
+class BorhanSyndicationDistributionProfileOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const UPDATED_AT_ASC = "+updatedAt";
@@ -299,30 +299,30 @@ class KalturaSyndicationDistributionProfileOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSyndicationDistributionProviderOrderBy
+class BorhanSyndicationDistributionProviderOrderBy
 {
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaAssetDistributionCondition extends KalturaObjectBase
+abstract class BorhanAssetDistributionCondition extends BorhanObjectBase
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAssetDistributionRule extends KalturaObjectBase
+class BorhanAssetDistributionRule extends BorhanObjectBase
 {
 	/**
-	 * The validation error description that will be set on the "data" property on KalturaDistributionValidationErrorMissingAsset if rule was not fulfilled
+	 * The validation error description that will be set on the "data" property on BorhanDistributionValidationErrorMissingAsset if rule was not fulfilled
 	 * 	 
 	 *
 	 * @var string
@@ -333,7 +333,7 @@ class KalturaAssetDistributionRule extends KalturaObjectBase
 	 * An array of asset distribution conditions
 	 * 	 
 	 *
-	 * @var array of KalturaAssetDistributionCondition
+	 * @var array of BorhanAssetDistributionCondition
 	 */
 	public $assetDistributionConditions;
 
@@ -341,10 +341,10 @@ class KalturaAssetDistributionRule extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionFieldConfig extends KalturaObjectBase
+class BorhanDistributionFieldConfig extends BorhanObjectBase
 {
 	/**
 	 * A value taken from a connector field enum which associates the current configuration to that connector field
@@ -364,8 +364,8 @@ class KalturaDistributionFieldConfig extends KalturaObjectBase
 	public $userFriendlyFieldName = null;
 
 	/**
-	 * An XSLT string that extracts the right value from the Kaltura entry MRSS XML.
-	 *      The value of the current connector field will be the one that is returned from transforming the Kaltura entry MRSS XML using this XSLT string.
+	 * An XSLT string that extracts the right value from the Borhan entry MRSS XML.
+	 *      The value of the current connector field will be the one that is returned from transforming the Borhan entry MRSS XML using this XSLT string.
 	 *      
 	 *
 	 * @var string
@@ -376,7 +376,7 @@ class KalturaDistributionFieldConfig extends KalturaObjectBase
 	 * Is the field required to have a value for submission ?
 	 *      
 	 *
-	 * @var KalturaDistributionFieldRequiredStatus
+	 * @var BorhanDistributionFieldRequiredStatus
 	 */
 	public $isRequired = null;
 
@@ -392,7 +392,7 @@ class KalturaDistributionFieldConfig extends KalturaObjectBase
 	 * Entry column or metadata xpath that should trigger an update
 	 *      
 	 *
-	 * @var array of KalturaString
+	 * @var array of BorhanString
 	 */
 	public $updateParams;
 
@@ -409,19 +409,19 @@ class KalturaDistributionFieldConfig extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaDistributionJobProviderData extends KalturaObjectBase
+abstract class BorhanDistributionJobProviderData extends BorhanObjectBase
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionThumbDimensions extends KalturaObjectBase
+class BorhanDistributionThumbDimensions extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -441,10 +441,10 @@ class KalturaDistributionThumbDimensions extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaDistributionProfile extends KalturaObjectBase
+abstract class BorhanDistributionProfile extends BorhanObjectBase
 {
 	/**
 	 * Auto generated unique id
@@ -484,7 +484,7 @@ abstract class KalturaDistributionProfile extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProviderType
+	 * @var BorhanDistributionProviderType
 	 * @insertonly
 	 */
 	public $providerType = null;
@@ -499,35 +499,35 @@ abstract class KalturaDistributionProfile extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProfileStatus
+	 * @var BorhanDistributionProfileStatus
 	 */
 	public $status = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProfileActionStatus
+	 * @var BorhanDistributionProfileActionStatus
 	 */
 	public $submitEnabled = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProfileActionStatus
+	 * @var BorhanDistributionProfileActionStatus
 	 */
 	public $updateEnabled = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProfileActionStatus
+	 * @var BorhanDistributionProfileActionStatus
 	 */
 	public $deleteEnabled = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProfileActionStatus
+	 * @var BorhanDistributionProfileActionStatus
 	 */
 	public $reportEnabled = null;
 
@@ -567,7 +567,7 @@ abstract class KalturaDistributionProfile extends KalturaObjectBase
 	 * Thumbnail dimensions that should be submitted if ready
 	 * 	 
 	 *
-	 * @var array of KalturaDistributionThumbDimensions
+	 * @var array of BorhanDistributionThumbDimensions
 	 */
 	public $optionalThumbDimensions;
 
@@ -575,7 +575,7 @@ abstract class KalturaDistributionProfile extends KalturaObjectBase
 	 * Thumbnail dimensions that required to be readt before submission
 	 * 	 
 	 *
-	 * @var array of KalturaDistributionThumbDimensions
+	 * @var array of BorhanDistributionThumbDimensions
 	 */
 	public $requiredThumbDimensions;
 
@@ -583,7 +583,7 @@ abstract class KalturaDistributionProfile extends KalturaObjectBase
 	 * Asset Distribution Rules for assets that should be submitted if ready
 	 * 	 
 	 *
-	 * @var array of KalturaAssetDistributionRule
+	 * @var array of BorhanAssetDistributionRule
 	 */
 	public $optionalAssetDistributionRules;
 
@@ -591,7 +591,7 @@ abstract class KalturaDistributionProfile extends KalturaObjectBase
 	 * Assets Asset Distribution Rules for assets that are required to be ready before submission
 	 * 	 
 	 *
-	 * @var array of KalturaAssetDistributionRule
+	 * @var array of BorhanAssetDistributionRule
 	 */
 	public $requiredAssetDistributionRules;
 
@@ -620,7 +620,7 @@ abstract class KalturaDistributionProfile extends KalturaObjectBase
 	public $recommendedStorageProfileForDownload = null;
 
 	/**
-	 * The best Kaltura data center to be used to download the asset files to
+	 * The best Borhan data center to be used to download the asset files to
 	 * 	 
 	 *
 	 * @var int
@@ -628,7 +628,7 @@ abstract class KalturaDistributionProfile extends KalturaObjectBase
 	public $recommendedDcForDownload = null;
 
 	/**
-	 * The best Kaltura data center to be used to execute the distribution job
+	 * The best Borhan data center to be used to execute the distribution job
 	 * 	 
 	 *
 	 * @var int
@@ -639,15 +639,15 @@ abstract class KalturaDistributionProfile extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionProfileListResponse extends KalturaObjectBase
+class BorhanDistributionProfileListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaDistributionProfile
+	 * @var array of BorhanDistributionProfile
 	 * @readonly
 	 */
 	public $objects;
@@ -664,15 +664,15 @@ class KalturaDistributionProfileListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaDistributionProvider extends KalturaObjectBase
+abstract class BorhanDistributionProvider extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProviderType
+	 * @var BorhanDistributionProviderType
 	 * @readonly
 	 */
 	public $type = null;
@@ -737,15 +737,15 @@ abstract class KalturaDistributionProvider extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionProviderListResponse extends KalturaObjectBase
+class BorhanDistributionProviderListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaDistributionProvider
+	 * @var array of BorhanDistributionProvider
 	 * @readonly
 	 */
 	public $objects;
@@ -762,10 +762,10 @@ class KalturaDistributionProviderListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionRemoteMediaFile extends KalturaObjectBase
+class BorhanDistributionRemoteMediaFile extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -792,22 +792,22 @@ class KalturaDistributionRemoteMediaFile extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaDistributionValidationError extends KalturaObjectBase
+abstract class BorhanDistributionValidationError extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionAction
+	 * @var BorhanDistributionAction
 	 */
 	public $action = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionErrorType
+	 * @var BorhanDistributionErrorType
 	 */
 	public $errorType = null;
 
@@ -822,10 +822,10 @@ abstract class KalturaDistributionValidationError extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEntryDistribution extends KalturaObjectBase
+class BorhanEntryDistribution extends BorhanObjectBase
 {
 	/**
 	 * Auto generated unique id
@@ -890,7 +890,7 @@ class KalturaEntryDistribution extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaEntryDistributionStatus
+	 * @var BorhanEntryDistributionStatus
 	 * @readonly
 	 */
 	public $status = null;
@@ -898,7 +898,7 @@ class KalturaEntryDistribution extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaEntryDistributionSunStatus
+	 * @var BorhanEntryDistributionSunStatus
 	 * @readonly
 	 */
 	public $sunStatus = null;
@@ -906,7 +906,7 @@ class KalturaEntryDistribution extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaEntryDistributionFlag
+	 * @var BorhanEntryDistributionFlag
 	 * @readonly
 	 */
 	public $dirtyStatus = null;
@@ -981,14 +981,14 @@ class KalturaEntryDistribution extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var array of KalturaDistributionValidationError
+	 * @var array of BorhanDistributionValidationError
 	 */
 	public $validationErrors;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaBatchJobErrorTypes
+	 * @var BorhanBatchJobErrorTypes
 	 * @readonly
 	 */
 	public $errorType = null;
@@ -1012,7 +1012,7 @@ class KalturaEntryDistribution extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaNullableBoolean
+	 * @var BorhanNullableBoolean
 	 * @readonly
 	 */
 	public $hasSubmitResultsLog = null;
@@ -1020,7 +1020,7 @@ class KalturaEntryDistribution extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaNullableBoolean
+	 * @var BorhanNullableBoolean
 	 * @readonly
 	 */
 	public $hasSubmitSentDataLog = null;
@@ -1028,7 +1028,7 @@ class KalturaEntryDistribution extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaNullableBoolean
+	 * @var BorhanNullableBoolean
 	 * @readonly
 	 */
 	public $hasUpdateResultsLog = null;
@@ -1036,7 +1036,7 @@ class KalturaEntryDistribution extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaNullableBoolean
+	 * @var BorhanNullableBoolean
 	 * @readonly
 	 */
 	public $hasUpdateSentDataLog = null;
@@ -1044,7 +1044,7 @@ class KalturaEntryDistribution extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaNullableBoolean
+	 * @var BorhanNullableBoolean
 	 * @readonly
 	 */
 	public $hasDeleteResultsLog = null;
@@ -1052,7 +1052,7 @@ class KalturaEntryDistribution extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaNullableBoolean
+	 * @var BorhanNullableBoolean
 	 * @readonly
 	 */
 	public $hasDeleteSentDataLog = null;
@@ -1061,15 +1061,15 @@ class KalturaEntryDistribution extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEntryDistributionListResponse extends KalturaObjectBase
+class BorhanEntryDistributionListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaEntryDistribution
+	 * @var array of BorhanEntryDistribution
 	 * @readonly
 	 */
 	public $objects;
@@ -1086,15 +1086,15 @@ class KalturaEntryDistributionListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProfileAction extends KalturaObjectBase
+class BorhanGenericDistributionProfileAction extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProtocol
+	 * @var BorhanDistributionProtocol
 	 */
 	public $protocol = null;
 
@@ -1151,10 +1151,10 @@ class KalturaGenericDistributionProfileAction extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProviderAction extends KalturaObjectBase
+class BorhanGenericDistributionProviderAction extends BorhanObjectBase
 {
 	/**
 	 * Auto generated
@@ -1194,7 +1194,7 @@ class KalturaGenericDistributionProviderAction extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionAction
+	 * @var BorhanDistributionAction
 	 * @insertonly
 	 */
 	public $action = null;
@@ -1202,7 +1202,7 @@ class KalturaGenericDistributionProviderAction extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaGenericDistributionProviderStatus
+	 * @var BorhanGenericDistributionProviderStatus
 	 * @readonly
 	 */
 	public $status = null;
@@ -1210,14 +1210,14 @@ class KalturaGenericDistributionProviderAction extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaGenericDistributionProviderParser
+	 * @var BorhanGenericDistributionProviderParser
 	 */
 	public $resultsParser = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProtocol
+	 * @var BorhanDistributionProtocol
 	 */
 	public $protocol = null;
 
@@ -1291,15 +1291,15 @@ class KalturaGenericDistributionProviderAction extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProviderActionListResponse extends KalturaObjectBase
+class BorhanGenericDistributionProviderActionListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaGenericDistributionProviderAction
+	 * @var array of BorhanGenericDistributionProviderAction
 	 * @readonly
 	 */
 	public $objects;
@@ -1316,10 +1316,10 @@ class KalturaGenericDistributionProviderActionListResponse extends KalturaObject
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProvider extends KalturaDistributionProvider
+class BorhanGenericDistributionProvider extends BorhanDistributionProvider
 {
 	/**
 	 * Auto generated
@@ -1366,7 +1366,7 @@ class KalturaGenericDistributionProvider extends KalturaDistributionProvider
 	/**
 	 * 
 	 *
-	 * @var KalturaGenericDistributionProviderStatus
+	 * @var BorhanGenericDistributionProviderStatus
 	 * @readonly
 	 */
 	public $status = null;
@@ -1388,14 +1388,14 @@ class KalturaGenericDistributionProvider extends KalturaDistributionProvider
 	/**
 	 * 
 	 *
-	 * @var array of KalturaDistributionThumbDimensions
+	 * @var array of BorhanDistributionThumbDimensions
 	 */
 	public $optionalThumbDimensions;
 
 	/**
 	 * 
 	 *
-	 * @var array of KalturaDistributionThumbDimensions
+	 * @var array of BorhanDistributionThumbDimensions
 	 */
 	public $requiredThumbDimensions;
 
@@ -1417,15 +1417,15 @@ class KalturaGenericDistributionProvider extends KalturaDistributionProvider
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProviderListResponse extends KalturaObjectBase
+class BorhanGenericDistributionProviderListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaGenericDistributionProvider
+	 * @var array of BorhanGenericDistributionProvider
 	 * @readonly
 	 */
 	public $objects;
@@ -1442,10 +1442,10 @@ class KalturaGenericDistributionProviderListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAssetDistributionPropertyCondition extends KalturaAssetDistributionCondition
+class BorhanAssetDistributionPropertyCondition extends BorhanAssetDistributionCondition
 {
 	/**
 	 * The property name to look for, this will match to a getter on the asset object.
@@ -1468,10 +1468,10 @@ class KalturaAssetDistributionPropertyCondition extends KalturaAssetDistribution
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaConfigurableDistributionJobProviderData extends KalturaDistributionJobProviderData
+abstract class BorhanConfigurableDistributionJobProviderData extends BorhanDistributionJobProviderData
 {
 	/**
 	 * 
@@ -1484,22 +1484,22 @@ abstract class KalturaConfigurableDistributionJobProviderData extends KalturaDis
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaConfigurableDistributionProfile extends KalturaDistributionProfile
+abstract class BorhanConfigurableDistributionProfile extends BorhanDistributionProfile
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaDistributionFieldConfig
+	 * @var array of BorhanDistributionFieldConfig
 	 */
 	public $fieldConfigArray;
 
 	/**
 	 * 
 	 *
-	 * @var array of KalturaExtendingItemMrssParameter
+	 * @var array of BorhanExtendingItemMrssParameter
 	 */
 	public $itemXpathsToExtend;
 
@@ -1507,10 +1507,10 @@ abstract class KalturaConfigurableDistributionProfile extends KalturaDistributio
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaContentDistributionSearchItem extends KalturaSearchItem
+class BorhanContentDistributionSearchItem extends BorhanSearchItem
 {
 	/**
 	 * 
@@ -1529,21 +1529,21 @@ class KalturaContentDistributionSearchItem extends KalturaSearchItem
 	/**
 	 * 
 	 *
-	 * @var KalturaEntryDistributionSunStatus
+	 * @var BorhanEntryDistributionSunStatus
 	 */
 	public $distributionSunStatus = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaEntryDistributionFlag
+	 * @var BorhanEntryDistributionFlag
 	 */
 	public $entryDistributionFlag = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaEntryDistributionStatus
+	 * @var BorhanEntryDistributionStatus
 	 */
 	public $entryDistributionStatus = null;
 
@@ -1566,10 +1566,10 @@ class KalturaContentDistributionSearchItem extends KalturaSearchItem
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionJobData extends KalturaJobData
+class BorhanDistributionJobData extends BorhanJobData
 {
 	/**
 	 * 
@@ -1581,7 +1581,7 @@ class KalturaDistributionJobData extends KalturaJobData
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProfile
+	 * @var BorhanDistributionProfile
 	 */
 	public $distributionProfile;
 
@@ -1595,7 +1595,7 @@ class KalturaDistributionJobData extends KalturaJobData
 	/**
 	 * 
 	 *
-	 * @var KalturaEntryDistribution
+	 * @var BorhanEntryDistribution
 	 */
 	public $entryDistribution;
 
@@ -1610,7 +1610,7 @@ class KalturaDistributionJobData extends KalturaJobData
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProviderType
+	 * @var BorhanDistributionProviderType
 	 */
 	public $providerType = null;
 
@@ -1618,7 +1618,7 @@ class KalturaDistributionJobData extends KalturaJobData
 	 * Additional data that relevant for the provider only
 	 * 	 
 	 *
-	 * @var KalturaDistributionJobProviderData
+	 * @var BorhanDistributionJobProviderData
 	 */
 	public $providerData;
 
@@ -1643,7 +1643,7 @@ class KalturaDistributionJobData extends KalturaJobData
 	 * 	 Could be used later for media update 
 	 * 	 
 	 *
-	 * @var array of KalturaDistributionRemoteMediaFile
+	 * @var array of BorhanDistributionRemoteMediaFile
 	 */
 	public $mediaFiles;
 
@@ -1651,10 +1651,10 @@ class KalturaDistributionJobData extends KalturaJobData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaDistributionProfileBaseFilter extends KalturaFilter
+abstract class BorhanDistributionProfileBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -1701,7 +1701,7 @@ abstract class KalturaDistributionProfileBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProfileStatus
+	 * @var BorhanDistributionProfileStatus
 	 */
 	public $statusEqual = null;
 
@@ -1716,15 +1716,15 @@ abstract class KalturaDistributionProfileBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaDistributionProviderBaseFilter extends KalturaFilter
+abstract class BorhanDistributionProviderBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionProviderType
+	 * @var BorhanDistributionProviderType
 	 */
 	public $typeEqual = null;
 
@@ -1739,10 +1739,10 @@ abstract class KalturaDistributionProviderBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionValidationErrorInvalidData extends KalturaDistributionValidationError
+class BorhanDistributionValidationErrorInvalidData extends BorhanDistributionValidationError
 {
 	/**
 	 * 
@@ -1754,13 +1754,13 @@ class KalturaDistributionValidationErrorInvalidData extends KalturaDistributionV
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionValidationErrorType
+	 * @var BorhanDistributionValidationErrorType
 	 */
 	public $validationErrorType = null;
 
 	/**
 	 * Parameter of the validation error
-	 * 	 For example, minimum value for KalturaDistributionValidationErrorType::STRING_TOO_SHORT validation error
+	 * 	 For example, minimum value for BorhanDistributionValidationErrorType::STRING_TOO_SHORT validation error
 	 * 	 
 	 *
 	 * @var string
@@ -1771,10 +1771,10 @@ class KalturaDistributionValidationErrorInvalidData extends KalturaDistributionV
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionValidationErrorMissingAsset extends KalturaDistributionValidationError
+class BorhanDistributionValidationErrorMissingAsset extends BorhanDistributionValidationError
 {
 	/**
 	 * 
@@ -1787,10 +1787,10 @@ class KalturaDistributionValidationErrorMissingAsset extends KalturaDistribution
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionValidationErrorMissingFlavor extends KalturaDistributionValidationError
+class BorhanDistributionValidationErrorMissingFlavor extends BorhanDistributionValidationError
 {
 	/**
 	 * 
@@ -1803,10 +1803,10 @@ class KalturaDistributionValidationErrorMissingFlavor extends KalturaDistributio
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionValidationErrorMissingMetadata extends KalturaDistributionValidationError
+class BorhanDistributionValidationErrorMissingMetadata extends BorhanDistributionValidationError
 {
 	/**
 	 * 
@@ -1819,15 +1819,15 @@ class KalturaDistributionValidationErrorMissingMetadata extends KalturaDistribut
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionValidationErrorMissingThumbnail extends KalturaDistributionValidationError
+class BorhanDistributionValidationErrorMissingThumbnail extends BorhanDistributionValidationError
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionThumbDimensions
+	 * @var BorhanDistributionThumbDimensions
 	 */
 	public $dimensions;
 
@@ -1835,10 +1835,10 @@ class KalturaDistributionValidationErrorMissingThumbnail extends KalturaDistribu
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaEntryDistributionBaseFilter extends KalturaFilter
+abstract class BorhanEntryDistributionBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -1927,7 +1927,7 @@ abstract class KalturaEntryDistributionBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaEntryDistributionStatus
+	 * @var BorhanEntryDistributionStatus
 	 */
 	public $statusEqual = null;
 
@@ -1941,7 +1941,7 @@ abstract class KalturaEntryDistributionBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaEntryDistributionFlag
+	 * @var BorhanEntryDistributionFlag
 	 */
 	public $dirtyStatusEqual = null;
 
@@ -1984,10 +1984,10 @@ abstract class KalturaEntryDistributionBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionJobProviderData extends KalturaDistributionJobProviderData
+class BorhanGenericDistributionJobProviderData extends BorhanDistributionJobProviderData
 {
 	/**
 	 * 
@@ -2006,7 +2006,7 @@ class KalturaGenericDistributionJobProviderData extends KalturaDistributionJobPr
 	/**
 	 * 
 	 *
-	 * @var KalturaGenericDistributionProviderParser
+	 * @var BorhanGenericDistributionProviderParser
 	 */
 	public $resultParserType = null;
 
@@ -2014,10 +2014,10 @@ class KalturaGenericDistributionJobProviderData extends KalturaDistributionJobPr
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProfile extends KalturaDistributionProfile
+class BorhanGenericDistributionProfile extends BorhanDistributionProfile
 {
 	/**
 	 * 
@@ -2030,28 +2030,28 @@ class KalturaGenericDistributionProfile extends KalturaDistributionProfile
 	/**
 	 * 
 	 *
-	 * @var KalturaGenericDistributionProfileAction
+	 * @var BorhanGenericDistributionProfileAction
 	 */
 	public $submitAction;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaGenericDistributionProfileAction
+	 * @var BorhanGenericDistributionProfileAction
 	 */
 	public $updateAction;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaGenericDistributionProfileAction
+	 * @var BorhanGenericDistributionProfileAction
 	 */
 	public $deleteAction;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaGenericDistributionProfileAction
+	 * @var BorhanGenericDistributionProfileAction
 	 */
 	public $fetchReportAction;
 
@@ -2073,10 +2073,10 @@ class KalturaGenericDistributionProfile extends KalturaDistributionProfile
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaGenericDistributionProviderActionBaseFilter extends KalturaFilter
+abstract class BorhanGenericDistributionProviderActionBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -2137,7 +2137,7 @@ abstract class KalturaGenericDistributionProviderActionBaseFilter extends Kaltur
 	/**
 	 * 
 	 *
-	 * @var KalturaDistributionAction
+	 * @var BorhanDistributionAction
 	 */
 	public $actionEqual = null;
 
@@ -2152,10 +2152,10 @@ abstract class KalturaGenericDistributionProviderActionBaseFilter extends Kaltur
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSyndicationDistributionProfile extends KalturaDistributionProfile
+class BorhanSyndicationDistributionProfile extends BorhanDistributionProfile
 {
 	/**
 	 * 
@@ -2176,28 +2176,28 @@ class KalturaSyndicationDistributionProfile extends KalturaDistributionProfile
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSyndicationDistributionProvider extends KalturaDistributionProvider
+class BorhanSyndicationDistributionProvider extends BorhanDistributionProvider
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionDeleteJobData extends KalturaDistributionJobData
+class BorhanDistributionDeleteJobData extends BorhanDistributionJobData
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionFetchReportJobData extends KalturaDistributionJobData
+class BorhanDistributionFetchReportJobData extends BorhanDistributionJobData
 {
 	/**
 	 * 
@@ -2217,46 +2217,46 @@ class KalturaDistributionFetchReportJobData extends KalturaDistributionJobData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionProfileFilter extends KalturaDistributionProfileBaseFilter
+class BorhanDistributionProfileFilter extends BorhanDistributionProfileBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionProviderFilter extends KalturaDistributionProviderBaseFilter
+class BorhanDistributionProviderFilter extends BorhanDistributionProviderBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionSubmitJobData extends KalturaDistributionJobData
+class BorhanDistributionSubmitJobData extends BorhanDistributionJobData
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionUpdateJobData extends KalturaDistributionJobData
+class BorhanDistributionUpdateJobData extends BorhanDistributionJobData
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionValidationErrorInvalidMetadata extends KalturaDistributionValidationErrorInvalidData
+class BorhanDistributionValidationErrorInvalidMetadata extends BorhanDistributionValidationErrorInvalidData
 {
 	/**
 	 * 
@@ -2269,64 +2269,64 @@ class KalturaDistributionValidationErrorInvalidMetadata extends KalturaDistribut
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEntryDistributionFilter extends KalturaEntryDistributionBaseFilter
+class BorhanEntryDistributionFilter extends BorhanEntryDistributionBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProviderActionFilter extends KalturaGenericDistributionProviderActionBaseFilter
+class BorhanGenericDistributionProviderActionFilter extends BorhanGenericDistributionProviderActionBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaConfigurableDistributionProfileBaseFilter extends KalturaDistributionProfileFilter
+abstract class BorhanConfigurableDistributionProfileBaseFilter extends BorhanDistributionProfileFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionDisableJobData extends KalturaDistributionUpdateJobData
+class BorhanDistributionDisableJobData extends BorhanDistributionUpdateJobData
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionEnableJobData extends KalturaDistributionUpdateJobData
+class BorhanDistributionEnableJobData extends BorhanDistributionUpdateJobData
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaGenericDistributionProfileBaseFilter extends KalturaDistributionProfileFilter
+abstract class BorhanGenericDistributionProfileBaseFilter extends BorhanDistributionProfileFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaGenericDistributionProviderBaseFilter extends KalturaDistributionProviderFilter
+abstract class BorhanGenericDistributionProviderBaseFilter extends BorhanDistributionProviderFilter
 {
 	/**
 	 * 
@@ -2387,7 +2387,7 @@ abstract class KalturaGenericDistributionProviderBaseFilter extends KalturaDistr
 	/**
 	 * 
 	 *
-	 * @var KalturaNullableBoolean
+	 * @var BorhanNullableBoolean
 	 */
 	public $isDefaultEqual = null;
 
@@ -2401,7 +2401,7 @@ abstract class KalturaGenericDistributionProviderBaseFilter extends KalturaDistr
 	/**
 	 * 
 	 *
-	 * @var KalturaGenericDistributionProviderStatus
+	 * @var BorhanGenericDistributionProviderStatus
 	 */
 	public $statusEqual = null;
 
@@ -2416,76 +2416,76 @@ abstract class KalturaGenericDistributionProviderBaseFilter extends KalturaDistr
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaSyndicationDistributionProfileBaseFilter extends KalturaDistributionProfileFilter
+abstract class BorhanSyndicationDistributionProfileBaseFilter extends BorhanDistributionProfileFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaSyndicationDistributionProviderBaseFilter extends KalturaDistributionProviderFilter
+abstract class BorhanSyndicationDistributionProviderBaseFilter extends BorhanDistributionProviderFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaConfigurableDistributionProfileFilter extends KalturaConfigurableDistributionProfileBaseFilter
+class BorhanConfigurableDistributionProfileFilter extends BorhanConfigurableDistributionProfileBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProfileFilter extends KalturaGenericDistributionProfileBaseFilter
+class BorhanGenericDistributionProfileFilter extends BorhanGenericDistributionProfileBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProviderFilter extends KalturaGenericDistributionProviderBaseFilter
+class BorhanGenericDistributionProviderFilter extends BorhanGenericDistributionProviderBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSyndicationDistributionProfileFilter extends KalturaSyndicationDistributionProfileBaseFilter
+class BorhanSyndicationDistributionProfileFilter extends BorhanSyndicationDistributionProfileBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSyndicationDistributionProviderFilter extends KalturaSyndicationDistributionProviderBaseFilter
+class BorhanSyndicationDistributionProviderFilter extends BorhanSyndicationDistributionProviderBaseFilter
 {
 
 }
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionProfileService extends KalturaServiceBase
+class BorhanDistributionProfileService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -2493,10 +2493,10 @@ class KalturaDistributionProfileService extends KalturaServiceBase
 	/**
 	 * Add new Distribution Profile
 	 * 
-	 * @param KalturaDistributionProfile $distributionProfile 
-	 * @return KalturaDistributionProfile
+	 * @param BorhanDistributionProfile $distributionProfile 
+	 * @return BorhanDistributionProfile
 	 */
-	function add(KalturaDistributionProfile $distributionProfile)
+	function add(BorhanDistributionProfile $distributionProfile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "distributionProfile", $distributionProfile->toParams());
@@ -2505,7 +2505,7 @@ class KalturaDistributionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDistributionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanDistributionProfile");
 		return $resultObject;
 	}
 
@@ -2513,7 +2513,7 @@ class KalturaDistributionProfileService extends KalturaServiceBase
 	 * Get Distribution Profile by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaDistributionProfile
+	 * @return BorhanDistributionProfile
 	 */
 	function get($id)
 	{
@@ -2524,7 +2524,7 @@ class KalturaDistributionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDistributionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanDistributionProfile");
 		return $resultObject;
 	}
 
@@ -2532,10 +2532,10 @@ class KalturaDistributionProfileService extends KalturaServiceBase
 	 * Update Distribution Profile by id
 	 * 
 	 * @param int $id 
-	 * @param KalturaDistributionProfile $distributionProfile 
-	 * @return KalturaDistributionProfile
+	 * @param BorhanDistributionProfile $distributionProfile 
+	 * @return BorhanDistributionProfile
 	 */
-	function update($id, KalturaDistributionProfile $distributionProfile)
+	function update($id, BorhanDistributionProfile $distributionProfile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -2545,7 +2545,7 @@ class KalturaDistributionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDistributionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanDistributionProfile");
 		return $resultObject;
 	}
 
@@ -2554,7 +2554,7 @@ class KalturaDistributionProfileService extends KalturaServiceBase
 	 * 
 	 * @param int $id 
 	 * @param int $status 
-	 * @return KalturaDistributionProfile
+	 * @return BorhanDistributionProfile
 	 */
 	function updateStatus($id, $status)
 	{
@@ -2566,7 +2566,7 @@ class KalturaDistributionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDistributionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanDistributionProfile");
 		return $resultObject;
 	}
 
@@ -2592,11 +2592,11 @@ class KalturaDistributionProfileService extends KalturaServiceBase
 	/**
 	 * List all distribution providers
 	 * 
-	 * @param KalturaDistributionProfileFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaDistributionProfileListResponse
+	 * @param BorhanDistributionProfileFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanDistributionProfileListResponse
 	 */
-	function listAction(KalturaDistributionProfileFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanDistributionProfileFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -2608,18 +2608,18 @@ class KalturaDistributionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDistributionProfileListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanDistributionProfileListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * 
 	 * 
-	 * @param KalturaPartnerFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaDistributionProfileListResponse
+	 * @param BorhanPartnerFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanDistributionProfileListResponse
 	 */
-	function listByPartner(KalturaPartnerFilter $filter = null, KalturaFilterPager $pager = null)
+	function listByPartner(BorhanPartnerFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -2631,18 +2631,18 @@ class KalturaDistributionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDistributionProfileListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanDistributionProfileListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEntryDistributionService extends KalturaServiceBase
+class BorhanEntryDistributionService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -2650,10 +2650,10 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 	/**
 	 * Add new Entry Distribution
 	 * 
-	 * @param KalturaEntryDistribution $entryDistribution 
-	 * @return KalturaEntryDistribution
+	 * @param BorhanEntryDistribution $entryDistribution 
+	 * @return BorhanEntryDistribution
 	 */
-	function add(KalturaEntryDistribution $entryDistribution)
+	function add(BorhanEntryDistribution $entryDistribution)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryDistribution", $entryDistribution->toParams());
@@ -2662,7 +2662,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEntryDistribution");
+		$this->client->validateObjectType($resultObject, "BorhanEntryDistribution");
 		return $resultObject;
 	}
 
@@ -2670,7 +2670,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 	 * Get Entry Distribution by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaEntryDistribution
+	 * @return BorhanEntryDistribution
 	 */
 	function get($id)
 	{
@@ -2681,7 +2681,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEntryDistribution");
+		$this->client->validateObjectType($resultObject, "BorhanEntryDistribution");
 		return $resultObject;
 	}
 
@@ -2689,7 +2689,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 	 * Validates Entry Distribution by id for submission
 	 * 
 	 * @param int $id 
-	 * @return KalturaEntryDistribution
+	 * @return BorhanEntryDistribution
 	 */
 	function validate($id)
 	{
@@ -2700,7 +2700,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEntryDistribution");
+		$this->client->validateObjectType($resultObject, "BorhanEntryDistribution");
 		return $resultObject;
 	}
 
@@ -2708,10 +2708,10 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 	 * Update Entry Distribution by id
 	 * 
 	 * @param int $id 
-	 * @param KalturaEntryDistribution $entryDistribution 
-	 * @return KalturaEntryDistribution
+	 * @param BorhanEntryDistribution $entryDistribution 
+	 * @return BorhanEntryDistribution
 	 */
-	function update($id, KalturaEntryDistribution $entryDistribution)
+	function update($id, BorhanEntryDistribution $entryDistribution)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -2721,7 +2721,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEntryDistribution");
+		$this->client->validateObjectType($resultObject, "BorhanEntryDistribution");
 		return $resultObject;
 	}
 
@@ -2747,11 +2747,11 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 	/**
 	 * List all distribution providers
 	 * 
-	 * @param KalturaEntryDistributionFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaEntryDistributionListResponse
+	 * @param BorhanEntryDistributionFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanEntryDistributionListResponse
 	 */
-	function listAction(KalturaEntryDistributionFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanEntryDistributionFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -2763,7 +2763,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEntryDistributionListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanEntryDistributionListResponse");
 		return $resultObject;
 	}
 
@@ -2772,7 +2772,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 	 * 
 	 * @param int $id 
 	 * @param bool $submitWhenReady 
-	 * @return KalturaEntryDistribution
+	 * @return BorhanEntryDistribution
 	 */
 	function submitAdd($id, $submitWhenReady = false)
 	{
@@ -2784,7 +2784,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEntryDistribution");
+		$this->client->validateObjectType($resultObject, "BorhanEntryDistribution");
 		return $resultObject;
 	}
 
@@ -2792,7 +2792,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 	 * Submits Entry Distribution changes to the remote destination
 	 * 
 	 * @param int $id 
-	 * @return KalturaEntryDistribution
+	 * @return BorhanEntryDistribution
 	 */
 	function submitUpdate($id)
 	{
@@ -2803,7 +2803,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEntryDistribution");
+		$this->client->validateObjectType($resultObject, "BorhanEntryDistribution");
 		return $resultObject;
 	}
 
@@ -2811,7 +2811,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 	 * Submits Entry Distribution report request
 	 * 
 	 * @param int $id 
-	 * @return KalturaEntryDistribution
+	 * @return BorhanEntryDistribution
 	 */
 	function submitFetchReport($id)
 	{
@@ -2822,7 +2822,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEntryDistribution");
+		$this->client->validateObjectType($resultObject, "BorhanEntryDistribution");
 		return $resultObject;
 	}
 
@@ -2830,7 +2830,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 	 * Deletes Entry Distribution from the remote destination
 	 * 
 	 * @param int $id 
-	 * @return KalturaEntryDistribution
+	 * @return BorhanEntryDistribution
 	 */
 	function submitDelete($id)
 	{
@@ -2841,7 +2841,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEntryDistribution");
+		$this->client->validateObjectType($resultObject, "BorhanEntryDistribution");
 		return $resultObject;
 	}
 
@@ -2849,7 +2849,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 	 * Retries last submit action
 	 * 
 	 * @param int $id 
-	 * @return KalturaEntryDistribution
+	 * @return BorhanEntryDistribution
 	 */
 	function retrySubmit($id)
 	{
@@ -2860,7 +2860,7 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEntryDistribution");
+		$this->client->validateObjectType($resultObject, "BorhanEntryDistribution");
 		return $resultObject;
 	}
 
@@ -2902,12 +2902,12 @@ class KalturaEntryDistributionService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDistributionProviderService extends KalturaServiceBase
+class BorhanDistributionProviderService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -2915,11 +2915,11 @@ class KalturaDistributionProviderService extends KalturaServiceBase
 	/**
 	 * List all distribution providers
 	 * 
-	 * @param KalturaDistributionProviderFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaDistributionProviderListResponse
+	 * @param BorhanDistributionProviderFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanDistributionProviderListResponse
 	 */
-	function listAction(KalturaDistributionProviderFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanDistributionProviderFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -2931,18 +2931,18 @@ class KalturaDistributionProviderService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDistributionProviderListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanDistributionProviderListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProviderService extends KalturaServiceBase
+class BorhanGenericDistributionProviderService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -2950,10 +2950,10 @@ class KalturaGenericDistributionProviderService extends KalturaServiceBase
 	/**
 	 * Add new Generic Distribution Provider
 	 * 
-	 * @param KalturaGenericDistributionProvider $genericDistributionProvider 
-	 * @return KalturaGenericDistributionProvider
+	 * @param BorhanGenericDistributionProvider $genericDistributionProvider 
+	 * @return BorhanGenericDistributionProvider
 	 */
-	function add(KalturaGenericDistributionProvider $genericDistributionProvider)
+	function add(BorhanGenericDistributionProvider $genericDistributionProvider)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "genericDistributionProvider", $genericDistributionProvider->toParams());
@@ -2962,7 +2962,7 @@ class KalturaGenericDistributionProviderService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProvider");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProvider");
 		return $resultObject;
 	}
 
@@ -2970,7 +2970,7 @@ class KalturaGenericDistributionProviderService extends KalturaServiceBase
 	 * Get Generic Distribution Provider by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaGenericDistributionProvider
+	 * @return BorhanGenericDistributionProvider
 	 */
 	function get($id)
 	{
@@ -2981,7 +2981,7 @@ class KalturaGenericDistributionProviderService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProvider");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProvider");
 		return $resultObject;
 	}
 
@@ -2989,10 +2989,10 @@ class KalturaGenericDistributionProviderService extends KalturaServiceBase
 	 * Update Generic Distribution Provider by id
 	 * 
 	 * @param int $id 
-	 * @param KalturaGenericDistributionProvider $genericDistributionProvider 
-	 * @return KalturaGenericDistributionProvider
+	 * @param BorhanGenericDistributionProvider $genericDistributionProvider 
+	 * @return BorhanGenericDistributionProvider
 	 */
-	function update($id, KalturaGenericDistributionProvider $genericDistributionProvider)
+	function update($id, BorhanGenericDistributionProvider $genericDistributionProvider)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -3002,7 +3002,7 @@ class KalturaGenericDistributionProviderService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProvider");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProvider");
 		return $resultObject;
 	}
 
@@ -3028,11 +3028,11 @@ class KalturaGenericDistributionProviderService extends KalturaServiceBase
 	/**
 	 * List all distribution providers
 	 * 
-	 * @param KalturaGenericDistributionProviderFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaGenericDistributionProviderListResponse
+	 * @param BorhanGenericDistributionProviderFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanGenericDistributionProviderListResponse
 	 */
-	function listAction(KalturaGenericDistributionProviderFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanGenericDistributionProviderFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -3044,18 +3044,18 @@ class KalturaGenericDistributionProviderService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
+class BorhanGenericDistributionProviderActionService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -3063,10 +3063,10 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 	/**
 	 * Add new Generic Distribution Provider Action
 	 * 
-	 * @param KalturaGenericDistributionProviderAction $genericDistributionProviderAction 
-	 * @return KalturaGenericDistributionProviderAction
+	 * @param BorhanGenericDistributionProviderAction $genericDistributionProviderAction 
+	 * @return BorhanGenericDistributionProviderAction
 	 */
-	function add(KalturaGenericDistributionProviderAction $genericDistributionProviderAction)
+	function add(BorhanGenericDistributionProviderAction $genericDistributionProviderAction)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "genericDistributionProviderAction", $genericDistributionProviderAction->toParams());
@@ -3075,7 +3075,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderAction");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderAction");
 		return $resultObject;
 	}
 
@@ -3084,7 +3084,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 	 * 
 	 * @param int $id The id of the generic distribution provider action
 	 * @param string $xslData XSL MRSS transformation data
-	 * @return KalturaGenericDistributionProviderAction
+	 * @return BorhanGenericDistributionProviderAction
 	 */
 	function addMrssTransform($id, $xslData)
 	{
@@ -3096,7 +3096,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderAction");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderAction");
 		return $resultObject;
 	}
 
@@ -3105,7 +3105,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 	 * 
 	 * @param int $id The id of the generic distribution provider action
 	 * @param file $xslFile XSL MRSS transformation file
-	 * @return KalturaGenericDistributionProviderAction
+	 * @return BorhanGenericDistributionProviderAction
 	 */
 	function addMrssTransformFromFile($id, $xslFile)
 	{
@@ -3118,7 +3118,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderAction");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderAction");
 		return $resultObject;
 	}
 
@@ -3127,7 +3127,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 	 * 
 	 * @param int $id The id of the generic distribution provider action
 	 * @param string $xsdData XSD MRSS validatation data
-	 * @return KalturaGenericDistributionProviderAction
+	 * @return BorhanGenericDistributionProviderAction
 	 */
 	function addMrssValidate($id, $xsdData)
 	{
@@ -3139,7 +3139,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderAction");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderAction");
 		return $resultObject;
 	}
 
@@ -3148,7 +3148,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 	 * 
 	 * @param int $id The id of the generic distribution provider action
 	 * @param file $xsdFile XSD MRSS validatation file
-	 * @return KalturaGenericDistributionProviderAction
+	 * @return BorhanGenericDistributionProviderAction
 	 */
 	function addMrssValidateFromFile($id, $xsdFile)
 	{
@@ -3161,7 +3161,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderAction");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderAction");
 		return $resultObject;
 	}
 
@@ -3170,7 +3170,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 	 * 
 	 * @param int $id The id of the generic distribution provider action
 	 * @param string $transformData Transformation data xsl, xPath or regex
-	 * @return KalturaGenericDistributionProviderAction
+	 * @return BorhanGenericDistributionProviderAction
 	 */
 	function addResultsTransform($id, $transformData)
 	{
@@ -3182,7 +3182,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderAction");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderAction");
 		return $resultObject;
 	}
 
@@ -3191,7 +3191,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 	 * 
 	 * @param int $id The id of the generic distribution provider action
 	 * @param file $transformFile Transformation file xsl, xPath or regex
-	 * @return KalturaGenericDistributionProviderAction
+	 * @return BorhanGenericDistributionProviderAction
 	 */
 	function addResultsTransformFromFile($id, $transformFile)
 	{
@@ -3204,7 +3204,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderAction");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderAction");
 		return $resultObject;
 	}
 
@@ -3212,7 +3212,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 	 * Get Generic Distribution Provider Action by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaGenericDistributionProviderAction
+	 * @return BorhanGenericDistributionProviderAction
 	 */
 	function get($id)
 	{
@@ -3223,7 +3223,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderAction");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderAction");
 		return $resultObject;
 	}
 
@@ -3232,7 +3232,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 	 * 
 	 * @param int $genericDistributionProviderId 
 	 * @param int $actionType 
-	 * @return KalturaGenericDistributionProviderAction
+	 * @return BorhanGenericDistributionProviderAction
 	 */
 	function getByProviderId($genericDistributionProviderId, $actionType)
 	{
@@ -3244,7 +3244,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderAction");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderAction");
 		return $resultObject;
 	}
 
@@ -3253,10 +3253,10 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 	 * 
 	 * @param int $genericDistributionProviderId 
 	 * @param int $actionType 
-	 * @param KalturaGenericDistributionProviderAction $genericDistributionProviderAction 
-	 * @return KalturaGenericDistributionProviderAction
+	 * @param BorhanGenericDistributionProviderAction $genericDistributionProviderAction 
+	 * @return BorhanGenericDistributionProviderAction
 	 */
-	function updateByProviderId($genericDistributionProviderId, $actionType, KalturaGenericDistributionProviderAction $genericDistributionProviderAction)
+	function updateByProviderId($genericDistributionProviderId, $actionType, BorhanGenericDistributionProviderAction $genericDistributionProviderAction)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "genericDistributionProviderId", $genericDistributionProviderId);
@@ -3267,7 +3267,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderAction");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderAction");
 		return $resultObject;
 	}
 
@@ -3275,10 +3275,10 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 	 * Update Generic Distribution Provider Action by id
 	 * 
 	 * @param int $id 
-	 * @param KalturaGenericDistributionProviderAction $genericDistributionProviderAction 
-	 * @return KalturaGenericDistributionProviderAction
+	 * @param BorhanGenericDistributionProviderAction $genericDistributionProviderAction 
+	 * @return BorhanGenericDistributionProviderAction
 	 */
-	function update($id, KalturaGenericDistributionProviderAction $genericDistributionProviderAction)
+	function update($id, BorhanGenericDistributionProviderAction $genericDistributionProviderAction)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -3288,7 +3288,7 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderAction");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderAction");
 		return $resultObject;
 	}
 
@@ -3335,11 +3335,11 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 	/**
 	 * List all distribution providers
 	 * 
-	 * @param KalturaGenericDistributionProviderActionFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaGenericDistributionProviderActionListResponse
+	 * @param BorhanGenericDistributionProviderActionFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanGenericDistributionProviderActionListResponse
 	 */
-	function listAction(KalturaGenericDistributionProviderActionFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanGenericDistributionProviderActionFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -3351,61 +3351,61 @@ class KalturaGenericDistributionProviderActionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaGenericDistributionProviderActionListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanGenericDistributionProviderActionListResponse");
 		return $resultObject;
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaContentDistributionClientPlugin extends KalturaClientPlugin
+class BorhanContentDistributionClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaDistributionProfileService
+	 * @var BorhanDistributionProfileService
 	 */
 	public $distributionProfile = null;
 
 	/**
-	 * @var KalturaEntryDistributionService
+	 * @var BorhanEntryDistributionService
 	 */
 	public $entryDistribution = null;
 
 	/**
-	 * @var KalturaDistributionProviderService
+	 * @var BorhanDistributionProviderService
 	 */
 	public $distributionProvider = null;
 
 	/**
-	 * @var KalturaGenericDistributionProviderService
+	 * @var BorhanGenericDistributionProviderService
 	 */
 	public $genericDistributionProvider = null;
 
 	/**
-	 * @var KalturaGenericDistributionProviderActionService
+	 * @var BorhanGenericDistributionProviderActionService
 	 */
 	public $genericDistributionProviderAction = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->distributionProfile = new KalturaDistributionProfileService($client);
-		$this->entryDistribution = new KalturaEntryDistributionService($client);
-		$this->distributionProvider = new KalturaDistributionProviderService($client);
-		$this->genericDistributionProvider = new KalturaGenericDistributionProviderService($client);
-		$this->genericDistributionProviderAction = new KalturaGenericDistributionProviderActionService($client);
+		$this->distributionProfile = new BorhanDistributionProfileService($client);
+		$this->entryDistribution = new BorhanEntryDistributionService($client);
+		$this->distributionProvider = new BorhanDistributionProviderService($client);
+		$this->genericDistributionProvider = new BorhanGenericDistributionProviderService($client);
+		$this->genericDistributionProviderAction = new BorhanGenericDistributionProviderActionService($client);
 	}
 
 	/**
-	 * @return KalturaContentDistributionClientPlugin
+	 * @return BorhanContentDistributionClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaContentDistributionClientPlugin($client);
+		return new BorhanContentDistributionClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

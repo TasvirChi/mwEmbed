@@ -24,7 +24,7 @@
 			'onPage': false,
 			'includeHeader': true,
 			'enableSearch': true,
-			'cssFileName': 'modules/KalturaSupport/components/chapters/chapters.css',
+			'cssFileName': 'modules/BorhanSupport/components/chapters/chapters.css',
 			'minDisplayWidth': 0,
 			'minDisplayHeight': 0,
 			'chapterSlideBoxRatio': (2/3),
@@ -65,7 +65,7 @@
 		addBindings: function () {
 			var _this = this;
 
-			this.bind('KalturaSupport_ThumbCuePointsReady', function () {
+			this.bind('BorhanSupport_ThumbCuePointsReady', function () {
 				if (!_this.maskChangeStreamEvents) {
 					//Get chapters data from cuepoints
 					var chaptersRawData = _this.getCuePoints();
@@ -113,7 +113,7 @@
 				}
 			});
 
-			this.bind('KalturaSupport_ThumbCuePointsUpdated', function (e, cuepoints) {
+			this.bind('BorhanSupport_ThumbCuePointsUpdated', function (e, cuepoints) {
 				if (!_this.dataIntialized) {
 					_this.dataIntialized = true;
 				}
@@ -541,7 +541,7 @@
 			});
 
 			// do the api request
-			this.getKalturaClient().doRequest(requestArray, function (data) {
+			this.getBorhanClient().doRequest(requestArray, function (data) {
 				// Validate result
 				if (!_this.isValidResult(data)) {
 					return;
@@ -821,7 +821,7 @@
 				'service': 'cuepoint_cuepoint',
 				'action': 'list',
 				'filter:entryIdEqual': _this.embedPlayer.kentryid,
-				'filter:objectType': 'KalturaCuePointFilter',
+				'filter:objectType': 'BorhanCuePointFilter',
 				'filter:freeText': expression + "*"
 			};
 			// If in live mode, then search only in cuepoints which are already available at current live timeline
@@ -829,7 +829,7 @@
 				request['filter:updatedAtLessThanOrEqual'] = this.getPlayer().kCuePoints.getLastUpdateTime();
 			}
 
-			this.getKalturaClient().doRequest(request,
+			this.getBorhanClient().doRequest(request,
 					function (data) {
 						if (!_this.isValidResult(data)) {
 							return;

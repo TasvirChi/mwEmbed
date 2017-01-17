@@ -4,12 +4,12 @@
 */
 $wgMwEmbedApiServices['KSTest'] = 'mweApiKSTest';
 
-// Include the kaltura client
-require_once( dirname( __FILE__ ) . '../../Client/KalturaClientHelper.php' );
+// Include the borhan client
+require_once( dirname( __FILE__ ) . '../../Client/BorhanClientHelper.php' );
 
 class mweApiKSTest {
 	function run(){
-		global $wgKalturaUserSecret;
+		global $wgBorhanUserSecret;
 		// validate params ( hard coded to test a particular test file / account )
 		if( !isset( $_REQUEST['wid'] ) ||  $_REQUEST['wid'] != '_243342' ){
 			$this->outputError( 'bad widget param');
@@ -22,14 +22,14 @@ class mweApiKSTest {
 		$this->entryId = $_REQUEST['entry_id'];
 
 		// load library and get ks for given entry:
-		if( !isset( $wgKalturaUserSecret ) || ( $wgKalturaUserSecret == null ) ) {
+		if( !isset( $wgBorhanUserSecret ) || ( $wgBorhanUserSecret == null ) ) {
 			$this->outputError( 'no user ks configured');
 		}
 	
 		$client = $this->getClient();
-		$ks = $client->session->start ( $wgKalturaUserSecret, 
+		$ks = $client->session->start ( $wgBorhanUserSecret, 
 				$_SERVER['REMOTE_ADDR'], 
-				KalturaSessionType::USER, 
+				BorhanSessionType::USER, 
 				$this->partnerId, 
 				3600, // expire in one hour
 				"sview:{$this->entryId}" // give permision to "view" the entry
@@ -39,20 +39,20 @@ class mweApiKSTest {
 		echo json_encode(array('ks' => $ks ) );
 	}
 	function getClient(){
-		$conf = new KalturaConfiguration( $this->partnerId );
+		$conf = new BorhanConfiguration( $this->partnerId );
 		$conf->serviceUrl = $this->getServiceConfig( 'ServiceUrl' );
 		$conf->serviceBase = $this->getServiceConfig( 'ServiceBase' );
-		return new KalturaClient( $conf );
+		return new BorhanClient( $conf );
 	}
 	function getServiceConfig( $name ){
 		switch( $name ){
 			case 'ServiceUrl' : 
-				global $wgKalturaServiceUrl;
-				return $wgKalturaServiceUrl;
+				global $wgBorhanServiceUrl;
+				return $wgBorhanServiceUrl;
 				break;
 			case 'ServiceBase':
-				global $wgKalturaServiceBase;
-				return $wgKalturaServiceBase;
+				global $wgBorhanServiceBase;
+				return $wgBorhanServiceBase;
 				break;
 		}
 	}

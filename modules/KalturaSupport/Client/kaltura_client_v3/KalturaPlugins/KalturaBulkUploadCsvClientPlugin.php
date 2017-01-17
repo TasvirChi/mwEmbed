@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,19 +28,19 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
-require_once(dirname(__FILE__) . "/KalturaBulkUploadClientPlugin.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
+require_once(dirname(__FILE__) . "/BorhanBulkUploadClientPlugin.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaBulkUploadCsvVersion
+class BorhanBulkUploadCsvVersion
 {
 	const V1 = 1;
 	const V2 = 2;
@@ -48,16 +48,16 @@ class KalturaBulkUploadCsvVersion
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaBulkUploadCsvJobData extends KalturaBulkUploadJobData
+class BorhanBulkUploadCsvJobData extends BorhanBulkUploadJobData
 {
 	/**
 	 * The version of the csv file
 	 * 	 
 	 *
-	 * @var KalturaBulkUploadCsvVersion
+	 * @var BorhanBulkUploadCsvVersion
 	 * @readonly
 	 */
 	public $csvVersion = null;
@@ -66,7 +66,7 @@ class KalturaBulkUploadCsvJobData extends KalturaBulkUploadJobData
 	 * Array containing CSV headers
 	 * 	 
 	 *
-	 * @var array of KalturaString
+	 * @var array of BorhanString
 	 */
 	public $columns;
 
@@ -74,26 +74,26 @@ class KalturaBulkUploadCsvJobData extends KalturaBulkUploadJobData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaBulkUploadCsvClientPlugin extends KalturaClientPlugin
+class BorhanBulkUploadCsvClientPlugin extends BorhanClientPlugin
 {
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * @return KalturaBulkUploadCsvClientPlugin
+	 * @return BorhanBulkUploadCsvClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaBulkUploadCsvClientPlugin($client);
+		return new BorhanBulkUploadCsvClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

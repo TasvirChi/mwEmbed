@@ -1,5 +1,5 @@
 <?php
-    class KalturaDependencyResolver{
+    class BorhanDependencyResolver{
         /**
          * Mapping of registered modules
          *

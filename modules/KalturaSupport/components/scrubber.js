@@ -1,4 +1,4 @@
-(function (mw, $, kWidget) {
+(function (mw, $, bWidget) {
 	"use strict";
 
 	mw.PluginManager.add('scrubber', mw.KBaseComponent.extend({
@@ -263,7 +263,7 @@
 			this.getComponent().addClass('disabled');
 		},
 		getSliceCount: function (duration) {
-			//return kWidget.getSliceCount(this.duration);
+			//return bWidget.getSliceCount(this.duration);
 			return this.getConfig("thumbSlices") || 100;
 		},
 		loadThumbnails: function (callback) {
@@ -302,7 +302,7 @@
 				thumbReq[ 'ks' ] = this.getPlayer().getFlashvars('ks');
 			}
 			// else get thumb slices from helper:
-			return kWidget.getKalturaThumbUrl( thumbReq );
+			return bWidget.getBorhanThumbUrl( thumbReq );
 		},
 		showThumbnailPreview: function (data) {
 			var showOnlyTime = this.getConfig("showOnlyTime");
@@ -358,7 +358,7 @@
 			$sliderPreview.css({top: top, left: sliderLeft });
 			if (!showOnlyTime) {
 				$sliderPreview.css({'background-image': 'url(\'' + this.getThumbSlicesUrl() + '\')',
-					'background-position': kWidget.getThumbSpriteOffset(thumbWidth, currentTime, this.duration, this.getSliceCount(this.duration)),
+					'background-position': bWidget.getThumbSpriteOffset(thumbWidth, currentTime, this.duration, this.getSliceCount(this.duration)),
 					'background-size': ( thumbWidth * this.getSliceCount(this.duration) ) + 'px 100%'
 				});
 			} else {
@@ -371,16 +371,16 @@
                 if( this.getPlayer().isLiveOffSynch() && parseInt(perc*100) > this.liveEdge ){
                     timeText = 'LIVE';
                 }else {
-                    timeText = "-" + kWidget.seconds2npt(this.duration - currentTime);
+                    timeText = "-" + bWidget.seconds2npt(this.duration - currentTime);
                 }
             }else{
-                timeText = kWidget.seconds2npt(currentTime);
+                timeText = bWidget.seconds2npt(currentTime);
             }
             $sliderPreviewTime.text(timeText);
 			$sliderPreviewTime.css({bottom: 2, left: thumbWidth / 2 - $sliderPreviewTime.width() / 2 + 3});
 			$sliderPreview.css("width", thumbWidth);
 
-			if (kWidget.isIE8()) {
+			if (bWidget.isIE8()) {
 				$sliderPreview.css("height", 43);
 			}
 			if ($sliderPreview.width() > 0){
@@ -482,4 +482,4 @@
 		}
 	}));
 
-})(window.mw, window.jQuery, kWidget);
+})(window.mw, window.jQuery, bWidget);

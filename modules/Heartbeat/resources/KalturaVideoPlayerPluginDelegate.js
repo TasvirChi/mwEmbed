@@ -3,11 +3,11 @@
  */
 (function(mw, $) {
     'use strict';
-    $.extend(KalturaVideoPlayerPluginDelegate.prototype, ADB.va.plugins.videoplayer.VideoPlayerPluginDelegate.prototype);
+    $.extend(BorhanVideoPlayerPluginDelegate.prototype, ADB.va.plugins.videoplayer.VideoPlayerPluginDelegate.prototype);
 
     var _this;
 
-    function KalturaVideoPlayerPluginDelegate(player, config) {
+    function BorhanVideoPlayerPluginDelegate(player, config) {
         _this = this;
         _this.player = player;
         _this.config = config;
@@ -116,7 +116,7 @@
 
     }
 
-    KalturaVideoPlayerPluginDelegate.prototype.getVideoInfo = function() {
+    BorhanVideoPlayerPluginDelegate.prototype.getVideoInfo = function() {
         if( !_this.videoInfo ) {
             _this.initVideoInfo();
         }
@@ -128,22 +128,22 @@
         return _this.videoInfo;
     };
 
-    KalturaVideoPlayerPluginDelegate.prototype.getAdBreakInfo = function() {
+    BorhanVideoPlayerPluginDelegate.prototype.getAdBreakInfo = function() {
         if( !_this.adBreakInfo ) {
             _this.initadBreakInfo();
         }
         return _this.adBreakInfo;
     };
 
-    KalturaVideoPlayerPluginDelegate.prototype.getAdInfo = function() {
+    BorhanVideoPlayerPluginDelegate.prototype.getAdInfo = function() {
         return _this.adInfo;
     };
 
-    KalturaVideoPlayerPluginDelegate.prototype.getChapterInfo = function() {
+    BorhanVideoPlayerPluginDelegate.prototype.getChapterInfo = function() {
         return _this.chapterInfo;
     };
 
-    KalturaVideoPlayerPluginDelegate.prototype.getQoSInfo = function() {
+    BorhanVideoPlayerPluginDelegate.prototype.getQoSInfo = function() {
         if( !_this.qos ){
             _this.qos = new ADB.va.plugins.videoplayer.QoSInfo();
         }
@@ -160,10 +160,10 @@
         return _this.qos;
     };
 
-    KalturaVideoPlayerPluginDelegate.prototype.onError = function(errorInfo) {
+    BorhanVideoPlayerPluginDelegate.prototype.onError = function(errorInfo) {
         mw.log("HeartBeat plugin :: VideoPlayerPluginDelegate error: " + errorInfo.getMessage() + " | " + errorInfo.getDetails());
     };
 
     // Export symbols.
-    window.KalturaVideoPlayerPluginDelegate = KalturaVideoPlayerPluginDelegate;
+    window.BorhanVideoPlayerPluginDelegate = BorhanVideoPlayerPluginDelegate;
 })(window.mw, window.jQuery);

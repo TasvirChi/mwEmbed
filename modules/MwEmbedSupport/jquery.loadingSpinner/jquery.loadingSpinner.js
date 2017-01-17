@@ -51,9 +51,9 @@
 		if( mw.getConfig('loadingSpinner') ) {
 			options = mw.getConfig('loadingSpinner');
 		}else{
-			// fix for IE where the config is not loaded yet - try to get the config from the kalturaIframePackageData
-			if (kalturaIframePackageData && kalturaIframePackageData.playerConfig && kalturaIframePackageData.playerConfig.plugins && kalturaIframePackageData.playerConfig.plugins.loadingSpinner){
-				options = kalturaIframePackageData.playerConfig.plugins.loadingSpinner;
+			// fix for IE where the config is not loaded yet - try to get the config from the borhanIframePackageData
+			if (borhanIframePackageData && borhanIframePackageData.playerConfig && borhanIframePackageData.playerConfig.plugins && borhanIframePackageData.playerConfig.plugins.loadingSpinner){
+				options = borhanIframePackageData.playerConfig.plugins.loadingSpinner;
 			}
 		}
 		if( options ) {
@@ -72,7 +72,7 @@
 		// add color and shadow:
 		opts = $.extend({}, spinnerConfig, opts);
 
-		if ((mw.getConfig("EmbedPlayer.EnableMobileSkin") && kWidget.isMobileDevice() && !options) || kWidget.isChromeCast() || (mw.getConfig("EmbedPlayer.EnableMobileSkin") && mw.getConfig("EmbedPlayer.SimulateMobile"))){
+		if ((mw.getConfig("EmbedPlayer.EnableMobileSkin") && bWidget.isMobileDevice() && !options) || bWidget.isChromeCast() || (mw.getConfig("EmbedPlayer.EnableMobileSkin") && mw.getConfig("EmbedPlayer.SimulateMobile"))){
 			opts["customSpinner"] = true;
 			opts.className = "customSpinner";
 		}

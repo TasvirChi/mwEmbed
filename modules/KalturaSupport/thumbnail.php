@@ -7,7 +7,7 @@
 // Include configuration: ( will include LocalSettings.php )
 chdir( dirname( __FILE__ ) . '/../../' );
 require_once( 'includes/DefaultSettings.php' );
-require_once( dirname( __FILE__ ) . '/KalturaCommon.php' );
+require_once( dirname( __FILE__ ) . '/BorhanCommon.php' );
 
 $thumbnail = new thumbnailEntry();
 $thumbnail->redirectThumbnail();
@@ -37,7 +37,7 @@ class thumbnailEntry {
 		
 		if( isset (  $entryObject['meta']->thumbnailUrl ) ){
 			$thumbUrl =  $entryObject['meta']->thumbnailUrl;
-			// Only append width/height params if thumbnail from kaltura service ( could be external thumbnail )
+			// Only append width/height params if thumbnail from borhan service ( could be external thumbnail )
 			if( strpos( $thumbUrl,  "thumbnail/entry_id" ) !== false ){
 				// Add with and height if available
 				$thumbUrl .= $width ? '/width/' . intval( $width ) : '';

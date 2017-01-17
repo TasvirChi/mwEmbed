@@ -1,4 +1,4 @@
-mw.kalturaPluginWrapper(function(){
+mw.borhanPluginWrapper(function(){
  
     mw.PluginManager.add( 'myComponent', mw.KBaseComponent.extend({
  
@@ -7,8 +7,8 @@ mw.kalturaPluginWrapper(function(){
             order: 41,                      // the display order ( based on layout )
             displayImportance: 'low',       // the display importance, determines when the item is removed from DOM
             align: "right",                 // the alignment of the button
-            href: 'http://www.kaltura.com', // the link for the logo
-            title: 'Kaltura',               // title
+            href: 'http://www.borhan.com', // the link for the logo
+            title: 'Borhan',               // title
             img: null                       // image
         },
         getComponent: function() {

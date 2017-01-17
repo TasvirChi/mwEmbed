@@ -38,7 +38,7 @@
 						if ( _this.isHttps() ) {
 							jsSrc = _this.defaultJSHTTPS;
 						}
-						kWidget.appendScriptUrl( jsSrc, function() {
+						bWidget.appendScriptUrl( jsSrc, function() {
 							_this.setData( embedPlayer );
 						}, window.document );
 					}
@@ -60,8 +60,8 @@
 			var securedSwfPath = _this.getConfig( 'securedSwfPath' ) || _this.defaultSWFHTTPS;
 			var configPath = _this.getConfig( 'configPath' ) || _this.defaultConfigPath;
 			var securedConfigPath = _this.getConfig( 'securedConfigPath' ) || _this.defaultConfigPathHTTPS;
-			var kdpVars = embedPlayer.getKalturaConfig( 'kdpVars', null ) || {};
-				kdpVars.akamaiMediaAnalytics =  {
+			var bdpVars = embedPlayer.getBorhanConfig( 'bdpVars', null ) || {};
+				bdpVars.akamaiMediaAnalytics =  {
 				plugin: 'true',
 				asyncInit: 'true',
 				secured: _this.isHttps(),
@@ -70,7 +70,7 @@
 				swfPath: swfPath,
 				securedSwfPath: securedSwfPath
 			}
-			embedPlayer.setKalturaConfig( 'kdpVars', kdpVars );
+			embedPlayer.setBorhanConfig( 'bdpVars', bdpVars );
 			callback();
 		},
 
@@ -156,7 +156,7 @@
 			});
 
 			this.doOnPlayerLoadReady( embedPlayer, function() {
-				// confirm we are still a KDP instance: 
+				// confirm we are still a BDP instance: 
 				if( embedPlayer.selectedPlayer.library != 'Kplayer' ){
 					return ;
 				}
@@ -198,7 +198,7 @@
 		},
 
 		getConfig: function( attr )  {
-			return this.embedPlayer.getKalturaConfig( 'akamaiMediaAnalytics', attr );
+			return this.embedPlayer.getBorhanConfig( 'akamaiMediaAnalytics', attr );
 		},
 		/**
 		* Set akamai custom data, if the given attribute value was set

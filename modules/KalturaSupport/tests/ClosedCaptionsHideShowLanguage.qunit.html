@@ -6,21 +6,21 @@
 	<script type="text/javascript" src="../../../mwEmbedLoader.php"></script>
 	<script type="text/javascript" src="../../../docs/js/doc-bootstrap.js"></script>
 	<script type="text/javascript">
-		function jsKalturaPlayerTest( videoId ){
+		function jsBorhanPlayerTest( videoId ){
 			// Name this module
 			module( "closedCaptions Sample" );
 
-			var kdp = $( '#' + videoId ).get( 0 );
+			var bdp = $( '#' + videoId ).get( 0 );
 			var captionsOverlay;
-			kdp.kBind('changeMedia', 'onChangeMedia');
-			kdp.kBind('closedCaptionsDisplayed', 'testDisplayCaptionsLanguage');
+			bdp.kBind('changeMedia', 'onChangeMedia');
+			bdp.kBind('closedCaptionsDisplayed', 'testDisplayCaptionsLanguage');
 
 			asyncTest( "closedCaptions plugin exists", function() {
-				kalturaQunitWaitForPlayer(function(){
-					equal( kdp.evaluate( '{closedCaptions.plugin}' ), true, "closedCaptions plugin exists");
-					kdp.sendNotification("doPlay");
-					kdp.kBind('playing', function() {
-						kdp.kUnbind('playing');
+				borhanQunitWaitForPlayer(function(){
+					equal( bdp.evaluate( '{closedCaptions.plugin}' ), true, "closedCaptions plugin exists");
+					bdp.sendNotification("doPlay");
+					bdp.kBind('playing', function() {
+						bdp.kUnbind('playing');
 						captionsOverlay = $('.captionsOverlay', document.getElementById("myVideoTarget_ifp").contentDocument);
 
 						if( captionsOverlay.length > 0) {
@@ -29,7 +29,7 @@
 							checkCaptionsExistOnMediaEntry();
 							//change to media with captions and continue
 							setTimeout(function() {
-								kdp.sendNotification("changeMedia", { entryId : "1_23pqn2nu" });
+								bdp.sendNotification("changeMedia", { entryId : "1_23pqn2nu" });
 							}, 3000);
 						}
 					});
@@ -51,40 +51,40 @@
 			}
 
 			window.onChangeMedia = function() {
-				kdp.kBind('closedCaptionsHidden', 'hideCaptions');
+				bdp.kBind('closedCaptionsHidden', 'hideCaptions');
 
-				kdp.kBind('onChangeMediaDone', function() {
-					kdp.sendNotification('doPlay');
+				bdp.kBind('onChangeMediaDone', function() {
+					bdp.sendNotification('doPlay');
 				});
 
-				kdp.kBind('playing', function() {
-					kdp.kUnbind('playing');
+				bdp.kBind('playing', function() {
+					bdp.kUnbind('playing');
 					captionsOverlay = $('.captionsOverlay', document.getElementById("myVideoTarget_ifp").contentDocument);
 					//hide captions
 					setTimeout(function() {
-						kdp.sendNotification("hideClosedCaptions");
+						bdp.sendNotification("hideClosedCaptions");
 					}, 3000);
 					//displays captions
 					setTimeout(function() {
-						kdp.sendNotification("showClosedCaptions");
+						bdp.sendNotification("showClosedCaptions");
 					}, 6000);
 				});
 			}
 
 			window.hideCaptions = function() {
-				kdp.kUnbind('closedCaptionsHidden');
+				bdp.kUnbind('closedCaptionsHidden');
 				testCaptionsHidden();
 			}
 
 			window.testDisplayCaptionsLanguage = function(data) {
-				kdp.kBind('closedCaptionsDisplayed', function() {
-					kdp.kUnbind('closedCaptionsDisplayed');
+				bdp.kBind('closedCaptionsDisplayed', function() {
+					bdp.kUnbind('closedCaptionsDisplayed');
 					testCaptionsDisplayed(data);
 				});
 			}
 
 			window.testDisplayCaptionsValue = function() {
-				if( kdp.evaluate( '{closedCaptions.displayCaptions}' ) == false ) {
+				if( bdp.evaluate( '{closedCaptions.displayCaptions}' ) == false ) {
 					asyncTest( "displayCaptions value is false", function(){
 						if( captionsOverlay.length == 0 ) {
 							ok(true, "Captions are not displayed");
@@ -108,7 +108,7 @@
 
 			window.testCaptionsDisplayed = function(data) {
 				asyncTest( "Captions displayed, displayCaptions value is true, language: " + data.language, function(){
-					if( kdp.evaluate( '{closedCaptions.displayCaptions}' ) == true ) {
+					if( bdp.evaluate( '{closedCaptions.displayCaptions}' ) == true ) {
 						ok( true, "Captions are displayed, language: " + data.language );
 					} else {
 						ok( false, "Captions are hidden" );
@@ -119,7 +119,7 @@
 
 			window.testCaptionsHidden = function() {
 				asyncTest( "Captions hidden, displayCaptions value is false", function(){
-					if( kdp.evaluate( '{closedCaptions.displayCaptions}' ) == false ) {
+					if( bdp.evaluate( '{closedCaptions.displayCaptions}' ) == false ) {
 						ok( true, "Captions are hidden" );
 					} else{
 						ok( false, "Captions are displayed" );
@@ -138,8 +138,8 @@
 		}
 	</script>
 
-	<!-- qunit-kaltura must come after qunit-bootstrap.js and after mwEmbedLoader.php and after any jsCallbackReady stuff-->
-	<script type="text/javascript" src="../../KalturaSupport/tests/resources/qunit-kaltura-bootstrap.js"></script>
+	<!-- qunit-borhan must come after qunit-bootstrap.js and after mwEmbedLoader.php and after any jsCallbackReady stuff-->
+	<script type="text/javascript" src="../../BorhanSupport/tests/resources/qunit-borhan-bootstrap.js"></script>
 </head>
 <body>
 
@@ -148,7 +148,7 @@
 <br>
 
 <script>
-	kWidget.featureConfig({
+	bWidget.featureConfig({
 		'targetId': 'myVideoTarget',
 		'wid': '_243342',
 		'uiconf_id': '12907572',

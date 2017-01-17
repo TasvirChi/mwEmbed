@@ -9,19 +9,19 @@
 	<body>
 		<h2>Bumpers support</h2>
 	<script type="text/javascript">	
-		function jsKalturaPlayerTest( videoId ){
-			var kdp = $('#' + videoId)[0];
+		function jsBorhanPlayerTest( videoId ){
+			var bdp = $('#' + videoId)[0];
 			// Name this module
 			module( "Bumper player test" );
 		}
 	</script>
-	<script type="text/javascript" src="resources/qunit-kaltura-bootstrap.js"></script>
-		<div style="width:400px;height:330px" id="kaltura_player"></div>
+	<script type="text/javascript" src="resources/qunit-borhan-bootstrap.js"></script>
+		<div style="width:400px;height:330px" id="borhan_player"></div>
 		<script>
 			// output a player if not running a test
-			kWidget.featureConfig(
+			bWidget.featureConfig(
 				{
-					'targetId': 'kaltura_player',
+					'targetId': 'borhan_player',
 					'wid': '_243342',
 					'uiconf_id' : '12905712',
 					'entry_id' : '0_uka1msg4',
@@ -29,7 +29,7 @@
 						'bumper':{
 							'plugin': true,
 							'bumperEntryID':"0_5diu7kzg",
-							'clickurl': "http://www.kaltura.com",
+							'clickurl': "http://www.borhan.com",
 							'lockUI': "true",
 							'playOnce': "false", 
 							'preSequence':"1"
@@ -40,12 +40,12 @@
 		</script>
 		<script>
 			// add some event listerners and log to console:
-			kWidget.addReadyCallback(function( playerId ){
-				var kdp = $('#'+playerId )[0];
+			bWidget.addReadyCallback(function( playerId ){
+				var bdp = $('#'+playerId )[0];
 				var $log = $('#eventlog');
 				var events = ['adStart', 'prerollStarted', 'preSequenceStart', 'preSequenceComplete'];
 				$.each( events, function(na, eventName){
-					kdp.kBind(eventName, function(){
+					bdp.kBind(eventName, function(){
 						$log.append( eventName + "\n");
 					});
 				});

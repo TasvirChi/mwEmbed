@@ -1,4 +1,4 @@
-(function (mw, $, kWidget) {
+(function (mw, $, bWidget) {
 	"use strict";
 
 	mw.PluginManager.add('audioSelector', mw.KBaseComponent.extend({
@@ -229,4 +229,4 @@
 		}
 	}));
 
-})(window.mw, window.jQuery, kWidget);
+})(window.mw, window.jQuery, bWidget);

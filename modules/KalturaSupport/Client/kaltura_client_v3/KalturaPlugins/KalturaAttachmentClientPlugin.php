@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,18 +28,18 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAttachmentAssetStatus
+class BorhanAttachmentAssetStatus
 {
 	const ERROR = -1;
 	const QUEUED = 0;
@@ -50,10 +50,10 @@ class KalturaAttachmentAssetStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAttachmentAssetOrderBy
+class BorhanAttachmentAssetOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const DELETED_AT_ASC = "+deletedAt";
@@ -66,10 +66,10 @@ class KalturaAttachmentAssetOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAttachmentType
+class BorhanAttachmentType
 {
 	const TEXT = "1";
 	const MEDIA = "2";
@@ -77,10 +77,10 @@ class KalturaAttachmentType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAttachmentAsset extends KalturaAsset
+class BorhanAttachmentAsset extends BorhanAsset
 {
 	/**
 	 * The filename of the attachment asset content
@@ -102,7 +102,7 @@ class KalturaAttachmentAsset extends KalturaAsset
 	 * The attachment format
 	 * 	 
 	 *
-	 * @var KalturaAttachmentType
+	 * @var BorhanAttachmentType
 	 */
 	public $format = null;
 
@@ -110,7 +110,7 @@ class KalturaAttachmentAsset extends KalturaAsset
 	 * The status of the asset
 	 * 	 
 	 *
-	 * @var KalturaAttachmentAssetStatus
+	 * @var BorhanAttachmentAssetStatus
 	 * @readonly
 	 */
 	public $status = null;
@@ -119,15 +119,15 @@ class KalturaAttachmentAsset extends KalturaAsset
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAttachmentAssetListResponse extends KalturaObjectBase
+class BorhanAttachmentAssetListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaAttachmentAsset
+	 * @var array of BorhanAttachmentAsset
 	 * @readonly
 	 */
 	public $objects;
@@ -144,15 +144,15 @@ class KalturaAttachmentAssetListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaAttachmentAssetBaseFilter extends KalturaAssetFilter
+abstract class BorhanAttachmentAssetBaseFilter extends BorhanAssetFilter
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaAttachmentType
+	 * @var BorhanAttachmentType
 	 */
 	public $formatEqual = null;
 
@@ -166,7 +166,7 @@ abstract class KalturaAttachmentAssetBaseFilter extends KalturaAssetFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaAttachmentAssetStatus
+	 * @var BorhanAttachmentAssetStatus
 	 */
 	public $statusEqual = null;
 
@@ -188,22 +188,22 @@ abstract class KalturaAttachmentAssetBaseFilter extends KalturaAssetFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAttachmentAssetFilter extends KalturaAttachmentAssetBaseFilter
+class BorhanAttachmentAssetFilter extends BorhanAttachmentAssetBaseFilter
 {
 
 }
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAttachmentAssetService extends KalturaServiceBase
+class BorhanAttachmentAssetService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -212,10 +212,10 @@ class KalturaAttachmentAssetService extends KalturaServiceBase
 	 * Add attachment asset
 	 * 
 	 * @param string $entryId 
-	 * @param KalturaAttachmentAsset $attachmentAsset 
-	 * @return KalturaAttachmentAsset
+	 * @param BorhanAttachmentAsset $attachmentAsset 
+	 * @return BorhanAttachmentAsset
 	 */
-	function add($entryId, KalturaAttachmentAsset $attachmentAsset)
+	function add($entryId, BorhanAttachmentAsset $attachmentAsset)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -225,7 +225,7 @@ class KalturaAttachmentAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAttachmentAsset");
+		$this->client->validateObjectType($resultObject, "BorhanAttachmentAsset");
 		return $resultObject;
 	}
 
@@ -233,10 +233,10 @@ class KalturaAttachmentAssetService extends KalturaServiceBase
 	 * Update content of attachment asset
 	 * 
 	 * @param string $id 
-	 * @param KalturaContentResource $contentResource 
-	 * @return KalturaAttachmentAsset
+	 * @param BorhanContentResource $contentResource 
+	 * @return BorhanAttachmentAsset
 	 */
-	function setContent($id, KalturaContentResource $contentResource)
+	function setContent($id, BorhanContentResource $contentResource)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -246,7 +246,7 @@ class KalturaAttachmentAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAttachmentAsset");
+		$this->client->validateObjectType($resultObject, "BorhanAttachmentAsset");
 		return $resultObject;
 	}
 
@@ -254,10 +254,10 @@ class KalturaAttachmentAssetService extends KalturaServiceBase
 	 * Update attachment asset
 	 * 
 	 * @param string $id 
-	 * @param KalturaAttachmentAsset $attachmentAsset 
-	 * @return KalturaAttachmentAsset
+	 * @param BorhanAttachmentAsset $attachmentAsset 
+	 * @return BorhanAttachmentAsset
 	 */
-	function update($id, KalturaAttachmentAsset $attachmentAsset)
+	function update($id, BorhanAttachmentAsset $attachmentAsset)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -267,7 +267,7 @@ class KalturaAttachmentAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAttachmentAsset");
+		$this->client->validateObjectType($resultObject, "BorhanAttachmentAsset");
 		return $resultObject;
 	}
 
@@ -296,7 +296,7 @@ class KalturaAttachmentAssetService extends KalturaServiceBase
 	 * Get remote storage existing paths for the asset
 	 * 
 	 * @param string $id 
-	 * @return KalturaRemotePathListResponse
+	 * @return BorhanRemotePathListResponse
 	 */
 	function getRemotePaths($id)
 	{
@@ -307,7 +307,7 @@ class KalturaAttachmentAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaRemotePathListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanRemotePathListResponse");
 		return $resultObject;
 	}
 
@@ -331,7 +331,7 @@ class KalturaAttachmentAssetService extends KalturaServiceBase
 	 * 
 	 * 
 	 * @param string $attachmentAssetId 
-	 * @return KalturaAttachmentAsset
+	 * @return BorhanAttachmentAsset
 	 */
 	function get($attachmentAssetId)
 	{
@@ -342,18 +342,18 @@ class KalturaAttachmentAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAttachmentAsset");
+		$this->client->validateObjectType($resultObject, "BorhanAttachmentAsset");
 		return $resultObject;
 	}
 
 	/**
 	 * List attachment Assets by filter and pager
 	 * 
-	 * @param KalturaAssetFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaAttachmentAssetListResponse
+	 * @param BorhanAssetFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanAttachmentAssetListResponse
 	 */
-	function listAction(KalturaAssetFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanAssetFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -365,7 +365,7 @@ class KalturaAttachmentAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAttachmentAssetListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanAttachmentAssetListResponse");
 		return $resultObject;
 	}
 
@@ -389,32 +389,32 @@ class KalturaAttachmentAssetService extends KalturaServiceBase
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAttachmentClientPlugin extends KalturaClientPlugin
+class BorhanAttachmentClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaAttachmentAssetService
+	 * @var BorhanAttachmentAssetService
 	 */
 	public $attachmentAsset = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->attachmentAsset = new KalturaAttachmentAssetService($client);
+		$this->attachmentAsset = new BorhanAttachmentAssetService($client);
 	}
 
 	/**
-	 * @return KalturaAttachmentClientPlugin
+	 * @return BorhanAttachmentClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaAttachmentClientPlugin($client);
+		return new BorhanAttachmentClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

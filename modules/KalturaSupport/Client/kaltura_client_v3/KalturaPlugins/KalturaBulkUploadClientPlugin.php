@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,30 +28,30 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaBulkServiceData extends KalturaObjectBase
+abstract class BorhanBulkServiceData extends BorhanObjectBase
 {
 
 }
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaBulkService extends KalturaServiceBase
+class BorhanBulkService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -60,7 +60,7 @@ class KalturaBulkService extends KalturaServiceBase
 	 * Get bulk upload batch job by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaBulkUpload
+	 * @return BorhanBulkUpload
 	 */
 	function get($id)
 	{
@@ -71,18 +71,18 @@ class KalturaBulkService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBulkUpload");
+		$this->client->validateObjectType($resultObject, "BorhanBulkUpload");
 		return $resultObject;
 	}
 
 	/**
 	 * List bulk upload batch jobs
 	 * 
-	 * @param KalturaBulkUploadFilter $bulkUploadFilter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaBulkUploadListResponse
+	 * @param BorhanBulkUploadFilter $bulkUploadFilter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanBulkUploadListResponse
 	 */
-	function listAction(KalturaBulkUploadFilter $bulkUploadFilter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanBulkUploadFilter $bulkUploadFilter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($bulkUploadFilter !== null)
@@ -94,7 +94,7 @@ class KalturaBulkService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBulkUploadListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanBulkUploadListResponse");
 		return $resultObject;
 	}
 
@@ -134,7 +134,7 @@ class KalturaBulkService extends KalturaServiceBase
 	 * Aborts the bulk upload and all its child jobs
 	 * 
 	 * @param int $id Job id
-	 * @return KalturaBulkUpload
+	 * @return BorhanBulkUpload
 	 */
 	function abort($id)
 	{
@@ -145,37 +145,37 @@ class KalturaBulkService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBulkUpload");
+		$this->client->validateObjectType($resultObject, "BorhanBulkUpload");
 		return $resultObject;
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaBulkUploadClientPlugin extends KalturaClientPlugin
+class BorhanBulkUploadClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaBulkService
+	 * @var BorhanBulkService
 	 */
 	public $bulk = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->bulk = new KalturaBulkService($client);
+		$this->bulk = new BorhanBulkService($client);
 	}
 
 	/**
-	 * @return KalturaBulkUploadClientPlugin
+	 * @return BorhanBulkUploadClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaBulkUploadClientPlugin($client);
+		return new BorhanBulkUploadClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

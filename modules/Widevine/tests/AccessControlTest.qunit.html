@@ -31,37 +31,37 @@ With KS:
 			}
 		}
 	};
-	kWidget.embed('player-without-ks', settingsObj);
+	bWidget.embed('player-without-ks', settingsObj);
 	$.getJSON('../../../services.php?service=KSTest&entry_id=1_9ln5whcm&wid=_243342', function (ksJSON) {
 		if (!ksJSON || !ksJSON.ks) {
 			$('#playerTarget').text('error getting ks');
 			return;
 		}
 		settingsObj.flashvars.ks = ksJSON.ks;
-		kWidget.embed('player-with-ks', settingsObj);
+		bWidget.embed('player-with-ks', settingsObj);
 	});
 </script>
 
 <h3>Generating the KS request server side: </h3>
 <pre class="prettyprint linenums">
 &lt;?php
-// Include the kaltura client available at: http://www.kaltura.com/api_v3/testme/client-libs.php
-require_once(  '/kaltura_client_v3/KalturaClient.php' );
+// Include the borhan client available at: http://www.borhan.com/api_v3/testme/client-libs.php
+require_once(  '/borhan_client_v3/BorhanClient.php' );
 
 // setup your local config:
 $partnerId = '929011';
-$kalturaUserSecret = 'Your user secret is available in the settings tab in the KMC';
+$borhanUserSecret = 'Your user secret is available in the settings tab in the BMC';
 $entryId = '1_4f9zv9fu';
 
-$conf = new KalturaConfiguration( $partnerId );
-$conf->serviceUrl =	'https://cdnapisec.kaltura.com';
+$conf = new BorhanConfiguration( $partnerId );
+$conf->serviceUrl =	'https://cdnapisec.borhan.com';
 $conf->serviceBase =  '/api_v3/index.php?service=';
 
-$client = new KalturaClient( $conf );
+$client = new BorhanClient( $conf );
 
-$ks = $client->session->start ( $kalturaUserSecret, 
+$ks = $client->session->start ( $borhanUserSecret, 
 	$_SERVER['REMOTE_ADDR'], 
-	KalturaSessionType::USER, 
+	BorhanSessionType::USER, 
 	$partnerId, 
 	3600, // expire in one hour
 	"sview:{$entryId}" // give permission to "view" the entry for the allocated time
@@ -71,7 +71,7 @@ echo $ks;
 </pre>
 <h3> Now take the KS and include in your embed: </h3>
 <pre class="prettyprint linenums">
-kWidget.embed('playerTargetId', {
+bWidget.embed('playerTargetId', {
 	'wid': '_929011',
 	'uiconf_id' : '16115322',
 	'entry_id' : '1_4f9zv9fu',

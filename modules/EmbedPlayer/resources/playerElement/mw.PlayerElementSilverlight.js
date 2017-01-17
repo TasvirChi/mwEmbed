@@ -11,7 +11,7 @@
 			this.targetObj = target;
 			var xapPath = mw.getMwEmbedPath() + 'modules/EmbedPlayer/binPlayers/silverlight-player/Player.xap';
 
-			//var xapPath = 'http://192.168.162.72/lightKdp/Player.xap';
+			//var xapPath = 'http://192.168.162.72/lightBdp/Player.xap';
 			window["onError" + playerId]=function(sender, args){
 				var appSource = "";
 				if (sender != null && sender != 0) {
@@ -170,10 +170,10 @@
 		removeJsListener: function( eventName, methodName ) {
 			if ( this.playerElement ) {
 				mw.log( 'PlayerElementSilverlight:: unbindPlayerFunction:' + eventName );
-				// The kaltura kdp can only call a global function by given name
-				var gKdpCallbackName = 'silverlight_' + methodName + '_cb_' + this.id.replace(/[^a-zA-Z 0-9]+/g,'');
+				// The borhan bdp can only call a global function by given name
+				var gBdpCallbackName = 'silverlight_' + methodName + '_cb_' + this.id.replace(/[^a-zA-Z 0-9]+/g,'');
 				// Remove the listener ( if it exists already )
-				this.playerElement.removeJsListener( eventName, gKdpCallbackName );
+				this.playerElement.removeJsListener( eventName, gBdpCallbackName );
 			}
 		},
 		play: function(){
@@ -236,8 +236,8 @@
 		bindPlayerFunction : function(bindName, methodName, target) {
 			var _this = this;
 			mw.log( 'PlayerElementSilverlight:: bindPlayerFunction:' + bindName );
-			// The kaltura kdp can only call a global function by given name
-			var gKdpCallbackName = 'silverlight_' + methodName + '_cb_' + this.id.replace(/[^a-zA-Z 0-9]+/g,'');
+			// The borhan bdp can only call a global function by given name
+			var gBdpCallbackName = 'silverlight_' + methodName + '_cb_' + this.id.replace(/[^a-zA-Z 0-9]+/g,'');
 
 			// Create an anonymous function with local player scope
 			var createGlobalCB = function(cName) {
@@ -248,11 +248,11 @@
 					}
 					_this.targetObj[methodName](data);
 				};
-			}(gKdpCallbackName, this);
+			}(gBdpCallbackName, this);
 			// Remove the listener ( if it exists already )
-			this.playerElement.removeJsListener( bindName, gKdpCallbackName );
+			this.playerElement.removeJsListener( bindName, gBdpCallbackName );
 			// Add the listener to the Silvrtliht player:
-			this.playerElement.addJsListener( bindName, gKdpCallbackName);
+			this.playerElement.addJsListener( bindName, gBdpCallbackName);
 		}
 	});
 } )( window.mw, jQuery );

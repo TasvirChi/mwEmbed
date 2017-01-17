@@ -100,7 +100,7 @@
 
                         if (targetLayoutName){
                             var templateName = '../WebcastPolls/resources/webcastPolls-' + targetLayoutName + '.tmpl.html';
-                            pollRawLayoutHTML = (window && window.kalturaIframePackageData && window.kalturaIframePackageData.templates) ? window.kalturaIframePackageData.templates[templateName] : '';
+                            pollRawLayoutHTML = (window && window.borhanIframePackageData && window.borhanIframePackageData.templates) ? window.borhanIframePackageData.templates[templateName] : '';
                         }
 
                         var $pollLayout = $(pollRawLayoutHTML);

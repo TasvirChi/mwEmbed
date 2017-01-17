@@ -57,7 +57,7 @@ mw.Comscore.prototype = {
 			attributes.push( 'c' + i + 'Value' );
 		}
 
-		this.config = this.embedPlayer.getKalturaConfig( 'comscore', attributes );
+		this.config = this.embedPlayer.getBorhanConfig( 'comscore', attributes );
 	},
 
 	loadXML: function( callback ) {
@@ -126,7 +126,7 @@ mw.Comscore.prototype = {
 		});
 
 		// Bind to entry ready
-		embedPlayer.bindHelper('KalturaSupport_EntryDataReady' + this.bindPostfix, function() {
+		embedPlayer.bindHelper('BorhanSupport_EntryDataReady' + this.bindPostfix, function() {
 			playerPlayedFired = false;
 			shouldSendBeacon = false;
 			sendOnSequnceEnd = false;
@@ -147,7 +147,7 @@ mw.Comscore.prototype = {
 		});
 
 		// Listen to Ad opportunities of midroll type and increase the current segment counter
-		embedPlayer.bindHelper('KalturaSupport_AdOpportunity' + this.bindPostfix, function( event, cuePoint ) {
+		embedPlayer.bindHelper('BorhanSupport_AdOpportunity' + this.bindPostfix, function( event, cuePoint ) {
 			if( embedPlayer.kCuePoints.getAdSlotType( cuePoint ) === 'midroll' ) {
 				_this.currentSegment++;
 				// Used setTimeout because it takes few ms to set propagateEvents to false

@@ -100,8 +100,8 @@
 			var playerEvent = this.PlayerEvent;
 			this.embedPlayer.bindHelper( 'playerReady' , function () {
 				_this.resetPlayerflags();
-		        if ( _this.kalturaContextData && _this.kalturaContextData.flavorAssets && _this.kalturaContextData.flavorAssets.length === 1 ){
-			        _this.currentBitRate = _this.kalturaContextData.flavorAssets[0].bitrate;
+		        if ( _this.borhanContextData && _this.borhanContextData.flavorAssets && _this.borhanContextData.flavorAssets.length === 1 ){
+			        _this.currentBitRate = _this.borhanContextData.flavorAssets[0].bitrate;
 		        }
 				_this.sendAnalytics(playerEvent.IMPRESSION);
 			});
@@ -329,7 +329,7 @@
 			var _this = this;
 			var playerEvent = this.PlayerEvent;
 			_this.startTime = null;
-			_this.kClient = mw.kApiGetPartnerClient( _this.embedPlayer.kwidgetid );
+			_this.kClient = mw.kApiGetPartnerClient( _this.embedPlayer.bwidgetid );
 			_this.monitorIntervalObj.cancel = false;
 			if ( _this.firstPlay ){
 				_this.sendAnalytics(playerEvent.VIEW);
@@ -346,7 +346,7 @@
 		sendAnalytics : function(eventType, additionalData){
 			var _this = this;
 			this.calculateBuffer(true);
-			this.kClient = mw.kApiGetPartnerClient( this.embedPlayer.kwidgetid );
+			this.kClient = mw.kApiGetPartnerClient( this.embedPlayer.bwidgetid );
 			if ( this.embedPlayer.isMulticast && $.isFunction( this.embedPlayer.getMulticastBitrate ) ) {
 				this.currentBitRate = this.embedPlayer.getMulticastBitrate();
 			}
@@ -387,8 +387,8 @@
 			}
 
 			// add preferred bitrate if defined by the user
-			if ( this.embedPlayer.getRawKalturaConfig('mediaProxy') && this.embedPlayer.getRawKalturaConfig('mediaProxy').preferedFlavorBR ){
-				statsEvent["expectedQuality"] = this.embedPlayer.getRawKalturaConfig('mediaProxy').preferedFlavorBR;
+			if ( this.embedPlayer.getRawBorhanConfig('mediaProxy') && this.embedPlayer.getRawBorhanConfig('mediaProxy').preferedFlavorBR ){
+				statsEvent["expectedQuality"] = this.embedPlayer.getRawBorhanConfig('mediaProxy').preferedFlavorBR;
 			}
 
 			// add specific events data

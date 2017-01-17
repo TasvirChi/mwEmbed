@@ -5,6 +5,6 @@
             "resources/mw.Widevine.js"
         ],
         "dependencies": "mw.KBasePlugin",
-        "kalturaPluginName": "widevine"
+        "borhanPluginName": "widevine"
     }
 }

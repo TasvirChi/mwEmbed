@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,25 +28,25 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
-require_once(dirname(__FILE__) . "/KalturaBulkUploadClientPlugin.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
+require_once(dirname(__FILE__) . "/BorhanBulkUploadClientPlugin.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaBulkServiceFilterData extends KalturaBulkServiceData
+class BorhanBulkServiceFilterData extends BorhanBulkServiceData
 {
 	/**
 	 * Filter for extracting the objects list to upload 
 	 * 	 
 	 *
-	 * @var KalturaFilter
+	 * @var BorhanFilter
 	 */
 	public $filter;
 
@@ -54,7 +54,7 @@ class KalturaBulkServiceFilterData extends KalturaBulkServiceData
 	 * Template object for new object creation
 	 * 	 
 	 *
-	 * @var KalturaObjectBase
+	 * @var BorhanObjectBase
 	 */
 	public $templateObject;
 
@@ -62,16 +62,16 @@ class KalturaBulkServiceFilterData extends KalturaBulkServiceData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaBulkUploadFilterJobData extends KalturaBulkUploadJobData
+class BorhanBulkUploadFilterJobData extends BorhanBulkUploadJobData
 {
 	/**
 	 * Filter for extracting the objects list to upload 
 	 * 	 
 	 *
-	 * @var KalturaFilter
+	 * @var BorhanFilter
 	 */
 	public $filter;
 
@@ -79,7 +79,7 @@ class KalturaBulkUploadFilterJobData extends KalturaBulkUploadJobData
 	 * Template object for new object creation
 	 * 	 
 	 *
-	 * @var KalturaObjectBase
+	 * @var BorhanObjectBase
 	 */
 	public $templateObject;
 
@@ -87,26 +87,26 @@ class KalturaBulkUploadFilterJobData extends KalturaBulkUploadJobData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaBulkUploadFilterClientPlugin extends KalturaClientPlugin
+class BorhanBulkUploadFilterClientPlugin extends BorhanClientPlugin
 {
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * @return KalturaBulkUploadFilterClientPlugin
+	 * @return BorhanBulkUploadFilterClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaBulkUploadFilterClientPlugin($client);
+		return new BorhanBulkUploadFilterClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

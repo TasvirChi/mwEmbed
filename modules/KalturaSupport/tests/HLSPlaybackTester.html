@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> Kaltura Player HLS URL Tester </title>
+	<title> Borhan Player HLS URL Tester </title>
 	<script type="text/javascript" src="../../../tests/qunit/qunit-bootstrap.js"></script>
 	<script type="text/javascript" src="../../../mwEmbedLoader.php"></script>
 	<script type="text/javascript" src="../../../docs/js/doc-bootstrap.js"></script>
@@ -15,16 +15,16 @@
 </head>
 
 <body>
-<h2> Kaltura Player HLS URL Tester </h2>
+<h2> Borhan Player HLS URL Tester </h2>
 
 <div class="form-group">
     <label for="url">HLS URL</label>
-    <input type="email" class="form-control" id="url" value="http://cdnapi.kaltura.com/p/1878761/sp/187876100/playManifest/entryId/1_usagz19w/flavorIds/1_5spqkazq,1_nslowvhp,1_boih5aji,1_qahc37ag/format/applehttp/protocol/http/a.m3u8">
+    <input type="email" class="form-control" id="url" value="http://cdnapi.borhan.com/p/1878761/sp/187876100/playManifest/entryId/1_usagz19w/flavorIds/1_5spqkazq,1_nslowvhp,1_boih5aji,1_qahc37ag/format/applehttp/protocol/http/a.m3u8">
   </div>
   
   <div class="form-group">
     <label for="urlthumb">Thumbnail</label>
-    <input type="email" class="form-control" id="urlthumb" value="http://cdnbakmi.kaltura.com/p/243342/sp/24334200/thumbnail/entry_id/1_sf5ovm7u/version/100003/width/640">
+    <input type="email" class="form-control" id="urlthumb" value="http://cdnbakmi.borhan.com/p/243342/sp/24334200/thumbnail/entry_id/1_sf5ovm7u/version/100003/width/640">
   </div>
 
 <div>
@@ -38,7 +38,7 @@
 <label class="radio inline"><input type="radio" name="streamtype" id="streamtype-live">Live</label>
 </div>
 <div>
-Kaltura Play: Applies only to iOS, Android Browser views. <a href="nativeCallout.html">More about NativeCallout</a><br>
+Borhan Play: Applies only to iOS, Android Browser views. <a href="nativeCallout.html">More about NativeCallout</a><br>
 <label class="radio inline"><input type="radio" name="nativecallout" id="nativeCallout-web"  checked="checked">Web</label>
 <label class="radio inline"><input type="radio" name="nativecallout" id="nativeCallout-native">Native Callout</label>
 </div>
@@ -75,7 +75,7 @@ Kaltura Play: Applies only to iOS, Android Browser views. <a href="nativeCallout
     <br/>
     <input type="button" id="generate" value="Create Player" />
 <br><br>
-<div id="kaltura_player" style="width:624px; height: 387px;display:block;" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+<div id="borhan_player" style="width:624px; height: 387px;display:block;" itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
 </div>
 <br/><br/>
 <b>Debug Info for HLS plugin:</b>
@@ -212,14 +212,14 @@ Kaltura Play: Applies only to iOS, Android Browser views. <a href="nativeCallout
                 'visitorId': '9A32525A5492AE7C0A4C98C6@AdobeOrg',
                 'visitorTrackingServer': 'ovppartners.d1.sc.omtrdc.net',
 
-                'appMeasurementAccount': 'ovppkaltura',
+                'appMeasurementAccount': 'ovppborhan',
                 'appMeasurementTrackingServer': 'ovppartners.d1.sc.omtrdc.net',
-                'appMeasurementPageName': 'Kaltura Test Page',
+                'appMeasurementPageName': 'Borhan Test Page',
                 'appMeasurementCharSet': 'UTF-8',
                 'appMeasurementVisitorID': 'test-vid',
 
                 'heartbeatTrackingServer': 'heartbeats.omtrdc.net',
-                'heartbeatPublisher': 'ovpkaltura'
+                'heartbeatPublisher': 'ovpborhan'
             },
 
             "sourceSelector.plugin" : true,
@@ -276,46 +276,46 @@ Kaltura Play: Applies only to iOS, Android Browser views. <a href="nativeCallout
 			}
 		}
 		// update page hash 
-		kWidget.embed({
-			"targetId": "kaltura_player",
+		bWidget.embed({
+			"targetId": "borhan_player",
 			"wid": "_243342",
 			"uiconf_id": "12905712",
 			"flashvars": settings
 		});
 
-        kWidget.addReadyCallback(function( playerId ){
-            var kdp = document.getElementById( playerId );
+        bWidget.addReadyCallback(function( playerId ){
+            var bdp = document.getElementById( playerId );
 
             //HLS-JS debug info
-            kdp.kBind("hlsCurrentBuffer", function( data ){
+            bdp.kBind("hlsCurrentBuffer", function( data ){
                 $('#bufferLen').text(data);
             });
-            kdp.kBind("hlsDroppedFrames", function( data ){
+            bdp.kBind("hlsDroppedFrames", function( data ){
                 $('#droppedFrames').text(data);
             });
-            kdp.kBind("hlsDropFPS", function( data ){
+            bdp.kBind("hlsDropFPS", function( data ){
                 $('#droppedFPS').text("FPS_DROP: "+data);
             });
-            kdp.kBind("hlsCurrentBitrate", function( data ){
+            bdp.kBind("hlsCurrentBitrate", function( data ){
                 $('#currentBitrate').text(data);
             });
-            kdp.kBind("hlsFPS", function( data ){
+            bdp.kBind("hlsFPS", function( data ){
                 $('#currentFPS').text(data);
             });
 
-            kdp.kBind("hlsFragLoading", function( data ){
+            bdp.kBind("hlsFragLoading", function( data ){
                 $('#downloadingSeg').text(data);
             });
-            kdp.kBind("hlsFragBuffered", function( data ){
+            bdp.kBind("hlsFragBuffered", function( data ){
                 $('#processedSeg').text(data);
             });
-            kdp.kBind("hlsFragChanged", function( data ){
-                $('#playingSeg').html(data.url+"<br>"+"startPTS: "+kWidget.seconds2npt(data.startPTS)+" | endPTS: "+kWidget.seconds2npt(data.endPTS));
+            bdp.kBind("hlsFragChanged", function( data ){
+                $('#playingSeg').html(data.url+"<br>"+"startPTS: "+bWidget.seconds2npt(data.startPTS)+" | endPTS: "+bWidget.seconds2npt(data.endPTS));
             });
 
-            kdp.kBind("hlsFragParsingData", function( data ){
+            bdp.kBind("hlsFragParsingData", function( data ){
                 if(data.type === 'video') {
-                    var txt = "startPTS: "+kWidget.seconds2npt(data.startPTS)+" | endPTS: "+kWidget.seconds2npt(data.endPTS)+"<br>startDTS: "+kWidget.seconds2npt(data.startDTS)+" | endDTS: "+kWidget.seconds2npt(data.endDTS);
+                    var txt = "startPTS: "+bWidget.seconds2npt(data.startPTS)+" | endPTS: "+bWidget.seconds2npt(data.endPTS)+"<br>startDTS: "+bWidget.seconds2npt(data.startDTS)+" | endDTS: "+bWidget.seconds2npt(data.endDTS);
                     if( $('#pts_dts').html() === ''){
                         $('#pts_dts').html(txt);
                     }else {
@@ -325,7 +325,7 @@ Kaltura Play: Applies only to iOS, Android Browser views. <a href="nativeCallout
             });
 
             //HLS-OSMF debug info
-            kdp.kBind("debugInfoReceived", function( data ){
+            bdp.kBind("debugInfoReceived", function( data ){
                     var ts;
                     if (data.uri) {
                         var url = data.uri.split('.');

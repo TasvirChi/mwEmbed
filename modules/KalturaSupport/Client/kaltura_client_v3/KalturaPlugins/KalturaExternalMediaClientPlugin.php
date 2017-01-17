@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,18 +28,18 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaExternalMediaEntryOrderBy
+class BorhanExternalMediaEntryOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const DURATION_ASC = "+duration";
@@ -76,26 +76,26 @@ class KalturaExternalMediaEntryOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaExternalMediaSourceType
+class BorhanExternalMediaSourceType
 {
 	const INTERCALL = "InterCall";
 	const YOUTUBE = "YouTube";
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaExternalMediaEntry extends KalturaMediaEntry
+class BorhanExternalMediaEntry extends BorhanMediaEntry
 {
 	/**
 	 * The source type of the external media
 	 * 	 
 	 *
-	 * @var KalturaExternalMediaSourceType
+	 * @var BorhanExternalMediaSourceType
 	 * @insertonly
 	 */
 	public $externalSourceType = null;
@@ -113,15 +113,15 @@ class KalturaExternalMediaEntry extends KalturaMediaEntry
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaExternalMediaEntryListResponse extends KalturaObjectBase
+class BorhanExternalMediaEntryListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaExternalMediaEntry
+	 * @var array of BorhanExternalMediaEntry
 	 * @readonly
 	 */
 	public $objects;
@@ -138,15 +138,15 @@ class KalturaExternalMediaEntryListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaExternalMediaEntryBaseFilter extends KalturaMediaEntryFilter
+abstract class BorhanExternalMediaEntryBaseFilter extends BorhanMediaEntryFilter
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaExternalMediaSourceType
+	 * @var BorhanExternalMediaSourceType
 	 */
 	public $externalSourceTypeEqual = null;
 
@@ -175,22 +175,22 @@ abstract class KalturaExternalMediaEntryBaseFilter extends KalturaMediaEntryFilt
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaExternalMediaEntryFilter extends KalturaExternalMediaEntryBaseFilter
+class BorhanExternalMediaEntryFilter extends BorhanExternalMediaEntryBaseFilter
 {
 
 }
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaExternalMediaService extends KalturaServiceBase
+class BorhanExternalMediaService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -198,10 +198,10 @@ class KalturaExternalMediaService extends KalturaServiceBase
 	/**
 	 * Add external media entry
 	 * 
-	 * @param KalturaExternalMediaEntry $entry 
-	 * @return KalturaExternalMediaEntry
+	 * @param BorhanExternalMediaEntry $entry 
+	 * @return BorhanExternalMediaEntry
 	 */
-	function add(KalturaExternalMediaEntry $entry)
+	function add(BorhanExternalMediaEntry $entry)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entry", $entry->toParams());
@@ -210,7 +210,7 @@ class KalturaExternalMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaExternalMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanExternalMediaEntry");
 		return $resultObject;
 	}
 
@@ -218,7 +218,7 @@ class KalturaExternalMediaService extends KalturaServiceBase
 	 * Get external media entry by ID.
 	 * 
 	 * @param string $id External media entry id
-	 * @return KalturaExternalMediaEntry
+	 * @return BorhanExternalMediaEntry
 	 */
 	function get($id)
 	{
@@ -229,7 +229,7 @@ class KalturaExternalMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaExternalMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanExternalMediaEntry");
 		return $resultObject;
 	}
 
@@ -237,10 +237,10 @@ class KalturaExternalMediaService extends KalturaServiceBase
 	 * Update external media entry. Only the properties that were set will be updated.
 	 * 
 	 * @param string $id External media entry id to update
-	 * @param KalturaExternalMediaEntry $entry External media entry object to update
-	 * @return KalturaExternalMediaEntry
+	 * @param BorhanExternalMediaEntry $entry External media entry object to update
+	 * @return BorhanExternalMediaEntry
 	 */
-	function update($id, KalturaExternalMediaEntry $entry)
+	function update($id, BorhanExternalMediaEntry $entry)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -250,7 +250,7 @@ class KalturaExternalMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaExternalMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanExternalMediaEntry");
 		return $resultObject;
 	}
 
@@ -276,11 +276,11 @@ class KalturaExternalMediaService extends KalturaServiceBase
 	/**
 	 * List media entries by filter with paging support.
 	 * 
-	 * @param KalturaExternalMediaEntryFilter $filter External media entry filter
-	 * @param KalturaFilterPager $pager Pager
-	 * @return KalturaExternalMediaEntryListResponse
+	 * @param BorhanExternalMediaEntryFilter $filter External media entry filter
+	 * @param BorhanFilterPager $pager Pager
+	 * @return BorhanExternalMediaEntryListResponse
 	 */
-	function listAction(KalturaExternalMediaEntryFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanExternalMediaEntryFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -292,17 +292,17 @@ class KalturaExternalMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaExternalMediaEntryListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanExternalMediaEntryListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * Count media entries by filter.
 	 * 
-	 * @param KalturaExternalMediaEntryFilter $filter External media entry filter
+	 * @param BorhanExternalMediaEntryFilter $filter External media entry filter
 	 * @return int
 	 */
-	function count(KalturaExternalMediaEntryFilter $filter = null)
+	function count(BorhanExternalMediaEntryFilter $filter = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -317,32 +317,32 @@ class KalturaExternalMediaService extends KalturaServiceBase
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaExternalMediaClientPlugin extends KalturaClientPlugin
+class BorhanExternalMediaClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaExternalMediaService
+	 * @var BorhanExternalMediaService
 	 */
 	public $externalMedia = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->externalMedia = new KalturaExternalMediaService($client);
+		$this->externalMedia = new BorhanExternalMediaService($client);
 	}
 
 	/**
-	 * @return KalturaExternalMediaClientPlugin
+	 * @return BorhanExternalMediaClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaExternalMediaClientPlugin($client);
+		return new BorhanExternalMediaClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

@@ -122,7 +122,7 @@ authPage.prototype = {
 			$('<div>')
 			.addClass('login-header')
 			.append(
-				$("<img>").attr('src','kaltura-user-icon.png'),
+				$("<img>").attr('src','borhan-user-icon.png'),
 				$('<span>').text( 'Hello, ' + this.getAuthData( 'fullName' ) )
 			),
 			$('<div>')
@@ -184,7 +184,7 @@ authPage.prototype = {
 			$('<div>')
 			.addClass('login-header')
 			.append(
-				$("<img>").attr('src','kaltura-user-icon.png'),
+				$("<img>").attr('src','borhan-user-icon.png'),
 				$('<span>').text( 'Login to ' + document.domain )
 			),
 			$('<div>')
@@ -226,7 +226,7 @@ authPage.prototype = {
 				$('<a>')
 				.attr({
 					'target' : "_new",
-					'href': 'http://corp.kaltura.com/free-trial'
+					'href': 'http://corp.borhan.com/free-trial'
 				})
 				.text( "Sign up"),
 				
@@ -361,10 +361,10 @@ authPage.prototype = {
 	},
 	getApi: function( callback ){
 		var _this = this;
-		if( ! window['kWidget'] || !kWidget.api || !this.api ){
-			// load kWidget.api: 
+		if( ! window['bWidget'] || !bWidget.api || !this.api ){
+			// load bWidget.api: 
 			$.getScript( "../mwEmbedLoader.php", function(){
-				_this.api = new kWidget.api();
+				_this.api = new bWidget.api();
 				callback();
 			});
 		} else {
@@ -403,7 +403,7 @@ authPage.prototype = {
 	},
 	logout: function(){
 		// clear the local storage:
-		delete( localStorage['kaltura-auth-object'] );
+		delete( localStorage['borhan-auth-object'] );
 		// show the login form:
 		this.showLoginForm();
 	},
@@ -415,7 +415,7 @@ authPage.prototype = {
 		return ( $.inArray( this.authRequestOrigin, domainList) !== -1 ) ? 'ALLOW': 'DENY';
 	},
 	getDomainList: function(){
-		var domainList = localStorage['kaltura-auth-domainList'];
+		var domainList = localStorage['borhan-auth-domainList'];
 		if( domainList ){
 			domainList = JSON.parse( domainList );
 		} else {
@@ -430,7 +430,7 @@ authPage.prototype = {
 			domainList.splice( inx, 1 );
 		}
 		// update the local storage domain list: 
-		localStorage['kaltura-auth-domainList'] = JSON.stringify( domainList );
+		localStorage['borhan-auth-domainList'] = JSON.stringify( domainList );
 	},
 	addApprovedDomain: function( domain ){
 		var domainList = this.getDomainList();
@@ -439,7 +439,7 @@ authPage.prototype = {
 			domainList.push( domain );
 		}
 		// update the local storage:
-		localStorage['kaltura-auth-domainList'] = JSON.stringify( domainList );
+		localStorage['borhan-auth-domainList'] = JSON.stringify( domainList );
 		// send the updated data to client: 
 		this.setAuthData();
 	},
@@ -448,13 +448,13 @@ authPage.prototype = {
 			var userData = this.getAuthData();
 		}
 		//console.log( 'setAuthData::' + JSON.stringify( userData ) );
-		localStorage['kaltura-auth-object'] = JSON.stringify( userData );
+		localStorage['borhan-auth-object'] = JSON.stringify( userData );
 	},
 	getAuthData: function( attr ){
 		var authObject = null;
-		if( localStorage && localStorage['kaltura-auth-object'] ){
+		if( localStorage && localStorage['borhan-auth-object'] ){
 			try{
-				var authObject = JSON.parse( localStorage['kaltura-auth-object'] );
+				var authObject = JSON.parse( localStorage['borhan-auth-object'] );
 			} catch ( e ){
 				// could not parse ( probably undeinfed )
 			}
@@ -475,12 +475,12 @@ authPage.prototype = {
 		return !! this.getAuthData();
 	},
 	/**
-	* Receive messages marked kaltura-auth-handshake and establish origin
+	* Receive messages marked borhan-auth-handshake and establish origin
 	* */
 	receiveMessage: function( event ){
 		var _this = this;
-		// check for the only message we receive: "kaltura-auth-check"
-		if( event.data != 'kaltura-auth-check' ){
+		// check for the only message we receive: "borhan-auth-check"
+		if( event.data != 'borhan-auth-check' ){
 			return ;
 		}
 		//console.log("AuthPage:: ReceiveMessage: ", event);

@@ -11,7 +11,7 @@
 <body>
 <h1>Player Skin 2.0 + JSON Config</h1>
 <br />
-<div id="kaltura_player" style="width: 585px; height: 330px;float: left;"></div>
+<div id="borhan_player" style="width: 585px; height: 330px;float: left;"></div>
 <br style="clear: both;" /><br />
 <script>
 	var jsonConfig={
@@ -62,8 +62,8 @@
 
 			],
 			"watermark":{
-				"href":"http://www.kaltura.com/",
-				"img":"http://www.kaltura.com/content/uiconf/kaltura/kmc/appstudio/kdp3/exampleWatermark.png",
+				"href":"http://www.borhan.com/",
+				"img":"http://www.borhan.com/content/uiconf/borhan/bmc/appstudio/bdp3/exampleWatermark.png",
 				"title":"Watermark",
 				"cssClass":"bottomLeft"
 			},
@@ -93,7 +93,7 @@
 				"height":"0%",
 				"sourceType":"automatic",
 				"autoPlay":false,
-				"automaticPlaylistId":"_KDP_CTXPL",
+				"automaticPlaylistId":"_BDP_CTXPL",
 				"entryId":"{mediaProxy.entry.id}",
 				"referenceIdsSourceData":"{mediaProxy.entryMetadata.ReferenceIds}",
 				"playlistSourceData":"",
@@ -114,7 +114,7 @@
 				"viewType":"tile",
 				"showAfterPlayEnd":true
 			},
-			"kalturaShare":{
+			"borhanShare":{
 				"plugin":true,
 				"uiconfId":8700151,
 				"width":"100%",
@@ -131,12 +131,12 @@
 		"pluginIds":[
 			"mediaProxy",
 			"strings",
-			"kalturaMix",
+			"borhanMix",
 			"statistics",
 			"akamaiMediaAnalytics",
 			"relatedEntries",
 			"relatedView",
-			"kalturaShare"
+			"borhanShare"
 		],
 		"layout":{
 			"skin":"kdark"
@@ -144,8 +144,8 @@
 	};
 
 
-	kWidget.embed({
-		'targetId': 'kaltura_player',
+	bWidget.embed({
+		'targetId': 'borhan_player',
 		'wid': '_243342',
 		'uiconf_id' : '21099702',
 		'flashvars': {

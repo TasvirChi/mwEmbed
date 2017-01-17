@@ -2,18 +2,18 @@
  * Stand alone source grabber.
  */
 
-if( ! window.kWidget ){
-	window.kWidget = {};
+if( ! window.bWidget ){
+	window.bWidget = {};
 }
-( function( kWidget ) {
+( function( bWidget ) {
 	// Add master exported function:
-	kWidget.getSources = function( settings ){
-		var sourceApi = new kWidget.api( { 'wid' : '_' + settings.partnerId } );
+	bWidget.getSources = function( settings ){
+		var sourceApi = new bWidget.api( { 'wid' : '_' + settings.partnerId } );
 		sourceApi.doRequest([
 		{
 			'contextDataParams' : {
 				'referrer' : document.URL,
-				'objectType' : 'KalturaEntryContextDataParams',
+				'objectType' : 'BorhanEntryContextDataParams',
 				'flavorTags': 'all'
 			},
 			'service' : 'baseentry',
@@ -34,9 +34,9 @@ if( ! window.kWidget ){
 			// Set the service url based on protocol type
 			var serviceUrl;
 			if( protocol == 'https' ){
-				serviceUrl = 'https://www.kaltura.com';
+				serviceUrl = 'https://www.borhan.com';
 			} else {
-				serviceUrl = 'http://cdnbakmi.kaltura.com';
+				serviceUrl = 'http://cdnbakmi.borhan.com';
 			}
 			var baseUrl = serviceUrl + '/p/' + settings.partnerId +
 					'/sp/' + settings.partnerId + '00/playManifest';
@@ -109,7 +109,7 @@ if( ! window.kWidget ){
 				if( asset.fileExt == 'webm'
 					||
 					asset.tags.indexOf('webm') != -1
-					|| // Kaltura transcodes give: 'matroska'
+					|| // Borhan transcodes give: 'matroska'
 					( asset.containerFormat && asset.containerFormat.toLowerCase() == 'matroska' )
 					|| // some ingestion systems give "webm"
 					( asset.containerFormat && asset.containerFormat.toLowerCase() == 'webm' )
@@ -171,4 +171,4 @@ if( ! window.kWidget ){
 			}
 		});
 	};
-} )( window.kWidget );
+} )( window.bWidget );

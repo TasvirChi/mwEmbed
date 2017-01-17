@@ -9,12 +9,12 @@
 
         getProxyConfig: function( attr, raw ) {
             if( raw ){
-                return this.embedPlayer.getRawKalturaConfig( "proxyData", attr );
+                return this.embedPlayer.getRawBorhanConfig( "proxyData", attr );
             }
-            return this.embedPlayer.getKalturaConfig( "proxyData", attr );
+            return this.embedPlayer.getBorhanConfig( "proxyData", attr );
         },
         setProxyConfig: function( attr, value ) {
-            this.embedPlayer.setKalturaConfig("proxyData", attr, value);
+            this.embedPlayer.setBorhanConfig("proxyData", attr, value);
         },
 
         addBindings: function () {

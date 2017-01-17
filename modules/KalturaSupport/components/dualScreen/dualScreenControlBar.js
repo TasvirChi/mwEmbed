@@ -38,7 +38,7 @@
 		},
 		getComponent: function ( ) {
 			if ( !this.$controlBar ) {
-				var rawHTML = window.kalturaIframePackageData.templates[ this.getConfig("templatePath")];
+				var rawHTML = window.borhanIframePackageData.templates[ this.getConfig("templatePath")];
 				var transformedHTML = mw.util.tmpl( rawHTML );
 				transformedHTML = transformedHTML({buttons: this.controlBarComponents});
 				this.$controlBar = $( '<div />' )

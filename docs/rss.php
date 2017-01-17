@@ -5,7 +5,7 @@ $kgGitBinPath = '/usr/bin/git';
 /* get the config */
 chdir( dirname( __FILE__ ) . '/../' );
 require_once( 'includes/DefaultSettings.php' );
-require_once( 'modules/KalturaSupport/KalturaCommon.php' );
+require_once( 'modules/BorhanSupport/BorhanCommon.php' );
 
 $cache = $container['cache_helper'];
 /* check the cache */
@@ -27,9 +27,9 @@ function generate_docs_rss(){
 ?>
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
 <channel>
-	<title>Kaltura Feature Hub</title>
+	<title>Borhan Feature Hub</title>
 	<link><?php echo $baseUrl ?></link>
-	<description>Demos, Configuration Options and Tools for Integrating the Kaltura Player</description>
+	<description>Demos, Configuration Options and Tools for Integrating the Borhan Player</description>
 <?php 
 $featureSet = include( 'featureList.php' );
 foreach( $featureSet as $featureCategoryKey => $featureCategory ){
@@ -50,7 +50,7 @@ foreach( $featureSet as $featureCategoryKey => $featureCategory ){
 				$authorName = trim( execGit( 'log -1 --format="%an" -- ' . $filePath ) );
 			} else {
 				$dateHR = date( DATE_RFC822, filemtime($filePath) );
-				$authorName = "kaltura";
+				$authorName = "borhan";
 			}
 			echo "\n";
 			?>

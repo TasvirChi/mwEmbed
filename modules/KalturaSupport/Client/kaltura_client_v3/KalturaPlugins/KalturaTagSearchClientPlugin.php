@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,18 +28,18 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaTag extends KalturaObjectBase
+class BorhanTag extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -60,7 +60,7 @@ class KalturaTag extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaTaggedObjectType
+	 * @var BorhanTaggedObjectType
 	 * @readonly
 	 */
 	public $taggedObjectType = null;
@@ -101,15 +101,15 @@ class KalturaTag extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaTagListResponse extends KalturaObjectBase
+class BorhanTagListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaTag
+	 * @var array of BorhanTag
 	 * @readonly
 	 */
 	public $objects;
@@ -126,10 +126,10 @@ class KalturaTagListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaIndexTagsByPrivacyContextJobData extends KalturaJobData
+class BorhanIndexTagsByPrivacyContextJobData extends BorhanJobData
 {
 	/**
 	 * 
@@ -156,15 +156,15 @@ class KalturaIndexTagsByPrivacyContextJobData extends KalturaJobData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaTagFilter extends KalturaFilter
+class BorhanTagFilter extends BorhanFilter
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaTaggedObjectType
+	 * @var BorhanTaggedObjectType
 	 */
 	public $objectTypeEqual = null;
 
@@ -201,12 +201,12 @@ class KalturaTagFilter extends KalturaFilter
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaTagService extends KalturaServiceBase
+class BorhanTagService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -214,11 +214,11 @@ class KalturaTagService extends KalturaServiceBase
 	/**
 	 * 
 	 * 
-	 * @param KalturaTagFilter $tagFilter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaTagListResponse
+	 * @param BorhanTagFilter $tagFilter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanTagListResponse
 	 */
-	function search(KalturaTagFilter $tagFilter, KalturaFilterPager $pager = null)
+	function search(BorhanTagFilter $tagFilter, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "tagFilter", $tagFilter->toParams());
@@ -229,7 +229,7 @@ class KalturaTagService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaTagListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanTagListResponse");
 		return $resultObject;
 	}
 
@@ -274,32 +274,32 @@ class KalturaTagService extends KalturaServiceBase
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaTagSearchClientPlugin extends KalturaClientPlugin
+class BorhanTagSearchClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaTagService
+	 * @var BorhanTagService
 	 */
 	public $tag = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->tag = new KalturaTagService($client);
+		$this->tag = new BorhanTagService($client);
 	}
 
 	/**
-	 * @return KalturaTagSearchClientPlugin
+	 * @return BorhanTagSearchClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaTagSearchClientPlugin($client);
+		return new BorhanTagSearchClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

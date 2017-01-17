@@ -5,7 +5,7 @@
 <script type="text/javascript" src="../../../tests/qunit/qunit-bootstrap.js"></script>
 <script type="text/javascript" src="../../../mwEmbedLoader.php"></script>
 <script type="text/javascript" src="../../../docs/js/doc-bootstrap.js"></script>
-<script type="text/javascript" src="resources/qunit-kaltura-bootstrap.js"></script>
+<script type="text/javascript" src="resources/qunit-borhan-bootstrap.js"></script>
 </head>
 <style>
     #kdebug{
@@ -29,7 +29,7 @@ The following properties can be set:
     <li><b>autoScrollDebugTarget</b>: When set to true, the external logger is auto scrolled. Default is false.</li>
     <li><b>debugFilter</b>: A string or regular expression used to filter the logged messages.</li>
 </ul>
-<div id="kaltura_player" style="width:400px;height:330px;"></div>
+<div id="borhan_player" style="width:400px;height:330px;"></div>
 <script>
     function embed(){
         $("#kdebug").empty();
@@ -37,8 +37,8 @@ The following properties can be set:
         mw.setConfig("debugTarget","kdebug");
         mw.setConfig("autoScrollDebugTarget",$("#autoScroll").is(":checked"));
         mw.setConfig("debugFilter",$("#filter").val().toString());
-        kWidget.embed({
-            'targetId': 'kaltura_player',
+        bWidget.embed({
+            'targetId': 'borhan_player',
             'wid': '_243342',
             'uiconf_id' : '12905712',
             'entry_id' : '0_uka1msg4',
@@ -69,7 +69,7 @@ mw.setConfig("debug",true);
 mw.setConfig("debugTarget","kdebug");
 mw.setConfig("autoScrollDebugTarget",true);
 mw.setConfig("debugFilter","Analytics");
-kWidget.embed({<br/>	'targetId': 'kaltura_player',<br/>	'wid': '_243342',<br/>	'uiconf_id' : '12905712',<br/>	'entry_id' : '0_uka1msg4',<br/>	'flashvars': {<br/>		'autoPlay': true<br/>	}<br/>});
+bWidget.embed({<br/>	'targetId': 'borhan_player',<br/>	'wid': '_243342',<br/>	'uiconf_id' : '12905712',<br/>	'entry_id' : '0_uka1msg4',<br/>	'flashvars': {<br/>		'autoPlay': true<br/>	}<br/>});
 </pre>
 </body>
 </html>

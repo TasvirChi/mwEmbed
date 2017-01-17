@@ -1,8 +1,8 @@
-// Add a jQuery plugin for pretty kaltura docs
+// Add a jQuery plugin for pretty borhan docs
 (function ($) {
 
 	// this is an embarrassing large list of params, should consolidate once feature config wraps everything. 
-	$.fn.prettyKalturaConfig = function (pluginName, flashvars, flashvarCallback, showSettingsTab, pageEmbed) {
+	$.fn.prettyBorhanConfig = function (pluginName, flashvars, flashvarCallback, showSettingsTab, pageEmbed) {
 		var manifestData = {};
 
 		return this.each(function () {
@@ -357,8 +357,8 @@
 				}
 				switch (data.code) {
 					case "SERVICE_FORBIDDEN":
-						error.title = "Missing Kaltura Secret";
-						error.msg = "The chapters editor appears to be missing a valid kaltura secret." +
+						error.title = "Missing Borhan Secret";
+						error.msg = "The chapters editor appears to be missing a valid borhan secret." +
 							" Please login."
 						break;
 					default:
@@ -445,7 +445,7 @@
 				var uiConfId = localStorage[ 'kdoc-embed-uiconf_id' ] || pageEmbed.uiconf_id;
 				$saveToUiConf.find('a').text("Saving...").addClass("disabled")
 				// get the current uiConf:
-				var api = new kWidget.api({
+				var api = new bWidget.api({
 					'wid': '_' + userObject.partnerId,
 					'ks': userObject.ks
 				});
@@ -497,7 +497,7 @@
 			}
 
 			function getLoaderUrl(options) {
-				return mw.getConfig('Kaltura.ServiceUrl') + '/' +
+				return mw.getConfig('Borhan.ServiceUrl') + '/' +
 					'/p/' + options.partner_id + '/sp/' + options.partner_id + '00/embedIframeJs/' +
 					'uiconf_id/' + options.uiconf_id + '/partner_id/' + options.partner_id;
 			}
@@ -516,7 +516,7 @@
 					.addClass('disabled')
 					.text('Creating player ...');
 
-				var api = new kWidget.api({
+				var api = new bWidget.api({
 					'wid': '_' + userObject.partnerId,
 					'ks': userObject.ks
 				});
@@ -549,7 +549,7 @@
 								'service': 'uiConf',
 								'action': 'add',
 								'id': data.id,
-								'uiConf:tags': 'kdp3',
+								'uiConf:tags': 'bdp3',
 								'uiConf:swfUrlVersion': data.swfUrlVersion,
 								'uiConf:swfUrl': data.swfUrl,
 								'uiConf:html5Url': data.html5Url,
@@ -737,7 +737,7 @@
 					$saveToUiConf.find('a').attr('title', useCompatiblePlayer);
 					$createPlayerBtn.find('a').attr('title', useCompatiblePlayer);
 				} else {
-					kWidget.auth.addAuthCallback(function (userObject) {
+					bWidget.auth.addAuthCallback(function (userObject) {
 						// we need a ks to save a new player:
 						if (!userObject.ks) {
 							return;
@@ -752,7 +752,7 @@
 					});
 
 					// Check that we can expose a save to uiConf option
-					kWidget.auth.addAuthCallback(function (userObject) {
+					bWidget.auth.addAuthCallback(function (userObject) {
 						var uiConfId = localStorage[ 'kdoc-embed-uiconf_id' ];
 						if (!uiConfId) {
 							$saveToUiConf.find('a').attr('title', 'No uiconf is set in seetings');
@@ -861,7 +861,7 @@
 					}
 				})
 				// get any local settings overides: 
-				var settingsChanged = getObjectDiff(kWidget.getLocalFeatureConfig(pageEmbed), pageEmbed);
+				var settingsChanged = getObjectDiff(bWidget.getLocalFeatureConfig(pageEmbed), pageEmbed);
 				// update settings flashvars chaged 
 				settingsChanged.flashvars = flashVarsChanged;
 				return settingsChanged;
@@ -904,13 +904,13 @@
 			}
 
 			function getEmbed() {
-				var kdp = $('#' + pageEmbed.targetId)[0];
+				var bdp = $('#' + pageEmbed.targetId)[0];
 				// get config short-cut:
 				var gC = function (attr) {
-					return kdp.evaluate('{' + attr + '}');
+					return bdp.evaluate('{' + attr + '}');
 				}
 				// check if done loading yet 
-				if (!kdp || !kdp.evaluate || gC('playerStatusProxy.kdpStatus') != 'ready') {
+				if (!bdp || !bdp.evaluate || gC('playerStatusProxy.bdpStatus') != 'ready') {
 					return 'Player is not ready';
 				}
 				// add main values:  
@@ -928,25 +928,25 @@
 					}
 				})
 				// add height & width: 
-				metaHTML += "\t" + '<span itemprop="width" content="' + $(kdp).width() + '"></span>' + "\n" +
-					"\t" + '<span itemprop="height" content="' + $(kdp).height() + '"></span>' + "\n";
+				metaHTML += "\t" + '<span itemprop="width" content="' + $(bdp).width() + '"></span>' + "\n" +
+					"\t" + '<span itemprop="height" content="' + $(bdp).height() + '"></span>' + "\n";
 
 				// get the playerId
-				var playerId = 'kaltura_player_' + new Date().getTime();
+				var playerId = 'borhan_player_' + new Date().getTime();
 
-				// the kWidget embed line: 
-				var kWidgetEmbedCall = '<script>' + "\n" +
-					"\t" + 'kWidget.embed({' + "\n" +
+				// the bWidget embed line: 
+				var bWidgetEmbedCall = '<script>' + "\n" +
+					"\t" + 'bWidget.embed({' + "\n" +
 					"\t\t" + 'targetId: "' + playerId + "\",\n" +
 					"\t\t" + 'wid: "' + wid + "\",\n" +
 					"\t\t" + 'uiconf_id: "' + uiconf_id + "\",\n";
 				if (entry_id) {
-					kWidgetEmbedCall += "\t\t" + 'entry_id: "' + entry_id + "\",\n";
+					bWidgetEmbedCall += "\t\t" + 'entry_id: "' + entry_id + "\",\n";
 				}
 				// add flashvars:
-				kWidgetEmbedCall += getFlashvarConfig("\t\t");
+				bWidgetEmbedCall += getFlashvarConfig("\t\t");
 
-				kWidgetEmbedCall += '})' + "\n" +
+				bWidgetEmbedCall += '})' + "\n" +
 					'</script>';
 
 				// get the script url
@@ -956,32 +956,32 @@
 				});
 				// TODO do an ajax check against the version of the library
 				// this way we won't need all the comments
-				//var api = new kWidget.api( { 'wid' : '_' + partner_id });
+				//var api = new bWidget.api( { 'wid' : '_' + partner_id });
 
-				var currentUrl = kWidget.getPath() + 'mwEmbedLoader.php' +
+				var currentUrl = bWidget.getPath() + 'mwEmbedLoader.php' +
 					'/partner_id/' + partner_id + '/uiconf_id/' + uiconf_id;
 
 				$embedCode = $('<div>')
 					.append(
 						$('<span>').html(
-							'Please note, these settings can be edited with <a target="_new" href="http://knowledge.kaltura.com/universal-studio-information-guide">Universal Studio</a> and saved to player. ' +
+							'Please note, these settings can be edited with <a target="_new" href="http://knowledge.borhan.com/universal-studio-information-guide">Universal Studio</a> and saved to player. ' +
 								'<br>If testing integrations, you can invoke this plugin with current configuration at runtime ' +
-								'by manipulating a <a href="http://knowledge.kaltura.com/embedding-kaltura-media-players-your-site">dynamic embed</a> retived from the KMC.'
+								'by manipulating a <a href="http://knowledge.borhan.com/embedding-borhan-media-players-your-site">dynamic embed</a> retived from the BMC.'
 						),
 						$('<br>'),
 						$('<pre>')
 							.addClass('prettyprint linenums')
 							.text(
 								'<!-- Subsitute ' + partner_id + ' with your partner id, ' + uiconf_id + ' with your uiconf_id -->' + "\n" +
-									'<script src="//cdnapisec.kaltura.com/p/' + partner_id + '/sp/' + partner_id + '00/embedIframeJs/uiconf_id/' + uiconf_id + '/partner_id/' + partner_id + '">' +
+									'<script src="//cdnapisec.borhan.com/p/' + partner_id + '/sp/' + partner_id + '00/embedIframeJs/uiconf_id/' + uiconf_id + '/partner_id/' + partner_id + '">' +
 									"\n</script>\n" +
 									'<div id="' + playerId + '" ' +
-									'style="width:' + $(kdp).width() + 'px;' +
-									'height:' + $(kdp).height() + 'px;" ' +
+									'style="width:' + $(bdp).width() + 'px;' +
+									'height:' + $(bdp).height() + 'px;" ' +
 									'itemprop="video" itemscope itemtype="http://schema.org/VideoObject" >' + "\n" +
 									metaHTML +
 									'</div>' + "\n" +
-									kWidgetEmbedCall
+									bWidgetEmbedCall
 							)
 					)
 				return $embedCode;
@@ -1039,7 +1039,7 @@
 			function getFlashvarConfigHTML() {
 				return $('<div />').append(
 					$('<pre class="prettyprint linenums" />').text(getFlashvarConfig()),
-					$('<span>Flashvar JSON can be used with <a target="top" href="../../../docs/index.php?path=Embeding#kwidget">kWidget.embed</a>:</span>')
+					$('<span>Flashvar JSON can be used with <a target="top" href="../../../docs/index.php?path=Embeding#bwidget">bWidget.embed</a>:</span>')
 				);
 			}
 
@@ -1065,7 +1065,7 @@
 				});
 
 				return $('<div />').append(
-					$('<span>Player JSON config can be edited via the <a target="top" href="http://player.kaltura.com/kWidget/tests/PlayerVersionUtility.html">player version utility</a>'),
+					$('<span>Player JSON config can be edited via the <a target="top" href="http://player.borhan.com/bWidget/tests/PlayerVersionUtility.html">player version utility</a>'),
 					$('<pre class="prettyprint linenums" />').text(uiText)
 				);
 			}
@@ -1102,12 +1102,12 @@
 			}
 
 			function updateAuthWidget($tabTarget) {
-				var $authDoc = $('<span>').text(' Login to kaltura to auto-populate wid and ks settings')
+				var $authDoc = $('<span>').text(' Login to borhan to auto-populate wid and ks settings')
 				$('#hostedAuthWidget').after(
 					$authDoc
 				).css('display', 'inline');
 				// add widget binding
-				kWidget.auth.getWidget("hostedAuthWidget", function (userObject) {
+				bWidget.auth.getWidget("hostedAuthWidget", function (userObject) {
 					if (!userObject.ks || !userObject.partnerId) {
 						$authDoc.text(" Login error.");
 						return;
@@ -1265,8 +1265,8 @@
 			// testing files always ../../ from test
 			var request = window.kDocPath + 'configManifest.php?';
 			// check for ps folder travarsal 
-			if (mw && mw.getConfig('Kaltura.KWidgetPsPath')) {
-				request += 'pskwidgetpath=' + mw.getConfig('Kaltura.KWidgetPsPath');
+			if (mw && mw.getConfig('Borhan.BWidgetPsPath')) {
+				request += 'psbwidgetpath=' + mw.getConfig('Borhan.BWidgetPsPath');
 			}
 			request += '&plugin_id=' + pluginName + '&vars=' + baseVarsList;
 
@@ -1384,7 +1384,7 @@
 					$settings = $('<div>').append(
 						'Global settings, will be saved to your browsers session.'
 					);
-					// add a kWidget login button:
+					// add a bWidget login button:
 					$settings.append(
 						$('<br>'), $('<br>'),
 						$('<div>').attr("id", "hostedAuthWidget"),
@@ -1404,14 +1404,14 @@
 							)
 					}
 
-					// ( if the pretty widget config was called with kWidget settings )
+					// ( if the pretty widget config was called with bWidget settings )
 					$tbody.append(
 						$('<tr>').append(
-							$('<td>').text('Kaltura secret key'),
+							$('<td>').text('Borhan secret key'),
 							$('<td>').append(
 								getInput('ks')
 							),
-							$('<td>').html("<b>Kaltura secret key</b> used for plugins that require a KS for authenticated actions." +
+							$('<td>').html("<b>Borhan secret key</b> used for plugins that require a KS for authenticated actions." +
 								"<br><i>Note:</i> You must set widget and entries to pull from your account to conduct respective admin actions"
 							)
 						)
@@ -1589,7 +1589,7 @@
 		// the target table
 		var $table = $();
 		// issue api request to load uiConfs associated with this account
-		var api = new kWidget.api({
+		var api = new bWidget.api({
 			'wid': '_' + options.partnerId,
 			'ks': options.ks
 		});

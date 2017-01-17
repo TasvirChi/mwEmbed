@@ -62,7 +62,7 @@ mw.KEntryLoader.prototype = {
 		var baseEntryRequestObj = {
 			'service' : 'baseentry',
 			'action' : 'list',
-			'filter:objectType' : 'KalturaBaseEntryFilter'
+			'filter:objectType' : 'BorhanBaseEntryFilter'
 		};
 		// Filter by reference Id
 		if( !kProperties.entry_id && kProperties.flashvars.referenceId ){
@@ -91,8 +91,8 @@ mw.KEntryLoader.prototype = {
 		// Add Context Data request
 		requestObject.push({
 			'contextDataParams' : {
-				'referrer' : window.kWidgetSupport.getHostPageUrl(),
-				'objectType' : 'KalturaEntryContextDataParams',
+				'referrer' : window.bWidgetSupport.getHostPageUrl(),
+				'objectType' : 'BorhanEntryContextDataParams',
 				'flavorTags': flavorTags,
 				'streamerType': streamerType
 			},
@@ -107,7 +107,7 @@ mw.KEntryLoader.prototype = {
 			'action' : 'list',
 			'version' : '-1',
 			// metaDataFilter
-			'filter:metadataObjectTypeEqual' :1, /* KalturaMetadataObjectType::ENTRY */
+			'filter:metadataObjectTypeEqual' :1, /* BorhanMetadataObjectType::ENTRY */
 			'filter:orderBy' : '+createdAt',
 			'filter:objectIdEqual' : entryIdValue,
 			'pager:pageSize' : 1
@@ -121,7 +121,7 @@ mw.KEntryLoader.prototype = {
 			requestObject.push({
 				'service' : 'cuepoint_cuepoint',
 				'action' : 'list',
-				'filter:objectType' : 'KalturaCuePointFilter',
+				'filter:objectType' : 'BorhanCuePointFilter',
 				'filter:orderBy' : '+startTime',
 				'filter:statusEqual' : 1,
 				'filter:entryIdEqual' : entryIdValue
@@ -143,7 +143,7 @@ mw.KEntryLoader.prototype = {
 
 			// Check if we have an error
 			if( data[0].code ) {
-				mw.log('Error in kaltura api response: ' + data[0].message);
+				mw.log('Error in borhan api response: ' + data[0].message);
 				callback( { 'error' :  data[0].message } );
 				return ;
 			}

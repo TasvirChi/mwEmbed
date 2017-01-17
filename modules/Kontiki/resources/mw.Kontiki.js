@@ -49,7 +49,7 @@
 	if(!kontiki.kui) kontiki.kui = {};
 
 	//URLs to the various assets we'll need.	
-	var AGENT_FLASH_LOADER_URL = kWidget.getPath() +'kWidget/onPagePlugins/kontiki/kontikiagentflashloader.swf';
+	var AGENT_FLASH_LOADER_URL = bWidget.getPath() +'bWidget/onPagePlugins/kontiki/kontikiagentflashloader.swf';
 
 	// global callback and agent reference needed for flash loader
 	var gKontikiCallback;
@@ -142,8 +142,8 @@
 			      	document.body.appendChild( flashDiv );
 					var flashvars = { url: clientUrl };
 				    // pass the current document as the context to make sure that the swf will be written to the current
-				    // page and not to the page where kWidget lives on
-					kWidget.outputFlashObject( "kontikiAgent", { src: AGENT_FLASH_LOADER_URL, flashvars: flashvars }, document);
+				    // page and not to the page where bWidget lives on
+					bWidget.outputFlashObject( "kontikiAgent", { src: AGENT_FLASH_LOADER_URL, flashvars: flashvars }, document);
 			    } 
 			    //wait until body is loaded  
 			    else{  
@@ -403,7 +403,7 @@
 				mw.log('Kontiki source was found, setting flavorTags to "kontiki"');
 				isKontiki = true;
 				kplayer.setFlashvars( 'flavorTags', 'kontiki' );
-				kplayer.setKalturaConfig( 'kdpVars', 'kontiki', { plugin: 'true' });
+				kplayer.setBorhanConfig( 'bdpVars', 'kontiki', { plugin: 'true' });
 
 			}
 			else {

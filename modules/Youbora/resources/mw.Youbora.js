@@ -27,8 +27,8 @@
 			"userId": null,
 			"youboraVersion":'2.2.1',
 			"bufferUnderrunThreshold": 1000,
-			// by default configured against the "kaltura" house account
-			"accountName": 'kaltura',
+			// by default configured against the "borhan" house account
+			"accountName": 'borhan',
 			"trackEventMonitor": null,
 			// default custom params: 
 			"param1": "{playerStatusProxy.loadTime}",
@@ -68,8 +68,8 @@
 				}
 			});
 			this.bind('playerReady', function(){
-				if ( _this.kalturaContextData && _this.kalturaContextData.flavorAssets && _this.kalturaContextData.flavorAssets.length === 1 ){
-					_this.currentBitRate = _this.kalturaContextData.flavorAssets[0].bitrate;
+				if ( _this.borhanContextData && _this.borhanContextData.flavorAssets && _this.borhanContextData.flavorAssets.length === 1 ){
+					_this.currentBitRate = _this.borhanContextData.flavorAssets[0].bitrate;
 				}
 				_this.addBindings();
 			});
@@ -132,7 +132,7 @@
 				var errorMsg = errorObj ? errorObj.message : _this.embedPlayer.getErrorMessage();
 				var errorCode = errorObj && errorObj.code ? errorObj.code : _this.embedPlayer.getErrorCode();
 				_this.sendBeacon( 'error', {
-					'player': 'kaltura-player-v' + MWEMBED_VERSION,
+					'player': 'borhan-player-v' + MWEMBED_VERSION,
 					'errorCode': errorCode,
 					'msg': errorMsg,
 					'resource': _this.getCurrentVideoSrc(),
@@ -171,7 +171,7 @@
 			var paramObj = {};
 			for( var i = 1; i < 10; i++ ){
 				// see if the param config is populated ( don't use getConfig evaluated value, as it could evaluate to false ) 
-				if( this.embedPlayer.getRawKalturaConfig( "youbora", "param" + i ) ){
+				if( this.embedPlayer.getRawBorhanConfig( "youbora", "param" + i ) ){
 					paramObj[ "param" + i ] = this.getConfig( "param" + i );
 				}
 			}
@@ -245,7 +245,7 @@
 			var _this = this;
 			var sendStartEvent = function(){
 				var beaconObj = {
-					'player': 'kaltura-player-v' + MWEMBED_VERSION,
+					'player': 'borhan-player-v' + MWEMBED_VERSION,
 					'resource': _this.getCurrentVideoSrc(),
 					// 'transcode' // not presently used.
 					'live': _this.embedPlayer.isLive(),
@@ -320,7 +320,7 @@
 				'bitrate': this.currentBitRate !== -1 ? this.currentBitRate * 1024 : -1,
 				'time': this.embedPlayer.currentTime,
 				//'totalBytes':"0", // value is only sent along with the dataType parameter. If the bitrate parameter is sent, then this one is not needed.
-				//'dataType': "0", // Kaltura does not really do RTMP streams any more.
+				//'dataType': "0", // Borhan does not really do RTMP streams any more.
 				'diffTime': new Date().getTime() - this.previusPingTime
 				// 'nodeHost' //String that indicates the CDN� Node Host
 			});
@@ -377,7 +377,7 @@
 			return parms;
 		},
 		getPluginVersion:function(){
-			var playerVersion = 'kaltura-player-v' + MWEMBED_VERSION;
+			var playerVersion = 'borhan-player-v' + MWEMBED_VERSION;
 			return this.getConfig('youboraVersion') + '_' + playerVersion;
 		},
 		hanldeQueue: function(){

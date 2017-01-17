@@ -1,11 +1,11 @@
 <?php 
 /**
- * Kaltura iFrame class:
+ * Borhan iFrame class:
  */
-require_once 'KalturaCommon.php';
-require_once 'KalturaDependencyResolver.php';
+require_once 'BorhanCommon.php';
+require_once 'BorhanDependencyResolver.php';
 
-class kalturaIframeClass {
+class borhanIframeClass {
 
 	var $request = null;
 	var $uiConfResult = null; // lazy init
@@ -76,7 +76,7 @@ class kalturaIframeClass {
 			try {
 				$result = $client->widget->get($widgetId);
 			} catch( Exception $e ){
-				throw new Exception( KALTURA_GENERIC_SERVER_ERROR . "\n" . htmlspecialchars($e->getMessage()) );
+				throw new Exception( BORHAN_GENERIC_SERVER_ERROR . "\n" . htmlspecialchars($e->getMessage()) );
 			}
 			if( $result ) {
 				return $result;
@@ -127,14 +127,14 @@ class kalturaIframeClass {
 	    return $entryResult;
 	}
 	function shouldRouteServiceUrl(){
-	    $allowIframeRemoteService = $this->getUiConfResult()->getPlayerConfig(null, 'Kaltura.AllowIframeRemoteService');
-        $serviceUrl = $this->getUiConfResult()->getPlayerConfig(null, 'Kaltura.ServiceUrl');
+	    $allowIframeRemoteService = $this->getUiConfResult()->getPlayerConfig(null, 'Borhan.AllowIframeRemoteService');
+        $serviceUrl = $this->getUiConfResult()->getPlayerConfig(null, 'Borhan.ServiceUrl');
         return ($this->request->isEmbedServicesEnabled() && $this->request->isEmbedServicesRequest() &&
             ($allowIframeRemoteService === true) &&
             !empty($serviceUrl));
     }
     function reRouteServiceUrl(){
-        $this->client->getClient()->getConfig()->serviceUrl = $this->getUiConfResult()->getPlayerConfig( null, 'Kaltura.ServiceUrl' );
+        $this->client->getClient()->getConfig()->serviceUrl = $this->getUiConfResult()->getPlayerConfig( null, 'Borhan.ServiceUrl' );
     }
     function resetServiceUrl(){
         $this->client->getClient()->getConfig()->serviceUrl = $this->request->getServiceConfig('ServiceUrl');
@@ -158,7 +158,7 @@ class kalturaIframeClass {
 		$videoTagMap = array(
 			'entry_id' => 'kentryid',
 			'uiconf_id' => 'kuiconfid',
-			'wid' => 'kwidgetid',
+			'wid' => 'bwidgetid',
 			'autoplay' => 'autoplay'
 		);
 
@@ -246,7 +246,7 @@ class kalturaIframeClass {
 	 * Get custom player includes for css and javascript
 	 */
 	private function getCustomPlayerIncludes($onPageOnly = false){
-		global $wgKalturaPSHtml5SettingsPath; 
+		global $wgBorhanPSHtml5SettingsPath; 
 		$resourceIncludes = array();
 		$onPageIncludes = array();
 
@@ -312,14 +312,14 @@ class kalturaIframeClass {
 		}
 		
 		// first try .json file directly
-		$psJsonPluginPaths = dirname( $wgKalturaPSHtml5SettingsPath ) . '/../ps/pluginPathMap.json';
+		$psJsonPluginPaths = dirname( $wgBorhanPSHtml5SettingsPath ) . '/../ps/pluginPathMap.json';
 		$psPluginList = array();
 		if( is_file( $psJsonPluginPaths ) ){
 			$psPluginList = json_decode( file_get_contents( $psJsonPluginPaths ), TRUE );
 		}
 		// TODO remove legacy php file support:
-		// Check for any plugins that are defined in kwidget-ps ( without server side path listing )
-		$psPluginPath =  dirname( $wgKalturaPSHtml5SettingsPath ) . '/../pluginPathMap.php';
+		// Check for any plugins that are defined in bwidget-ps ( without server side path listing )
+		$psPluginPath =  dirname( $wgBorhanPSHtml5SettingsPath ) . '/../pluginPathMap.php';
 		if( count( $psPluginList ) == 0 && is_file( $psPluginPath ) ){
 			$psPluginList = include( $psPluginPath );
 		}
@@ -340,7 +340,7 @@ class kalturaIframeClass {
 		return $resourceIncludes;
 	}
 	/**
-	 * Gets a series of mw.config.set calls set via the uiConf of the kaltura player
+	 * Gets a series of mw.config.set calls set via the uiConf of the borhan player
 	 * TODO: we should use getWidgetUiVars instead of parsing the XML
 	 * */
 	private function getEnvironmentConfig(){
@@ -358,10 +358,10 @@ class kalturaIframeClass {
 		return $this->envConfig;
 	}
 	private function getSwfUrl(){
-		$kwidgetParams = array( 'wid', 'uiconf_id', 'entry_id', 'cache_st' );
-		$swfUrl = $this->request->getServiceConfig('ServiceUrl') . '/index.php/kwidget';
+		$bwidgetParams = array( 'wid', 'uiconf_id', 'entry_id', 'cache_st' );
+		$swfUrl = $this->request->getServiceConfig('ServiceUrl') . '/index.php/bwidget';
 		// pass along player attributes to the swf:
-		foreach($kwidgetParams as $key ){
+		foreach($bwidgetParams as $key ){
 			$val = $this->request->get( $key );
 			if( $val ){
 				$swfUrl.='/' . $key . '/' . $val;
@@ -414,7 +414,7 @@ class kalturaIframeClass {
 		if( $lastModified === null ){
 			$lastModified = time();
 		}
-		// Cache for $wgKalturaUiConfCacheTime
+		// Cache for $wgBorhanUiConfCacheTime
 		header( "Cache-Control: public, max-age=$expireTime, max-stale=0");
 		header( "Last-Modified: " . gmdate( "D, d M Y H:i:s", $lastModified) . " GMT");
 		header( "Expires: " . gmdate( "D, d M Y H:i:s", $lastModified + $expireTime ) . " GMT" );
@@ -572,10 +572,10 @@ class kalturaIframeClass {
 				return $baseEntry['meta']->name;
 				}
 			} catch (Exception $e){
-			return "Kaltura Embed Player iFrame";
+			return "Borhan Embed Player iFrame";
 			}
 		}
-		return "Kaltura Embed Player iFrame";
+		return "Borhan Embed Player iFrame";
 	}
 	/**
 	 * Get the iframe css
@@ -707,43 +707,43 @@ HTML;
 		return str_replace( 'load.php', '', $wgResourceLoaderUrl );
 	}
 	/**
-	 * Get all the kaltura defined modules from player config
+	 * Get all the borhan defined modules from player config
 	 * */
-	function outputKalturaModules(){
-		global $wgMwEmbedEnabledModules, $wgKwidgetPsEnabledModules, $wgKalturaPSHtml5ModulesDir, $psRelativePath,
+	function outputBorhanModules(){
+		global $wgMwEmbedEnabledModules, $wgBwidgetPsEnabledModules, $wgBorhanPSHtml5ModulesDir, $psRelativePath,
 		$wgEnableScriptDebug;
 		$o='';
 		// Init modules array, always include MwEmbedSupport
 		$moduleList = array( 'mw.MwEmbedSupport' );
 
 		// Check player config per plugin id mapping
-		$kalturaSupportModules = array();
+		$borhanSupportModules = array();
 		$moduleDir = realpath( dirname( __FILE__ ) )  . '/..';
 		foreach( $wgMwEmbedEnabledModules as $moduleName ){
 			$modListPath = $moduleDir . '/' . $moduleName . '/' . $moduleName . '.';
 			if( is_file( $modListPath . "json") ){
 			    $moduleInfo = json_decode( file_get_contents($modListPath. 'json'), TRUE );
-                $kalturaSupportModules = array_merge( $kalturaSupportModules, $moduleInfo);
+                $borhanSupportModules = array_merge( $borhanSupportModules, $moduleInfo);
             } elseif( is_file( $modListPath . "php") ){
-				$kalturaSupportModules = array_merge( $kalturaSupportModules, 
+				$borhanSupportModules = array_merge( $borhanSupportModules, 
 					include( $modListPath . "php")
 				);
 			}
 		}
 
-		$kalturaSupportPsModules = array();
+		$borhanSupportPsModules = array();
 
-		foreach( $wgKwidgetPsEnabledModules as $moduleName ){
-            $modListPath = $wgKalturaPSHtml5ModulesDir . '/' . $moduleName . '/' . $moduleName . '.json';
+		foreach( $wgBwidgetPsEnabledModules as $moduleName ){
+            $modListPath = $wgBorhanPSHtml5ModulesDir . '/' . $moduleName . '/' . $moduleName . '.json';
             if( is_file( $modListPath) ){
                 $moduleInfo = json_decode( file_get_contents( $modListPath ), TRUE );
-                $kalturaSupportPsModules = array_merge( $kalturaSupportPsModules, $moduleInfo);
+                $borhanSupportPsModules = array_merge( $borhanSupportPsModules, $moduleInfo);
             }
         }
 
 		$playerConfig = $this->getUiConfResult()->getPlayerConfig();
-		$moduleList = array_merge($moduleList, $this->getNeededModules($kalturaSupportModules, $playerConfig));
-		$psModuleList = $this->getNeededModules($kalturaSupportPsModules, $playerConfig, $wgKalturaPSHtml5ModulesDir);
+		$moduleList = array_merge($moduleList, $this->getNeededModules($borhanSupportModules, $playerConfig));
+		$psModuleList = $this->getNeededModules($borhanSupportPsModules, $playerConfig, $wgBorhanPSHtml5ModulesDir);
 
 		// Special cases: handle plugins that have more complex conditional load calls
 		// always include mw.EmbedPlayer
@@ -769,7 +769,7 @@ HTML;
 		// export the loading spinner config early on:
 		$o.= <<<HTML
 		// Export our HTML templates
-		window.kalturaIframePackageData.templates =  {$JST};
+		window.borhanIframePackageData.templates =  {$JST};
 
 		var moduleList = {$jsonModuleList};
 		var psModuleList = {$jsonPsModuleList};
@@ -783,13 +783,13 @@ HTML;
 				moduleList.splice( itemToDelete, 1);
 		}
 HTML;
-		//Set the kwidget-ps folder for the loader script
-        $o.="mw.config.set('pskwidgetpath', '$psRelativePath');";
+		//Set the bwidget-ps folder for the loader script
+        $o.="mw.config.set('psbwidgetpath', '$psRelativePath');";
 		// inline scripts if debug mode is off and flag is set:
 		if ($this->inlineScript && !$wgEnableScriptDebug ){
 			$o.= $this->outputInlineScript(array_merge($moduleList, $psModuleList));
 		} else {
-			$o.= 'mw.config.set(\'KalturaSupport.DepModuleList\', moduleList);mw.loader.load(moduleList);';
+			$o.= 'mw.config.set(\'BorhanSupport.DepModuleList\', moduleList);mw.loader.load(moduleList);';
 		}
 		// check if loadingSpinner plugin has config:
 		if( isset( $playerConfig['plugins']['loadingSpinner'] ) ){
@@ -803,22 +803,22 @@ HTML;
 	function getNeededModules($modules, $playerConfig, $basePath = null){
 	    $moduleList = array();
 	    foreach( $modules as $name => $module ){
-            if( isset( $module[ 'kalturaLoad' ] ) &&  $module['kalturaLoad'] == 'always' ){
+            if( isset( $module[ 'borhanLoad' ] ) &&  $module['borhanLoad'] == 'always' ){
                 $this->addModuleTemplate( $module, $basePath );
                 $moduleList[] = $name;
             }
-            // Check if the module has a kalturaPluginName and load if set in playerConfig
-            if( isset( $module[ 'kalturaPluginName' ] ) ){
-                if( is_array( $module[ 'kalturaPluginName' ] ) ){
-                    foreach($module[ 'kalturaPluginName' ] as $subModuleName ){
+            // Check if the module has a borhanPluginName and load if set in playerConfig
+            if( isset( $module[ 'borhanPluginName' ] ) ){
+                if( is_array( $module[ 'borhanPluginName' ] ) ){
+                    foreach($module[ 'borhanPluginName' ] as $subModuleName ){
                         if( isset( $playerConfig['plugins'][ $subModuleName] )){
                             $this->addModuleTemplate( $module, $playerConfig['plugins'][ $subModuleName ], $basePath );
                             $moduleList[] = $name;
                             continue;
                         }
                     }
-                } else if( isset( $playerConfig['plugins'][ $module[ 'kalturaPluginName' ] ] ) ){
-                    $this->addModuleTemplate( $module, $playerConfig['plugins'][ $module[ 'kalturaPluginName' ] ], $basePath );
+                } else if( isset( $playerConfig['plugins'][ $module[ 'borhanPluginName' ] ] ) ){
+                    $this->addModuleTemplate( $module, $playerConfig['plugins'][ $module[ 'borhanPluginName' ] ], $basePath );
                     $moduleList[] = $name;
                 }
             }
@@ -856,11 +856,11 @@ HTML;
 	function getModuleDependencyList($moduleList){
 		$modulesRegistry = $this->getModulesRegistry($moduleList);
 
-		$kalturaDependencyResolver = new KalturaDependencyResolver();
-		$kalturaDependencyResolver->register($modulesRegistry);
+		$borhanDependencyResolver = new BorhanDependencyResolver();
+		$borhanDependencyResolver->register($modulesRegistry);
 
 		// Set the startup modules state to ready cause they were already included in startup load
-		$kalturaDependencyResolver->setState(array(
+		$borhanDependencyResolver->setState(array(
 			"jquery" => "ready",
 			"mediawiki" => "ready",
 			"mw.MwEmbedSupport" => "ready",
@@ -869,7 +869,7 @@ HTML;
 			"jquery.loadingSpinner" => "ready"
 		));
 
-		$moduleList = $kalturaDependencyResolver->getDependencies($moduleList);
+		$moduleList = $borhanDependencyResolver->getDependencies($moduleList);
 		return $moduleList;
 	}
 
@@ -947,8 +947,8 @@ HTML;
 		return $styles;
 	}
 
-	function getKalturaIframeScripts(){
-	    global $wgMwEmbedVersion, $wgKalturaApiFeatures, $wgEnableScriptDebug;
+	function getBorhanIframeScripts(){
+	    global $wgMwEmbedVersion, $wgBorhanApiFeatures, $wgEnableScriptDebug;
 		ob_start();
 		?>
 		<script type="text/javascript">
@@ -960,14 +960,14 @@ HTML;
 			window.preMwEmbedConfig['EmbedPlayer.IsIframeServer'] = true;
 			// in iframe context we explitly rewrite the embed player target once payload is ready:
 			window.preMwEmbedConfig['EmbedPlayer.RewriteSelector'] = null;
-			// Check if we can refrence kWidget from the parent context ( else include mwEmbedLoader.php locally )
-			// TODO this could be optimized. We only need a subset of ~kWidget~ included. 
-			// but remote embeding ( no parent kWidget ) is not a very common use case to optimize for at this point in 
+			// Check if we can refrence bWidget from the parent context ( else include mwEmbedLoader.php locally )
+			// TODO this could be optimized. We only need a subset of ~bWidget~ included. 
+			// but remote embeding ( no parent bWidget ) is not a very common use case to optimize for at this point in 
 			// time.
 			try {
-				if( window['parent'] && window['parent']['kWidget'] ){
-					// import kWidget and mw into the current context:
-					window['kWidget'] = window['parent']['kWidget']; 
+				if( window['parent'] && window['parent']['bWidget'] ){
+					// import bWidget and mw into the current context:
+					window['bWidget'] = window['parent']['bWidget']; 
 				} else {
 					// include kWiget script if not already avaliable
 					<?php
@@ -986,11 +986,11 @@ HTML;
 				document.write( '<script src="<?php echo $this->getMwEmbedLoaderLocation() ?>"></scr' + 'ipt>' );
 			}
 		</script>
-		<!-- kaltura ui cong js logic should be loaded at the loader level-->
+		<!-- borhan ui cong js logic should be loaded at the loader level-->
 		<!-- Output any iframe based packaged data -->
 		<script type="text/javascript">
 			// Initialize the iframe with associated setup
-			window.kalturaIframePackageData = <?php
+			window.borhanIframePackageData = <?php
 				$payload = array(
 					// The base player config controls most aspects of player display and sources
 					'playerConfig' => $this->getUiConfResult()->getPlayerConfig(),
@@ -1001,7 +1001,7 @@ HTML;
 					// Skin resources
 					'skinResources' => $this->getSkinResources(),
 					// Api features
-					'apiFeatures' => $wgKalturaApiFeatures,
+					'apiFeatures' => $wgBorhanApiFeatures,
 				);
 				try{
 					// If playlist add playlist and entry playlist entry to payload
@@ -1074,9 +1074,9 @@ HTML;
 					resource = loadSet[i];
 					if( resource.type == 'js' ){
 						// use appendScript for clean errors
-						kWidget.appendScriptUrl( resource.src, checkLoadDone, document );
+						bWidget.appendScriptUrl( resource.src, checkLoadDone, document );
 					} else if ( resource.type == 'css' ){
-						kWidget.appendCssUrl( resource.src, document );
+						bWidget.appendCssUrl( resource.src, document );
 						checkLoadDone();
 					}
 				}
@@ -1087,12 +1087,12 @@ HTML;
 	}
 
 	function getFilePath( $path = null, $basePath = null ){
-		global $wgKalturaPSHtml5SettingsPath;
+		global $wgBorhanPSHtml5SettingsPath;
 
 		if (!empty($basePath)){
 			$path = $basePath . '/' . $path;
 		} elseif( strpos( $path, '{html5ps}' ) === 0 ) {
-			$basePath = realpath( dirname( $wgKalturaPSHtml5SettingsPath ) . '/../ps/' );
+			$basePath = realpath( dirname( $wgBorhanPSHtml5SettingsPath ) . '/../ps/' );
 			$path = str_replace('{html5ps}', $basePath, $path) ;
 		} else {
 			$basePath = realpath( __DIR__ );
@@ -1189,7 +1189,7 @@ HTML;
 		var customResources = <?php echo json_encode( $urlResourceSet ) ?>;
 		// IE8 has some issues with RL, so we load skin assets directly
 		if( isIE8 ){
-			customResources = customResources.concat( kalturaIframePackageData.skinResources );
+			customResources = customResources.concat( borhanIframePackageData.skinResources );
 		}
 		loadCustomResourceIncludes( customResources, function(){
             <?php echo $callbackJS ?>
@@ -1202,35 +1202,35 @@ HTML;
 		ob_start();
 		?>
 		<script>
-		var waitForKWidgetCount = 0;
-		waitForKWidget = function( callback ){
-			waitForKWidgetCount++;
-			if( waitForKWidgetCount > 200 ){
+		var waitForBWidgetCount = 0;
+		waitForBWidget = function( callback ){
+			waitForBWidgetCount++;
+			if( waitForBWidgetCount > 200 ){
 				if( console ){
-					console.log( "Error kWidget never ready" );
+					console.log( "Error bWidget never ready" );
 				}
 				return ;
 			}
-			if( ! window.kWidget ){
+			if( ! window.bWidget ){
 				setTimeout(function(){
-					waitForKWidget( callback );
+					waitForBWidget( callback );
 				}, 5 );
 				return ;
 			}
 			callback();
 		}
-		waitForKWidget( function(){
-			if( kWidget.isUiConfIdHTML5( '<?php echo $uiConfId ?>' ) ){
+		waitForBWidget( function(){
+			if( bWidget.isUiConfIdHTML5( '<?php echo $uiConfId ?>' ) ){
 				loadMw( function(){
 					// Load skin resources after other modules loaded
 					if( isIE8 ){
 						$( mw ).bind( 'EmbedPlayerNewPlayer', function(){
-							loadCustomResourceIncludes(kalturaIframePackageData.skinResources);
+							loadCustomResourceIncludes(borhanIframePackageData.skinResources);
 						});
 					}
 					<?php
 						$this->loadCustomResources(
-							$this->outputKalturaModules() .
+							$this->outputBorhanModules() .
 							'if (window.inlineScript === false){mw.loader.go();}'
 						);
 					?>
@@ -1242,11 +1242,11 @@ HTML;
 					var bodyElement = document.getElementsByTagName('body')[0];
 					bodyElement.innerHTML = '';
 					var container = document.createElement('div');
-					container.id = window.kalturaIframePackageData.playerId + '_container';
+					container.id = window.borhanIframePackageData.playerId + '_container';
 					container.style.cssText = 'width: 100%; height: 100%;';
 					bodyElement.appendChild(container);
-					var playerId = window.kalturaIframePackageData.playerId;
-					kWidget.outputFlashObject(playerId + '_container', <?php echo json_encode($this->getFlashObjectSettings());?>, document);
+					var playerId = window.borhanIframePackageData.playerId;
+					bWidget.outputFlashObject(playerId + '_container', <?php echo json_encode($this->getFlashObjectSettings());?>, document);
 					
 				});
 			}
@@ -1319,11 +1319,11 @@ HTML;
 	</script>
 </head>
 <body>
-<?php echo $this->getKalturaIframeScripts(); ?>
+<?php echo $this->getBorhanIframeScripts(); ?>
 
 <script type="text/javascript">
     var customCSS = <?php echo $customCss ?>;
-    if (['kWidget'] && !window['kWidget'].isMobileDevice() && customCSS){
+    if (['bWidget'] && !window['bWidget'].isMobileDevice() && customCSS){
         var head = document.head || document.getElementsByTagName('head')[0];
         var customStyle = document.createElement('style');
         customStyle.type = 'text/css';
@@ -1371,7 +1371,7 @@ HTML;
 	 * Output a fatal error and exit with error code 1
 	 */
 	private function fatalError( $errorTitle, $errorMsg = false ){
-		global $wgKalturaErrorCacheTime;
+		global $wgBorhanErrorCacheTime;
 		// check for multi line errorTitle array:
 		if( strpos( $errorTitle, "\n" ) !== false ){
 			list( $errorTitle, $errorMsg ) = explode( "\n", $errorTitle);
@@ -1387,9 +1387,9 @@ HTML;
 		ob_start();
 		
 		// Send expire headers
-		// Note: we can't use normal iframeHeader method because it calls the kalturaResultObject
+		// Note: we can't use normal iframeHeader method because it calls the borhanResultObject
 		// constructor that could be the source of the fatalError
-		$this->sendPublicHeaders( $wgKalturaErrorCacheTime );
+		$this->sendPublicHeaders( $wgBorhanErrorCacheTime );
 
 		// Optional errorTitle:
 		if( $errorMsg === false ){

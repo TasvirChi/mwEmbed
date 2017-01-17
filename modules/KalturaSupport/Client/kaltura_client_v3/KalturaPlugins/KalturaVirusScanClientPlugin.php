@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,18 +28,18 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaVirusFoundAction
+class BorhanVirusFoundAction
 {
 	const NONE = 0;
 	const DELETE = 1;
@@ -48,10 +48,10 @@ class KalturaVirusFoundAction
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaVirusScanJobResult
+class BorhanVirusScanJobResult
 {
 	const SCAN_ERROR = 1;
 	const FILE_IS_CLEAN = 2;
@@ -60,10 +60,10 @@ class KalturaVirusScanJobResult
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaVirusScanProfileStatus
+class BorhanVirusScanProfileStatus
 {
 	const DISABLED = 1;
 	const ENABLED = 2;
@@ -71,19 +71,19 @@ class KalturaVirusScanProfileStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaVirusScanEngineType
+class BorhanVirusScanEngineType
 {
 	const CLAMAV_SCAN_ENGINE = "clamAVScanEngine.ClamAV";
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaVirusScanProfileOrderBy
+class BorhanVirusScanProfileOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const UPDATED_AT_ASC = "+updatedAt";
@@ -92,10 +92,10 @@ class KalturaVirusScanProfileOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaVirusScanProfile extends KalturaObjectBase
+class BorhanVirusScanProfile extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -139,28 +139,28 @@ class KalturaVirusScanProfile extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaVirusScanProfileStatus
+	 * @var BorhanVirusScanProfileStatus
 	 */
 	public $status = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaVirusScanEngineType
+	 * @var BorhanVirusScanEngineType
 	 */
 	public $engineType = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaBaseEntryFilter
+	 * @var BorhanBaseEntryFilter
 	 */
 	public $entryFilter;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaVirusFoundAction
+	 * @var BorhanVirusFoundAction
 	 */
 	public $actionIfInfected = null;
 
@@ -168,15 +168,15 @@ class KalturaVirusScanProfile extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaVirusScanProfileListResponse extends KalturaObjectBase
+class BorhanVirusScanProfileListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaVirusScanProfile
+	 * @var array of BorhanVirusScanProfile
 	 * @readonly
 	 */
 	public $objects;
@@ -193,10 +193,10 @@ class KalturaVirusScanProfileListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaParseCaptionAssetJobData extends KalturaJobData
+class BorhanParseCaptionAssetJobData extends BorhanJobData
 {
 	/**
 	 * 
@@ -209,10 +209,10 @@ class KalturaParseCaptionAssetJobData extends KalturaJobData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaVirusScanJobData extends KalturaJobData
+class BorhanVirusScanJobData extends BorhanJobData
 {
 	/**
 	 * 
@@ -231,14 +231,14 @@ class KalturaVirusScanJobData extends KalturaJobData
 	/**
 	 * 
 	 *
-	 * @var KalturaVirusScanJobResult
+	 * @var BorhanVirusScanJobResult
 	 */
 	public $scanResult = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaVirusFoundAction
+	 * @var BorhanVirusFoundAction
 	 */
 	public $virusFoundAction = null;
 
@@ -246,10 +246,10 @@ class KalturaVirusScanJobData extends KalturaJobData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaVirusScanProfileBaseFilter extends KalturaFilter
+abstract class BorhanVirusScanProfileBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -324,7 +324,7 @@ abstract class KalturaVirusScanProfileBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaVirusScanProfileStatus
+	 * @var BorhanVirusScanProfileStatus
 	 */
 	public $statusEqual = null;
 
@@ -338,7 +338,7 @@ abstract class KalturaVirusScanProfileBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaVirusScanEngineType
+	 * @var BorhanVirusScanEngineType
 	 */
 	public $engineTypeEqual = null;
 
@@ -353,22 +353,22 @@ abstract class KalturaVirusScanProfileBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaVirusScanProfileFilter extends KalturaVirusScanProfileBaseFilter
+class BorhanVirusScanProfileFilter extends BorhanVirusScanProfileBaseFilter
 {
 
 }
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaVirusScanProfileService extends KalturaServiceBase
+class BorhanVirusScanProfileService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -376,11 +376,11 @@ class KalturaVirusScanProfileService extends KalturaServiceBase
 	/**
 	 * List virus scan profile objects by filter and pager
 	 * 
-	 * @param KalturaVirusScanProfileFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaVirusScanProfileListResponse
+	 * @param BorhanVirusScanProfileFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanVirusScanProfileListResponse
 	 */
-	function listAction(KalturaVirusScanProfileFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanVirusScanProfileFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -392,17 +392,17 @@ class KalturaVirusScanProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaVirusScanProfileListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanVirusScanProfileListResponse");
 		return $resultObject;
 	}
 
 	/**
-	 * Allows you to add an virus scan profile object and virus scan profile content associated with Kaltura object
+	 * Allows you to add an virus scan profile object and virus scan profile content associated with Borhan object
 	 * 
-	 * @param KalturaVirusScanProfile $virusScanProfile 
-	 * @return KalturaVirusScanProfile
+	 * @param BorhanVirusScanProfile $virusScanProfile 
+	 * @return BorhanVirusScanProfile
 	 */
-	function add(KalturaVirusScanProfile $virusScanProfile)
+	function add(BorhanVirusScanProfile $virusScanProfile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "virusScanProfile", $virusScanProfile->toParams());
@@ -411,7 +411,7 @@ class KalturaVirusScanProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaVirusScanProfile");
+		$this->client->validateObjectType($resultObject, "BorhanVirusScanProfile");
 		return $resultObject;
 	}
 
@@ -419,7 +419,7 @@ class KalturaVirusScanProfileService extends KalturaServiceBase
 	 * Retrieve an virus scan profile object by id
 	 * 
 	 * @param int $virusScanProfileId 
-	 * @return KalturaVirusScanProfile
+	 * @return BorhanVirusScanProfile
 	 */
 	function get($virusScanProfileId)
 	{
@@ -430,7 +430,7 @@ class KalturaVirusScanProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaVirusScanProfile");
+		$this->client->validateObjectType($resultObject, "BorhanVirusScanProfile");
 		return $resultObject;
 	}
 
@@ -438,10 +438,10 @@ class KalturaVirusScanProfileService extends KalturaServiceBase
 	 * Update exisitng virus scan profile, it is possible to update the virus scan profile id too
 	 * 
 	 * @param int $virusScanProfileId 
-	 * @param KalturaVirusScanProfile $virusScanProfile Id
-	 * @return KalturaVirusScanProfile
+	 * @param BorhanVirusScanProfile $virusScanProfile Id
+	 * @return BorhanVirusScanProfile
 	 */
-	function update($virusScanProfileId, KalturaVirusScanProfile $virusScanProfile)
+	function update($virusScanProfileId, BorhanVirusScanProfile $virusScanProfile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "virusScanProfileId", $virusScanProfileId);
@@ -451,7 +451,7 @@ class KalturaVirusScanProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaVirusScanProfile");
+		$this->client->validateObjectType($resultObject, "BorhanVirusScanProfile");
 		return $resultObject;
 	}
 
@@ -459,7 +459,7 @@ class KalturaVirusScanProfileService extends KalturaServiceBase
 	 * Mark the virus scan profile as deleted
 	 * 
 	 * @param int $virusScanProfileId 
-	 * @return KalturaVirusScanProfile
+	 * @return BorhanVirusScanProfile
 	 */
 	function delete($virusScanProfileId)
 	{
@@ -470,7 +470,7 @@ class KalturaVirusScanProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaVirusScanProfile");
+		$this->client->validateObjectType($resultObject, "BorhanVirusScanProfile");
 		return $resultObject;
 	}
 
@@ -496,32 +496,32 @@ class KalturaVirusScanProfileService extends KalturaServiceBase
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaVirusScanClientPlugin extends KalturaClientPlugin
+class BorhanVirusScanClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaVirusScanProfileService
+	 * @var BorhanVirusScanProfileService
 	 */
 	public $virusScanProfile = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->virusScanProfile = new KalturaVirusScanProfileService($client);
+		$this->virusScanProfile = new BorhanVirusScanProfileService($client);
 	}
 
 	/**
-	 * @return KalturaVirusScanClientPlugin
+	 * @return BorhanVirusScanClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaVirusScanClientPlugin($client);
+		return new BorhanVirusScanClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

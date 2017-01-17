@@ -1,6 +1,6 @@
 <?php
 
-class KalturaCache {
+class BorhanCache {
 
 	var $adapter = null;
 	var $defaultExpiry = null;

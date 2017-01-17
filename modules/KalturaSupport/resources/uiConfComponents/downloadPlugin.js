@@ -25,9 +25,9 @@
 			});
 		},
 		downloadMedia: function() {
-			var ks =  this.getKalturaClient().getKs();
-			var downloadUrl = mw.getMwEmbedPath() + '/modules/KalturaSupport/download.php/wid/';
-				downloadUrl += this.getPlayer().kwidgetid + '/uiconf_id/' + this.getPlayer().kuiconfid;
+			var ks =  this.getBorhanClient().getKs();
+			var downloadUrl = mw.getMwEmbedPath() + '/modules/BorhanSupport/download.php/wid/';
+				downloadUrl += this.getPlayer().bwidgetid + '/uiconf_id/' + this.getPlayer().kuiconfid;
 				downloadUrl += '/entry_id/' + this.getPlayer().kentryid + '?forceDownload=true';
 				downloadUrl += '&downloadName=' + encodeURIComponent(this.getConfig('downloadName'));
 				if( this.getConfig('flavorParamsId') ){

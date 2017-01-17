@@ -1,5 +1,5 @@
 /*
- * The "kaltura player" embedPlayer interface for multi DRM
+ * The "borhan player" embedPlayer interface for multi DRM
  */
 (function (mw, $, videojs) {
 	"use strict";
@@ -344,14 +344,14 @@
 			return manifestLoadedDeferred;
 		},
 		getDrmConfig: function(){
-			var drmConfig = this.getKalturaConfig('multiDrm');
+			var drmConfig = this.getBorhanConfig('multiDrm');
 			//Check for user defined DRM server else use uDRM
-			var overrideDrmServerURL = mw.getConfig('Kaltura.overrideDrmServerURL');
+			var overrideDrmServerURL = mw.getConfig('Borhan.overrideDrmServerURL');
 			if (overrideDrmServerURL) {
 				drmConfig.widevineLicenseServerURL = overrideDrmServerURL;
 				drmConfig.playReadyLicenseServerURL = overrideDrmServerURL;
 			} else {
-				var licenseBaseUrl = mw.getConfig('Kaltura.UdrmServerURL');
+				var licenseBaseUrl = mw.getConfig('Borhan.UdrmServerURL');
 				if (!licenseBaseUrl) {
 					this.log('Error:: failed to retrieve UDRM license URL ');
 				}
@@ -965,7 +965,7 @@
 		},
 
 		/**
-		 * onPlay function callback from the kaltura flash player directly call the
+		 * onPlay function callback from the borhan flash player directly call the
 		 * parent_play
 		 */
 		_onplay: function () {

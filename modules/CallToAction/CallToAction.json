@@ -7,7 +7,7 @@
             "mw.KBaseScreen"
         ],
         "templates": "../CallToAction/templates/action-buttons.tmpl.html",
-        "kalturaPluginName": "actionButtons"
+        "borhanPluginName": "actionButtons"
     },
     "actionForm": {
         "scripts": "resources/actionForm.js",
@@ -18,6 +18,6 @@
             "mw.KBaseScreen"
         ],
         "templates": "../CallToAction/templates/collect-form.tmpl.html",
-        "kalturaPluginName": "actionForm"
+        "borhanPluginName": "actionForm"
     }
 }

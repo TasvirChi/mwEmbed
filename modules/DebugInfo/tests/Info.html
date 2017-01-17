@@ -1,21 +1,21 @@
 <html>
 <head>
     <title>DebugInfo Demo</title>
-    <script type="text/javascript" src="/html5.kaltura/mwEmbed/tests/qunit/qunit-bootstrap.js"></script>
-    <script type="text/javascript" src="/html5.kaltura/mwEmbed/mwEmbedLoader.php"></script>
-    <script type="text/javascript" src="/html5.kaltura/mwEmbed/docs/js/doc-bootstrap.js"></script>
+    <script type="text/javascript" src="/html5.borhan/mwEmbed/tests/qunit/qunit-bootstrap.js"></script>
+    <script type="text/javascript" src="/html5.borhan/mwEmbed/mwEmbedLoader.php"></script>
+    <script type="text/javascript" src="/html5.borhan/mwEmbed/docs/js/doc-bootstrap.js"></script>
 
 </head>
 <body>
 <h1>DebugInfo Demo</h1>
-<div id="kaltura_player" style="width: 585px; height: 330px;float: left;"></div>
+<div id="borhan_player" style="width: 585px; height: 330px;float: left;"></div>
 <br style="clear: both;" /><br />
 
 <script>
 
 
 
-    //    mw.setConfig( 'Kaltura.ServiceUrl' , 'http://lbd.kaltura.com' );
+    //    mw.setConfig( 'Borhan.ServiceUrl' , 'http://lbd.borhan.com' );
 
     /*
     var mediaProxyEntry = {
@@ -23,25 +23,25 @@
         'entry':{
             'id': "key_1",
             'name': "My ToolKit Video",
-            "description": "Kaltura Player Toolkit Description.",
+            "description": "Borhan Player Toolkit Description.",
             "plays":1234,
             "views":47332,
             "duration":114,
             "createdAt":1379965720,
-            "thumbnailUrl": 'http://cdnbakmi.kaltura.com/p/243342/sp/24334200/thumbnail/entry_id/1_sf5ovm7u/version/100003/width/640'
+            "thumbnailUrl": 'http://cdnbakmi.borhan.com/p/243342/sp/24334200/thumbnail/entry_id/1_sf5ovm7u/version/100003/width/640'
         },
         'entryCuePoints': [{
             "protocolType": 1,
             "adType": 1,
             "cuePointType": "adCuePoint.Ad",
             "startTime": 4936,
-            "sourceUrl": "http://projects.kaltura.com/mdale/hotelVastAd.xml"
+            "sourceUrl": "http://projects.borhan.com/mdale/hotelVastAd.xml"
         }],
         "contextData":{
             'isCountryRestricted': false
         },
         'entryMetadata': {
-            'thumbSlicesUrl': 'http://cdnbakmi.kaltura.com/p/243342/sp/24334200/thumbnail/entry_id/1_sf5ovm7u/version/100003/width/100/vid_slices/100',
+            'thumbSlicesUrl': 'http://cdnbakmi.borhan.com/p/243342/sp/24334200/thumbnail/entry_id/1_sf5ovm7u/version/100003/width/100/vid_slices/100',
             'AgeGroup': "16"
         }
     }
@@ -70,8 +70,8 @@
     ]);*/
 
     var hlsjs=true;
-    kWidget.featureConfig({
-        'targetId': 'kaltura_player',
+    bWidget.featureConfig({
+        'targetId': 'borhan_player',
         'wid': '_931702',
         'uiconf_id' : '21099702',
         'flashvars': {

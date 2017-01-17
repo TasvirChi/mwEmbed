@@ -8,7 +8,7 @@
 			order: 41,
 			displayImportance: 'low',
 			align: "right",
-			cssClass: "kaltura-logo",
+			cssClass: "borhan-logo",
 			href: null,
 			title: null,
 			img: null
@@ -45,9 +45,9 @@
 							}).append($img)
 					);
 			}
-			// remove Kaltura logo image if we have a custom logo icon
+			// remove Borhan logo image if we have a custom logo icon
 			if (this.getConfig('img') != null) {
-				this.$el.removeClass('kaltura-logo');
+				this.$el.removeClass('borhan-logo');
 			}
 			return this.$el;
 		},

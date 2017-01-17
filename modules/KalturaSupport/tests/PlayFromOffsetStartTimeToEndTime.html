@@ -1,23 +1,23 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Kdp Api Play From/To attributes</title>
+		<title>Bdp Api Play From/To attributes</title>
 		<script type="text/javascript" src="../../../tests/qunit/qunit-bootstrap.js"></script>
 		<script type="text/javascript" src="../../../mwEmbedLoader.php"></script>
 		<script type="text/javascript" src="../../../docs/js/doc-bootstrap.js"></script>
 		<script type="text/javascript">
 		// disable adaptive:
-		mw.setConfig('Kaltura.UseAppleAdaptive', false );
+		mw.setConfig('Borhan.UseAppleAdaptive', false );
 		
-		var kdp;
+		var bdp;
 		function jsCallbackReady( playerId ) {
 			console.log('jsCallback Ready', playerId );
-			kdp = $( '#' + playerId )[0];
+			bdp = $( '#' + playerId )[0];
 
-			kdp.addJsListener("playerPlayed", "runTest");
+			bdp.addJsListener("playerPlayed", "runTest");
 		}
 		function runTest() {
-			console.log( 'play time: ' + kdp.evaluate('{video.player.currentTime}') );
+			console.log( 'play time: ' + bdp.evaluate('{video.player.currentTime}') );
 			console.log( 'start time: ' + toSeconds( $("#startTime").val() ) );
 		}
 		
@@ -32,10 +32,10 @@
 				startTime = toSeconds(startTime);
 				endTime = toSeconds(endTime);
 
-				kdp.setKDPAttribute("mediaProxy", "mediaPlayFrom", startTime );
-				kdp.setKDPAttribute("mediaProxy", "mediaPlayTo", endTime );
+				bdp.setBDPAttribute("mediaProxy", "mediaPlayFrom", startTime );
+				bdp.setBDPAttribute("mediaProxy", "mediaPlayTo", endTime );
 
-				kdp.sendNotification("doPlay");
+				bdp.sendNotification("doPlay");
 			});
 		});
 
@@ -60,19 +60,19 @@
 			return time;
 		}
 		</script>
-		<!-- qunit-kaltura must come after qunit-bootstrap.js and after mwEmbedLoader.php and after any jsCallbackReady stuff-->
-	<script type="text/javascript" src="resources/qunit-kaltura-bootstrap.js"></script>
+		<!-- qunit-borhan must come after qunit-bootstrap.js and after mwEmbedLoader.php and after any jsCallbackReady stuff-->
+	<script type="text/javascript" src="resources/qunit-borhan-bootstrap.js"></script>
 	</head>
 	<body>
 		<h1>Play From Start Time To End Time</h1>
-		<div id="kaltura_player" style="width:400px;height:330px"></div>
+		<div id="borhan_player" style="width:400px;height:330px"></div>
 		<span id="kdoc-more-desc">
 			<br>This demo highlights a preview starting at 10 seconds playing content till 30 seconds in the media timeline. You 
 			can adjust in and out points in the customize tab.
 		</span>
 		<script>
-			kWidget.featureConfig({
-				'targetId': 'kaltura_player',
+			bWidget.featureConfig({
+				'targetId': 'borhan_player',
 				'wid': '_243342',
 				'uiconf_id' : '12905712',
 				'entry_id' : '0_uka1msg4',
@@ -80,7 +80,7 @@
 					'docPlayToFrom': false,
 					'mediaProxy.mediaPlayFrom': 10,
 					'mediaProxy.mediaPlayTo': 30,
-					'Kaltura.UseAppleAdaptive': false
+					'Borhan.UseAppleAdaptive': false
 				}
 			});
 		</script>
@@ -91,10 +91,10 @@
 		
 
 		
-		<layout id="default player dark" skinPath="/content/uiconf/kaltura/kmc/appstudio/kdp3/dragonfly/skin/skin_3.5.5/skin.swf‬">
+		<layout id="default player dark" skinPath="/content/uiconf/borhan/bmc/appstudio/bdp3/dragonfly/skin/skin_3.5.5/skin.swf‬">
   <HBox id="topLevel" width="100%" height="100%">
     <VBox id="player" width="100%" height="100%" styleName="black">
-      <Plugin id="kalturaMix" width="0%" height="0%" includeInLayout="false" loadingPolicy="onDemand"/>
+      <Plugin id="borhanMix" width="0%" height="0%" includeInLayout="false" loadingPolicy="onDemand"/>
       <Plugin id="statistics" width="0%" height="0%" includeInLayout="false"/>
       
       <Canvas height="100%" width="100%" id="PlayerHolder" styleName="black">
@@ -150,15 +150,15 @@
 
           <VolumeBar id="volumeBar" styleName="volumeBtn" width="20" height="20" buttonType="iconButton" tooltip="Change volume" color1="11184810" color2="16777215" color3="16777215" color4="11184810" color5="0" font="Arial"/>
           <FlavorCombo id="flavorComboControllerScreen"  width="80" streamerType="{configProxy.flashvars.streamerType}"
-		   flavorDataProvider="{mediaProxy.kalturaMediaFlavorArray}" autoString="Auto"
-		   styleName="_kdp" color1="0xFF0000" hdOn="HD On" hdOff="HD Off" selectedMessage=""
+		   flavorDataProvider="{mediaProxy.borhanMediaFlavorArray}" autoString="Auto"
+		   styleName="_bdp" color1="0xFF0000" hdOn="HD On" hdOff="HD Off" selectedMessage=""
 		   autoMessage="Automatically switches between bitrates"
 		   preferedFlavorBR="{mediaProxy.preferedFlavorBR}" tooltip="{flavorComboControllerScreen.selectedMessage}"/>
           <Button id="shareBtnControllerScreen" buttonType="iconButton" kClick="sendNotification('doGigya')" height="22" styleName="controllerScreen" focusRectPadding="0" icon="shareIcon" k_buttonType="buttonIconControllerArea" tooltip="share with friends" color1="11184810" color2="16777215" color3="16777215" color4="11184810" color5="0" font="Arial"/>
           <Button id="fullScreenBtnControllerScreen" command="fullScreen" buttonType="iconButton" height="22" styleName="controllerScreen" icon="openFullScreenIcon" selectedUpIcon="closeFullScreenIcon" selectedOverIcon="closeFullScreenIcon" selectedDownIcon="closeFullScreenIcon" selectedDisabledIcon="closeFullScreenIcon" focusRectPadding="0" k_buttonType="buttonIconControllerArea" tooltip="Toggle fullscreen" color1="11184810" color2="16777215" color3="16777215" color4="11184810" color5="0" font="Arial"/>
         </HBox>
         <Spacer width="9"/>
-        <Button id="kalturaLogo" height="50" width="100" kClick="navigate('http://www.kaltura.com')" styleName="controllerScreen" icon="kalturaLogo"/>
+        <Button id="borhanLogo" height="50" width="100" kClick="navigate('http://www.borhan.com')" styleName="controllerScreen" icon="borhanLogo"/>
         <Spacer width="10"/>
       </HBox>
     </VBox>

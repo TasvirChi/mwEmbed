@@ -2,6 +2,6 @@
     "mw.Youbora": {
         "scripts": "resources/mw.Youbora.js",
         "dependencies": ["mw.KBasePlugin"],
-        "kalturaPluginName": "youbora"
+        "borhanPluginName": "youbora"
     }
 }

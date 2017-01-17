@@ -50,7 +50,7 @@
 			this.extendApi();
 		},
 		/**
-		 * Extend JS API to match the KDP
+		 * Extend JS API to match the BDP
 		 */
 		extendApi: function() {
 			var _this = this;
@@ -252,8 +252,8 @@
                                 _this.addPoster();
                             } else {
                                 embedPlayer.layoutBuilder.displayAlert({
-                                    title: embedPlayer.getKalturaMsg('ks-LIVE-STREAM-OFFLINE-TITLE'),
-                                    message: embedPlayer.getKalturaMsg('ks-LIVE-STREAM-OFFLINE'),
+                                    title: embedPlayer.getBorhanMsg('ks-LIVE-STREAM-OFFLINE-TITLE'),
+                                    message: embedPlayer.getBorhanMsg('ks-LIVE-STREAM-OFFLINE'),
                                     keepOverlay: true,
                                     noButtons: true,
                                     props: {
@@ -447,7 +447,7 @@
 
 			var service = 'liveStream';
 			//type liveChannel
-			if ( embedPlayer.kalturaPlayerMetaData && embedPlayer.kalturaPlayerMetaData.type == 8 ) {
+			if ( embedPlayer.borhanPlayerMetaData && embedPlayer.borhanPlayerMetaData.type == 8 ) {
 				service = 'liveChannel';
 			}
 			var protocol = 'hls';
@@ -465,7 +465,7 @@
             if ( mw.isIOSAbove7() ) {
                 requestObj.rnd = Math.random();
             }
-			_this.getKalturaClient().doRequest( requestObj, function( data ) {
+			_this.getBorhanClient().doRequest( requestObj, function( data ) {
 				var onAirStatus = false;
 				if ( data === true ) {
 					onAirStatus = true;
@@ -480,9 +480,9 @@
 			} );
 		},
 
-		getKalturaClient: function() {
+		getBorhanClient: function() {
 			if( ! this.kClient ) {
-				this.kClient = mw.kApiGetPartnerClient( this.embedPlayer.kwidgetid );
+				this.kClient = mw.kApiGetPartnerClient( this.embedPlayer.bwidgetid );
 			}
 			return this.kClient;
 		},

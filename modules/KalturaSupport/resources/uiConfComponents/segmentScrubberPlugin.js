@@ -9,7 +9,7 @@
 			this.bind('playerReady', function(){
 				_this.updateTimeOffsets();
 			});
-			this.bind('Kaltura_SetKDPAttribute', function(e, componentName, property){
+			this.bind('Borhan_SetBDPAttribute', function(e, componentName, property){
 				if( componentName == "mediaProxy" &&
 					( property == 'mediaPlayFrom' || property =='mediaPlayTo' ) ){
 					_this.updateTimeOffsets();

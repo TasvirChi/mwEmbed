@@ -2,7 +2,7 @@
 
 	mw.PluginManager.add( 'nativeCallout', mw.KBasePlugin.extend({
 
-		// Defaults for KalturaPlay
+		// Defaults for BorhanPlay
 		defaultConfig: {
 			androidApplinkBaseURL: 	"https://kgit.html5video.org/kplay?",
 			iosApplinkBaseURL: 		"https://kgit.html5video.org/kplay?",
@@ -56,7 +56,7 @@
 			var _this = this;
 			
 			var isFriendlyIframe = mw.getConfig('EmbedPlayer.IsFriendlyIframe');
-			var embedFrameURL = isFriendlyIframe ? kWidget.iframeUrls[ this.embedPlayer.id ] : location.href;
+			var embedFrameURL = isFriendlyIframe ? bWidget.iframeUrls[ this.embedPlayer.id ] : location.href;
 			var calloutURL = _this.applinkBase + "embedFrameURL=" + encodeURIComponent(embedFrameURL);
 
 			if (isFriendlyIframe) {

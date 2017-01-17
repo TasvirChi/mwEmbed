@@ -37,7 +37,7 @@
 		adDuration: null,
 		demoStartTime: null,
 
-		// flag for using a chromeless player - move control to KDP DoubleClick plugin
+		// flag for using a chromeless player - move control to BDP DoubleClick plugin
 		isChromeless: false,
 		//flag for using native mobile IMA SDK
 		isNativeSDK: false,
@@ -102,8 +102,8 @@
 			if (mw.getConfig( 'localizationCode' )){
 				_this.localizationCode = mw.getConfig( 'localizationCode' );
 			}
-			// copy flashVars to KDP to support Chromeless player plugin
-			this.copyFlashvarsToKDP(embedPlayer, pluginName);
+			// copy flashVars to BDP to support Chromeless player plugin
+			this.copyFlashvarsToBDP(embedPlayer, pluginName);
 			this.embedPlayer = embedPlayer;
 			// Inherit BaseAdPlugin
 			mw.inherit( this, new mw.BaseAdPlugin( embedPlayer, callback ) );
@@ -154,16 +154,16 @@
 				return;
 			}
 
-			if ( this.embedPlayer.getRawKalturaConfig('noticeMessage')){
-				embedPlayer.setKalturaConfig( 'doubleClick', 'enableCountDown',true );
-				embedPlayer.setKalturaConfig( 'doubleClick', 'countdownText',this.embedPlayer.getRawKalturaConfig('noticeMessage','text') );
+			if ( this.embedPlayer.getRawBorhanConfig('noticeMessage')){
+				embedPlayer.setBorhanConfig( 'doubleClick', 'enableCountDown',true );
+				embedPlayer.setBorhanConfig( 'doubleClick', 'countdownText',this.embedPlayer.getRawBorhanConfig('noticeMessage','text') );
 			}
 			if ( this.getConfig( 'enableCountDown' ) === true){
 				if ( !_this.getConfig( 'countdownText' ) ){
-					embedPlayer.setKalturaConfig( 'doubleClick', 'countdownText','Advertisement: Video will resume in {sequenceProxy.timeRemaining} seconds');
+					embedPlayer.setBorhanConfig( 'doubleClick', 'countdownText','Advertisement: Video will resume in {sequenceProxy.timeRemaining} seconds');
 				}
 			}else{
-				embedPlayer.setKalturaConfig( 'doubleClick', 'countdownText',null);
+				embedPlayer.setBorhanConfig( 'doubleClick', 'countdownText',null);
 			}
 
 			if ( this.trackCuePoints ){
@@ -180,7 +180,7 @@
 					mw.log("DoubleClick::chromeless volumeChanged: " + percent );
 					_this.embedPlayer.setPlayerElementVolume( percent );
 				});
-				_this.embedPlayer.bindHelper( 'Kaltura_SendNotification' + this.bindPostfix, function(event, notificationName, notificationData){
+				_this.embedPlayer.bindHelper( 'Borhan_SendNotification' + this.bindPostfix, function(event, notificationName, notificationData){
 					if (notificationName === "doPause"){
 						_this.embedPlayer.getPlayerElement().pause();
 					}
@@ -209,12 +209,12 @@
 			var onImaLoadSuccess = function() {
 				_this.imaLoaded = true;
 				_this.embedPlayer.unbindHelper('prePlayAction' + _this.bindPostfix);
-				// Determine if we are in managed or kaltura point based mode.
+				// Determine if we are in managed or borhan point based mode.
 				if (_this.localizationCode) {
 					google.ima.settings.setLocale(_this.localizationCode);
 				}
 				// set player type and version
-				google.ima.settings.setPlayerType("kaltura/mwEmbed");
+				google.ima.settings.setPlayerType("borhan/mwEmbed");
 				google.ima.settings.setPlayerVersion(mw.getConfig("version"));
 				google.ima.settings.setVpaidMode(google.ima.ImaSdkSettings.VpaidMode.ENABLED);
 
@@ -281,7 +281,7 @@
 		},
 		handleCuePoints: function(){
 			var _this = this;
-			$( this.embedPlayer ).bind('KalturaSupport_AdOpportunity', function( event, cuePointWrapper ) {
+			$( this.embedPlayer ).bind('BorhanSupport_AdOpportunity', function( event, cuePointWrapper ) {
 				if( cuePointWrapper.cuePoint.protocolType == 1 && _this.adCuePoints.indexOf(cuePointWrapper.cuePoint.id) === -1 ){ // Check for  protocolType == 1 ( type = vast )
 					if ( !_this.overrideCuePointWithPreRoll ) {
 						_this.adTagUrl = cuePointWrapper.cuePoint.sourceUrl;
@@ -313,7 +313,7 @@
 		},
 		parseAdTagUrlParts: function(embedPlayer, pluginName){
 			//Handle adTagUrl separately - using postProcessConfig on the entire ad tag breaks doubleclick functionality
-			var adTagUrl = embedPlayer.getRawKalturaConfig( pluginName, "adTagUrl" );
+			var adTagUrl = embedPlayer.getRawBorhanConfig( pluginName, "adTagUrl" );
 			if ( adTagUrl ) {
 				try{
 					//Break url to base and query string.
@@ -350,7 +350,7 @@
 				} catch (e) {
 					// in case of error - fallback for fully escaped and evaluated adTagUrl string
 					mw.log("failed to evaluate adTagUrl parts, using fully escaped/evaluated adTagUrl");
-					var adTagUrl = embedPlayer.getKalturaConfig(pluginName);
+					var adTagUrl = embedPlayer.getBorhanConfig(pluginName);
 					if ( adTagUrl ){
 						this.adTagUrl = adTagUrl; // escape adTagUrl to prevent Flash string parsing error
 						this.cust_params = "";
@@ -358,8 +358,8 @@
 				}
 			}
 		},
-		copyFlashvarsToKDP: function(embedPlayer, pluginName){
-			var flashVars = embedPlayer.getKalturaConfig(pluginName);
+		copyFlashvarsToBDP: function(embedPlayer, pluginName){
+			var flashVars = embedPlayer.getBorhanConfig(pluginName);
 
 			this.parseAdTagUrlParts(embedPlayer, pluginName);
 			//Escape adTagUrl to prevent flash string parsing error
@@ -373,9 +373,9 @@
 			}
 			// add player version as a Flashvar to be used in playerVersion property of ImaSdkSettings
 			flashVars['playerVersion'] = mw.getConfig("version");
-			embedPlayer.setKalturaConfig('kdpVars', 'doubleClick', flashVars);
+			embedPlayer.setBorhanConfig('bdpVars', 'doubleClick', flashVars);
 			if ( this.localizationCode ){
-				embedPlayer.setKalturaConfig('kdpVars', 'localizationCode', this.localizationCode);
+				embedPlayer.setBorhanConfig('bdpVars', 'localizationCode', this.localizationCode);
 			}
 		},
 		/**
@@ -523,7 +523,7 @@
 					_this.requestAds("postroll");
 				}
 			});
-			_this.embedPlayer.bindHelper('Kaltura_SendNotification' + this.bindPostfix, function (event, notificationName, notificationData) {
+			_this.embedPlayer.bindHelper('Borhan_SendNotification' + this.bindPostfix, function (event, notificationName, notificationData) {
 				if (_this.playingLinearAd) {
 					if ( notificationName === "doPause" ) {
 						_this.pauseAd(true);
@@ -594,7 +594,7 @@
 
 			// due to IMA removal of custom playback on Android devices, we must get a user gesture for each new entry in order to show prerolls. Preventing auto play after change media in such cases.
 			if ( !_this.isNativeSDK && _this.embedPlayer.playlist && mw.isMobileDevice() && mw.isAndroid() ){
-				_this.embedPlayer.setKalturaConfig( 'playlistAPI', 'autoPlay',false );
+				_this.embedPlayer.setBorhanConfig( 'playlistAPI', 'autoPlay',false );
 				_this.embedPlayer.autoplay = false;
 
 				_this.embedPlayer.bindHelper('prePlayAction', function (event, prePlay) {
@@ -746,10 +746,10 @@
 		},
 		addSkipSupport: function(){
 			var _this = this;
-			if ( this.embedPlayer.getRawKalturaConfig('skipBtn') && this.embedPlayer.getRawKalturaConfig('skipBtn', 'plugin') && this.embedPlayer.getVideoHolder().find(".ad-skip-btn").length === 0){
+			if ( this.embedPlayer.getRawBorhanConfig('skipBtn') && this.embedPlayer.getRawBorhanConfig('skipBtn', 'plugin') && this.embedPlayer.getVideoHolder().find(".ad-skip-btn").length === 0){
 				var label = "Skip Ad";
-				if( this.embedPlayer.getKalturaConfig( 'skipBtn', 'label' ) ){
-					label = this.embedPlayer.getKalturaConfig( 'skipBtn', 'label' );
+				if( this.embedPlayer.getBorhanConfig( 'skipBtn', 'label' ) ){
+					label = this.embedPlayer.getBorhanConfig( 'skipBtn', 'label' );
 				}
 				this.embedPlayer.getVideoHolder().append(
 					$('<span />')
@@ -772,7 +772,7 @@
 							return false;
 						})
 				);
-				if ( this.embedPlayer.getRawKalturaConfig('skipNotice') && this.embedPlayer.getVideoHolder().find(".ad-skip-label").length === 0){
+				if ( this.embedPlayer.getRawBorhanConfig('skipNotice') && this.embedPlayer.getVideoHolder().find(".ad-skip-label").length === 0){
 					this.embedPlayer.getVideoHolder().append(
 						$('<span />')
 							.addClass( 'ad-component ad-skip-label' )
@@ -788,15 +788,15 @@
 			});
 		},
         resumeSkipSupport: function () {
-            if (this.embedPlayer.getKalturaConfig('skipBtn', 'skipOffset')) {
+            if (this.embedPlayer.getBorhanConfig('skipBtn', 'skipOffset')) {
                 var timePassed = (this.duration - this.adPreviousTimeLeft) * 1000;
-                this.startSkipTimeout((this.embedPlayer.getKalturaConfig('skipBtn', 'skipOffset') * 1000) - timePassed);
+                this.startSkipTimeout((this.embedPlayer.getBorhanConfig('skipBtn', 'skipOffset') * 1000) - timePassed);
             }
         },
         showSkipBtn: function () {
-            if (this.embedPlayer.getKalturaConfig('skipBtn', 'skipOffset')) {
+            if (this.embedPlayer.getBorhanConfig('skipBtn', 'skipOffset')) {
                 $(".ad-skip-label").show();
-                this.startSkipTimeout(parseFloat(this.embedPlayer.getKalturaConfig('skipBtn', 'skipOffset') * 1000));
+                this.startSkipTimeout(parseFloat(this.embedPlayer.getBorhanConfig('skipBtn', 'skipOffset') * 1000));
             } else {
                 $(".ad-skip-btn").show();
                 $(".ad-skip-label").hide();
@@ -883,7 +883,7 @@
 			adTagUrl = _this.addAdRequestParams( adTagUrl );
 
 			// Update the local lastRequestedAdTagUrl for debug and audits
-			this.embedPlayer.setKDPAttribute( this.pluginName, 'requestedAdTagUrl', adTagUrl );
+			this.embedPlayer.setBDPAttribute( this.pluginName, 'requestedAdTagUrl', adTagUrl );
 
 			// Create ad request object.
 			var adsRequest = {};
@@ -912,11 +912,11 @@
 			adsRequest.nonLinearAdSlotHeight = size.height;
 
 
-			// if on chromeless - reuest ads using the KDP DoubleClick plugin instead of the JS plugin
+			// if on chromeless - reuest ads using the BDP DoubleClick plugin instead of the JS plugin
 			if (this.isChromeless){
 				adsRequest.adTagUrl = encodeURIComponent(adsRequest.adTagUrl);
 				this.embedPlayer.getPlayerElement().sendNotification( 'requestAds', adsRequest );
-				mw.log( "DoubleClick::requestAds: Chromeless player request ad from KDP plugin");
+				mw.log( "DoubleClick::requestAds: Chromeless player request ad from BDP plugin");
 				var timeout = this.getConfig("adsManagerLoadedTimeout") || (mw.isChromeCast() ? 15000 : 5000);
 				this.chromelessAdManagerLoadedId = setTimeout(function(){
 					mw.log( "DoubleClick::Error: AdsManager failed to load by Flash plugin after " + timeout + " seconds.");
@@ -1533,7 +1533,7 @@
 			 * Handle any send notification events:
 			 */
 
-			embedPlayer.bindHelper( 'Kaltura_SendNotification' + this.bindPostfix, function(event, notificationName, notificationData){
+			embedPlayer.bindHelper( 'Borhan_SendNotification' + this.bindPostfix, function(event, notificationName, notificationData){
 				// Only take local api actions if in an Ad.
 				if( _this.adActive ){
 					mw.log("DoubleClick:: sendNotification: " + notificationName );
@@ -1618,9 +1618,9 @@
 
 		updateRemainingAdTime: function(remainTime){
 			if ( this.embedPlayer.getInterface().find(".ad-skip-label").length ){
-				var offsetRemaining = Math.max(Math.ceil(parseFloat(this.embedPlayer.getKalturaConfig( 'skipBtn', 'skipOffset' )) - remainTime), 0);
+				var offsetRemaining = Math.max(Math.ceil(parseFloat(this.embedPlayer.getBorhanConfig( 'skipBtn', 'skipOffset' )) - remainTime), 0);
 				this.embedPlayer.adTimeline.updateSequenceProxy( 'skipOffsetRemaining', offsetRemaining );
-				this.embedPlayer.getInterface().find(".ad-skip-label").text(this.embedPlayer.evaluate( this.embedPlayer.getRawKalturaConfig('skipNotice','text')) );
+				this.embedPlayer.getInterface().find(".ad-skip-label").text(this.embedPlayer.evaluate( this.embedPlayer.getRawBorhanConfig('skipNotice','text')) );
 			}
 		},
 		// Handler for various ad errors.
@@ -1709,7 +1709,7 @@
 		 */
 		getConfig: function( attrName ){
 			// always get the config from the embedPlayer so that is up-to-date
-			return this.embedPlayer.getKalturaConfig( this.pluginName, attrName );
+			return this.embedPlayer.getBorhanConfig( this.pluginName, attrName );
 		},
 		destroy:function(){
 			// remove any old bindings:

@@ -30,9 +30,9 @@
                 return data;
             }
             if ( raw ) {
-                return this.embedPlayer.getRawKalturaConfig( "proxyData" , attr );
+                return this.embedPlayer.getRawBorhanConfig( "proxyData" , attr );
             }
-            return this.embedPlayer.getKalturaConfig( "proxyData" , attr );
+            return this.embedPlayer.getBorhanConfig( "proxyData" , attr );
         },
 
         getInitObj: function( attr, raw ) {
@@ -40,7 +40,7 @@
         },
 
         getRequestUrl: function(){
-            var baseUrl = this.getConfig( "restApiBaseUrl" ) || this.getPlayer().getKalturaConfig( null, 'TVPAPIBaseUrl' );
+            var baseUrl = this.getConfig( "restApiBaseUrl" ) || this.getPlayer().getBorhanConfig( null, 'TVPAPIBaseUrl' );
             var restMethod = this.restMethod;
             var url;
             if (baseUrl !== "" && restMethod !== "") {

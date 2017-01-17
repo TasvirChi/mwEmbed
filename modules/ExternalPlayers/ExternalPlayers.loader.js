@@ -9,9 +9,9 @@
 		
 	});
 
-	// Setup the check for KalturaSupport_AddExternalMedia event
+	// Setup the check for BorhanSupport_AddExternalMedia event
 	$( mw ).bind( 'EmbedPlayerNewPlayer', function(event, embedPlayer){
-		$( embedPlayer ).bind( 'KalturaSupport_AddExternalMedia', function(event, entryMeta){
+		$( embedPlayer ).bind( 'BorhanSupport_AddExternalMedia', function(event, entryMeta){
 			switch( entryMeta.externalSourceType ){
 				case 'YouTube':
 					embedPlayer.mediaElement.tryAddSource( 

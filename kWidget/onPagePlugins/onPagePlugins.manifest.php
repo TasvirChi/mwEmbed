@@ -2,7 +2,7 @@
 return array(
 	'omnitureOnPage' => array(
 		'description' => 'The Omniture s_code config version of the plugin, allows you to connect the Omniture plugin to your existing s_code.js
-			configuration for easy integration of video analytics into an Omniture site.<br>For full implementation guide see <a target="_new" href="http://knowledge.kaltura.com/omniture-plugin-setup-and-information-guide">Omniture on page</a> in the Knowledge Center',
+			configuration for easy integration of video analytics into an Omniture site.<br>For full implementation guide see <a target="_new" href="http://knowledge.borhan.com/omniture-plugin-setup-and-information-guide">Omniture on page</a> in the Knowledge Center',
 		'attributes' => array(
 			's_codeUrl' => array(
 				'doc' => "The URL to the Ominture generated sCode file that must be set in the uiConf (not via flashvars). This parameter is required for the plugin to work.",
@@ -37,8 +37,8 @@ return array(
 				'type'=> 'string'
 			),
 			'customEvents' => array(
-				'doc' => "A comma separated list of Kaltura player events you want to track.",
-				'label' => 'Kaltura player events',
+				'doc' => "A comma separated list of Borhan player events you want to track.",
+				'label' => 'Borhan player events',
 				'type'=> 'string'
 			),
 			'additionalEvarsAndProps' => array(
@@ -47,9 +47,9 @@ return array(
 				'type' => 'string'
 			),
 			'additionalEvarsAndPropsValues' => array(
-				'doc' => "A comma separated list of Kaltura values, you want to pass along with every media event.
+				'doc' => "A comma separated list of Borhan values, you want to pass along with every media event.
 				Values will correspond to the evars and props comma separated map defined in additionalEvarsAndProps.",
-				'label' => 'Kaltura values',
+				'label' => 'Borhan values',
 				'type' => 'string'
 			),
 			'autoTrack' => array(
@@ -191,7 +191,7 @@ return array(
 		)
 	),
 	'chaptersView' => array(
-	 	'description' => 'Display video chapter information. See <a target="_blank" href="http://player.kaltura.com/kWidget/onPagePlugins/chapters/ChapterSamples.html">chapter samples</a>, for highlighted sample chapter configuration',
+	 	'description' => 'Display video chapter information. See <a target="_blank" href="http://player.borhan.com/bWidget/onPagePlugins/chapters/ChapterSamples.html">chapter samples</a>, for highlighted sample chapter configuration',
 		'attributes' => array(
 			'containerId' => array(
 				'doc'=> "Default: null, The chapter container id, will override some layout settings and allow you to place the chapters in a target div.",
@@ -292,7 +292,7 @@ return array(
 			),
 			'path' => array(
 				'doc' => "",
-				'initvalue' => '/content/uiconf/ps/kaltura/kdp/v3.6.9/plugins/facadePlugin.swf',
+				'initvalue' => '/content/uiconf/ps/borhan/bdp/v3.6.9/plugins/facadePlugin.swf',
 				'type' => 'hidden'
 			),
 			'chapterRenderer' => array(

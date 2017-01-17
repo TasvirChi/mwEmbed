@@ -21,7 +21,7 @@ Also moves the control bar to take up available space till min size.
 		<div id="playerTarget" style="width: 100%; height: 100%;"></div>
 	</div>
 	<script>
-		var kdp;
+		var bdp;
 		var addedComponets = {
 			'scrubber':{
 				'plugin':true
@@ -33,8 +33,8 @@ Also moves the control bar to take up available space till min size.
 			},
 			'watermark': {
 				'plugin' : "true",
-				'watermarkPath' : "http://www.kaltura.com/content/uiconf/kaltura/kmc/appstudio/kdp3/exampleWatermark.png",
-				'watermarkClickPath' : "http://www.kaltura.com/",
+				'watermarkPath' : "http://www.borhan.com/content/uiconf/borhan/bmc/appstudio/bdp3/exampleWatermark.png",
+				'watermarkClickPath' : "http://www.borhan.com/",
 				'watermarkPosition' : "bottomLeft",
 				'padding' : null,
 			},
@@ -101,13 +101,13 @@ Also moves the control bar to take up available space till min size.
 		var fv = Object.create( addedComponets );
 		// add iframe to flashvars: 
 		fv["IframeCustomPluginCss1"] = "resources/displaySizesColors.css";
-		kWidget.embed( 'playerTarget', {
+		bWidget.embed( 'playerTarget', {
 			"wid": "_1877111",
 	        "uiconf_id": "27949061",
 			'entry_id' : '0_fzhw8tst',
 			'flashvars': fv,
 			'readyCallback': function( playerId ){
-				kdp = $('#' + playerId )[0];
+				bdp = $('#' + playerId )[0];
 				
 				// create hide show API example: 
 				$.each(addedComponets, function(componentName, componentConfig){
@@ -115,12 +115,12 @@ Also moves the control bar to take up available space till min size.
 						$('<li>').text( componentName + ': ')
 						.append(
 							$('<a href="#">').text('hide').click(function(){
-								kdp.setKDPAttribute( componentName, 'visible', false);
+								bdp.setBDPAttribute( componentName, 'visible', false);
 								return false;
 							}),
 							$('<span>').text( ' | ' ),
 							$('<a href="#">').text('show').click(function(){
-								kdp.setKDPAttribute( componentName, 'visible', true)
+								bdp.setBDPAttribute( componentName, 'visible', true)
 								return false;
 							})
 						)
@@ -154,7 +154,7 @@ Also moves the control bar to take up available space till min size.
 <br />
 <h3>Hide show components via manual API calls:</h3>
 <pre class="prettyprint linenums">
-kdp.setKDPAttribute('pluginName', 'visible', false);
+bdp.setBDPAttribute('pluginName', 'visible', false);
 </pre>
 <ul id='complist'></ul>
 </body>

@@ -1,5 +1,5 @@
 /**
  * Receiver loader
  * 
- * Uses mw.PluginManager.add and kalturaPluginName, no loader needed
+ * Uses mw.PluginManager.add and borhanPluginName, no loader needed
  */

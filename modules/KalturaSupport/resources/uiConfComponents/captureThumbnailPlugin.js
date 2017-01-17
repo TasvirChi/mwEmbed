@@ -21,13 +21,13 @@
 			// Get current time
 			var roundedTime = ( parseFloat( this.getPlayer().currentTime ) ).toFixed( 3 );
 			// Make API request
-			this.getKalturaClient().doRequest( {
+			this.getBorhanClient().doRequest( {
 				'service' : 'thumbasset',
 				'action' : 'generate',
 				'entryId' : this.getPlayer().kentryid,
 				'thumbParams:quality': 75,
 				'thumbParams:videoOffset': roundedTime,
-				'thumbParams:objectType': 'KalturaThumbParams',
+				'thumbParams:objectType': 'BorhanThumbParams',
 				'thumbParams:requiredPermissions:-': ''
 			}, function( data ) {
 				// In case of error, print an error message
@@ -60,7 +60,7 @@
 						_this.getPlayer().play();
 					}
 				},
-				'isExternal': false, // KDP defaults to false
+				'isExternal': false, // BDP defaults to false
 				'isModal': true,
 				'props': {
 					'buttonRowSpacing': '5px'

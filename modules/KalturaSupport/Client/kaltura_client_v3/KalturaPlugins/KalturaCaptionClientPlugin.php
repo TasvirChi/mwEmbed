@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,18 +28,18 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionAssetStatus
+class BorhanCaptionAssetStatus
 {
 	const ERROR = -1;
 	const QUEUED = 0;
@@ -50,10 +50,10 @@ class KalturaCaptionAssetStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionAssetOrderBy
+class BorhanCaptionAssetOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const DELETED_AT_ASC = "+deletedAt";
@@ -66,18 +66,18 @@ class KalturaCaptionAssetOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionParamsOrderBy
+class BorhanCaptionParamsOrderBy
 {
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionType
+class BorhanCaptionType
 {
 	const SRT = "1";
 	const DFXP = "2";
@@ -85,10 +85,10 @@ class KalturaCaptionType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionAsset extends KalturaAsset
+class BorhanCaptionAsset extends BorhanAsset
 {
 	/**
 	 * The Caption Params used to create this Caption Asset
@@ -103,7 +103,7 @@ class KalturaCaptionAsset extends KalturaAsset
 	 * The language of the caption asset content
 	 * 	 
 	 *
-	 * @var KalturaLanguage
+	 * @var BorhanLanguage
 	 */
 	public $language = null;
 
@@ -111,7 +111,7 @@ class KalturaCaptionAsset extends KalturaAsset
 	 * The language of the caption asset content
 	 * 	 
 	 *
-	 * @var KalturaLanguageCode
+	 * @var BorhanLanguageCode
 	 * @readonly
 	 */
 	public $languageCode = null;
@@ -120,7 +120,7 @@ class KalturaCaptionAsset extends KalturaAsset
 	 * Is default caption asset of the entry
 	 * 	 
 	 *
-	 * @var KalturaNullableBoolean
+	 * @var BorhanNullableBoolean
 	 */
 	public $isDefault = null;
 
@@ -136,7 +136,7 @@ class KalturaCaptionAsset extends KalturaAsset
 	 * The caption format
 	 * 	 
 	 *
-	 * @var KalturaCaptionType
+	 * @var BorhanCaptionType
 	 * @insertonly
 	 */
 	public $format = null;
@@ -145,7 +145,7 @@ class KalturaCaptionAsset extends KalturaAsset
 	 * The status of the asset
 	 * 	 
 	 *
-	 * @var KalturaCaptionAssetStatus
+	 * @var BorhanCaptionAssetStatus
 	 * @readonly
 	 */
 	public $status = null;
@@ -154,15 +154,15 @@ class KalturaCaptionAsset extends KalturaAsset
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionAssetListResponse extends KalturaObjectBase
+class BorhanCaptionAssetListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaCaptionAsset
+	 * @var array of BorhanCaptionAsset
 	 * @readonly
 	 */
 	public $objects;
@@ -179,16 +179,16 @@ class KalturaCaptionAssetListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionParams extends KalturaAssetParams
+class BorhanCaptionParams extends BorhanAssetParams
 {
 	/**
 	 * The language of the caption content
 	 * 	 
 	 *
-	 * @var KalturaLanguage
+	 * @var BorhanLanguage
 	 * @insertonly
 	 */
 	public $language = null;
@@ -197,7 +197,7 @@ class KalturaCaptionParams extends KalturaAssetParams
 	 * Is default caption asset of the entry
 	 * 	 
 	 *
-	 * @var KalturaNullableBoolean
+	 * @var BorhanNullableBoolean
 	 */
 	public $isDefault = null;
 
@@ -213,7 +213,7 @@ class KalturaCaptionParams extends KalturaAssetParams
 	 * The caption format
 	 * 	 
 	 *
-	 * @var KalturaCaptionType
+	 * @var BorhanCaptionType
 	 * @insertonly
 	 */
 	public $format = null;
@@ -230,15 +230,15 @@ class KalturaCaptionParams extends KalturaAssetParams
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionParamsListResponse extends KalturaObjectBase
+class BorhanCaptionParamsListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaCaptionParams
+	 * @var array of BorhanCaptionParams
 	 * @readonly
 	 */
 	public $objects;
@@ -255,10 +255,10 @@ class KalturaCaptionParamsListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaCaptionAssetBaseFilter extends KalturaAssetFilter
+abstract class BorhanCaptionAssetBaseFilter extends BorhanAssetFilter
 {
 	/**
 	 * 
@@ -277,7 +277,7 @@ abstract class KalturaCaptionAssetBaseFilter extends KalturaAssetFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaCaptionType
+	 * @var BorhanCaptionType
 	 */
 	public $formatEqual = null;
 
@@ -291,7 +291,7 @@ abstract class KalturaCaptionAssetBaseFilter extends KalturaAssetFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaCaptionAssetStatus
+	 * @var BorhanCaptionAssetStatus
 	 */
 	public $statusEqual = null;
 
@@ -313,15 +313,15 @@ abstract class KalturaCaptionAssetBaseFilter extends KalturaAssetFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaCaptionParamsBaseFilter extends KalturaAssetParamsFilter
+abstract class BorhanCaptionParamsBaseFilter extends BorhanAssetParamsFilter
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaCaptionType
+	 * @var BorhanCaptionType
 	 */
 	public $formatEqual = null;
 
@@ -336,31 +336,31 @@ abstract class KalturaCaptionParamsBaseFilter extends KalturaAssetParamsFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionAssetFilter extends KalturaCaptionAssetBaseFilter
+class BorhanCaptionAssetFilter extends BorhanCaptionAssetBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionParamsFilter extends KalturaCaptionParamsBaseFilter
+class BorhanCaptionParamsFilter extends BorhanCaptionParamsBaseFilter
 {
 
 }
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionAssetService extends KalturaServiceBase
+class BorhanCaptionAssetService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -369,10 +369,10 @@ class KalturaCaptionAssetService extends KalturaServiceBase
 	 * Add caption asset
 	 * 
 	 * @param string $entryId 
-	 * @param KalturaCaptionAsset $captionAsset 
-	 * @return KalturaCaptionAsset
+	 * @param BorhanCaptionAsset $captionAsset 
+	 * @return BorhanCaptionAsset
 	 */
-	function add($entryId, KalturaCaptionAsset $captionAsset)
+	function add($entryId, BorhanCaptionAsset $captionAsset)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -382,7 +382,7 @@ class KalturaCaptionAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCaptionAsset");
+		$this->client->validateObjectType($resultObject, "BorhanCaptionAsset");
 		return $resultObject;
 	}
 
@@ -390,10 +390,10 @@ class KalturaCaptionAssetService extends KalturaServiceBase
 	 * Update content of caption asset
 	 * 
 	 * @param string $id 
-	 * @param KalturaContentResource $contentResource 
-	 * @return KalturaCaptionAsset
+	 * @param BorhanContentResource $contentResource 
+	 * @return BorhanCaptionAsset
 	 */
-	function setContent($id, KalturaContentResource $contentResource)
+	function setContent($id, BorhanContentResource $contentResource)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -403,7 +403,7 @@ class KalturaCaptionAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCaptionAsset");
+		$this->client->validateObjectType($resultObject, "BorhanCaptionAsset");
 		return $resultObject;
 	}
 
@@ -411,10 +411,10 @@ class KalturaCaptionAssetService extends KalturaServiceBase
 	 * Update caption asset
 	 * 
 	 * @param string $id 
-	 * @param KalturaCaptionAsset $captionAsset 
-	 * @return KalturaCaptionAsset
+	 * @param BorhanCaptionAsset $captionAsset 
+	 * @return BorhanCaptionAsset
 	 */
-	function update($id, KalturaCaptionAsset $captionAsset)
+	function update($id, BorhanCaptionAsset $captionAsset)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -424,7 +424,7 @@ class KalturaCaptionAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCaptionAsset");
+		$this->client->validateObjectType($resultObject, "BorhanCaptionAsset");
 		return $resultObject;
 	}
 
@@ -471,7 +471,7 @@ class KalturaCaptionAssetService extends KalturaServiceBase
 	 * Get remote storage existing paths for the asset
 	 * 
 	 * @param string $id 
-	 * @return KalturaRemotePathListResponse
+	 * @return BorhanRemotePathListResponse
 	 */
 	function getRemotePaths($id)
 	{
@@ -482,7 +482,7 @@ class KalturaCaptionAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaRemotePathListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanRemotePathListResponse");
 		return $resultObject;
 	}
 
@@ -547,7 +547,7 @@ class KalturaCaptionAssetService extends KalturaServiceBase
 	 * 
 	 * 
 	 * @param string $captionAssetId 
-	 * @return KalturaCaptionAsset
+	 * @return BorhanCaptionAsset
 	 */
 	function get($captionAssetId)
 	{
@@ -558,18 +558,18 @@ class KalturaCaptionAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCaptionAsset");
+		$this->client->validateObjectType($resultObject, "BorhanCaptionAsset");
 		return $resultObject;
 	}
 
 	/**
 	 * List caption Assets by filter and pager
 	 * 
-	 * @param KalturaAssetFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaCaptionAssetListResponse
+	 * @param BorhanAssetFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanCaptionAssetListResponse
 	 */
-	function listAction(KalturaAssetFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanAssetFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -581,7 +581,7 @@ class KalturaCaptionAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCaptionAssetListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanCaptionAssetListResponse");
 		return $resultObject;
 	}
 
@@ -606,12 +606,12 @@ class KalturaCaptionAssetService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionParamsService extends KalturaServiceBase
+class BorhanCaptionParamsService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -619,10 +619,10 @@ class KalturaCaptionParamsService extends KalturaServiceBase
 	/**
 	 * Add new Caption Params
 	 * 
-	 * @param KalturaCaptionParams $captionParams 
-	 * @return KalturaCaptionParams
+	 * @param BorhanCaptionParams $captionParams 
+	 * @return BorhanCaptionParams
 	 */
-	function add(KalturaCaptionParams $captionParams)
+	function add(BorhanCaptionParams $captionParams)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "captionParams", $captionParams->toParams());
@@ -631,7 +631,7 @@ class KalturaCaptionParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCaptionParams");
+		$this->client->validateObjectType($resultObject, "BorhanCaptionParams");
 		return $resultObject;
 	}
 
@@ -639,7 +639,7 @@ class KalturaCaptionParamsService extends KalturaServiceBase
 	 * Get Caption Params by ID
 	 * 
 	 * @param int $id 
-	 * @return KalturaCaptionParams
+	 * @return BorhanCaptionParams
 	 */
 	function get($id)
 	{
@@ -650,7 +650,7 @@ class KalturaCaptionParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCaptionParams");
+		$this->client->validateObjectType($resultObject, "BorhanCaptionParams");
 		return $resultObject;
 	}
 
@@ -658,10 +658,10 @@ class KalturaCaptionParamsService extends KalturaServiceBase
 	 * Update Caption Params by ID
 	 * 
 	 * @param int $id 
-	 * @param KalturaCaptionParams $captionParams 
-	 * @return KalturaCaptionParams
+	 * @param BorhanCaptionParams $captionParams 
+	 * @return BorhanCaptionParams
 	 */
-	function update($id, KalturaCaptionParams $captionParams)
+	function update($id, BorhanCaptionParams $captionParams)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -671,7 +671,7 @@ class KalturaCaptionParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCaptionParams");
+		$this->client->validateObjectType($resultObject, "BorhanCaptionParams");
 		return $resultObject;
 	}
 
@@ -697,11 +697,11 @@ class KalturaCaptionParamsService extends KalturaServiceBase
 	/**
 	 * List Caption Params by filter with paging support (By default - all system default params will be listed too)
 	 * 
-	 * @param KalturaCaptionParamsFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaCaptionParamsListResponse
+	 * @param BorhanCaptionParamsFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanCaptionParamsListResponse
 	 */
-	function listAction(KalturaCaptionParamsFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanCaptionParamsFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -713,43 +713,43 @@ class KalturaCaptionParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCaptionParamsListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanCaptionParamsListResponse");
 		return $resultObject;
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionClientPlugin extends KalturaClientPlugin
+class BorhanCaptionClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaCaptionAssetService
+	 * @var BorhanCaptionAssetService
 	 */
 	public $captionAsset = null;
 
 	/**
-	 * @var KalturaCaptionParamsService
+	 * @var BorhanCaptionParamsService
 	 */
 	public $captionParams = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->captionAsset = new KalturaCaptionAssetService($client);
-		$this->captionParams = new KalturaCaptionParamsService($client);
+		$this->captionAsset = new BorhanCaptionAssetService($client);
+		$this->captionParams = new BorhanCaptionParamsService($client);
 	}
 
 	/**
-	 * @return KalturaCaptionClientPlugin
+	 * @return BorhanCaptionClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaCaptionClientPlugin($client);
+		return new BorhanCaptionClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

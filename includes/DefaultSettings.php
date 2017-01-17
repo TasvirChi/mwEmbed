@@ -1,6 +1,6 @@
 <?php 
 /**
- * This file stores default settings for Kaltura html5 client library "mwEmbed"
+ * This file stores default settings for Borhan html5 client library "mwEmbed"
  * 
  * DO NOT MODIFY THIS FILE. Instead modify LocalSettings.php in the parent mwEmbd directory.
  *
@@ -37,7 +37,7 @@ date_default_timezone_set('UTC');
 $wgServerPort = (($_SERVER['SERVER_PORT']) != '80' && $_SERVER['SERVER_PORT'] != '443')?':'.$_SERVER['SERVER_PORT']:'';
 $wgServer = $wgHTTPProtocol . '://' . $_SERVER['SERVER_NAME'] .$wgServerPort. dirname( dirname( $_SERVER['SCRIPT_NAME'] ) ) .'/';
 
-$psRelativePath = '../kwidget-ps/';
+$psRelativePath = '../bwidget-ps/';
 
 
 // By default set $wgScriptPath to empty
@@ -51,7 +51,7 @@ $wgResourceLoaderUrl = $wgLoadScript;
 
 // The list of enabled modules
 // Added two base modules that must be included before others
-$wgMwEmbedEnabledModules = array( 'EmbedPlayer', 'KalturaSupport' );
+$wgMwEmbedEnabledModules = array( 'EmbedPlayer', 'BorhanSupport' );
 
 // By default we enable every module in the "modules" folder
 // Modules are registered after localsettings.php to give a chance
@@ -118,54 +118,54 @@ $wgResourceLoaderMaxage = array(
 $wgExternalPlayersSupportedTypes = array('YouTube');
 
 /*********************************************************
- * Default Kaltura Configuration: 
- * TODO move kaltura configuration to KalturaSupport module ( part of New ResourceLoader update ) 
+ * Default Borhan Configuration: 
+ * TODO move borhan configuration to BorhanSupport module ( part of New ResourceLoader update ) 
  ********************************************************/
 
 //Embedded services
 //To enable service re routing for entryResult calls
-$wgEnableKalturaEmbedServicesRouting = true;
+$wgEnableBorhanEmbedServicesRouting = true;
 
 // To include signed headers with user IPs for IP restriction lookups, input a salt string for 
-// $wgKalturaRemoteAddressSalt configuration option. 
-$wgKalturaRemoteAddressSalt = false;
+// $wgBorhanRemoteAddressSalt configuration option. 
+$wgBorhanRemoteAddressSalt = false;
 
 // If we should check for onPage resources per the external resources plugin
-$wgKalturaEnableEmbedUiConfJs = false;
+$wgBorhanEnableEmbedUiConfJs = false;
 
 // Enables the result cache while in debug mode 
 // This enables fast player rendering while scripts remain unminifed. 
 // ( normally $wgEnableScriptDebug disables result cache )
-$wgKalturaForceResultCache = false;
+$wgBorhanForceResultCache = false;
 
 // For force ip testing geo restrictions
-$wgKalturaForceIP = false;
+$wgBorhanForceIP = false;
 
 // To test sites with referre restrictions: 
-$wgKalturaForceReferer = false;
+$wgBorhanForceReferer = false;
 
-// The default Kaltura service url:
-$wgKalturaServiceUrl = 'http://cdnapi.kaltura.com';
+// The default Borhan service url:
+$wgBorhanServiceUrl = 'http://cdnapi.borhan.com';
 // if https use cdnsecakmi
 if( $wgHTTPProtocol == 'https' ){
-	$wgKalturaServiceUrl =  'https://cdnapisec.kaltura.com';
+	$wgBorhanServiceUrl =  'https://cdnapisec.borhan.com';
 }
 
-// Default Kaltura CDN url: 
-$wgKalturaCDNUrl = 'http://cdnbakmi.kaltura.com';
+// Default Borhan CDN url: 
+$wgBorhanCDNUrl = 'http://cdnbakmi.borhan.com';
 // if https use cdnsecakmi
 if( $wgHTTPProtocol == 'https' ){
-	$wgKalturaCDNUrl =  'https://cdnsecakmi.kaltura.com';
+	$wgBorhanCDNUrl =  'https://cdnsecakmi.borhan.com';
 }
 
-// Default Kaltura Stats url
-$wgKalturaStatsServiceUrl = 'http://stats.kaltura.com';
+// Default Borhan Stats url
+$wgBorhanStatsServiceUrl = 'http://stats.borhan.com';
 if( $wgHTTPProtocol == 'https' ){
-	$wgKalturaStatsServiceUrl = 'https://www.kaltura.com';
+	$wgBorhanStatsServiceUrl = 'https://www.borhan.com';
 }
 
-// Default Kaltura service url:
-$wgKalturaServiceBase = '/api_v3/index.php?service=';
+// Default Borhan service url:
+$wgBorhanServiceBase = '/api_v3/index.php?service=';
 
 // Log Api Request
 $wgLogApiRequests = false;
@@ -174,48 +174,48 @@ $wgLogApiRequests = false;
 $wgCDNAssetPath = $wgHTTPProtocol . '://' . $_SERVER['HTTP_HOST'];
 
 // Default api request timeout in seconds 
-$wgKalturaServiceTimeout = 20;
+$wgBorhanServiceTimeout = 20;
 
 // If the iframe will accept 3rd party domain remote service requests 
 // should be left "off" in production. 
-$wgKalturaAllowIframeRemoteService = false;
+$wgBorhanAllowIframeRemoteService = false;
 
 // Default expire time for ui conf api queries in seconds 
-$wgKalturaUiConfCacheTime = 60*10; // 10 min
+$wgBorhanUiConfCacheTime = 60*10; // 10 min
 
 // Cache errors for 30 seconds to avoid overloading apaches in CDN setups
-$wgKalturaErrorCacheTime = 30;
+$wgBorhanErrorCacheTime = 30;
 
 // By default enable the iframe rewrite
-$wgKalturaIframeRewrite = true;
+$wgBorhanIframeRewrite = true;
 
 $wgEnableIpadHTMLControls = true;
 
-$wgKalturaUseManifestUrls = true;
+$wgBorhanUseManifestUrls = true;
 
 // The admin secret should be set to an integration admin secret key for testing 
 // api actions that require admin rights, like granting a ks for preview / play:
-$wgKalturaAdminSecret = null;
+$wgBorhanAdminSecret = null;
 
 // By default do allow custom resource includes. 
 $wgAllowCustomResourceIncludes = true;
 
 // An array of partner ids for which apple adaptive should be disabled. 
-$wgKalturaPartnerDisableAppleAdaptive = array();
+$wgBorhanPartnerDisableAppleAdaptive = array();
 
 // By default use apple adaptive if we have the ability
-$wgKalturaUseAppleAdaptive = true;
+$wgBorhanUseAppleAdaptive = true;
 
 /********************************************************
  *  Authentication configuration variables
  *******************************************************/
-// If the kaltura authentication should run on https ( true by default )
-$wgKalturaAuthHTTPS = true;
+// If the borhan authentication should run on https ( true by default )
+$wgBorhanAuthHTTPS = true;
 // What domains are allowed to host the auth page:
-$wgKalturaAuthDomains = array( 'www.kaltura.com', 'kmc.kaltura.com' );
+$wgBorhanAuthDomains = array( 'www.borhan.com', 'bmc.borhan.com' );
 
 // If google anlytics should be enabled, set to the ua string
-$wgKalturaGoogleAnalyticsUA = false;
+$wgBorhanGoogleAnalyticsUA = false;
 
 // for additional script includes. 
 $wgAdditionalDocsScriptInclude = false;
@@ -223,13 +223,13 @@ $wgAdditionalDocsScriptInclude = false;
 //Remote web inspector URL such as: weinre, fireBug
 $wgRemoteWebInspector = false;
 
-// Kaltura Supported API Features
-$wgKalturaApiFeatures = array();
+// Borhan Supported API Features
+$wgBorhanApiFeatures = array();
 
 /*********************************************************
  * Override Domain:
 ********************************************************/
-$wgEnableKalturaOverrideDomain = true;
+$wgEnableBorhanOverrideDomain = true;
 
 /*********************************************************
  * A comma-delimited string of allowed flashavrs to be passed to server on dynamic embed call:
@@ -238,9 +238,9 @@ $wgAllowedVars = "inlineScript";
 $wgAllowedVarsKeyPartials = "onPageJs,onPageCss,IframeCustomPluginJs,IframeCustomPluginCss";
 $wgAllowedPluginVars = "plugin,templatePath,templates,iframeHTML5Js,iframeHTML5Css,loadInIframe";
 $wgAllowedPluginVarsValPartials = "{html5ps}";
-// Kaltura cache TTL value in unix time for dynamic embed local storage caching of kWidget, default is 10 minutes
+// Borhan cache TTL value in unix time for dynamic embed local storage caching of bWidget, default is 10 minutes
 $wgCacheTTL = (10 * 60 * 1000);
-// Kaltura max cache entries, limit max available cached entries per domain to avoid over populating localStorage
+// Borhan max cache entries, limit max available cached entries per domain to avoid over populating localStorage
 $wgMaxCacheEntries = 1;
 
 /*********************************************************
@@ -252,22 +252,22 @@ if( is_file( $wgLocalSettingsFile ) ){
 	require_once( $wgLocalSettingsFile );
 }
 
-if( isset( $_GET['pskwidgetpath'] ) ){
-	$psRelativePath = htmlspecialchars( $_GET['pskwidgetpath'] );
+if( isset( $_GET['psbwidgetpath'] ) ){
+	$psRelativePath = htmlspecialchars( $_GET['psbwidgetpath'] );
 }
 // The html5-ps settings file path
-$wgKalturaPSHtml5SettingsPath =  realpath( dirname( __FILE__ ) ) . '/../' . $psRelativePath . '/includes/DefaultSettings.php';
+$wgBorhanPSHtml5SettingsPath =  realpath( dirname( __FILE__ ) ) . '/../' . $psRelativePath . '/includes/DefaultSettings.php';
 
 // The html5-ps modules dir
-$wgKalturaPSHtml5ModulesDir =  realpath(realpath( dirname( __FILE__ ) ) . '/../' . $psRelativePath . '/ps/modules');
+$wgBorhanPSHtml5ModulesDir =  realpath(realpath( dirname( __FILE__ ) ) . '/../' . $psRelativePath . '/ps/modules');
 
-// Enable every module in the "ps/modules" folder of kwidget-ps
-$wgKwidgetPsEnabledModules = array();
-if (!empty($wgKalturaPSHtml5ModulesDir)){
-    $dPs = dir( $wgKalturaPSHtml5ModulesDir );
+// Enable every module in the "ps/modules" folder of bwidget-ps
+$wgBwidgetPsEnabledModules = array();
+if (!empty($wgBorhanPSHtml5ModulesDir)){
+    $dPs = dir( $wgBorhanPSHtml5ModulesDir );
     while (false !== ($entryPs = $dPs->read())) {
-        if( substr( $entryPs, 0, 1 ) != '.' && !in_array( $entryPs , $wgKwidgetPsEnabledModules ) ){
-            $wgKwidgetPsEnabledModules[] = $entryPs;
+        if( substr( $entryPs, 0, 1 ) != '.' && !in_array( $entryPs , $wgBwidgetPsEnabledModules ) ){
+            $wgBwidgetPsEnabledModules[] = $entryPs;
         }
     }
 }
@@ -276,20 +276,20 @@ if (!empty($wgKalturaPSHtml5ModulesDir)){
 //Set global configs into $wgMwEmbedModuleConfig in order to enable
 //resource loader to output the config in the response
 // if Manifest urls should be used:
-$wgMwEmbedModuleConfig['Kaltura.UseManifestUrls'] = $wgKalturaUseManifestUrls;
+$wgMwEmbedModuleConfig['Borhan.UseManifestUrls'] = $wgBorhanUseManifestUrls;
 //Add license server config:
-global $wgKalturaLicenseServerUrl, $wgKalturaUdrmLicenseServerUrl;
-$wgMwEmbedModuleConfig['Kaltura.LicenseServerURL'] = $wgKalturaLicenseServerUrl;
-$wgMwEmbedModuleConfig['Kaltura.UdrmServerURL'] = $wgKalturaUdrmLicenseServerUrl;
+global $wgBorhanLicenseServerUrl, $wgBorhanUdrmLicenseServerUrl;
+$wgMwEmbedModuleConfig['Borhan.LicenseServerURL'] = $wgBorhanLicenseServerUrl;
+$wgMwEmbedModuleConfig['Borhan.UdrmServerURL'] = $wgBorhanUdrmLicenseServerUrl;
 
-// Add Kaltura api services: ( should be part of kaltura module config)
-include_once( realpath( dirname( __FILE__ ) )  . '/../modules/KalturaSupport/apiServices/mweApiKSTest.php' );
-include_once( realpath( dirname( __FILE__ ) )  . '/../modules/KalturaSupport/apiServices/mweApiUiConfJs.php' );
-include_once( realpath( dirname( __FILE__ ) )  . '/../modules/KalturaSupport/apiServices/mweApiSleepTest.php' );
-include_once( realpath( dirname( __FILE__ ) )  . '/../modules/KalturaSupport/apiServices/mweFeaturesList.php' );
-include_once( realpath( dirname( __FILE__ ) )  . '/../modules/KalturaSupport/apiServices/mweApiLanguageSupport.php' );
-include_once( realpath( dirname( __FILE__ ) )  . '/../modules/KalturaSupport/apiServices/mweUpgradePlayer.php' );
-include_once( realpath( dirname( __FILE__ ) )  . '/../modules/KalturaSupport/apiServices/mweApiGetLicenseData.php' );
+// Add Borhan api services: ( should be part of borhan module config)
+include_once( realpath( dirname( __FILE__ ) )  . '/../modules/BorhanSupport/apiServices/mweApiKSTest.php' );
+include_once( realpath( dirname( __FILE__ ) )  . '/../modules/BorhanSupport/apiServices/mweApiUiConfJs.php' );
+include_once( realpath( dirname( __FILE__ ) )  . '/../modules/BorhanSupport/apiServices/mweApiSleepTest.php' );
+include_once( realpath( dirname( __FILE__ ) )  . '/../modules/BorhanSupport/apiServices/mweFeaturesList.php' );
+include_once( realpath( dirname( __FILE__ ) )  . '/../modules/BorhanSupport/apiServices/mweApiLanguageSupport.php' );
+include_once( realpath( dirname( __FILE__ ) )  . '/../modules/BorhanSupport/apiServices/mweUpgradePlayer.php' );
+include_once( realpath( dirname( __FILE__ ) )  . '/../modules/BorhanSupport/apiServices/mweApiGetLicenseData.php' );
 include_once( realpath( dirname( __FILE__ ) )  . '/../studio/studioService.php');
 /**
  * Extensions should register foreign module sources here. 'local' is a

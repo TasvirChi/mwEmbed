@@ -6,13 +6,13 @@
 </head>
 <body>
 	<h3>Stand Alone Player ( MediaProxy Override ) Silverlight only source</h3>
-	Kaltura support several stand alone player modes. Learn more about 
-	<a href="../../../docs/api#standAlonePlayerModes">stand alone player modes</a> Kaltura API documentation. 
+	Borhan support several stand alone player modes. Learn more about 
+	<a href="../../../docs/api#standAlonePlayerModes">stand alone player modes</a> Borhan API documentation. 
 	<br><br>
 	This example highlights the <b>MediaProxy Override</b>, and JSON Config, with a single Silverlight source.
 	<br><br>
 
-	<div id="kaltura_player" style="width:600px;height:338px;"></div>
+	<div id="borhan_player" style="width:600px;height:338px;"></div>
 	
 	<script>
 		var jsonConfig  = {
@@ -52,22 +52,22 @@
 			}
 		};
 		// per entry settings
-		var mediaProxyKalturaToolKitVideo = {
+		var mediaProxyBorhanToolKitVideo = {
 				'entry':{
 					'id': "key_1",
 					'name': "My ToolKit Video",
-					"description": "Kaltura Player toolkit Description.",
+					"description": "Borhan Player toolkit Description.",
 					"plays":1234,
 					"views":47332,
 					"duration":114,
 					"createdAt":1379965720,
-					"thumbnailUrl": 'http://cdnbakmi.kaltura.com/p/243342/sp/24334200/thumbnail/entry_id/1_sf5ovm7u/version/100003/width/640'
+					"thumbnailUrl": 'http://cdnbakmi.borhan.com/p/243342/sp/24334200/thumbnail/entry_id/1_sf5ovm7u/version/100003/width/640'
 				},
 				"contextData":{
 					'isCountryRestricted': false
 				},
 				'entryMetadata': {
-					'thumbSlicesUrl': 'http://cdnbakmi.kaltura.com/p/243342/sp/24334200/thumbnail/entry_id/1_sf5ovm7u/version/100003/width/100/vid_slices/100',
+					'thumbSlicesUrl': 'http://cdnbakmi.borhan.com/p/243342/sp/24334200/thumbnail/entry_id/1_sf5ovm7u/version/100003/width/100/vid_slices/100',
 					'AgeGroup': "16"
 				},
 				'sources':[
@@ -78,20 +78,20 @@
 				]
 			}
 		
-		kWidget.embed('kaltura_player', {
+		bWidget.embed('borhan_player', {
 			'wid' : '_partnerkey',
 			'flashvars':{
 				'jsonConfig':jsonConfig,
 				// per entity settings: 
-				'mediaProxy': mediaProxyKalturaToolKitVideo,
+				'mediaProxy': mediaProxyBorhanToolKitVideo,
 				'LeadWithHLSOnFlash': true,
 				'EmbedPlayer.UseDirectManifestLinks': true
 			},
 			// ready bindings:
 			'readyCallback': function( playerId ){
-				var kdp = document.getElementById( playerId );
+				var bdp = document.getElementById( playerId );
 				$('.alertEval a').click(function(){
-					alert( JSON.stringify( kdp.evaluate( $(this).text() ) ) );
+					alert( JSON.stringify( bdp.evaluate( $(this).text() ) ) );
 					return false;
 				});
 			}

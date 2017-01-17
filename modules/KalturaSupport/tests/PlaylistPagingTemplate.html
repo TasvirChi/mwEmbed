@@ -8,7 +8,7 @@
 
 	<script type="text/javascript">
 		// Enable uiconf js which includes external resources
-		mw.setConfig('Kaltura.EnableEmbedUiConfJs', true);
+		mw.setConfig('Borhan.EnableEmbedUiConfJs', true);
 	</script>
 
 
@@ -26,11 +26,11 @@
 	<li><b>horizontalScrollItems</b>: Number of items to scroll horizontally when clicking the scroll button.</li>
 	<li><b>mediaItemHeight</b>: Sets the height of the playlist items.</li>
 </ul>
-<div id='kaltura_player' style="height:450px;width:550px"></div>
+<div id='borhan_player' style="height:450px;width:550px"></div>
 <script>
 	var basePath = document.location.toString().split("PlaylistPagingTemplate")[0];
-	kWidget.featureConfig({
-		'targetId': 'kaltura_player',
+	bWidget.featureConfig({
+		'targetId': 'borhan_player',
 		'wid': '_243342',
 		'uiconf_id': '25975211',
 		'flashvars': {
@@ -61,8 +61,8 @@
 <p>Sample Code:</p>
 <pre class="prettyprint linenums">
 var basePath = document.location.toString().split("PlaylistPagingTemplate")[0];
-kWidget.featureConfig({
-	'targetId': 'kaltura_player',
+bWidget.featureConfig({
+	'targetId': 'borhan_player',
 	'wid': '_243342',
 	'uiconf_id': '25975211',
 	'flashvars': {

@@ -1,5 +1,5 @@
 /**
-* Supports the display of kaltura VAST ads.
+* Supports the display of borhan VAST ads.
 */
 ( function( mw, $ ) {"use strict";
 
@@ -121,7 +121,7 @@ mw.KAdPlayer.prototype = {
 		// Setup some configuration for done state:
 		adSlot.doneFunctions = [];
 		// skip offset can be stored on the button or the vast plugin :(
-		var skipOffset =  _this.embedPlayer.getKalturaConfig( 'skipBtn', 'skipOffset' ) ||  _this.embedPlayer.getKalturaConfig( 'vast', 'skipOffset' )
+		var skipOffset =  _this.embedPlayer.getBorhanConfig( 'skipBtn', 'skipOffset' ) ||  _this.embedPlayer.getBorhanConfig( 'vast', 'skipOffset' )
 		// set skip offset from config for all adds if defined 
 		if( skipOffset ){
 			var i = 0;
@@ -919,7 +919,7 @@ mw.KAdPlayer.prototype = {
 		var overlayId = this.getOverlayId();
 		var nonLinearConf = _this.selectFromArray( adConf.nonLinear );
 		if (nonLinearConf.minSuggestedDuration){
-			_this.overrideDisplayDuration = kWidget.npt2seconds( nonLinearConf.minSuggestedDuration );
+			_this.overrideDisplayDuration = bWidget.npt2seconds( nonLinearConf.minSuggestedDuration );
 			mw.log( "KAdPlayer::displayNonLinear - override duration from vast:" + _this.overrideDisplayDuration );
 		}
 		var sendBeacon = function(eventName){
@@ -948,8 +948,8 @@ mw.KAdPlayer.prototype = {
 			'width' : _this.embedPlayer.getVideoHolder().width(),
 			'height' : _this.embedPlayer.getVideoHolder().height()
 		};
-		// TODO Does this need to be parat of the always loaded kWidget library ? 
-		var screenSize = kWidget.resizeOvelayByHolderSize(nonLinearConf, videoSize, 0.9);
+		// TODO Does this need to be parat of the always loaded bWidget library ? 
+		var screenSize = bWidget.resizeOvelayByHolderSize(nonLinearConf, videoSize, 0.9);
 		var layout = {
 			'width' : screenSize.width + 'px',
 			'height' : screenSize.height + 'px',
@@ -1459,7 +1459,7 @@ mw.KAdPlayer.prototype = {
 							localNoticeCB();
 						}
 
-						// add support for volume control over KDP during Flash ad playback
+						// add support for volume control over BDP during Flash ad playback
 						$( _this.embedPlayer ).bind( 'volumeChanged' + _this.trackingBindPostfix, function ( e, changeValue ) {
 							if ( typeof VPAIDObj.playerElement.sendNotification === "function" ) {
 								VPAIDObj.playerElement.sendNotification( 'changeVolume', changeValue );

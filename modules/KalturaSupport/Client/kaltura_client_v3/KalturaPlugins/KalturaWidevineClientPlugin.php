@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,28 +28,28 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
-require_once(dirname(__FILE__) . "/KalturaDrmClientPlugin.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
+require_once(dirname(__FILE__) . "/BorhanDrmClientPlugin.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineRepositorySyncMode
+class BorhanWidevineRepositorySyncMode
 {
 	const MODIFY = 0;
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineFlavorAssetOrderBy
+class BorhanWidevineFlavorAssetOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const DELETED_AT_ASC = "+deletedAt";
@@ -62,26 +62,26 @@ class KalturaWidevineFlavorAssetOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineFlavorParamsOrderBy
+class BorhanWidevineFlavorParamsOrderBy
 {
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineFlavorParamsOutputOrderBy
+class BorhanWidevineFlavorParamsOutputOrderBy
 {
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineProfileOrderBy
+class BorhanWidevineProfileOrderBy
 {
 	const ID_ASC = "+id";
 	const NAME_ASC = "+name";
@@ -90,10 +90,10 @@ class KalturaWidevineProfileOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineProfile extends KalturaDrmProfile
+class BorhanWidevineProfile extends BorhanDrmProfile
 {
 	/**
 	 * 
@@ -141,15 +141,15 @@ class KalturaWidevineProfile extends KalturaDrmProfile
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineRepositorySyncJobData extends KalturaJobData
+class BorhanWidevineRepositorySyncJobData extends BorhanJobData
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaWidevineRepositorySyncMode
+	 * @var BorhanWidevineRepositorySyncMode
 	 */
 	public $syncMode = null;
 
@@ -178,10 +178,10 @@ class KalturaWidevineRepositorySyncJobData extends KalturaJobData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineFlavorAsset extends KalturaFlavorAsset
+class BorhanWidevineFlavorAsset extends BorhanFlavorAsset
 {
 	/**
 	 * License distribution window start date 
@@ -211,19 +211,19 @@ class KalturaWidevineFlavorAsset extends KalturaFlavorAsset
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineFlavorParams extends KalturaFlavorParams
+class BorhanWidevineFlavorParams extends BorhanFlavorParams
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineFlavorParamsOutput extends KalturaFlavorParamsOutput
+class BorhanWidevineFlavorParamsOutput extends BorhanFlavorParamsOutput
 {
 	/**
 	 * License distribution window start date 
@@ -245,85 +245,85 @@ class KalturaWidevineFlavorParamsOutput extends KalturaFlavorParamsOutput
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaWidevineProfileBaseFilter extends KalturaDrmProfileFilter
+abstract class BorhanWidevineProfileBaseFilter extends BorhanDrmProfileFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineProfileFilter extends KalturaWidevineProfileBaseFilter
+class BorhanWidevineProfileFilter extends BorhanWidevineProfileBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaWidevineFlavorAssetBaseFilter extends KalturaFlavorAssetFilter
+abstract class BorhanWidevineFlavorAssetBaseFilter extends BorhanFlavorAssetFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaWidevineFlavorParamsBaseFilter extends KalturaFlavorParamsFilter
+abstract class BorhanWidevineFlavorParamsBaseFilter extends BorhanFlavorParamsFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineFlavorAssetFilter extends KalturaWidevineFlavorAssetBaseFilter
+class BorhanWidevineFlavorAssetFilter extends BorhanWidevineFlavorAssetBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineFlavorParamsFilter extends KalturaWidevineFlavorParamsBaseFilter
+class BorhanWidevineFlavorParamsFilter extends BorhanWidevineFlavorParamsBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaWidevineFlavorParamsOutputBaseFilter extends KalturaFlavorParamsOutputFilter
+abstract class BorhanWidevineFlavorParamsOutputBaseFilter extends BorhanFlavorParamsOutputFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineFlavorParamsOutputFilter extends KalturaWidevineFlavorParamsOutputBaseFilter
+class BorhanWidevineFlavorParamsOutputFilter extends BorhanWidevineFlavorParamsOutputBaseFilter
 {
 
 }
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineDrmService extends KalturaServiceBase
+class BorhanWidevineDrmService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -350,32 +350,32 @@ class KalturaWidevineDrmService extends KalturaServiceBase
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidevineClientPlugin extends KalturaClientPlugin
+class BorhanWidevineClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaWidevineDrmService
+	 * @var BorhanWidevineDrmService
 	 */
 	public $widevineDrm = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->widevineDrm = new KalturaWidevineDrmService($client);
+		$this->widevineDrm = new BorhanWidevineDrmService($client);
 	}
 
 	/**
-	 * @return KalturaWidevineClientPlugin
+	 * @return BorhanWidevineClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaWidevineClientPlugin($client);
+		return new BorhanWidevineClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

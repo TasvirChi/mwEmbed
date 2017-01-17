@@ -97,12 +97,12 @@
 
 			setEmbedPlayerConfig: function (embedPlayer) {
 				//Get user configuration
-				var userConfig = embedPlayer.getKalturaConfig("dash");
+				var userConfig = embedPlayer.getBorhanConfig("dash");
 				//Get default config
 				var dashConfig = this.getDefaultDashConfig();
 				//Deep extend custom config
 				$.extend(true, dashConfig, userConfig);
-				embedPlayer.setKalturaConfig("dash", dashConfig);
+				embedPlayer.setBorhanConfig("dash", dashConfig);
 			},
 
 			getDefaultDashConfig: function () {
@@ -121,7 +121,7 @@
 			},
 
 			getDrmConfig: function () {
-				var licenseBaseUrl = mw.getConfig('Kaltura.UdrmServerURL');
+				var licenseBaseUrl = mw.getConfig('Borhan.UdrmServerURL');
 				if (!licenseBaseUrl) {
 					this.log('Error:: failed to retrieve UDRM license URL ');
 				}
@@ -442,12 +442,12 @@
 		mw.PluginManager.add('Dash', dash);
 
 		// register dash plugin by default
-		var playerConfig = window.kalturaIframePackageData.playerConfig;
+		var playerConfig = window.borhanIframePackageData.playerConfig;
 		if (playerConfig && playerConfig.plugins && !playerConfig.plugins["dash"]) {
 			playerConfig.plugins["dash"] = {
 				plugin: true
 			};
-			mw.setConfig('KalturaSupport.PlayerConfig', playerConfig);
+			mw.setConfig('BorhanSupport.PlayerConfig', playerConfig);
 		}
 	}
 })

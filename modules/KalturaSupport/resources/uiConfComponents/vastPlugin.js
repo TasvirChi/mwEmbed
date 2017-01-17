@@ -1,6 +1,6 @@
 ( function( mw, $ ) { "use strict";
 
-mw.addKalturaPlugin( [ "mw.AdTimeline", "mw.KAds" ], "vast", function( embedPlayer, callback){
+mw.addBorhanPlugin( [ "mw.AdTimeline", "mw.KAds" ], "vast", function( embedPlayer, callback){
 	embedPlayer.kAds = new mw.KAds( embedPlayer, function(){
 		mw.log( "AdPlugin: Done loading ads, run callback" );
 		// Wait until ads are loaded before running callback

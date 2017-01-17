@@ -1,4 +1,4 @@
-kWidget.addReadyCallback( function( playerId ){ 
+bWidget.addReadyCallback( function( playerId ){ 
 	/**
 	 * The main omnitureOnPage object:
 	 */
@@ -21,10 +21,10 @@ kWidget.addReadyCallback( function( playerId ){
 
 		init: function( player ){
 			var _this = this;
-			this.kdp = player;
+			this.bdp = player;
 			this.log( 'init' );
 			// unbind any existing bindings:
-			this.kdp.kUnbind( '.' + this.instanceName );
+			this.bdp.kUnbind( '.' + this.instanceName );
 			// We bind to event
 			_this.bindPlayer();
 
@@ -48,11 +48,11 @@ kWidget.addReadyCallback( function( playerId ){
 		},
 		cacheEntryMetadata: function(){
 			this.entryData = {
-				id: this.kdp.evaluate( '{mediaProxy.entry.id}' ),
-				referenceId: this.kdp.evaluate( '{mediaProxy.entry.referenceId}' ),
-				mediaType: this.kdp.evaluate( '{mediaProxy.entry.mediaType}' ),
-				name: this.kdp.evaluate( '{mediaProxy.entry.name}' ),
-				duration: this.kdp.evaluate( '{mediaProxy.entry.duration}' )
+				id: this.bdp.evaluate( '{mediaProxy.entry.id}' ),
+				referenceId: this.bdp.evaluate( '{mediaProxy.entry.referenceId}' ),
+				mediaType: this.bdp.evaluate( '{mediaProxy.entry.mediaType}' ),
+				name: this.bdp.evaluate( '{mediaProxy.entry.name}' ),
+				duration: this.bdp.evaluate( '{mediaProxy.entry.duration}' )
 			};
 		},
 		getSCodeName: function(){
@@ -86,7 +86,7 @@ kWidget.addReadyCallback( function( playerId ){
 				}
 			}, function(){
 				// failed to load scode:
-				_this.kdp.sendNotification("omnitureScodeError");
+				_this.bdp.sendNotification("omnitureScodeError");
 				_this.log( "Error: failed to load s-code")
 			})
 		},
@@ -107,14 +107,14 @@ kWidget.addReadyCallback( function( playerId ){
 			// check if we are waiting: 
 			if( waitedTime > this.getTimeoutMs() ){
 				// failed waitTime is > then sCodeAvailableTimeout load local copy: 
-				kWidget.appendScriptUrl( _this.getConfig('s_codeUrl'), function(){
+				bWidget.appendScriptUrl( _this.getConfig('s_codeUrl'), function(){
 					if( _this.isScodeReady() ){
 						readyCallback();
 					} else {
 						failedCallback();
 					}
 				} );
-				// kWidget does not have a failed timeout, give it 10 seconds to load
+				// bWidget does not have a failed timeout, give it 10 seconds to load
 				setTimeout(function(){
 					// only issue a fail if we never got success callback: 
 					// Note this will result in two fails where s_codeUrl is invalid )
@@ -137,7 +137,7 @@ kWidget.addReadyCallback( function( playerId ){
 		},
 		/** Getters **/
 		getMediaPlayerName: function(){
-			return 'Kaltura Omniture OnPage v' + mw.getConfig('version'); 
+			return 'Borhan Omniture OnPage v' + mw.getConfig('version'); 
 		},
 
 		trimSpaces: function(str) {
@@ -171,7 +171,7 @@ kWidget.addReadyCallback( function( playerId ){
 			// this allows to override the media name by configuration E.G. MY_PREFIX_{mediaProxy.entry.id}
 			// will output a media name with prefix.
 			if(_this.getConfig( 'mediaName' )) {
-				return _this.kdp.evaluate(_this.getConfig( 'mediaName' ));
+				return _this.bdp.evaluate(_this.getConfig( 'mediaName' ));
 			}
 
 			return this.entryData.name;
@@ -207,7 +207,7 @@ kWidget.addReadyCallback( function( playerId ){
 				var extraEvarsValuesDelimiter = this.getConfig('additionalEvarsAndPropsValuesDelimiter') || ',';
 				extraEvarsValues = additionalEvarsAndPropsValues.split(extraEvarsValuesDelimiter);
 				for( var j=0; j < extraEvarsValues.length; j++ ) {
-					extraEvarsValues[j] = this.kdp.evaluate(extraEvarsValues[j]);
+					extraEvarsValues[j] = this.bdp.evaluate(extraEvarsValues[j]);
 				}
 			}
 			// Compare length between eVars and eVars values
@@ -337,7 +337,7 @@ kWidget.addReadyCallback( function( playerId ){
 			};
 
 			this.bind('entryReady', function() {
-				kWidget.log( 'omnitureOnPage: entryReady' );
+				bWidget.log( 'omnitureOnPage: entryReady' );
 				_this.cacheEntryMetadata();
 			});
 			// Run open on first play and replay:
@@ -451,8 +451,8 @@ kWidget.addReadyCallback( function( playerId ){
 		 * Get the media content type
 		 */
 		getCType: function(){
-			// kaltura mediaTypes are defined here: 
-			// http://www.kaltura.com/api_v3/testmeDoc/index.php?object=KalturaMediaType
+			// borhan mediaTypes are defined here: 
+			// http://www.borhan.com/api_v3/testmeDoc/index.php?object=BorhanMediaType
 			switch( this.entryData.mediaType ){
 				case 1:
 					return 'vid';
@@ -607,7 +607,7 @@ kWidget.addReadyCallback( function( playerId ){
 
 	 		// check if we have associated eVars:
 	 		s.linkTrackVars ='';
-	 		if( ! kWidget.isEmptyObject( propsAndEvars ) ){
+	 		if( ! bWidget.isEmptyObject( propsAndEvars ) ){
 	 			//s.Media.trackEvents += ',eVars';
 	 			// Build props and evars
 	 			var coma='';
@@ -641,7 +641,7 @@ kWidget.addReadyCallback( function( playerId ){
 	 		
 	 	},	 	
 		normalizeAttrValue: function( attrValue ){
-			// normalize flash kdp string values
+			// normalize flash bdp string values
 			switch( attrValue ){
 				case "null":
 					return null;
@@ -656,20 +656,20 @@ kWidget.addReadyCallback( function( playerId ){
 			return attrValue;
 		},
 		log: function( msg ){
-			kWidget.log( this.instanceName + ': ' + msg );
+			bWidget.log( this.instanceName + ': ' + msg );
 		},
 		bind: function( eventName, callback ){
 			// postfix the instanceName to namespace all the bindings
-			this.kdp.kBind( eventName + '.' + this.instanceName, callback );
+			this.bdp.kBind( eventName + '.' + this.instanceName, callback );
 		},
 		getAttr: function( attr ){
 			return this.normalizeAttrValue(
-				this.kdp.evaluate( '{' + attr + '}' )
+				this.bdp.evaluate( '{' + attr + '}' )
 			);
 		},
 		getConfig : function( attr ){
 			return this.normalizeAttrValue(
-				this.kdp.evaluate( '{' + this.instanceName + '.' + attr + '}' )
+				this.bdp.evaluate( '{' + this.instanceName + '.' + attr + '}' )
 			);
 		}
 	}

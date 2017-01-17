@@ -1,18 +1,18 @@
 /**
- * KWidget library provided embed layer services to html5 and flash players, as well as client side abstraction for some kaltura services.
+ * BWidget library provided embed layer services to html5 and flash players, as well as client side abstraction for some borhan services.
  */
 (function () {
 // Use strict ECMAScript 5
 	"use strict";
 
-// Don't re-initialize kWidget
-	if (window.kWidget) {
+// Don't re-initialize bWidget
+	if (window.bWidget) {
 		return;
 	}
 
-	var kWidget = {
+	var bWidget = {
 
-		//store the start time of the kwidget init
+		//store the start time of the bwidget init
 		startTime: {},
 
 		//store the load time of the player
@@ -53,7 +53,7 @@
 		iframeUrls: {},
 
 		/**
-		 * The master kWidget setup function setups up bindings for rewrites and
+		 * The master bWidget setup function setups up bindings for rewrites and
 		 * proxy of jsCallbackReady
 		 *
 		 * MUST BE CALLED AFTER all of the mwEmbedLoader.php includes.
@@ -66,7 +66,7 @@
 			 */
 			mw.setConfig('version', MWEMBED_VERSION);
 			/**
-			 *  Check the kWidget for environment settings and set appropriate flags
+			 *  Check the bWidget for environment settings and set appropriate flags
 			 */
 			this.checkEnvironment();
 
@@ -106,8 +106,8 @@
 			) {
 				mw.setConfig( 'forceMobileHTML5' , true );
 			}
-			// Check for debugKalturaPlayer in url and set debug mode to true
-			if ( document.URL.indexOf( 'debugKalturaPlayer' ) !== -1 ) {
+			// Check for debugBorhanPlayer in url and set debug mode to true
+			if ( document.URL.indexOf( 'debugBorhanPlayer' ) !== -1 ) {
 				mw.setConfig( 'debug' , true );
 			}
 			// Check for forceKPlayer in the URL
@@ -119,7 +119,7 @@
 			// Check if browser should use flash ( IE < 9 )
 			var ieMatch = document.documentMode ? ['', document.documentMode] : ua.match(/MSIE\s([0-9]+)/);
 			if ( (ieMatch && parseInt( ieMatch[1] ) < 9) || document.URL.indexOf( 'forceFlash' ) !== -1 ) {
-				mw.setConfig( 'Kaltura.ForceFlashOnDesktop' , true );
+				mw.setConfig( 'Borhan.ForceFlashOnDesktop' , true );
 			}
 
 			// Blackberry does not really support html5
@@ -128,20 +128,20 @@
 				mw.setConfig( 'EmbedPlayer.NotPlayableDownloadLink' , true );
 			}
 
-			if ( ua.indexOf( 'kalturaNativeCordovaPlayer' ) != -1 ) {
+			if ( ua.indexOf( 'borhanNativeCordovaPlayer' ) != -1 ) {
 				mw.setConfig( 'EmbedPlayer.ForceNativeComponent' , true );
 
 				if ( !mw.getConfig( 'EmbedPlayer.IsIframeServer' ) ) {
 					var cordovaPath;
-					var cordovaKWidgetPath;
+					var cordovaBWidgetPath;
 					if ( this.isAndroid() ) {
 						cordovaPath = "/modules/EmbedPlayer/binPlayers/cordova/android/cordova.js";
 					} else {
 						cordovaPath = "/modules/EmbedPlayer/binPlayers/cordova/ios/cordova.js";
 					}
-					cordovaKWidgetPath = "/kWidget/cordova.kWidget.js";
+					cordovaBWidgetPath = "/bWidget/cordova.bWidget.js";
 					document.write( '<script src="' + this.getPath() + cordovaPath + '"></scr' + 'ipt>' );
-					document.write( '<script src="' + this.getPath() + cordovaKWidgetPath + '"></scr' + 'ipt>' );
+					document.write( '<script src="' + this.getPath() + cordovaBWidgetPath + '"></scr' + 'ipt>' );
 				}
 			}
 
@@ -151,7 +151,7 @@
 					||
 					(/CPU like Mac OS X/i.test( ua ) )
 				) {
-					mw.setConfig( 'Kaltura.UseAppleAdaptive' , false );
+					mw.setConfig( 'Borhan.UseAppleAdaptive' , false );
 				}
 			}
 
@@ -177,26 +177,26 @@
 			}
 
 			//Show non-production error by default, and allow overriding via flashvar
-			if (!mw.getConfig( "Kaltura.SupressNonProductionUrlsWarning", false )) {
+			if (!mw.getConfig( "Borhan.SupressNonProductionUrlsWarning", false )) {
 				// Check if using staging server on non-staging site:
 				if (
-					// make sure this is Kaltura SaaS we are checking:
-					mw.getConfig("Kaltura.ServiceUrl").indexOf('kaltura.com') != -1
+					// make sure this is Borhan SaaS we are checking:
+					mw.getConfig("Borhan.ServiceUrl").indexOf('borhan.com') != -1
 					&&
 						// check that the library is not on production
-					this.getPath().indexOf('i.kaltura.com') == -1
+					this.getPath().indexOf('i.borhan.com') == -1
 					&&
-					this.getPath().indexOf('isec.kaltura.com') == -1
+					this.getPath().indexOf('isec.borhan.com') == -1
 					&&
 						// check that we player is not on a staging site:
 					window.location.host != 'kgit.html5video.org'
 					&&
-					window.location.host != 'player.kaltura.com'
+					window.location.host != 'player.borhan.com'
 					&&
 					window.location.host != 'localhost'
 				) {
 					if (console && console.error) {
-						console.error("Error: Using non-prodcution version of kaltura player library. Please see http://knowledge.kaltura.com/production-player-urls")
+						console.error("Error: Using non-prodcution version of borhan player library. Please see http://knowledge.borhan.com/production-player-urls")
 					}
 				}
 			}
@@ -225,8 +225,8 @@
                 
                 // The Native SDK provides two lists of supported formats, after the hash sign.
                 // Example: #nativeSdkDrmFormats=dash,wvm&nativeSdkAllFormats=dash,mp4,hls,wvm
-                var drmFormats = kWidget.getHashParam("nativeSdkDrmFormats") || "wvm";
-                var allFormats = kWidget.getHashParam("nativeSdkAllFormats") || "wvm,mp4,hls";
+                var drmFormats = bWidget.getHashParam("nativeSdkDrmFormats") || "wvm";
+                var allFormats = bWidget.getHashParam("nativeSdkAllFormats") || "wvm,mp4,hls";
                 window.kNativeSdk.drmFormats = typeMap(drmFormats);
                 window.kNativeSdk.allFormats = typeMap(allFormats);
 			}
@@ -234,7 +234,7 @@
 
 		/**
 		 * Checks for the existence of jsReadyCallback and stores it locally.
-		 * all ready calls then are wrapped by the kWidget jsCallBackready function.
+		 * all ready calls then are wrapped by the bWidget jsCallBackready function.
 		 */
 		proxiedJsCallback: null,
 		waitForLibraryChecks: true,
@@ -268,7 +268,7 @@
 		},
 
 		/**
-		 * The kWidget proxied jsCallbackReady
+		 * The bWidget proxied jsCallbackReady
 		 * @param {string} widgetId The id of the widget that is ready
 		 */
 		jsCallbackReady: function (widgetId) {
@@ -294,20 +294,20 @@
 			if( this.widgetOriginalSettings[widgetId] ){
 				// TODO these settings may be a bit late for plugins config ( should be set earlier in build out )
 				// for now just null out settings and changeMedia:
-				player.kBind( 'kdpEmpty', function(){
+				player.kBind( 'bdpEmpty', function(){
 					player.sendNotification('changeMedia', {'entryId': _this.widgetOriginalSettings[widgetId].entry_id} );
 				} );
 				//player.sendNotification('changeMedia', {'entryId': this.widgetOriginalSettings[widgetId].entry_id} );
 			}
 
-			var kdpVersion = player.evaluate('{playerStatusProxy.kdpVersion}');
-			//set the load time attribute supported in version kdp 3.7.x
-			if (mw.versionIsAtLeast('v3.7.0', kdpVersion)) {
-				_this.log("Error: Unsuported KDP version");
+			var bdpVersion = player.evaluate('{playerStatusProxy.bdpVersion}');
+			//set the load time attribute supported in version bdp 3.7.x
+			if (mw.versionIsAtLeast('v3.7.0', bdpVersion)) {
+				_this.log("Error: Unsuported BDP version");
 			} else{
 				player.kBind('mediaReady', function () {
 					// Set the load time against startTime for the current playerId:
-					player.setKDPAttribute("playerStatusProxy", "loadTime",
+					player.setBDPAttribute("playerStatusProxy", "loadTime",
 							( (new Date().getTime() - _this.startTime[ widgetId ] ) / 1000.0 ).toFixed(2) );
 				});
 			}
@@ -391,8 +391,8 @@
 				}
 			}
 
-			if ( document.URL.indexOf('forceKalturaNativeComponentPlayer') !== -1 ||
-				document.URL.indexOf('forceKalturaNative') !== -1) {
+			if ( document.URL.indexOf('forceBorhanNativeComponentPlayer') !== -1 ||
+				document.URL.indexOf('forceBorhanNative') !== -1) {
 				settings.flashvars["nativeCallout"] = { plugin: true }
 			}
 
@@ -400,23 +400,23 @@
 			 * Embed settings checks
 			 */
 			if (!settings.wid) {
-				this.log("Error: kWidget.embed missing wid");
+				this.log("Error: bWidget.embed missing wid");
 				return;
 			}
 			var uiconf_id = settings.uiconf_id;
 			var confFile = settings.flashvars.confFilePath ? settings.flashvars.confFilePath : settings.flashvars.jsonConfig;
 			if (!uiconf_id && !confFile) {
-				this.log("Error: kWidget.embed missing uiconf_id or confFile");
+				this.log("Error: bWidget.embed missing uiconf_id or confFile");
 				return;
 			}
 			// Make sure the replace target exists:
 			var elm = document.getElementById(targetId);
 			if (!elm) {
-				this.log("Error: kWidget.embed could not find target: " + targetId);
+				this.log("Error: bWidget.embed could not find target: " + targetId);
 				return false; // No target found ( probably already done )
 			}
-			// Don't rewrite special key kaltura_player_iframe_no_rewrite
-			if (elm.getAttribute('name') == 'kaltura_player_iframe_no_rewrite') {
+			// Don't rewrite special key borhan_player_iframe_no_rewrite
+			if (elm.getAttribute('name') == 'borhan_player_iframe_no_rewrite') {
 				return;
 			}
 			// Check for "auto" localization and inject browser language. 
@@ -435,7 +435,7 @@
 				// IE8 can't handle innerHTML on "read only" targets .
 			}
 
-			// Check for size override in kWidget embed call
+			// Check for size override in bWidget embed call
 			function checkSizeOverride(dim) {
 				if (settings[ dim ]) {
 					// check for non px value:
@@ -455,7 +455,7 @@
 			}
 
 			// Check for ForceIframeEmbed flag
-			if (mw.getConfig('Kaltura.ForceIframeEmbed') === true) {
+			if (mw.getConfig('Borhan.ForceIframeEmbed') === true) {
 				this.outputIframeWithoutApi(targetId, settings);
 				return;
 			}
@@ -546,8 +546,8 @@
 		},
 		outputCordovaPlayer: function (targetId, settings) {
 			var _this = this;
-			if (cordova && cordova.kWidget) {
-				cordova.kWidget.embed(targetId, settings);
+			if (cordova && cordova.bWidget) {
+				cordova.bWidget.embed(targetId, settings);
 			} else {//if cordova is not loaded run this function again after 500 ms
 				setTimeout(function () {
 					_this.outputCordovaPlayer(targetId, settings);
@@ -563,14 +563,14 @@
 			style.type = 'text/css';
 			var imagePath = this.getPath() + '/modules/MwEmbedSupport/skins/common/images/';
 
-			var cssText = '.kWidgetCentered {' +
+			var cssText = '.bWidgetCentered {' +
 					'max-height: 100%; ' +
 					'max-width: 100%; ' +
 					'position: absolute; ' +
 					'top: 0; left: 0; right: 0; bottom: 0; ' +
 					'margin: auto; ' +
 				'} ' + "\n" +
-				'.kWidgetPlayBtn { ' +
+				'.bWidgetPlayBtn { ' +
 					'cursor:pointer;' +
 					'height: 53px;' +
 					'width: 70px;' +
@@ -579,14 +579,14 @@
 					'background: url(\'' + imagePath + 'player_big_play_button.png\') ;' +
 					'z-index: 1;' +
 				'} ' + "\n" +
-				'.kWidgetAccessibilityLabel { ' +
+				'.bWidgetAccessibilityLabel { ' +
 				'font-size:0;' +
 				'height: 1px;' +
 				'overflow: hidden;' +
 				'display:block;' +
 				'position:absolute;' +
 				'} ' + "\n" +
-				'.kWidgetPlayBtn:hover{ ' +
+				'.bWidgetPlayBtn:hover{ ' +
 					'background: url(\'' + imagePath + 'player_big_play_button_hover.png\');"' +
 				'} ';
 			if (this.isIE()) {
@@ -613,7 +613,7 @@
 		 * the widget loaded anlytics event is triggered,
 		 * and a thumbReady callback is called
 		 *
-		 * All the other kWidget settings are invoked during playback.
+		 * All the other bWidget settings are invoked during playback.
 		 */
 		thumbEmbed: function (targetId, settings, forceDownload) {
 			if (this.isDownloadLinkPlayer()) {
@@ -647,9 +647,9 @@
 			}
 			elm.innerHTML = '' +
 				'<div style="position: relative; width: 100%; height: 100%;">' +
-				'<button class="kWidgetCentered kWidgetPlayBtn" ' + 'id="' + targetId + '_playBtn" >' +
-				'<span class="kWidgetAccessibilityLabel">' + 'Play video content' + '</span></button>' +
-				'<img class="kWidgetCentered" src="' + this.getKalturaThumbUrl(settings) + '" >' +
+				'<button class="bWidgetCentered bWidgetPlayBtn" ' + 'id="' + targetId + '_playBtn" >' +
+				'<span class="bWidgetAccessibilityLabel">' + 'Play video content' + '</span></button>' +
+				'<img class="bWidgetCentered" src="' + this.getBorhanThumbUrl(settings) + '" >' +
 				'</div>';
 			// Add a click binding to do the really embed:
 			var playBtn = document.getElementById(targetId + '_playBtn');
@@ -660,11 +660,11 @@
 				}
 				settings.readyCallback = function (playerId) {
 					// issue a play ( since we already clicked the play button )
-					var kdp = document.getElementById(playerId);
-					kdp.kBind('mediaReady', function () {
+					var bdp = document.getElementById(playerId);
+					bdp.kBind('mediaReady', function () {
 						setTimeout(function () {
 							if (_this.isMobileDevice()) {
-								kdp.sendNotification('doPlay');
+								bdp.sendNotification('doPlay');
 							}
 						}, 0);
 					});
@@ -680,7 +680,7 @@
 				}
 				else {
 					// update the settings object
-					kWidget.embed(settings);
+					bWidget.embed(settings);
 				}
 			});
 			// TOOD maybe a basic basic api ( doPlay support ? )
@@ -691,7 +691,7 @@
 			}
 		},
 		/**
-		 * Destroy a kWidget embed instance
+		 * Destroy a bWidget embed instance
 		 * * removes the target from the dom
 		 * * removes any associated
 		 * @param {Element|String} The target element or string to destroy
@@ -737,7 +737,7 @@
 		},
 
 		/**
-		 * Extends the kWidget objects with (un)binding mechanism - kBind / kUnbind
+		 * Extends the bWidget objects with (un)binding mechanism - kBind / kUnbind
 		 */
 		extendJsListener: function (player) {
 			var _this = this;
@@ -750,7 +750,7 @@
 				// We can pass [eventName.namespace] as event name, we need it in order to remove listeners with their namespace
 				if (typeof eventName == 'string') {
 					var eventData = eventName.split('.', 2);
-					var eventNamespace = ( eventData[1] ) ? eventData[1] : 'kWidget';
+					var eventNamespace = ( eventData[1] ) ? eventData[1] : 'bWidget';
 					eventName = eventData[0];
 				}
 				if (typeof callback == 'string') {
@@ -759,7 +759,7 @@
 					// Make life easier for internal usage of the listener mapping by supporting
 					// passing a callback by function ref
 					var generateGlobalCBName = function () {
-						globalCBName = 'kWidget_' + eventName + '_cb' + callbackIndex;
+						globalCBName = 'bWidget_' + eventName + '_cb' + callbackIndex;
 						if (window[ globalCBName ]) {
 							callbackIndex++;
 							generateGlobalCBName();
@@ -781,7 +781,7 @@
 						}
 					};
 				} else {
-					kWidget.log("Error: kWidget : bad callback type: " + callback);
+					bWidget.log("Error: bWidget : bad callback type: " + callback);
 					return;
 				}
 				// Storing a list of namespaces. Each namespace contains a list of eventnames and respective callbacks
@@ -791,13 +791,13 @@
 				if (!_this.listenerList[ eventNamespace ][ eventName ]) {
 					_this.listenerList[ eventNamespace ][ eventName ] = globalCBName;
 				}
-				//kWidget.log( "kWidget :: kBind :: ( " + eventName + ", " + globalCBName + " )" );
+				//bWidget.log( "bWidget :: kBind :: ( " + eventName + ", " + globalCBName + " )" );
 				player.addJsListener(eventName, globalCBName);
 				return player;
 			}
 
 			player.kUnbind = function (eventName, callbackName) {
-				//kWidget.log( "kWidget :: kUnbind :: ( " + eventName + ", " + callbackName + " )" );
+				//bWidget.log( "bWidget :: kUnbind :: ( " + eventName + ", " + callbackName + " )" );
 				if (typeof eventName == 'string') {
 					var eventData = eventName.split('.', 2);
 					var eventNamespace = eventData[1];
@@ -853,13 +853,13 @@
 			context = context || document;
 			var elm = context.getElementById(targetId);
 			if (!elm && !elm.parentNode) {
-				kWidget.log("Error embed target missing");
+				bWidget.log("Error embed target missing");
 				return;
 			}
 
 			// Only generate a swf source if not defined.
 			if (!settings.src) {
-				var swfUrl = mw.getConfig('Kaltura.ServiceUrl') + '/index.php/kwidget' +
+				var swfUrl = mw.getConfig('Borhan.ServiceUrl') + '/index.php/bwidget' +
 					'/wid/' + settings.wid +
 					'/uiconf_id/' + settings.uiconf_id;
 
@@ -884,7 +884,7 @@
 			}
 			// Set our special callback flashvar:
 			if (settings.flashvars['jsCallbackReadyFunc']) {
-				kWidget.log("Error: Setting jsCallbackReadyFunc is not compatible with kWidget embed");
+				bWidget.log("Error: Setting jsCallbackReadyFunc is not compatible with bWidget embed");
 			}
 			// Check if in debug mode: 
 			if (mw.getConfig('debug', true)) {
@@ -944,7 +944,7 @@
 			// XXX firefox with firebug enabled locks up the browser
 			// detect firebug:
 			if (window.console && ( window.console.firebug || window.console.exception )) {
-				console.log('Warning firebug + firefox and dynamic flash kdp embed causes lockups in firefox' +
+				console.log('Warning firebug + firefox and dynamic flash bdp embed causes lockups in firefox' +
 					', ( delaying embed )');
 				this.domReady(function () {
 					setTimeout(function () {
@@ -972,9 +972,9 @@
 			iframe.id = iframeId;
 			iframe.scrolling = "no";
 			iframe.name = iframeId;
-			iframe.className = 'mwEmbedKalturaIframe';
+			iframe.className = 'mwEmbedBorhanIframe';
 			iframe.setAttribute('aria-labelledby', 'Player ' + targetId);
-			iframe.setAttribute('aria-describedby', 'The Kaltura Dynamic Video Player');
+			iframe.setAttribute('aria-describedby', 'The Borhan Dynamic Video Player');
 			// IE8 requires frameborder attribute to hide frame border:
 			iframe.setAttribute('frameborder', '0');
 
@@ -1011,7 +1011,7 @@
 			iframeProxy.id = widgetElm.id;
 			iframeProxy.name = widgetElm.name;
 			var moreClass = widgetElm.className ? ' ' + widgetElm.className : '';
-			iframeProxy.className = 'kWidgetIframeContainer' + moreClass;
+			iframeProxy.className = 'bWidgetIframeContainer' + moreClass;
 			// Update the iframe proxy style per org embed widget:
 			iframeProxy.style.cssText = widgetElm.style.cssText + ';overflow: hidden';
 			return iframeProxy;
@@ -1035,9 +1035,9 @@
 				}
 				newDoc.close();
 
-				if(  _this.isInlineScriptRequest(settings) && kWidget.storage.isSupported()){
+				if(  _this.isInlineScriptRequest(settings) && bWidget.storage.isSupported()){
 					// if empty populate for the first time:
-					var iframeStoredData = kWidget.storage.getWithTTL( iframeRequest );
+					var iframeStoredData = bWidget.storage.getWithTTL( iframeRequest );
 					if (iframeStoredData == null) {
 						_this.cachePlayer(iframeRequest, iframeData.content, ttlUnixVal);
 					}
@@ -1051,7 +1051,7 @@
 			var _this = this;
 			window[cbName] = function (iframeData) {
 				// only populate the cache if request was an inlines scripts request.
-				if (_this.isInlineScriptRequest(settings) && kWidget.storage.isSupported()) {
+				if (_this.isInlineScriptRequest(settings) && bWidget.storage.isSupported()) {
 					_this.cachePlayer(iframeRequest, iframeData.content, ttlUnixVal);
 				}
 				// Clear out this global function
@@ -1103,12 +1103,12 @@
 
 		isStorageMaxLimitExceeded: function(settings){
 			//Get max cache entries form user settings or use default
-			var maxCacheEntries = settings.flashvars["Kaltura.MaxCacheEntries"]|| mw.getConfig("Kaltura.MaxCacheEntries");
-			var cacheEntriesCount = kWidget.storage.getEntriesCount();
+			var maxCacheEntries = settings.flashvars["Borhan.MaxCacheEntries"]|| mw.getConfig("Borhan.MaxCacheEntries");
+			var cacheEntriesCount = bWidget.storage.getEntriesCount();
 			return (cacheEntriesCount >= maxCacheEntries);
 		},
 		cachePlayer: function(key, value, ttl){
-			var success = kWidget.storage.setWithTTL(key, value, ttl);
+			var success = bWidget.storage.setWithTTL(key, value, ttl);
 			if (success) {
 				this.log("Player data stored in cache!");
 			} else {
@@ -1155,7 +1155,7 @@
 				var iframeRequest = this.getIframeRequest(widgetElm, requestSettings);
 
 				//Get TTL for cache entries form user settings or use default
-				var ttlUnixVal = settings.flashvars["Kaltura.CacheTTL"] || mw.getConfig("Kaltura.CacheTTL");
+				var ttlUnixVal = settings.flashvars["Borhan.CacheTTL"] || mw.getConfig("Borhan.CacheTTL");
 
 				//Prepare an iframe content injection hook
 				this.createContentInjectCallback(cbName, iframe, iframeRequest, requestSettings, ttlUnixVal);
@@ -1166,8 +1166,8 @@
 				} else {
 					// try to get payload from localStorage cache
 					var iframeData = null;
-					if (kWidget.storage.isSupported()) {
-						iframeData = kWidget.storage.getWithTTL(iframeRequest);
+					if (bWidget.storage.isSupported()) {
+						iframeData = bWidget.storage.getWithTTL(iframeRequest);
 					}
 					//If iframe content is in cache then load it immediately and update from server for next time
 					if (!mw.getConfig('debug') && iframeData && iframeData != "null") {
@@ -1181,8 +1181,8 @@
 						this.createContentUpdateCallback(cbName, iframeRequest, requestSettings, ttlUnixVal);
 					}
 					//Enforce the max storage entries setting to avoid over populating the localStorage
-					if (kWidget.storage.isSupported() && this.isStorageMaxLimitExceeded(settings)) {
-						kWidget.storage.clearNS();
+					if (bWidget.storage.isSupported() && this.isStorageMaxLimitExceeded(settings)) {
+						bWidget.storage.clearNS();
 					}
 					// Do a normal async content inject/update request:
 					this.requestPlayer(iframeRequest, widgetElm, targetId, cbName, requestSettings);
@@ -1204,7 +1204,7 @@
 			}
 			return cbName;
 		},
-		// TODO does this need to be part of the kWidget library?
+		// TODO does this need to be part of the bWidget library?
 		resizeOvelayByHolderSize: function (overlaySize, parentSize, ratio) {
 			var overlayRatio = overlaySize.width / overlaySize.height;
 
@@ -1266,7 +1266,7 @@
 			var newDoc = iframeElm.contentDocument;
 			newDoc.open();
 			// grab a black source
-			var vidSrc = location.protocol + '//www.kaltura.com/p/243342/sp/24334200/playManifest/entryId/1_vp5cng42/flavorId/1_6wf0o9n7/format/url/protocol/http/a.mp4';
+			var vidSrc = location.protocol + '//www.borhan.com/p/243342/sp/24334200/playManifest/entryId/1_vp5cng42/flavorId/1_6wf0o9n7/format/url/protocol/http/a.mp4';
 
 			// Add the iframe skeleton with video element to the iframe
 			newDoc.write('<html>' +
@@ -1276,10 +1276,10 @@
 				'<div class="videoHolder">' +
 				'<video class="persistentNativePlayer" ' +
 				'id="' + targetId + '" ' +
-				'kwidgetid="' + settings.wid + '" ' +
+				'bwidgetid="' + settings.wid + '" ' +
 				'kentryid="' + settings.entry_id + '" ' +
 				'kuiconfid="' + settings.uiconf_id + '" ' +
-				//'poster="' + _this.getKalturaThumbUrl( settings ) + '" ' +
+				//'poster="' + _this.getBorhanThumbUrl( settings ) + '" ' +
 				// Only applies to iOS, and only to caputre the play event,
 				// so we only include a low bitrate mp4
 				'src="' + vidSrc + '" ' +
@@ -1358,16 +1358,16 @@
 		// retruns only the runtime config
 		getRuntimeSettings: function( settings ){
 			var runtimeSettings = {};
-			var allowedVars = mw.getConfig('Kaltura.AllowedVars');
+			var allowedVars = mw.getConfig('Borhan.AllowedVars');
 			allowedVars = allowedVars.split(",");
 
-			var allowedVarsKeyPartials = mw.getConfig('Kaltura.AllowedVarsKeyPartials');
+			var allowedVarsKeyPartials = mw.getConfig('Borhan.AllowedVarsKeyPartials');
 			allowedVarsKeyPartials = allowedVarsKeyPartials.split(",");
 
-			var allowedPluginVars = mw.getConfig('Kaltura.AllowedPluginVars');
+			var allowedPluginVars = mw.getConfig('Borhan.AllowedPluginVars');
 			allowedPluginVars = allowedPluginVars.split(",");
 
-			var allowedPluginVarsValPartials = mw.getConfig('Kaltura.AllowedPluginVarsValPartials');
+			var allowedPluginVarsValPartials = mw.getConfig('Borhan.AllowedPluginVarsValPartials');
 			allowedPluginVarsValPartials = allowedPluginVarsValPartials.split(",");
 
 			for( var settingsKey in settings ){
@@ -1432,7 +1432,7 @@
 		 * Build the iframe request from supplied settings:
 		 */
 		getIframeRequest: function (elm, settings) {
-			// Get the base set of kaltura params ( entry_id, uiconf_id etc )
+			// Get the base set of borhan params ( entry_id, uiconf_id etc )
 			var iframeRequest = this.embedSettingsToUrl( settings );
 
 			// Add the player id:
@@ -1443,22 +1443,22 @@
 				iframeRequest += '&debug=true';
 			}
 			// add ps if set: 
-			if (mw.getConfig('Kaltura.KWidgetPsPath')) {
-				iframeRequest += '&pskwidgetpath=' + mw.getConfig('Kaltura.KWidgetPsPath');
+			if (mw.getConfig('Borhan.BWidgetPsPath')) {
+				iframeRequest += '&psbwidgetpath=' + mw.getConfig('Borhan.BWidgetPsPath');
 			}
 
 			// If remote service is enabled pass along service arguments:
-			if (mw.getConfig('Kaltura.AllowIframeRemoteService') &&
+			if (mw.getConfig('Borhan.AllowIframeRemoteService') &&
 				(
-					mw.getConfig("Kaltura.ServiceUrl").indexOf('kaltura.com') === -1 &&
-						mw.getConfig("Kaltura.ServiceUrl").indexOf('kaltura.org') === -1
+					mw.getConfig("Borhan.ServiceUrl").indexOf('borhan.com') === -1 &&
+						mw.getConfig("Borhan.ServiceUrl").indexOf('borhan.org') === -1
 					)
 				) {
-				iframeRequest += kWidget.serviceConfigToUrl();
+				iframeRequest += bWidget.serviceConfigToUrl();
 			}
 
 			// Add no cache flag if set:
-			if (mw.getConfig('Kaltura.NoApiCache')) {
+			if (mw.getConfig('Borhan.NoApiCache')) {
 				iframeRequest += '&nocache=true';
 			}
 
@@ -1472,7 +1472,7 @@
 		},
 		getIframeUrl: function () {
 			var path = this.getPath();
-			if (mw.getConfig('Kaltura.ForceIframeEmbed') === true) {
+			if (mw.getConfig('Borhan.ForceIframeEmbed') === true) {
 				// In order to simulate iframe embed we need to use different host
 				path = path.replace('localhost', '127.0.0.1');
 			}
@@ -1508,7 +1508,7 @@
 		},
 
 		/**
-		 * Adds a ready callback to be called once the kdp or html5 player is ready
+		 * Adds a ready callback to be called once the bdp or html5 player is ready
 		 * @param {function} readyCallback called once a player or widget is ready on the page
 		 */
 		addReadyCallback: function (readyCallback) {
@@ -1555,21 +1555,21 @@
 			}
 
 			/**
-			 * If Kaltura.AllowIframeRemoteService is not enabled force in page rewrite:
+			 * If Borhan.AllowIframeRemoteService is not enabled force in page rewrite:
 			 */
-			var serviceUrl = mw.getConfig('Kaltura.ServiceUrl');
-			if (!mw.getConfig('Kaltura.AllowIframeRemoteService')) {
-				if (!serviceUrl || serviceUrl.indexOf('kaltura.com') === -1) {
-					// if not hosted on kaltura for now we can't use the iframe to load the player
-					mw.setConfig('Kaltura.IframeRewrite', false);
-					mw.setConfig('Kaltura.UseManifestUrls', false);
+			var serviceUrl = mw.getConfig('Borhan.ServiceUrl');
+			if (!mw.getConfig('Borhan.AllowIframeRemoteService')) {
+				if (!serviceUrl || serviceUrl.indexOf('borhan.com') === -1) {
+					// if not hosted on borhan for now we can't use the iframe to load the player
+					mw.setConfig('Borhan.IframeRewrite', false);
+					mw.setConfig('Borhan.UseManifestUrls', false);
 				}
 			}
 			/*
 			 * TODO revisit support for video tag rewrites ( maybe redirect to iframe style embed )
-			 if( ! mw.getConfig( 'Kaltura.ForceFlashOnDesktop' )
+			 if( ! mw.getConfig( 'Borhan.ForceFlashOnDesktop' )
 			 &&
-			 ( mw.getConfig( 'Kaltura.LoadScriptForVideoTags' ) && this.pageHasAudioOrVideoTags()  )
+			 ( mw.getConfig( 'Borhan.LoadScriptForVideoTags' ) && this.pageHasAudioOrVideoTags()  )
 			 ){
 			 loadHTML5LibAndRewriteTags();
 			 return ;
@@ -1590,7 +1590,7 @@
 			}
 
 			// Check if no flash and no html5 and no forceFlash ( direct download link )
-			if (!this.supportsFlash() && !this.supportsHTML5() && !mw.getConfig('Kaltura.ForceFlashOnDesktop')) {
+			if (!this.supportsFlash() && !this.supportsHTML5() && !mw.getConfig('Borhan.ForceFlashOnDesktop')) {
 				this.embedFromObjects(playerList);
 				return;
 			}
@@ -1622,7 +1622,7 @@
 				return true;
 			}
 			// Check if we need to load uiConfJs ( for non-inLoaderUiConfJs )
-			if (playerList.length == 0 || !mw.getConfig('Kaltura.EnableEmbedUiConfJs') ||
+			if (playerList.length == 0 || !mw.getConfig('Borhan.EnableEmbedUiConfJs') ||
 				mw.getConfig('EmbedPlayer.IsIframeServer')) {
 				return false;
 			}
@@ -1658,8 +1658,8 @@
 			// We have not yet loaded uiConfJS... load it for each ui_conf id
 			var baseUiConfJsUrl = this.getPath() + 'services.php?service=uiconfJs';
 			// add ps if set: 
-			if (mw.getConfig('Kaltura.KWidgetPsPath')) {
-				baseUiConfJsUrl += '&pskwidgetpath=' + mw.getConfig('Kaltura.KWidgetPsPath');
+			if (mw.getConfig('Borhan.BWidgetPsPath')) {
+				baseUiConfJsUrl += '&psbwidgetpath=' + mw.getConfig('Borhan.BWidgetPsPath');
 			}
 			if (!this.isMissingUiConfJs(playerList)) {
 				// called with empty request set:
@@ -1724,7 +1724,7 @@
 
 		/**
 		 * Write log message to the console
-		 * TODO support log levels: https://github.com/kaltura/mwEmbed/issues/80
+		 * TODO support log levels: https://github.com/borhan/mwEmbed/issues/80
 		 */
 		log: function (msg) {
 			// only log if debug is active:
@@ -1734,10 +1734,10 @@
 			if (typeof console != 'undefined' && console.log) {
 				if (this.isIE8()){
 					try{
-						console.log("kWidget: " + msg);
+						console.log("bWidget: " + msg);
 					}catch(e){}
 				}else{
-					console.log("kWidget: " + msg);
+					console.log("bWidget: " + msg);
 				}
 			}
 		},
@@ -1870,10 +1870,10 @@
 				return true;
 			}
 
-			// Check for "Kaltura.LeadWithHTML5" attribute
+			// Check for "Borhan.LeadWithHTML5" attribute
 			// Only return true if the browser actually supports html5
 			if (
-				( mw.getConfig('KalturaSupport.LeadWithHTML5') || mw.getConfig('Kaltura.LeadWithHTML5') )
+				( mw.getConfig('BorhanSupport.LeadWithHTML5') || mw.getConfig('Borhan.LeadWithHTML5') )
 					&&
 					this.supportsHTMLPlayerUI()
 				) {
@@ -1884,7 +1884,7 @@
 			if (this.isAndroid()) {
 				if (mw.getConfig('EmbedPlayer.UseFlashOnAndroid')
 					&&
-					kWidget.supportsFlash()
+					bWidget.supportsFlash()
 					) {
 					// Use flash on Android if available
 					return false;
@@ -1898,7 +1898,7 @@
 			 * If the browser supports flash ( don't use html5 )
 			 * On ModernUI IE10, Flash is integrated. However, our Flash detection on IE looks for ActiveX which is disabled, thus failing.
 			 */
-			if (kWidget.supportsFlash()) {
+			if (bWidget.supportsFlash()) {
 				return false;
 			}
 
@@ -1908,7 +1908,7 @@
 			 * Due to that, we fallback to HTML5 player on Modern UI IE10 by default
 			 * Using this flag this can be overriden.
 			 */
-			if (mw.getConfig('Kaltura.ForceFlashOnIE10')) {
+			if (mw.getConfig('Borhan.ForceFlashOnIE10')) {
 				var ua = navigator.userAgent;
 				var ie10Match = document.documentMode === 10;
 				if (ie10Match) {
@@ -1917,17 +1917,17 @@
 			}
 
 			// Check if the UseFlashOnDesktop flag is set and ( don't check for html5 )
-			if (mw.getConfig('Kaltura.ForceFlashOnDesktop')) {
+			if (mw.getConfig('Borhan.ForceFlashOnDesktop')) {
 				return false;
 			}
 
 			// No flash return true if the browser supports html5 video tag with basic support for canPlayType:
-			if (kWidget.supportsHTML5()) {
+			if (bWidget.supportsHTML5()) {
 				return true;
 			}
 			// if we have the iframe enabled return true ( since the iframe will output a fallback link
 			// even if the client does not support html5 or flash )
-			if (mw.getConfig('Kaltura.IframeRewrite')) {
+			if (mw.getConfig('Borhan.IframeRewrite')) {
 				return true;
 			}
 
@@ -1939,7 +1939,7 @@
 
 			// update the settings object
 			var baseUrl = _this.getPath();
-			var downloadUrl = baseUrl + 'modules/KalturaSupport/download.php/wid/' + settings.wid;
+			var downloadUrl = baseUrl + 'modules/BorhanSupport/download.php/wid/' + settings.wid;
 
 			// Also add the uiconf id to the url:
 			if (settings.uiconf_id) {
@@ -1962,13 +1962,13 @@
 			return downloadUrl;
 		},
 		/**
-		 * Get Kaltura thumb url from entry object
+		 * Get Borhan thumb url from entry object
 		 * TODO We need to grab thumbnail path from api (baseEntry->thumbnailUrl)
 		 *        or a specialized entry point for cases where we don't have the api is available
 		 *
 		 * @param {object} Entry settings used to generate the api url request
 		 */
-		getKalturaThumbUrl: function (settings) {
+		getBorhanThumbUrl: function (settings) {
 			//Check if external thumbnailUrl is defined
 			if (settings.flashvars && settings.flashvars.thumbnailUrl !== undefined){
 				return settings.flashvars.thumbnailUrl;
@@ -2018,7 +2018,7 @@
 			var entryId = (settings.entry_id) ? '/entry_id/' + settings.entry_id : '';
 
 			// Return the thumbnail.php script which will redirect to the thumbnail location
-			return this.getPath() + 'modules/KalturaSupport/thumbnail.php' +
+			return this.getPath() + 'modules/BorhanSupport/thumbnail.php' +
 				'/p/' + settings.partner_id +
 				'/uiconf_id/' + settings.uiconf_id +
 				entryId +
@@ -2028,12 +2028,12 @@
 		},
 
 		/**
-		 * Get kaltura embed settings from a swf url and flashvars object
+		 * Get borhan embed settings from a swf url and flashvars object
 		 *
 		 * @param {string} swfUrl
-		 *    url to kaltura platform hosted swf
+		 *    url to borhan platform hosted swf
 		 * @param {object} flashvars
-		 *    object mapping kaltura variables, ( overrides url based variables )
+		 *    object mapping borhan variables, ( overrides url based variables )
 		 */
 		getEmbedSettings: function (swfUrl, flashvars) {
 			var embedSettings = {};
@@ -2182,27 +2182,27 @@
 			return false;
 		},
 		/**
-		 * Get the list of embed objects on the page that are 'kaltura players'
+		 * Get the list of embed objects on the page that are 'borhan players'
 		 */
 		getKalutaObjectList: function () {
 			var _this = this;
-			var kalturaPlayerList = [];
-			// Check all objects for kaltura compatible urls
+			var borhanPlayerList = [];
+			// Check all objects for borhan compatible urls
 			var objectList = document.getElementsByTagName('object');
-			if (!objectList.length && document.getElementById('kaltura_player')) {
-				objectList = [ document.getElementById('kaltura_player') ];
+			if (!objectList.length && document.getElementById('borhan_player')) {
+				objectList = [ document.getElementById('borhan_player') ];
 			}
-			// local function to attempt to add the kalturaEmbed
-			var tryAddKalturaEmbed = function (url, flashvars) {
+			// local function to attempt to add the borhanEmbed
+			var tryAddBorhanEmbed = function (url, flashvars) {
 
-				//make sure we change only kdp objects
-				if (!url.match(/(kwidget|kdp)/ig)) {
+				//make sure we change only bdp objects
+				if (!url.match(/(bwidget|bdp)/ig)) {
 					return false;
 				}
 				var settings = _this.getEmbedSettings(url, flashvars);
 				if (settings && settings.uiconf_id && settings.wid) {
 					objectList[i].kEmbedSettings = settings;
-					kalturaPlayerList.push(objectList[i]);
+					borhanPlayerList.push(objectList[i]);
 					return true;
 				}
 				return false;
@@ -2225,18 +2225,18 @@
 					}
 				}
 
-				if (tryAddKalturaEmbed(swfUrl, flashvars)) {
+				if (tryAddBorhanEmbed(swfUrl, flashvars)) {
 					continue;
 				}
 
 				// Check for object data style url:
 				if (objectList[i].getAttribute('data')) {
-					if (tryAddKalturaEmbed(objectList[i].getAttribute('data'), flashvars)) {
+					if (tryAddBorhanEmbed(objectList[i].getAttribute('data'), flashvars)) {
 						continue;
 					}
 				}
 			}
-			return kalturaPlayerList;
+			return borhanPlayerList;
 		},
 		/**
 		 * Checks if the current page has jQuery defined, else include it and issue callback
@@ -2251,19 +2251,19 @@
 				}
 				this.appendScriptUrl(this.getPath() + 'resources/jquery/jquery.min.js', function () {
 					// remove jQuery from window scope if client has already included older jQuery
-					window.kalturaJQuery = window.jQuery.noConflict();
+					window.borhanJQuery = window.jQuery.noConflict();
 					// Restore client jquery to base target
 					if (window.clientPagejQuery) {
 						window.jQuery = window.$ = window.clientPagejQuery;
 					}
 
-					// Run all on-page code with kalturaJQuery scope 
+					// Run all on-page code with borhanJQuery scope 
 					// ( pass twice to poupluate $, and jQuery )  
-					callback(window.kalturaJQuery, window.kalturaJQuery);
+					callback(window.borhanJQuery, window.borhanJQuery);
 				});
 			} else {
-				// update window.kalturaJQuery reference:
-				window.kalturaJQuery = window.jQuery;
+				// update window.borhanJQuery reference:
+				window.borhanJQuery = window.jQuery;
 				callback(window.jQuery, window.jQuery);
 			}
 		},
@@ -2306,7 +2306,7 @@
 		 * @param {function} callback
 		 */
 		appendScriptUrls: function (urls, callback) {
-			kWidget.log("appendScriptUrls");
+			bWidget.log("appendScriptUrls");
 			var _this = this;
 			var loadCount = 0;
 			if (urls.length == 0) {
@@ -2397,8 +2397,8 @@
 			var serviceVars = ['ServiceUrl', 'CdnUrl', 'ServiceBase', 'UseManifestUrls'];
 			var urlParam = '';
 			for (var i = 0; i < serviceVars.length; i++) {
-				if (mw.getConfig('Kaltura.' + serviceVars[i]) !== null) {
-					urlParam += '&' + serviceVars[i] + '=' + encodeURIComponent(mw.getConfig('Kaltura.' + serviceVars[i]));
+				if (mw.getConfig('Borhan.' + serviceVars[i]) !== null) {
+					urlParam += '&' + serviceVars[i] + '=' + encodeURIComponent(mw.getConfig('Borhan.' + serviceVars[i]));
 				}
 			}
 			return urlParam;
@@ -2445,11 +2445,11 @@
 		 */
 		embedSettingsToUrl: function (settings) {
 			var url = '';
-			var kalturaAttributeList = ['uiconf_id', 'entry_id', 'wid', 'p', 'cache_st'];
+			var borhanAttributeList = ['uiconf_id', 'entry_id', 'wid', 'p', 'cache_st'];
 			for (var attrKey in settings) {
-				// Check if the attrKey is in the kalturaAttributeList:
-				for (var i = 0; i < kalturaAttributeList.length; i++) {
-					if (kalturaAttributeList[i] == attrKey) {
+				// Check if the attrKey is in the borhanAttributeList:
+				for (var i = 0; i < borhanAttributeList.length; i++) {
+					if (borhanAttributeList[i] == attrKey) {
 						url += '&' + attrKey + '=' + encodeURIComponent(settings[attrKey]);
 					}
 				}
@@ -2471,17 +2471,17 @@
 				if (heightStr) {
 					settings.height = heightStr;
 				}
-				kWidget.embed(replaceTargetId, settings);
+				bWidget.embed(replaceTargetId, settings);
 			};
 			// flashobject
 			if (window['flashembed'] && !window['originalFlashembed']) {
 				window['originalFlashembed'] = window['flashembed'];
 				window['flashembed'] = function (targetId, attributes, flashvars) {
-					// TODO test with kWidget.embed replacement.
+					// TODO test with bWidget.embed replacement.
 					_this.domReady(function () {
-						var kEmbedSettings = kWidget.getEmbedSettings(attributes.src, flashvars);
+						var kEmbedSettings = bWidget.getEmbedSettings(attributes.src, flashvars);
 
-						if (kEmbedSettings.uiconf_id && ( kWidget.isHTML5FallForward() || !kWidget.supportsFlash() )) {
+						if (kEmbedSettings.uiconf_id && ( bWidget.isHTML5FallForward() || !bWidget.supportsFlash() )) {
 							document.getElementById(targetId).innerHTML = '<div style="width:100%;height:100%" id="' + attributes.id + '"></div>';
 							doEmbedSettingsWrite(kEmbedSettings, attributes.id, attributes.width, attributes.height);
 						} else {
@@ -2502,10 +2502,10 @@
 				window['SWFObject'].prototype['originalWrite'] = window['SWFObject'].prototype.write;
 				window['SWFObject'].prototype['write'] = function (targetId) {
 					var swfObj = this;
-					// TODO test with kWidget.embed replacement.
+					// TODO test with bWidget.embed replacement.
 					_this.domReady(function () {
-						var kEmbedSettings = kWidget.getEmbedSettings(swfObj.attributes.swf, swfObj.params.flashVars);
-						if (kEmbedSettings.uiconf_id && ( kWidget.isHTML5FallForward() || !kWidget.supportsFlash() )) {
+						var kEmbedSettings = bWidget.getEmbedSettings(swfObj.attributes.swf, swfObj.params.flashVars);
+						if (kEmbedSettings.uiconf_id && ( bWidget.isHTML5FallForward() || !bWidget.supportsFlash() )) {
 							doEmbedSettingsWrite(kEmbedSettings, targetId, swfObj.attributes.width, swfObj.attributes.height);
 						} else {
 							// use the original flash player embed:
@@ -2519,11 +2519,11 @@
 				window['swfobject']['originalEmbedSWF'] = window['swfobject']['embedSWF'];
 				// Override embedObject for our own ends
 				window['swfobject']['embedSWF'] = function (swfUrlStr, replaceElemIdStr, widthStr, heightStr, swfVersionStr, xiSwfUrlStr, flashvarsObj, parObj, attObj, callbackFn) {
-					// TODO test with kWidget.embed replacement.
+					// TODO test with bWidget.embed replacement.
 					_this.domReady(function () {
-						var kEmbedSettings = kWidget.getEmbedSettings(swfUrlStr, flashvarsObj);
+						var kEmbedSettings = bWidget.getEmbedSettings(swfUrlStr, flashvarsObj);
 						// Check if IsHTML5FallForward
-						if (kEmbedSettings.uiconf_id && ( kWidget.isHTML5FallForward() || !kWidget.supportsFlash() )) {
+						if (kEmbedSettings.uiconf_id && ( bWidget.isHTML5FallForward() || !bWidget.supportsFlash() )) {
 							doEmbedSettingsWrite(kEmbedSettings, replaceElemIdStr, widthStr, heightStr);
 						} else {
 							// Else call the original EmbedSWF with all its arguments
@@ -2536,8 +2536,8 @@
 		}
 	};
 
-// Export to kWidget and KWidget ( official name is camel case kWidget )
-	window.KWidget = kWidget;
-	window.kWidget = kWidget;
+// Export to bWidget and BWidget ( official name is camel case bWidget )
+	window.BWidget = bWidget;
+	window.bWidget = bWidget;
 
 })();

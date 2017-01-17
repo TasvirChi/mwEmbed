@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,18 +28,18 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFileSyncStatus
+class BorhanFileSyncStatus
 {
 	const ERROR = -1;
 	const PENDING = 1;
@@ -49,10 +49,10 @@ class KalturaFileSyncStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFileSyncType
+class BorhanFileSyncType
 {
 	const FILE = 1;
 	const LINK = 2;
@@ -60,10 +60,10 @@ class KalturaFileSyncType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFileSyncOrderBy
+class BorhanFileSyncOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const FILE_SIZE_ASC = "+fileSize";
@@ -78,10 +78,10 @@ class KalturaFileSyncOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaFileSyncBaseFilter extends KalturaFilter
+abstract class BorhanFileSyncBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -93,7 +93,7 @@ abstract class KalturaFileSyncBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaFileSyncObjectType
+	 * @var BorhanFileSyncObjectType
 	 */
 	public $fileObjectTypeEqual = null;
 
@@ -226,7 +226,7 @@ abstract class KalturaFileSyncBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaFileSyncStatus
+	 * @var BorhanFileSyncStatus
 	 */
 	public $statusEqual = null;
 
@@ -240,7 +240,7 @@ abstract class KalturaFileSyncBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaFileSyncType
+	 * @var BorhanFileSyncType
 	 */
 	public $fileTypeEqual = null;
 
@@ -290,35 +290,35 @@ abstract class KalturaFileSyncBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFileSyncFilter extends KalturaFileSyncBaseFilter
+class BorhanFileSyncFilter extends BorhanFileSyncBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFileSyncClientPlugin extends KalturaClientPlugin
+class BorhanFileSyncClientPlugin extends BorhanClientPlugin
 {
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * @return KalturaFileSyncClientPlugin
+	 * @return BorhanFileSyncClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaFileSyncClientPlugin($client);
+		return new BorhanFileSyncClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

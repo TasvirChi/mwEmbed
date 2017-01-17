@@ -4,7 +4,7 @@
  * We should use this on both sides of the iframe
  * If it gets to large we will have to do some dep mapping 
 */
-(function(kWidget) {
+(function(bWidget) {
 	/**
 	 * Given a float number of seconds, returns npt format response. ( ignore
 	 * days for now )
@@ -15,13 +15,13 @@
 	 *			show_ms If milliseconds should be displayed.
 	 * @return {Float} String npt format
 	 */
-	kWidget.seconds2npt = function( sec, show_ms ) {
+	bWidget.seconds2npt = function( sec, show_ms ) {
 		if ( isNaN( sec ) ) {
-			kWidget.log("Warning: mediawiki.UtilitiesTime, trying to get npt time on NaN:" + sec);
+			bWidget.log("Warning: mediawiki.UtilitiesTime, trying to get npt time on NaN:" + sec);
 			return '0:00:00';
 		}
 
-		var tm = kWidget.seconds2Measurements( sec );
+		var tm = bWidget.seconds2Measurements( sec );
 
 		// Round the number of seconds to the required number of significant
 		// digits
@@ -52,7 +52,7 @@
 	 *			nptString NPT time string
 	 * @return {Float} Number of seconds
 	 */
-	kWidget.npt2seconds = function ( nptString ) {
+	bWidget.npt2seconds = function ( nptString ) {
 		if ( !nptString ) {
 			// mw.log('npt2seconds:not valid ntp:'+ntp);
 			return 0;
@@ -86,7 +86,7 @@
 	 * @param {float}
 	 *			sec Seconds to be converted into time measurements
 	 */
-	kWidget.seconds2Measurements = function ( sec ){
+	bWidget.seconds2Measurements = function ( sec ){
 		var tm = {};
 		tm.days = Math.floor( sec / ( 3600 * 24 ) );
 		tm.hours = Math.floor( Math.round( sec ) / 3600 );
@@ -95,7 +95,7 @@
 		return tm;
 	};
 
-    kWidget.getSliceCount =  function( duration ){
+    bWidget.getSliceCount =  function( duration ){
         if( duration < 60 ){
             return Math.round( duration ) +1; // every second
         }
@@ -110,23 +110,23 @@
         return 200;
     };
 
-    kWidget.getThumbSpriteOffset = function( thumbWidth, time , duration , forceSliceCount ){
-        var sliceIndex = kWidget.getSliceIndexForTime( time , duration, forceSliceCount );
+    bWidget.getThumbSpriteOffset = function( thumbWidth, time , duration , forceSliceCount ){
+        var sliceIndex = bWidget.getSliceIndexForTime( time , duration, forceSliceCount );
         return - ( sliceIndex * thumbWidth ) + 'px 0px';
     };
-    kWidget.getSliceIndexForTime =  function( time , duration ,forceSliceCount ){
+    bWidget.getSliceIndexForTime =  function( time , duration ,forceSliceCount ){
         var sliceCount = forceSliceCount || this.getSliceCount(duration);
         var perc = time / duration;
         var sliceIndex = Math.ceil( sliceCount * perc );
         return sliceIndex;
     };
-	kWidget.sanitize = function( str ){
+	bWidget.sanitize = function( str ){
 		if (str){
 			str = str.replace(/<(?:.|\n)*?>/gm, '');
 		}
 		return str;
 	};
-	kWidget.getHashParam = function(key) {
+	bWidget.getHashParam = function(key) {
 		var hash = window.location.hash;
 		if ( hash ){
 			var hashParams = hash.split("&");
@@ -140,4 +140,4 @@
 	};
 
 	
-})(window.kWidget);
+})(window.bWidget);

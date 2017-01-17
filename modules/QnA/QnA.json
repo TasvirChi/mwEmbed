@@ -11,7 +11,7 @@
         	"mw.KBaseScreen",
         	"nanoScroller"
         ],
-        "kalturaPluginName": "qna",
+        "borhanPluginName": "qna",
         "styles": [
         	"resources/css/qna.css",
         	"resources/css/qna-announcements.css",

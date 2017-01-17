@@ -1,10 +1,10 @@
 /**
- * Kaltura style analytics reporting class
+ * Borhan style analytics reporting class
  */
 ( function( mw, $ ) { "use strict";
 
-// Avoid undefined symbol for javascript response "Kaltura" from the api
-window['Kaltura'] = true;
+// Avoid undefined symbol for javascript response "Borhan" from the api
+window['Borhan'] = true;
 
 // KAnalytics Constructor
 mw.KAnalytics = function( embedPlayer ){
@@ -70,9 +70,9 @@ mw.KAnalytics.prototype = {
 	 * Constructor for kAnalytics
 	 *
 	 * @param {Object}
-	 *		  embedPlayer Player to apply Kaltura analytics to.
+	 *		  embedPlayer Player to apply Borhan analytics to.
 	 * @parma {Object}
-	 * 			kalturaClient Kaltura client object for the api session.
+	 * 			borhanClient Borhan client object for the api session.
 	 */
 	init: function( embedPlayer ) {
 		var _this = this;
@@ -84,8 +84,8 @@ mw.KAnalytics.prototype = {
 		// Setup the local reference to the embed player
 		this.embedPlayer = embedPlayer;
 		if( ! this.kClient ) {
-			this.kClient = mw.kApiGetPartnerClient( embedPlayer.kwidgetid );
-			this.delay = this.embedPlayer.getKalturaConfig( 'statistics' , 'delay' ) ? this.embedPlayer.getKalturaConfig( 'statistics' , 'delay' ) * 1000 : 0;
+			this.kClient = mw.kApiGetPartnerClient( embedPlayer.bwidgetid );
+			this.delay = this.embedPlayer.getBorhanConfig( 'statistics' , 'delay' ) ? this.embedPlayer.getBorhanConfig( 'statistics' , 'delay' ) * 1000 : 0;
 		}
 		// Remove any old bindings:
 		$( embedPlayer ).unbind( this.bindPostFix );
@@ -116,18 +116,18 @@ mw.KAnalytics.prototype = {
 	 * Get the current report set
 	 *
 	 * @param {Number}
-	 *			KalturaStatsEventType The eventType number.
+	 *			BorhanStatsEventType The eventType number.
 	 */
-	sendAnalyticsEvent: function( KalturaStatsEventKey ){
+	sendAnalyticsEvent: function( BorhanStatsEventKey ){
 		var _this = this;
-		mw.log("KAnalytics :: doSendAnalyticsEvent > " + KalturaStatsEventKey );
+		mw.log("KAnalytics :: doSendAnalyticsEvent > " + BorhanStatsEventKey );
 		// Kalutra analytics does not collect info for ads:
 		if( this.embedPlayer.evaluate('{sequenceProxy.isInSequence}') ){
 			return ;
 		}
 
 		// get the id for the given event:
-		var eventKeyId = this.kEventTypes[ KalturaStatsEventKey ];
+		var eventKeyId = this.kEventTypes[ BorhanStatsEventKey ];
 		// Generate the status event
 		var eventSet = {
 			'eventType'			: eventKeyId,
@@ -136,7 +136,7 @@ mw.KAnalytics.prototype = {
 			'duration'			: this.embedPlayer.getDuration(),
 			'eventTimestamp'	: new Date().getTime(),
 			'isFirstInSession'	: 'false',
-			'objectType'		: 'KalturaStatsEvent',
+			'objectType'		: 'BorhanStatsEvent',
 			'partnerId'			: this.embedPlayer.kpartnerid,
 			'sessionId'			: this.embedPlayer.evaluate('{configProxy.sessionId}'),
 			'uiconfId'			: 0
@@ -175,8 +175,8 @@ mw.KAnalytics.prototype = {
 			eventSet[ 'uiconfId' ] = this.embedPlayer.kuiconfid;
 		}
 		// Set the 'event:widgetId'
-		if( this.embedPlayer.kwidgetid ) {
-			eventSet[ 'widgetId' ] = this.embedPlayer.kwidgetid;
+		if( this.embedPlayer.bwidgetid ) {
+			eventSet[ 'widgetId' ] = this.embedPlayer.bwidgetid;
 		}
 		var flashVarEvents = {
 				'playbackContext' : 'contextId',
@@ -186,18 +186,18 @@ mw.KAnalytics.prototype = {
 		}
 		// support legacy ( deprecated ) top level config
 		for( var fvKey in flashVarEvents){
-			if( this.embedPlayer.getKalturaConfig( '', fvKey ) ){
-				eventSet[ flashVarEvents[ fvKey ] ] = encodeURIComponent( this.embedPlayer.getKalturaConfig('', fvKey ) );
+			if( this.embedPlayer.getBorhanConfig( '', fvKey ) ){
+				eventSet[ flashVarEvents[ fvKey ] ] = encodeURIComponent( this.embedPlayer.getBorhanConfig('', fvKey ) );
 			}
 		}
 		// check for the vars in the correct location:
 		for( var fvKey in flashVarEvents){
-			if( this.embedPlayer.getKalturaConfig( 'statistics', fvKey ) ){
-				eventSet[ flashVarEvents[ fvKey ] ] = encodeURIComponent( this.embedPlayer.getKalturaConfig('statistics', fvKey ) );
+			if( this.embedPlayer.getBorhanConfig( 'statistics', fvKey ) ){
+				eventSet[ flashVarEvents[ fvKey ] ] = encodeURIComponent( this.embedPlayer.getBorhanConfig('statistics', fvKey ) );
 			}
 		}
 		// hideUserId will remove the userId from the analytics call EVEN if the embed code sends one (unless hashedUserId is in use)
-		if(this.embedPlayer.getKalturaConfig( 'statistics' , 'hideUserId') && eventSet.userId){
+		if(this.embedPlayer.getBorhanConfig( 'statistics' , 'hideUserId') && eventSet.userId){
 			delete(eventSet.userId);
 		}
 
@@ -214,21 +214,21 @@ mw.KAnalytics.prototype = {
 		}
 
 		// Send events for this player:
-		$( this.embedPlayer ).trigger( 'KalturaSendAnalyticEvent', [ KalturaStatsEventKey, eventSet ] );
+		$( this.embedPlayer ).trigger( 'BorhanSendAnalyticEvent', [ BorhanStatsEventKey, eventSet ] );
 
 		// check for defined callback: 
-		var parentTrackName = this.embedPlayer.getKalturaConfig( 'statistics', 'trackEventMonitor');
+		var parentTrackName = this.embedPlayer.getBorhanConfig( 'statistics', 'trackEventMonitor');
 		if(  mw.getConfig('EmbedPlayer.IsFriendlyIframe') ){
 			try {
 				if( window.parent[ parentTrackName ] ){
-					 window.parent[ parentTrackName ]( KalturaStatsEventKey, eventSet );
+					 window.parent[ parentTrackName ]( BorhanStatsEventKey, eventSet );
 				}
 			} catch( e ){
 				// error in calling parent page event
 			}
 		}
 		//hideKS is an attribute that will prevent the request from sending the KS even if the embed code receives one
-		if (this.embedPlayer.getFlashvars('ks') && !this.embedPlayer.getKalturaConfig( 'statistics' , 'hideKs') ){
+		if (this.embedPlayer.getFlashvars('ks') && !this.embedPlayer.getBorhanConfig( 'statistics' , 'hideKs') ){
 			eventRequest['ks'] = this.embedPlayer.getFlashvars('ks');
 		}
 
@@ -262,7 +262,7 @@ mw.KAnalytics.prototype = {
 		b( 'widgetLoaded', 'WIDGET_LOADED' );
 
 		// When the poster or video ( when autoplay ) media is loaded
-		b( 'KalturaSupport_EntryDataReady', 'MEDIA_LOADED' );
+		b( 'BorhanSupport_EntryDataReady', 'MEDIA_LOADED' );
 
 		// When the play button is pressed or called from javascript
 		b( 'firstPlay', 'PLAY' );
@@ -315,7 +315,7 @@ mw.KAnalytics.prototype = {
 
 
 		/*
-		 * Other kaltura event types that are presently not usable in the
+		 * Other borhan event types that are presently not usable in the
 		 * html5 player at this point in time:
 		 *
 		 * OPEN_EDIT = 8;

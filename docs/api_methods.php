@@ -2,22 +2,22 @@
 $sendNotificationActions = array (
 		'doPause' => array (
 				'desc' => 'Pauses media playback.',
-				'example' => '../modules/KalturaSupport/tests/PlayStopApi.qunit.html'
+				'example' => '../modules/BorhanSupport/tests/PlayStopApi.qunit.html'
 		),
 		'doPlay' => array (
 				'desc' => 'Plays media. If in stopped state will initiate playback sequence.',
-				'example' => '../modules/KalturaSupport/tests/PlayStopApi.qunit.html'
+				'example' => '../modules/BorhanSupport/tests/PlayStopApi.qunit.html'
 		),
 		'doStop' => array (
 				'desc' => 'Stops media playback. Will pause and move the playhead to 0.', 
-				'example' => '../modules/KalturaSupport/tests/PlayStopApi.qunit.html'
+				'example' => '../modules/BorhanSupport/tests/PlayStopApi.qunit.html'
 		),
 		'doSeek' => array (
 				'notificationDataType' => 'Float',
 				'notificationData' => 'Seconds of target seek position.',
 				'notificationDataValue' => '30',
 				'desc' => 'Issues a seek.',
-				'example' => '../modules/KalturaSupport/tests/SeekApi.qunit.html'
+				'example' => '../modules/BorhanSupport/tests/SeekApi.qunit.html'
 		),
 		'changeMedia' => array (
 				'notificationDataType' => 'Object',
@@ -27,14 +27,14 @@ $sendNotificationActions = array (
 						'{ "entryId" : "0_wm82kqmm" }',
 						'{ "mediaProxy" : mediaProxyObject }'
 				),
-				'example' => '../modules/KalturaSupport/tests/ChangeMediaEntry.qunit.html'
+				'example' => '../modules/BorhanSupport/tests/ChangeMediaEntry.qunit.html'
 		),
 		'changeVolume' => array (
 				'notificationData' => 'Volume value from 0 to 1',
 				'notificationDataType' => 'Float',
 				'notificationDataValue' => '0.5',
 				'desc' => 'Change the audio volume',
-				'example' => '../modules/KalturaSupport/tests/SendNotificationWithAds.html'
+				'example' => '../modules/BorhanSupport/tests/SendNotificationWithAds.html'
 		),
 		'cleanMedia' => array (
 				'desc' => 'Cleans the media from the player.'
@@ -48,7 +48,7 @@ $sendNotificationActions = array (
 		'changePreferredBitrate' => array (
 				'notificationData' => 'The new preferred bitrate',
 				'desc' => 'Change the preferedFlavorBR on mediaProxy.vo object',
-				'availability' => 'kdp' 
+				'availability' => 'bdp' 
 		),
 		'doReplay' => array (
 				'desc' => 'Re-plays the video' 
@@ -56,49 +56,49 @@ $sendNotificationActions = array (
 		'alert' => array (
 				'notificationData' => 'message: alert message, title: alert title',
 				'desc' => 'Pop up an alert' ,
-				'example' => '../modules/KalturaSupport/tests/showAlert.html'
+				'example' => '../modules/BorhanSupport/tests/showAlert.html'
 		),
 		'showUiElement' => array (
 				'notificationData' => 'id: ID of the element, show: true / false',
 				'desc' => 'Show/hide an element from the layout',
-				'availability' => 'kdp' 
+				'availability' => 'bdp' 
 		),
 		'removeAlerts' => array (
 				'notificationData' => 'None',
 				'desc' => 'Fired when all alerts popped by the player need to be removed',
-				'availability' => 'kdp' 
+				'availability' => 'bdp' 
 		),
 		'enableGui' => array (
 				'notificationData' => '{ guiEnabled: true / false, enableType: full / controls }',
 				'desc' => 'Enable or Disable GUI',
-				'example' => '../modules/KalturaSupport/tests/EnableGui.html'
+				'example' => '../modules/BorhanSupport/tests/EnableGui.html'
 		),
 		'cancelAlerts' => array (
 				'notificationData' => 'None',
 				'desc' => 'Hide Alerts at the Alerts Mediator',
-				'availability' => 'kdp' 
+				'availability' => 'bdp' 
 		),
 		'liveEntry' => array (
 				'notificationData' => 'The URL resource of the played entry',
 				'desc' => 'Call the LiveStream command which tests whether the stream is currently on air',
-				'availability' => 'kdp'
+				'availability' => 'bdp'
 		),
 		'showClosedCaptions' => array (
 				'notificationData' => 'None',
 				'desc' => 'Display closed captions',
-				'example' => '../modules/KalturaSupport/tests/ClosedCaptions.html'
+				'example' => '../modules/BorhanSupport/tests/ClosedCaptions.html'
 		),
 		'hideClosedCaptions' => array (
 				'notificationData' => 'None',
 				'desc' => 'Hide closed captions',
-				'example' => '../modules/KalturaSupport/tests/ClosedCaptions.html'
+				'example' => '../modules/BorhanSupport/tests/ClosedCaptions.html'
 		)
 );
 
 /* should ideally auto generate or be in a separate file */
 $methodDocs = array (
-		'kWidget.embed' => array (
-				'desc' => 'Used to embed the Kaltura player against an element target in the DOM',
+		'bWidget.embed' => array (
+				'desc' => 'Used to embed the Borhan player against an element target in the DOM',
 				'params' => array (
 						'targetId' => array (
 								'type' => 'String', // assumed
@@ -106,7 +106,7 @@ $methodDocs = array (
 								'desc' => 'The DOM player target id attribute string. ( if not included, you must include targetId in "settings" object )' 
 						),
 						'settings' => array (
-								'type' => 'kWidget.settingsObject',
+								'type' => 'bWidget.settingsObject',
 								'desc' => 'Object of settings to be used in embedding.' 
 						) 
 				),
@@ -118,18 +118,18 @@ $methodDocs = array (
 						array (
 								// either doc name or path can be defined ( for feature listed files vs non-feature listed )
 								'type' => 'link',
-								'name' => 'kWidget.embed',
-								'docPath' => 'kwidget' 
+								'name' => 'bWidget.embed',
+								'docPath' => 'bwidget' 
 						),
 						array (
 								'type' => 'link',
-								'name' => 'kWidget.embed playlist',
-								'docFullPath' => 'modules/KalturaSupport/tests/kWidget.embed.playlist.qunit.html ' 
+								'name' => 'bWidget.embed playlist',
+								'docFullPath' => 'modules/BorhanSupport/tests/bWidget.embed.playlist.qunit.html ' 
 						) 
 				) 
 		),
-		'kWidget.thumbEmbed' => array (
-				'desc' => 'Used to embed a thumbnail player. When the user clicks on the thumbnail kWidget.embed will be called with the provided settings.',
+		'bWidget.thumbEmbed' => array (
+				'desc' => 'Used to embed a thumbnail player. When the user clicks on the thumbnail bWidget.embed will be called with the provided settings.',
 				'params' => array (
 						'targetId' => array (
 								'type' => 'String', // assumed
@@ -137,7 +137,7 @@ $methodDocs = array (
 								'desc' => 'The DOM player target id attribute string. ( if not included, you must include targetId in "settings" object' 
 						),
 						'settings' => array (
-								'type' => 'kWidget.settingsObject',
+								'type' => 'bWidget.settingsObject',
 								'desc' => 'Object of settings to be used in embedding.' 
 						) 
 				),
@@ -145,78 +145,78 @@ $methodDocs = array (
 						array (
 								// either doc name or path can be defined ( for feature listed files vs non-feature listed )
 								'type' => 'link',
-								'name' => 'kWidget.thumbEmbed',
+								'name' => 'bWidget.thumbEmbed',
 								'docPath' => 'thumb' 
 						) 
 				) 
 		),
-		'kWidget.getKalturaThumbUrl' => array (
+		'bWidget.getBorhanThumbUrl' => array (
 				'desc' => 'Get video thumbnail URL.',
 				'params' => array (
 						'settings' => array (
-								'type' => 'kWidget.settingsObject',
+								'type' => 'bWidget.settingsObject',
 								'desc' => 'Object of settings to be used in embedding.'
 						)
 				)
 		),
-		'kWidget.isMobileDevice' => array(
+		'bWidget.isMobileDevice' => array(
 				'desc' => 'If user agent identifies as mobile device ( android, iOS or windows phone )',
 				'returns' => array (
 						'type' => 'boolean',
 						'desc' => 'true|false'
 				),
 		),
-		'kWidget.supportsHTML5' => array(
+		'bWidget.supportsHTML5' => array(
 				'desc' => 'If the device or browser supports HTML5',
 				'returns' => array (
 						'type' => 'boolean',
 						'desc' => 'true|false'
 				),
 		),
-		'kWidget.supportsFlash' => array(
+		'bWidget.supportsFlash' => array(
 				'desc' => 'If the device or browser supports Flash ( version 10 and above )',
 				'returns' => array (
 						'type' => 'boolean',
 						'desc' => 'true|false'
 				),
 		),
-		'kWidget.isIOS' => array (
+		'bWidget.isIOS' => array (
 				'desc' => 'If user agent identifies as iOS device',
 				'returns' => array (
 						'type' => 'boolean',
 						'desc' => 'true|false'
 				),
 		),
-		'kWidget.isIE' => array(
+		'bWidget.isIE' => array(
 				'desc' => "If user agent identifies as Internet Explorer browser",
 				'returns' => array (
 						'type' => 'boolean',
 						'desc' => 'true|false'
 				),
 		),
-		'kWidget.isIE8' => array(
+		'bWidget.isIE8' => array(
 				'desc' => "If user agent identifies as Internet Explorer 8 browser",
 				'returns' => array (
 						'type' => 'boolean',
 						'desc' => 'true|false'
 				),
 		),
-		'kWidget.isAndroid' => array(
+		'bWidget.isAndroid' => array(
 				'desc' => "If user agent identifies as Android device",
 				'returns' => array (
 						'type' => 'boolean',
 						'desc' => 'true|false'
 				),
 		),
-		'kWidget.isWindowsDevice' => array(
+		'bWidget.isWindowsDevice' => array(
 				'desc' => "If user agent identifies as Windows Phone device",
 				'returns' => array (
 						'type' => 'boolean',
 						'desc' => 'true|false'
 				),
 		),
-		'kWidget.addReadyCallback' => array (
-				'desc' => 'Adds a ready callback to be called after the KDP or HTML5 player is ready.',
+		'bWidget.addReadyCallback' => array (
+				'desc' => 'Adds a ready callback to be called after the BDP or HTML5 player is ready.',
 				'params' => array (
 						'readyCallback' => array (
 								'type' => 'String',
@@ -226,12 +226,12 @@ $methodDocs = array (
 				'examples' => array (
 						array (
 								'type' => 'link',
-								'name' => 'kWidget.addReadyCallback',
-								'docFullPath' => 'modules/KalturaSupport/tests/ChangeMediaEntry.qunit.html ' 
+								'name' => 'bWidget.addReadyCallback',
+								'docFullPath' => 'modules/BorhanSupport/tests/ChangeMediaEntry.qunit.html ' 
 						) 
 				) 
 		),
-		'kWidget.destroy' => array (
+		'bWidget.destroy' => array (
 				'desc' => 'Removes the player from the DOM.',
 				'params' => array (
 						'target' => array (
@@ -242,16 +242,16 @@ $methodDocs = array (
 				'examples' => array (
 						array (
 								'type' => 'link',
-								'name' => 'kWidget.embed',
-								'docPath' => 'kwidget' 
+								'name' => 'bWidget.embed',
+								'docPath' => 'bwidget' 
 						) 
 				) 
 		),
-		'kWidget.api' => array (
-				'desc' => 'The kWidget API object, used to create new instances of Kaltura API request.',
+		'bWidget.api' => array (
+				'desc' => 'The bWidget API object, used to create new instances of Borhan API request.',
 				'params' => array (
 						'apiObject' => array (
-								'type' => 'kWidget.apiOptions',
+								'type' => 'bWidget.apiOptions',
 								'desc' => 'Object of API settings to be used in API requests.' 
 						),
 						'callback' => array (
@@ -266,22 +266,22 @@ $methodDocs = array (
 						) 
 				),
 				'returns' => array (
-						'type' => 'kWidget.api',
-						'desc' => 'Returns an instance of the kWidget API object.' 
+						'type' => 'bWidget.api',
+						'desc' => 'Returns an instance of the bWidget API object.' 
 				),
 				'examples' => array (
 						array (
-								'name' => 'kWidget.api',
-								'docFullPath' => 'kWidget/tests/kWidget.api.html' 
+								'name' => 'bWidget.api',
+								'docFullPath' => 'bWidget/tests/bWidget.api.html' 
 						),
 						array (
-								'name' => 'kWidget.getSources',
-								'docFullPath' => 'modules/KalturaSupport/tests/kWidget.getSources.html' 
+								'name' => 'bWidget.getSources',
+								'docFullPath' => 'modules/BorhanSupport/tests/bWidget.getSources.html' 
 						) 
 				) 
 		),
 		'sendNotification' => array (
-				'desc' => 'Call a KDP notification (perform actions using this API, for example: play, pause, changeMedia, etc.)',
+				'desc' => 'Call a BDP notification (perform actions using this API, for example: play, pause, changeMedia, etc.)',
 				'params' => array (
 						'notificationName' => array (
 								'type' => 'String',
@@ -295,7 +295,7 @@ $methodDocs = array (
 				) 
 		),
 		'kBind'=> array(
-				'desc' => 'Register a JavaScript handler function for a KDP notification',
+				'desc' => 'Register a JavaScript handler function for a BDP notification',
 				'params' => array (
 						'eventName' => array (
 								'type' => 'String',
@@ -310,12 +310,12 @@ $methodDocs = array (
 						array (
 							'type' => 'link',
 							'name' => 'kBind and kUBnind',
-							'docFullPath' => 'modules/KalturaSupport/tests/kBind_kUnbind.qunit.html'
+							'docFullPath' => 'modules/BorhanSupport/tests/kBind_kUnbind.qunit.html'
 						)
 					)
 		),
 		'kUnbind' => array(
-				'desc' => 'Remove a JavaScript handler function by name or by setfor a KDP notification',
+				'desc' => 'Remove a JavaScript handler function by name or by setfor a BDP notification',
 				'params' => array (
 						'eventName' => array (
 								'type' => 'String',
@@ -325,11 +325,11 @@ $methodDocs = array (
 				'examples' => array (
 							'type' => 'link',
 							'name' => 'kBind and kUBnind',
-							'docFullPath' => '../modules/KalturaSupport/tests/kBind_kUnbind.qunit.html'
+							'docFullPath' => '../modules/BorhanSupport/tests/kBind_kUnbind.qunit.html'
 						)
 		),
 		'addJsListener' => array (
-				'desc' => 'Register a javascript handler function for a KDP notification',
+				'desc' => 'Register a javascript handler function for a BDP notification',
 				'params' => array (
 						'listenerString' => array (
 								'type' => 'String',
@@ -342,7 +342,7 @@ $methodDocs = array (
 				) 
 		),
 		'evaluate' => array (
-				'desc' => "Retrieves the value of a KDP model property or component's property, using the standard OOP dot notation inside curly braces",
+				'desc' => "Retrieves the value of a BDP model property or component's property, using the standard OOP dot notation inside curly braces",
 				'params' => array (
 						'object.property.properties' => array (
 								'type' => 'String',
@@ -350,7 +350,7 @@ $methodDocs = array (
 						) 
 				) 
 		),
-		'setKDPAttribute' => array (
+		'setBDPAttribute' => array (
 				'desc' => "Change a value of a player configuration property or component's property using the standard OOP dot notation.",
 				'params' => array (
 						'object' => array (
@@ -368,7 +368,7 @@ $methodDocs = array (
 				) 
 		),
 		'jsCallbackReady' => array (
-				'desc' => "A JavaScript function on the hosting web page that is called by KDP when the setup of externalInterface APIs is completed.",
+				'desc' => "A JavaScript function on the hosting web page that is called by BDP when the setup of externalInterface APIs is completed.",
 				'params' => array (
 						'objectId' => array (
 								'type' => 'String',
@@ -378,31 +378,31 @@ $methodDocs = array (
 		) 
 );
 $objectDefinitions = array (
-		'kWidget.apiOptions' => array (
+		'bWidget.apiOptions' => array (
 				'wid' => array (
 						'desc' => "The partner id to be used in the API request." 
 				),
 				'ks' => array (
-						'desc' => "The Kaltura secret to be used in the request, if not supplied an anonymous KS will be generated and used." 
+						'desc' => "The Borhan secret to be used in the request, if not supplied an anonymous KS will be generated and used." 
 				),
 				'serviceUrl' => array (
-						'desc' => 'Can be overwritten to target a different Kaltura server.',
-						'default' => 'http://cdnapi.kaltura.com' 
+						'desc' => 'Can be overwritten to target a different Borhan server.',
+						'default' => 'http://cdnapi.borhan.com' 
 				),
 				'serviceBase' => array (
-						'desc' => "Can be overwritten to alternate Kaltura service path.",
+						'desc' => "Can be overwritten to alternate Borhan service path.",
 						'default' => '/api_v3/index.php?service=' 
 				),
 				'statsServiceUrl' => array (
-						'desc' => "Default supplied via Kaltura library include, can be overwritten to alternate URL for core analytics events.",
-						'default' => 'http://stats.kaltura.com' 
+						'desc' => "Default supplied via Borhan library include, can be overwritten to alternate URL for core analytics events.",
+						'default' => 'http://stats.borhan.com' 
 				),
 				'disableCache' => array (
 						'desc' => "Sends no-cache param to API, for a fresh result. Can hurt performance and CDN cachability should be used sparingly.",
 						'default' => 'false' 
 				) 
 		),
-		'kWidget.settingsObject' => array (
+		'bWidget.settingsObject' => array (
 				'targetId' => array (
 						'desc' => 'The DOM player target id attribute string if not defined as top level param.' 
 				),
@@ -433,7 +433,7 @@ $objectDefinitions = array (
 						'optional' => true,
 						'type' => 'Function',
 						'desc' => 'Local callback method to be called once player is ready for bindings. Player id is passes as an argument. 
-						See <a target="_new" href="../modules/KalturaSupport/tests/kWidget.embed.qunit.html">live example</a>' 
+						See <a target="_new" href="../modules/BorhanSupport/tests/bWidget.embed.qunit.html">live example</a>' 
 				)
 		) 
 );

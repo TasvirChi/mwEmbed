@@ -9,7 +9,7 @@
     <script type="text/javascript">
 
         function onReadyCallback(playerID){
-            var kdp = document.getElementById(playerID );
+            var bdp = document.getElementById(playerID );
             var eventsTracking = document.getElementById("eventsTracking");
 
             function addText(text){
@@ -18,18 +18,18 @@
                 eventsTracking.appendChild(s);
             }
 
-            kdp.addJsListener("MediaMark", function(e, data){
+            bdp.addJsListener("MediaMark", function(e, data){
                 addText(e + ": " + data.Action);
             });
 
-            kdp.addJsListener("MediaHit", function(e, data){
+            bdp.addJsListener("MediaHit", function(e, data){
                 addText(e + ": " + JSON.stringify(data));
             });
         }
 
     </script>
 
-    <!--<script type="text/javascript" src="../../../modules/KalturaSupport/tests/resources/qunit-kaltura-bootstrap.js"></script>-->
+    <!--<script type="text/javascript" src="../../../modules/BorhanSupport/tests/resources/qunit-borhan-bootstrap.js"></script>-->
 
 </head>
 <body>
@@ -44,8 +44,8 @@
 
 <script>
     mw.setConfig('forceMobileHTML5', true);
-    mw.setConfig("Kaltura.ServiceUrl", "http://localhost/html5.kaltura/embed-services/main.php");
-    kWidget.embed({
+    mw.setConfig("Borhan.ServiceUrl", "http://localhost/html5.borhan/embed-services/main.php");
+    bWidget.embed({
         'targetId': 'myVideoTarget',
         'wid': '_1726172',
         'uiconf_id' : '8413350',

@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,25 +28,25 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
-require_once(dirname(__FILE__) . "/KalturaCaptionClientPlugin.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
+require_once(dirname(__FILE__) . "/BorhanCaptionClientPlugin.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionAssetItem extends KalturaObjectBase
+class BorhanCaptionAssetItem extends BorhanObjectBase
 {
 	/**
 	 * The Caption Asset object
 	 * 	 
 	 *
-	 * @var KalturaCaptionAsset
+	 * @var BorhanCaptionAsset
 	 */
 	public $asset;
 
@@ -54,7 +54,7 @@ class KalturaCaptionAssetItem extends KalturaObjectBase
 	 * The entry object
 	 * 	 
 	 *
-	 * @var KalturaBaseEntry
+	 * @var BorhanBaseEntry
 	 */
 	public $entry;
 
@@ -83,15 +83,15 @@ class KalturaCaptionAssetItem extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionAssetItemListResponse extends KalturaObjectBase
+class BorhanCaptionAssetItemListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaCaptionAssetItem
+	 * @var array of BorhanCaptionAssetItem
 	 * @readonly
 	 */
 	public $objects;
@@ -108,10 +108,10 @@ class KalturaCaptionAssetItemListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionAssetItemFilter extends KalturaCaptionAssetFilter
+class BorhanCaptionAssetItemFilter extends BorhanCaptionAssetFilter
 {
 	/**
 	 * 
@@ -158,7 +158,7 @@ class KalturaCaptionAssetItemFilter extends KalturaCaptionAssetFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaLanguage
+	 * @var BorhanLanguage
 	 */
 	public $languageEqual = null;
 
@@ -216,12 +216,12 @@ class KalturaCaptionAssetItemFilter extends KalturaCaptionAssetFilter
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionAssetItemService extends KalturaServiceBase
+class BorhanCaptionAssetItemService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -229,12 +229,12 @@ class KalturaCaptionAssetItemService extends KalturaServiceBase
 	/**
 	 * Search caption asset items by filter, pager and free text
 	 * 
-	 * @param KalturaBaseEntryFilter $entryFilter 
-	 * @param KalturaCaptionAssetItemFilter $captionAssetItemFilter 
-	 * @param KalturaFilterPager $captionAssetItemPager 
-	 * @return KalturaCaptionAssetItemListResponse
+	 * @param BorhanBaseEntryFilter $entryFilter 
+	 * @param BorhanCaptionAssetItemFilter $captionAssetItemFilter 
+	 * @param BorhanFilterPager $captionAssetItemPager 
+	 * @return BorhanCaptionAssetItemListResponse
 	 */
-	function search(KalturaBaseEntryFilter $entryFilter = null, KalturaCaptionAssetItemFilter $captionAssetItemFilter = null, KalturaFilterPager $captionAssetItemPager = null)
+	function search(BorhanBaseEntryFilter $entryFilter = null, BorhanCaptionAssetItemFilter $captionAssetItemFilter = null, BorhanFilterPager $captionAssetItemPager = null)
 	{
 		$kparams = array();
 		if ($entryFilter !== null)
@@ -248,19 +248,19 @@ class KalturaCaptionAssetItemService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCaptionAssetItemListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanCaptionAssetItemListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * Search caption asset items by filter, pager and free text
 	 * 
-	 * @param KalturaBaseEntryFilter $entryFilter 
-	 * @param KalturaCaptionAssetItemFilter $captionAssetItemFilter 
-	 * @param KalturaFilterPager $captionAssetItemPager 
-	 * @return KalturaBaseEntryListResponse
+	 * @param BorhanBaseEntryFilter $entryFilter 
+	 * @param BorhanCaptionAssetItemFilter $captionAssetItemFilter 
+	 * @param BorhanFilterPager $captionAssetItemPager 
+	 * @return BorhanBaseEntryListResponse
 	 */
-	function searchEntries(KalturaBaseEntryFilter $entryFilter = null, KalturaCaptionAssetItemFilter $captionAssetItemFilter = null, KalturaFilterPager $captionAssetItemPager = null)
+	function searchEntries(BorhanBaseEntryFilter $entryFilter = null, BorhanCaptionAssetItemFilter $captionAssetItemFilter = null, BorhanFilterPager $captionAssetItemPager = null)
 	{
 		$kparams = array();
 		if ($entryFilter !== null)
@@ -274,37 +274,37 @@ class KalturaCaptionAssetItemService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntryListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntryListResponse");
 		return $resultObject;
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCaptionSearchClientPlugin extends KalturaClientPlugin
+class BorhanCaptionSearchClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaCaptionAssetItemService
+	 * @var BorhanCaptionAssetItemService
 	 */
 	public $captionAssetItem = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->captionAssetItem = new KalturaCaptionAssetItemService($client);
+		$this->captionAssetItem = new BorhanCaptionAssetItemService($client);
 	}
 
 	/**
-	 * @return KalturaCaptionSearchClientPlugin
+	 * @return BorhanCaptionSearchClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaCaptionSearchClientPlugin($client);
+		return new BorhanCaptionSearchClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

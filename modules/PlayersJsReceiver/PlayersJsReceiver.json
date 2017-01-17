@@ -5,7 +5,7 @@
 			"mw.KBasePlugin",
 			"playerjs"
 		],
-		"kalturaPluginName": "playersJsReceiver"
+		"borhanPluginName": "playersJsReceiver"
 	},
 	"playerjs" : {
 		"scripts": "resources/embedly/player-0.0.10.min.js"

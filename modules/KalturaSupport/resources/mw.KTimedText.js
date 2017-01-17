@@ -14,7 +14,7 @@
 			this.embedPlayer = embedPlayer;
 			// Set the caption plugin name so that we can get config from the correct location.
 			this.pluginName = captionPluginName;
-			// Check for kaltura plugin representation of offset:
+			// Check for borhan plugin representation of offset:
 			if( _this.getConfig( 'timeOffset' ) ) {
 				_this.timeOffset = _this.getConfig( 'timeOffset' );
 			}
@@ -45,11 +45,11 @@
 			embedPlayer.timedText = baseTimedText;
 
 			// if using the customCaptionsButton existingLayout always starts as "off"
-			if ( _this.embedPlayer.getKalturaConfig( '', 'customCaptionsButton' ) ) {
+			if ( _this.embedPlayer.getBorhanConfig( '', 'customCaptionsButton' ) ) {
 				existingLayout =  'off';
 			}
 			// Set the default key:
-			var defaultLanguageKey =  _this.embedPlayer.getKalturaConfig( this.pluginName, 'defaultLanguageKey' );
+			var defaultLanguageKey =  _this.embedPlayer.getBorhanConfig( this.pluginName, 'defaultLanguageKey' );
 			if ( defaultLanguageKey && defaultLanguageKey != "None" ){
 				embedPlayer.timedText.setPersistentConfig( 'userLanguage', defaultLanguageKey );
 			} else if ( defaultLanguageKey == 'None' ) {
@@ -75,7 +75,7 @@
 		bindTextButton: function($textButton) {
 			var _this = this;
 			$textButton.unbind( 'click.textMenu' ).bind( 'click.textMenu', function() {
-				if ( _this.embedPlayer.getKalturaConfig( '', 'customCaptionsButton' ) ) {
+				if ( _this.embedPlayer.getBorhanConfig( '', 'customCaptionsButton' ) ) {
 					_this.toggleCaptions();
 				} else {
 					_this.showTextMenu();
@@ -86,7 +86,7 @@
 		/* Override buildMenu for allowing captions toggle */
 		buildMenu: function( autoShow ) {
 			var _this = this;
-			if ( _this.embedPlayer.getKalturaConfig( '', 'customCaptionsButton' ) ) {
+			if ( _this.embedPlayer.getBorhanConfig( '', 'customCaptionsButton' ) ) {
 				return;
 			} else {
 				this.parent_buildMenu( autoShow );
@@ -133,7 +133,7 @@
 			});
 
 			// Support hide show notifications:
-			$( embedPlayer ).bind( 'Kaltura_SendNotification'+ this.bindPostFix , function( event, notificationName, notificationData) {
+			$( embedPlayer ).bind( 'Borhan_SendNotification'+ this.bindPostFix , function( event, notificationName, notificationData) {
 				switch( notificationName ) {
 					case 'showHideClosedCaptions':
 						embedPlayer.timedText.toggleCaptions();
@@ -151,8 +151,8 @@
 				}
 			});
 
-			// Support SetKDP attribute style caption updates
-			$( embedPlayer ).bind( 'Kaltura_SetKDPAttribute' + this.bindPostFix, function( event, componentName, property, value ) {
+			// Support SetBDP attribute style caption updates
+			$( embedPlayer ).bind( 'Borhan_SetBDPAttribute' + this.bindPostFix, function( event, componentName, property, value ) {
 				if( componentName == _this.pluginName ) {
 					if( property == 'ccUrl' ) {
 						// empty the text sources:
@@ -171,7 +171,7 @@
 
 		  <hbox id="ccOverComboBoxWrapper" horizontalalign="right" width="100%" height="100%" paddingright="5" paddingtop="5">
 		  <plugin id="captionsOverFader" width="0%" height="0%" includeinlayout="false" target="{ccOverComboBoxWrapper}" hovertarget="{PlayerHolder}" duration="0.5" autohide="true" path="faderPlugin.swf"></plugin>
-		  <combobox id="ccOverComboBox" width="90" stylename="_kdp" selectedindex="{closedCaptionsOverPlayer.currentCCFileIndex}"
+		  <combobox id="ccOverComboBox" width="90" stylename="_bdp" selectedindex="{closedCaptionsOverPlayer.currentCCFileIndex}"
 			   kevent_change="sendNotification( 'closedCaptionsSelected' , ccOverComboBox.selectedItem)"
 			   dataprovider="{closedCaptionsOverPlayer.availableCCFilesLabels}" prompt="Captions" tooltip="">
 		  </combobox>
@@ -192,17 +192,17 @@
 			return true;
 		},
 		getConfig: function( attrName ) {
-			return this.embedPlayer.getKalturaConfig( this.pluginName, attrName );
+			return this.embedPlayer.getBorhanConfig( this.pluginName, attrName );
 		},
-		getKalturaClient: function() {
+		getBorhanClient: function() {
 			if( ! this.kClient ) {
-				this.kClient = mw.kApiGetPartnerClient( this.embedPlayer.kwidgetid );
+				this.kClient = mw.kApiGetPartnerClient( this.embedPlayer.bwidgetid );
 			}
 			return this.kClient;
 		},
 
 		/**
-		 * Load the list of captions sources from the kaltura api, or from plugin config
+		 * Load the list of captions sources from the borhan api, or from plugin config
 		 */
 		loadTextSources: function( callback ) {
 			var _this = this;
@@ -222,7 +222,7 @@
 				return ;
 			}
 
-			// Check for Kaltura ccUrl style text tracks ( not eagle api )
+			// Check for Borhan ccUrl style text tracks ( not eagle api )
 			if( this.getConfig( 'ccUrl' ) ) {
 				mw.log( 'KTimedText:: loadTextSources> add textSources from ccUrl:' + this.getConfig( 'ccUrl' ) );
 				// Set up a single source from the custom vars:
@@ -250,7 +250,7 @@
 					captionIds.push(dbTextSource.id);
 				});
 				if ( multiRequest.length ) {
-					_this.getKalturaClient().doRequest( multiRequest, function( results ) {
+					_this.getBorhanClient().doRequest( multiRequest, function( results ) {
 						var captionsURLs = {};
 						$.each( results, function( idx, url ) {
 							captionsURLs[ captionIds[idx] ] = url;
@@ -262,7 +262,7 @@
 								_this.getTextSourceFromDB( dbTextSource )
 							);
 						});
-						$( _this.embedPlayer ).trigger( 'KalturaSupport_CCDataLoaded' );
+						$( _this.embedPlayer ).trigger( 'BorhanSupport_CCDataLoaded' );
 						// Done adding source issue callback
 						mw.log( 'KTimedText:: loadTextSources> total source count: ' + _this.textSources.length );
 						callback();
@@ -275,15 +275,15 @@
 		 */
 		getTextSourcesFromApi: function( callback ) {
 			var _this = this;
-			this.getKalturaClient().doRequest({
+			this.getBorhanClient().doRequest({
 				'service' : 'caption_captionasset',
 				'action' : 'list',
-				'filter:objectType' : 'KalturaAssetFilter',
+				'filter:objectType' : 'BorhanAssetFilter',
 				'filter:entryIdEqual' : _this.embedPlayer.kentryid,
 				'filter:statusEqual' : 2
 			}, function( data ) {
 				mw.log( "KTimedText:: getTextSourcesFromApi: " + data.totalCount, data.objects );
-				$( _this.embedPlayer ).trigger( 'KalturaSupport_NewClosedCaptionsData' );
+				$( _this.embedPlayer ).trigger( 'BorhanSupport_NewClosedCaptionsData' );
 				// TODO is this needed? Does the api not return an empty set?
 				if( data.totalCount > 0 ) {
 					callback( data.objects );
@@ -363,14 +363,14 @@
 		*/
 		getCaptionUrl: function( captionId, type ) {
 			// Sample Url for Caption serve
-			// http://www.kaltura.com/api_v3/index.php?service=caption_captionasset&action=serve&captionAssetId=@ID@&ks=@KS@
+			// http://www.borhan.com/api_v3/index.php?service=caption_captionasset&action=serve&captionAssetId=@ID@&ks=@KS@
 			var params = {
 				'action': 'serve',
 				'captionAssetId': captionId,
-				'ks': this.getKalturaClient().getKs()
+				'ks': this.getBorhanClient().getKs()
 			};
-			var kalsig = this.getKalturaClient().getSignature( params );
-			var baseUrl = mw.getConfig( 'Kaltura.ServiceUrl' ) + mw.getConfig( 'Kaltura.ServiceBase' ).replace( 'index.php', '' );
+			var kalsig = this.getBorhanClient().getSignature( params );
+			var baseUrl = mw.getConfig( 'Borhan.ServiceUrl' ) + mw.getConfig( 'Borhan.ServiceBase' ).replace( 'index.php', '' );
 			return baseUrl + 'caption_captionasset&' + $.param( params ) + '&kalsig=' + kalsig + '&.' + type;
 		}
 	};

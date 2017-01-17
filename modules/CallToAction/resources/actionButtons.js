@@ -45,9 +45,9 @@ mw.PluginManager.add( 'actionButtons', mw.KBaseScreen.extend({
 	handleCustomConfig: function() {
 		// Check if the entry has custom configuration
 		var customConfig = {};
-		if( this.getPlayer().kalturaEntryMetaData[ this.getConfig('customDataKey') ] ) {
+		if( this.getPlayer().borhanEntryMetaData[ this.getConfig('customDataKey') ] ) {
 			try {
-				customConfig = JSON.parse( this.getPlayer().kalturaEntryMetaData[ this.getConfig('customDataKey') ] );
+				customConfig = JSON.parse( this.getPlayer().borhanEntryMetaData[ this.getConfig('customDataKey') ] );
 			} catch (e) {}
 		}
 

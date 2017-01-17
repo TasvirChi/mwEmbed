@@ -1,5 +1,5 @@
 /**
- * Created by mark.feder Kaltura.
+ * Created by mark.feder Borhan.
  *
  * */
 
@@ -40,11 +40,11 @@
                 _this.multiStreamWelcomeSkip = true;
             });
 
-            embedPlayer.addJsListener( 'kdpReady', function(){
+            embedPlayer.addJsListener( 'bdpReady', function(){
                 _this.KIVQModule = new mw.KIVQModule(embedPlayer, _this);
                 _this.KIVQModule.isKPlaylist = (typeof (embedPlayer.playlist) === "undefined" ) ? false : true;
 
-                if (embedPlayer.kalturaPlayerMetaData.capabilities === "quiz.quiz"){
+                if (embedPlayer.borhanPlayerMetaData.capabilities === "quiz.quiz"){
                     if (embedPlayer.autoplay) {
                         embedPlayer.autoplay = false;
                     }
@@ -88,7 +88,7 @@
 
                     try {
                         var cssLink = "modules/Quiz/resources/css/quizFonts.css";
-                        cssLink = cssLink.toLowerCase().indexOf("http") === 0 ? cssLink : kWidget.getPath() + cssLink;
+                        cssLink = cssLink.toLowerCase().indexOf("http") === 0 ? cssLink : bWidget.getPath() + cssLink;
                         if (!$("link[href=cssLink]").length){
                             $('head', window.parent.document).append('<link type="text/css" rel="stylesheet" href="' + cssLink + '"/>');
                         }
@@ -101,7 +101,7 @@
                     _this.KIVQModule.unloadQuizPlugin(embedPlayer);
                     embedPlayer.enablePlayControls();
                     if(_this.KIVQModule.isKPlaylist){
-                        _this.embedPlayer.setKDPAttribute('playlistAPI','autoContinue',true);
+                        _this.embedPlayer.setBDPAttribute('playlistAPI','autoContinue',true);
                     };
                  }
             });
@@ -133,7 +133,7 @@
                 });
                 _this.KIVQModule.continuePlay();
             };
-            this.bind('KalturaSupport_CuePointReached'+_this.KIVQModule.bindPostfix, function (e, cuePointObj) {
+            this.bind('BorhanSupport_CuePointReached'+_this.KIVQModule.bindPostfix, function (e, cuePointObj) {
                 if(!_this.isSeekingIVQ){
                     if ((_this.seekToQuestionTime ===  cuePointObj.cuePoint.startTime)
                         || (_this.seekToQuestionTime === null))
@@ -200,7 +200,7 @@
           },
         getKClient: function () {
             if (!this.kClient) {
-                this.kClient = mw.kApiGetPartnerClient(this.embedPlayer.kwidgetid);
+                this.kClient = mw.kApiGetPartnerClient(this.embedPlayer.bwidgetid);
             }
             return this.kClient;
         },
@@ -413,7 +413,7 @@
                     }
                     if(_this.KIVQModule.isKPlaylist){
                         mw.log("Quiz: Playlist Auto Continue After Submitted");
-                        _this.embedPlayer.setKDPAttribute('playlistAPI','autoContinue',true);
+                        _this.embedPlayer.setBDPAttribute('playlistAPI','autoContinue',true);
                     }
                 });
         },
@@ -601,7 +601,7 @@
                 displayClass = val.isAnswerd ? "bubble bubble-ans " + buSize.bubbleAnsSize
                     : "bubble bubble-un-ans " + buSize.bubbleUnAnsSize;
 
-                var pos = (Math.round(((val.startTime/embedPlayer.kalturaPlayerMetaData.msDuration)*100) * 10)/10)-1;
+                var pos = (Math.round(((val.startTime/embedPlayer.borhanPlayerMetaData.msDuration)*100) * 10)/10)-1;
                 $('.bubble-cont').append($('<div id ="' + key + '" style="margin-left:' + pos + '%">' +
                     _this.KIVQModule.i2q(key) + ' </div>')
                         .addClass(displayClass)

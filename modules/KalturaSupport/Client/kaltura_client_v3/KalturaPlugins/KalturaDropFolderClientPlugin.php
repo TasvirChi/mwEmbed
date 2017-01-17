@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,19 +28,19 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
-require_once(dirname(__FILE__) . "/KalturaMetadataClientPlugin.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
+require_once(dirname(__FILE__) . "/BorhanMetadataClientPlugin.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderContentFileHandlerMatchPolicy
+class BorhanDropFolderContentFileHandlerMatchPolicy
 {
 	const ADD_AS_NEW = 1;
 	const MATCH_EXISTING_OR_ADD_AS_NEW = 2;
@@ -48,20 +48,20 @@ class KalturaDropFolderContentFileHandlerMatchPolicy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderFileDeletePolicy
+class BorhanDropFolderFileDeletePolicy
 {
 	const MANUAL_DELETE = 1;
 	const AUTO_DELETE = 2;
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderFileStatus
+class BorhanDropFolderFileStatus
 {
 	const UPLOADING = 1;
 	const PENDING = 2;
@@ -81,10 +81,10 @@ class KalturaDropFolderFileStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderStatus
+class BorhanDropFolderStatus
 {
 	const DISABLED = 0;
 	const ENABLED = 1;
@@ -93,10 +93,10 @@ class KalturaDropFolderStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderErrorCode
+class BorhanDropFolderErrorCode
 {
 	const ERROR_CONNECT = "1";
 	const ERROR_AUTENTICATE = "2";
@@ -107,10 +107,10 @@ class KalturaDropFolderErrorCode
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderFileErrorCode
+class BorhanDropFolderFileErrorCode
 {
 	const ERROR_ADDING_BULK_UPLOAD = "dropFolderXmlBulkUpload.ERROR_ADDING_BULK_UPLOAD";
 	const ERROR_ADD_CONTENT_RESOURCE = "dropFolderXmlBulkUpload.ERROR_ADD_CONTENT_RESOURCE";
@@ -135,20 +135,20 @@ class KalturaDropFolderFileErrorCode
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderFileHandlerType
+class BorhanDropFolderFileHandlerType
 {
 	const XML = "dropFolderXmlBulkUpload.XML";
 	const CONTENT = "1";
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderFileOrderBy
+class BorhanDropFolderFileOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const FILE_NAME_ASC = "+fileName";
@@ -169,10 +169,10 @@ class KalturaDropFolderFileOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderOrderBy
+class BorhanDropFolderOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const ID_ASC = "+id";
@@ -185,10 +185,10 @@ class KalturaDropFolderOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderType
+class BorhanDropFolderType
 {
 	const LOCAL = "1";
 	const FTP = "2";
@@ -198,10 +198,10 @@ class KalturaDropFolderType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFtpDropFolderOrderBy
+class BorhanFtpDropFolderOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const ID_ASC = "+id";
@@ -214,10 +214,10 @@ class KalturaFtpDropFolderOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaRemoteDropFolderOrderBy
+class BorhanRemoteDropFolderOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const ID_ASC = "+id";
@@ -230,10 +230,10 @@ class KalturaRemoteDropFolderOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaScpDropFolderOrderBy
+class BorhanScpDropFolderOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const ID_ASC = "+id";
@@ -246,10 +246,10 @@ class KalturaScpDropFolderOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSftpDropFolderOrderBy
+class BorhanSftpDropFolderOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const ID_ASC = "+id";
@@ -262,10 +262,10 @@ class KalturaSftpDropFolderOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSshDropFolderOrderBy
+class BorhanSshDropFolderOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const ID_ASC = "+id";
@@ -278,15 +278,15 @@ class KalturaSshDropFolderOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaDropFolderFileHandlerConfig extends KalturaObjectBase
+abstract class BorhanDropFolderFileHandlerConfig extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderFileHandlerType
+	 * @var BorhanDropFolderFileHandlerType
 	 * @readonly
 	 */
 	public $handlerType = null;
@@ -295,10 +295,10 @@ abstract class KalturaDropFolderFileHandlerConfig extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolder extends KalturaObjectBase
+class BorhanDropFolder extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -333,14 +333,14 @@ class KalturaDropFolder extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderType
+	 * @var BorhanDropFolderType
 	 */
 	public $type = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderStatus
+	 * @var BorhanDropFolderStatus
 	 */
 	public $status = null;
 
@@ -376,7 +376,7 @@ class KalturaDropFolder extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderFileDeletePolicy
+	 * @var BorhanDropFolderFileDeletePolicy
 	 */
 	public $fileDeletePolicy = null;
 
@@ -390,7 +390,7 @@ class KalturaDropFolder extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderFileHandlerType
+	 * @var BorhanDropFolderFileHandlerType
 	 */
 	public $fileHandlerType = null;
 
@@ -404,7 +404,7 @@ class KalturaDropFolder extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderFileHandlerConfig
+	 * @var BorhanDropFolderFileHandlerConfig
 	 */
 	public $fileHandlerConfig;
 
@@ -418,7 +418,7 @@ class KalturaDropFolder extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderErrorCode
+	 * @var BorhanDropFolderErrorCode
 	 */
 	public $errorCode = null;
 
@@ -498,10 +498,10 @@ class KalturaDropFolder extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderFile extends KalturaObjectBase
+class BorhanDropFolderFile extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -553,7 +553,7 @@ class KalturaDropFolderFile extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderFileStatus
+	 * @var BorhanDropFolderFileStatus
 	 * @readonly
 	 */
 	public $status = null;
@@ -561,7 +561,7 @@ class KalturaDropFolderFile extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderType
+	 * @var BorhanDropFolderType
 	 * @readonly
 	 */
 	public $type = null;
@@ -611,7 +611,7 @@ class KalturaDropFolderFile extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderFileErrorCode
+	 * @var BorhanDropFolderFileErrorCode
 	 */
 	public $errorCode = null;
 
@@ -685,15 +685,15 @@ class KalturaDropFolderFile extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderFileListResponse extends KalturaObjectBase
+class BorhanDropFolderFileListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaDropFolderFile
+	 * @var array of BorhanDropFolderFile
 	 * @readonly
 	 */
 	public $objects;
@@ -710,15 +710,15 @@ class KalturaDropFolderFileListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderListResponse extends KalturaObjectBase
+class BorhanDropFolderListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaDropFolder
+	 * @var array of BorhanDropFolder
 	 * @readonly
 	 */
 	public $objects;
@@ -735,10 +735,10 @@ class KalturaDropFolderListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaDropFolderBaseFilter extends KalturaFilter
+abstract class BorhanDropFolderBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -778,7 +778,7 @@ abstract class KalturaDropFolderBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderType
+	 * @var BorhanDropFolderType
 	 */
 	public $typeEqual = null;
 
@@ -792,7 +792,7 @@ abstract class KalturaDropFolderBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderStatus
+	 * @var BorhanDropFolderStatus
 	 */
 	public $statusEqual = null;
 
@@ -848,7 +848,7 @@ abstract class KalturaDropFolderBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderFileHandlerType
+	 * @var BorhanDropFolderFileHandlerType
 	 */
 	public $fileHandlerTypeEqual = null;
 
@@ -904,7 +904,7 @@ abstract class KalturaDropFolderBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderErrorCode
+	 * @var BorhanDropFolderErrorCode
 	 */
 	public $errorCodeEqual = null;
 
@@ -947,15 +947,15 @@ abstract class KalturaDropFolderBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderContentFileHandlerConfig extends KalturaDropFolderFileHandlerConfig
+class BorhanDropFolderContentFileHandlerConfig extends BorhanDropFolderFileHandlerConfig
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderContentFileHandlerMatchPolicy
+	 * @var BorhanDropFolderContentFileHandlerMatchPolicy
 	 */
 	public $contentMatchPolicy = null;
 
@@ -974,10 +974,10 @@ class KalturaDropFolderContentFileHandlerConfig extends KalturaDropFolderFileHan
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderContentProcessorJobData extends KalturaJobData
+class BorhanDropFolderContentProcessorJobData extends BorhanJobData
 {
 	/**
 	 * 
@@ -1003,7 +1003,7 @@ class KalturaDropFolderContentProcessorJobData extends KalturaJobData
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderContentFileHandlerMatchPolicy
+	 * @var BorhanDropFolderContentFileHandlerMatchPolicy
 	 */
 	public $contentMatchPolicy = null;
 
@@ -1025,10 +1025,10 @@ class KalturaDropFolderContentProcessorJobData extends KalturaJobData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaDropFolderFileBaseFilter extends KalturaFilter
+abstract class BorhanDropFolderFileBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -1096,7 +1096,7 @@ abstract class KalturaDropFolderFileBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderFileStatus
+	 * @var BorhanDropFolderFileStatus
 	 */
 	public $statusEqual = null;
 
@@ -1180,7 +1180,7 @@ abstract class KalturaDropFolderFileBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaDropFolderFileErrorCode
+	 * @var BorhanDropFolderFileErrorCode
 	 */
 	public $errorCodeEqual = null;
 
@@ -1223,33 +1223,33 @@ abstract class KalturaDropFolderFileBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaRemoteDropFolder extends KalturaDropFolder
+abstract class BorhanRemoteDropFolder extends BorhanDropFolder
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderFileFilter extends KalturaDropFolderFileBaseFilter
+class BorhanDropFolderFileFilter extends BorhanDropFolderFileBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderFilter extends KalturaDropFolderBaseFilter
+class BorhanDropFolderFilter extends BorhanDropFolderBaseFilter
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaNullableBoolean
+	 * @var BorhanNullableBoolean
 	 */
 	public $currentDc = null;
 
@@ -1257,10 +1257,10 @@ class KalturaDropFolderFilter extends KalturaDropFolderBaseFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFtpDropFolder extends KalturaRemoteDropFolder
+class BorhanFtpDropFolder extends BorhanRemoteDropFolder
 {
 	/**
 	 * 
@@ -1294,10 +1294,10 @@ class KalturaFtpDropFolder extends KalturaRemoteDropFolder
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaSshDropFolder extends KalturaRemoteDropFolder
+abstract class BorhanSshDropFolder extends BorhanRemoteDropFolder
 {
 	/**
 	 * 
@@ -1352,10 +1352,10 @@ abstract class KalturaSshDropFolder extends KalturaRemoteDropFolder
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderFileResource extends KalturaDataCenterContentResource
+class BorhanDropFolderFileResource extends BorhanDataCenterContentResource
 {
 	/**
 	 * Id of the drop folder file object
@@ -1369,10 +1369,10 @@ class KalturaDropFolderFileResource extends KalturaDataCenterContentResource
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderImportJobData extends KalturaSshImportJobData
+class BorhanDropFolderImportJobData extends BorhanSshImportJobData
 {
 	/**
 	 * 
@@ -1385,132 +1385,132 @@ class KalturaDropFolderImportJobData extends KalturaSshImportJobData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaRemoteDropFolderBaseFilter extends KalturaDropFolderFilter
+abstract class BorhanRemoteDropFolderBaseFilter extends BorhanDropFolderFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaScpDropFolder extends KalturaSshDropFolder
+class BorhanScpDropFolder extends BorhanSshDropFolder
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSftpDropFolder extends KalturaSshDropFolder
+class BorhanSftpDropFolder extends BorhanSshDropFolder
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaRemoteDropFolderFilter extends KalturaRemoteDropFolderBaseFilter
+class BorhanRemoteDropFolderFilter extends BorhanRemoteDropFolderBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaFtpDropFolderBaseFilter extends KalturaRemoteDropFolderFilter
+abstract class BorhanFtpDropFolderBaseFilter extends BorhanRemoteDropFolderFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaSshDropFolderBaseFilter extends KalturaRemoteDropFolderFilter
+abstract class BorhanSshDropFolderBaseFilter extends BorhanRemoteDropFolderFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFtpDropFolderFilter extends KalturaFtpDropFolderBaseFilter
+class BorhanFtpDropFolderFilter extends BorhanFtpDropFolderBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSshDropFolderFilter extends KalturaSshDropFolderBaseFilter
+class BorhanSshDropFolderFilter extends BorhanSshDropFolderBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaScpDropFolderBaseFilter extends KalturaSshDropFolderFilter
+abstract class BorhanScpDropFolderBaseFilter extends BorhanSshDropFolderFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaSftpDropFolderBaseFilter extends KalturaSshDropFolderFilter
+abstract class BorhanSftpDropFolderBaseFilter extends BorhanSshDropFolderFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaScpDropFolderFilter extends KalturaScpDropFolderBaseFilter
+class BorhanScpDropFolderFilter extends BorhanScpDropFolderBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSftpDropFolderFilter extends KalturaSftpDropFolderBaseFilter
+class BorhanSftpDropFolderFilter extends BorhanSftpDropFolderBaseFilter
 {
 
 }
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderService extends KalturaServiceBase
+class BorhanDropFolderService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * Allows you to add a new KalturaDropFolder object
+	 * Allows you to add a new BorhanDropFolder object
 	 * 
-	 * @param KalturaDropFolder $dropFolder 
-	 * @return KalturaDropFolder
+	 * @param BorhanDropFolder $dropFolder 
+	 * @return BorhanDropFolder
 	 */
-	function add(KalturaDropFolder $dropFolder)
+	function add(BorhanDropFolder $dropFolder)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "dropFolder", $dropFolder->toParams());
@@ -1519,15 +1519,15 @@ class KalturaDropFolderService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDropFolder");
+		$this->client->validateObjectType($resultObject, "BorhanDropFolder");
 		return $resultObject;
 	}
 
 	/**
-	 * Retrieve a KalturaDropFolder object by ID
+	 * Retrieve a BorhanDropFolder object by ID
 	 * 
 	 * @param int $dropFolderId 
-	 * @return KalturaDropFolder
+	 * @return BorhanDropFolder
 	 */
 	function get($dropFolderId)
 	{
@@ -1538,18 +1538,18 @@ class KalturaDropFolderService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDropFolder");
+		$this->client->validateObjectType($resultObject, "BorhanDropFolder");
 		return $resultObject;
 	}
 
 	/**
-	 * Update an existing KalturaDropFolder object
+	 * Update an existing BorhanDropFolder object
 	 * 
 	 * @param int $dropFolderId 
-	 * @param KalturaDropFolder $dropFolder Id
-	 * @return KalturaDropFolder
+	 * @param BorhanDropFolder $dropFolder Id
+	 * @return BorhanDropFolder
 	 */
-	function update($dropFolderId, KalturaDropFolder $dropFolder)
+	function update($dropFolderId, BorhanDropFolder $dropFolder)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "dropFolderId", $dropFolderId);
@@ -1559,15 +1559,15 @@ class KalturaDropFolderService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDropFolder");
+		$this->client->validateObjectType($resultObject, "BorhanDropFolder");
 		return $resultObject;
 	}
 
 	/**
-	 * Mark the KalturaDropFolder object as deleted
+	 * Mark the BorhanDropFolder object as deleted
 	 * 
 	 * @param int $dropFolderId 
-	 * @return KalturaDropFolder
+	 * @return BorhanDropFolder
 	 */
 	function delete($dropFolderId)
 	{
@@ -1578,18 +1578,18 @@ class KalturaDropFolderService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDropFolder");
+		$this->client->validateObjectType($resultObject, "BorhanDropFolder");
 		return $resultObject;
 	}
 
 	/**
-	 * List KalturaDropFolder objects
+	 * List BorhanDropFolder objects
 	 * 
-	 * @param KalturaDropFolderFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaDropFolderListResponse
+	 * @param BorhanDropFolderFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanDropFolderListResponse
 	 */
-	function listAction(KalturaDropFolderFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanDropFolderFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -1601,29 +1601,29 @@ class KalturaDropFolderService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDropFolderListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanDropFolderListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderFileService extends KalturaServiceBase
+class BorhanDropFolderFileService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * Allows you to add a new KalturaDropFolderFile object
+	 * Allows you to add a new BorhanDropFolderFile object
 	 * 
-	 * @param KalturaDropFolderFile $dropFolderFile 
-	 * @return KalturaDropFolderFile
+	 * @param BorhanDropFolderFile $dropFolderFile 
+	 * @return BorhanDropFolderFile
 	 */
-	function add(KalturaDropFolderFile $dropFolderFile)
+	function add(BorhanDropFolderFile $dropFolderFile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "dropFolderFile", $dropFolderFile->toParams());
@@ -1632,15 +1632,15 @@ class KalturaDropFolderFileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDropFolderFile");
+		$this->client->validateObjectType($resultObject, "BorhanDropFolderFile");
 		return $resultObject;
 	}
 
 	/**
-	 * Retrieve a KalturaDropFolderFile object by ID
+	 * Retrieve a BorhanDropFolderFile object by ID
 	 * 
 	 * @param int $dropFolderFileId 
-	 * @return KalturaDropFolderFile
+	 * @return BorhanDropFolderFile
 	 */
 	function get($dropFolderFileId)
 	{
@@ -1651,18 +1651,18 @@ class KalturaDropFolderFileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDropFolderFile");
+		$this->client->validateObjectType($resultObject, "BorhanDropFolderFile");
 		return $resultObject;
 	}
 
 	/**
-	 * Update an existing KalturaDropFolderFile object
+	 * Update an existing BorhanDropFolderFile object
 	 * 
 	 * @param int $dropFolderFileId 
-	 * @param KalturaDropFolderFile $dropFolderFile Id
-	 * @return KalturaDropFolderFile
+	 * @param BorhanDropFolderFile $dropFolderFile Id
+	 * @return BorhanDropFolderFile
 	 */
-	function update($dropFolderFileId, KalturaDropFolderFile $dropFolderFile)
+	function update($dropFolderFileId, BorhanDropFolderFile $dropFolderFile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "dropFolderFileId", $dropFolderFileId);
@@ -1672,16 +1672,16 @@ class KalturaDropFolderFileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDropFolderFile");
+		$this->client->validateObjectType($resultObject, "BorhanDropFolderFile");
 		return $resultObject;
 	}
 
 	/**
-	 * Update status of KalturaDropFolderFile
+	 * Update status of BorhanDropFolderFile
 	 * 
 	 * @param int $dropFolderFileId 
 	 * @param int $status 
-	 * @return KalturaDropFolderFile
+	 * @return BorhanDropFolderFile
 	 */
 	function updateStatus($dropFolderFileId, $status)
 	{
@@ -1693,15 +1693,15 @@ class KalturaDropFolderFileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDropFolderFile");
+		$this->client->validateObjectType($resultObject, "BorhanDropFolderFile");
 		return $resultObject;
 	}
 
 	/**
-	 * Mark the KalturaDropFolderFile object as deleted
+	 * Mark the BorhanDropFolderFile object as deleted
 	 * 
 	 * @param int $dropFolderFileId 
-	 * @return KalturaDropFolderFile
+	 * @return BorhanDropFolderFile
 	 */
 	function delete($dropFolderFileId)
 	{
@@ -1712,18 +1712,18 @@ class KalturaDropFolderFileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDropFolderFile");
+		$this->client->validateObjectType($resultObject, "BorhanDropFolderFile");
 		return $resultObject;
 	}
 
 	/**
-	 * List KalturaDropFolderFile objects
+	 * List BorhanDropFolderFile objects
 	 * 
-	 * @param KalturaDropFolderFileFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaDropFolderFileListResponse
+	 * @param BorhanDropFolderFileFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanDropFolderFileListResponse
 	 */
-	function listAction(KalturaDropFolderFileFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanDropFolderFileFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -1735,15 +1735,15 @@ class KalturaDropFolderFileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDropFolderFileListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanDropFolderFileListResponse");
 		return $resultObject;
 	}
 
 	/**
-	 * Set the KalturaDropFolderFile status to ignore (KalturaDropFolderFileStatus::IGNORE)
+	 * Set the BorhanDropFolderFile status to ignore (BorhanDropFolderFileStatus::IGNORE)
 	 * 
 	 * @param int $dropFolderFileId 
-	 * @return KalturaDropFolderFile
+	 * @return BorhanDropFolderFile
 	 */
 	function ignore($dropFolderFileId)
 	{
@@ -1754,43 +1754,43 @@ class KalturaDropFolderFileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDropFolderFile");
+		$this->client->validateObjectType($resultObject, "BorhanDropFolderFile");
 		return $resultObject;
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDropFolderClientPlugin extends KalturaClientPlugin
+class BorhanDropFolderClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaDropFolderService
+	 * @var BorhanDropFolderService
 	 */
 	public $dropFolder = null;
 
 	/**
-	 * @var KalturaDropFolderFileService
+	 * @var BorhanDropFolderFileService
 	 */
 	public $dropFolderFile = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->dropFolder = new KalturaDropFolderService($client);
-		$this->dropFolderFile = new KalturaDropFolderFileService($client);
+		$this->dropFolder = new BorhanDropFolderService($client);
+		$this->dropFolderFile = new BorhanDropFolderFileService($client);
 	}
 
 	/**
-	 * @return KalturaDropFolderClientPlugin
+	 * @return BorhanDropFolderClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaDropFolderClientPlugin($client);
+		return new BorhanDropFolderClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

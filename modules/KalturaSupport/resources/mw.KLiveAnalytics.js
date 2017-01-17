@@ -65,10 +65,10 @@
 				        _this.currentBitRate = -1;
 						_this.addBindings();
 				        if (_this.embedPlayer &&
-					        _this.embedPlayer.kalturaContextData &&
-					        _this.embedPlayer.kalturaContextData.flavorAssets &&
-					        _this.embedPlayer.kalturaContextData.flavorAssets.length === 1){
-					        _this.currentBitRate = _this.embedPlayer.kalturaContextData.flavorAssets[0].bitrate;
+					        _this.embedPlayer.borhanContextData &&
+					        _this.embedPlayer.borhanContextData.flavorAssets &&
+					        _this.embedPlayer.borhanContextData.flavorAssets.length === 1){
+					        _this.currentBitRate = _this.embedPlayer.borhanContextData.flavorAssets[0].bitrate;
 				        }
 					}
 				} );
@@ -155,7 +155,7 @@
 					return;
 				}
 				_this.isLiveEventsOn = true;
-				_this.kClient = mw.kApiGetPartnerClient( _this.embedPlayer.kwidgetid );
+				_this.kClient = mw.kApiGetPartnerClient( _this.embedPlayer.bwidgetid );
 				_this.monitorIntervalObj.cancel = false;
 				if ( _this.firstPlay ){
 					_this.sendLiveAnalytics();
@@ -169,7 +169,7 @@
 			sendLiveAnalytics : function(){
 				var _this = this;
 				_this.calculateBuffer(true);
-				_this.kClient = mw.kApiGetPartnerClient( _this.embedPlayer.kwidgetid );
+				_this.kClient = mw.kApiGetPartnerClient( _this.embedPlayer.bwidgetid );
 				if ( _this.embedPlayer.isMulticast && $.isFunction( _this.embedPlayer.getMulticastBitrate ) ) {
 					_this.currentBitRate = _this.embedPlayer.getMulticastBitrate();
 				}

@@ -136,7 +136,7 @@ require_once( realpath( dirname( __FILE__ ) ) . '/api_evaluates.php' );
 					$var['notificationDataValue'] = array( $var['notificationDataValue'] );
 				}
 				foreach( $var['notificationDataValue'] as $k => $v ){
-					$o.='<pre class="prettyprint linenums">kdp.sendNotification("'. $key . '", ' .  $v . ');</pre>';
+					$o.='<pre class="prettyprint linenums">bdp.sendNotification("'. $key . '", ' .  $v . ');</pre>';
 				}
 			}
 			if( isset( $var['default'] ) && $var['default'] != '' ){
@@ -145,7 +145,7 @@ require_once( realpath( dirname( __FILE__ ) ) . '/api_evaluates.php' );
             if( isset( $var['example'] ) && $var['example'] != '' ){
                 $o.= '<br><a href="'. $var['example'] . '" target="_blank">Usage Example</a>';
             }
-			if( isset( $var['availability'] ) && $var['availability'] == 'kdp' ){
+			if( isset( $var['availability'] ) && $var['availability'] == 'bdp' ){
 				$o.= '<br><span class="label label-warning">Legacy Only</span>';
 			}
 		}
@@ -168,7 +168,7 @@ require_once( realpath( dirname( __FILE__ ) ) . '/api_evaluates.php' );
 				$o.= '<tr class="linkable" id="'. $key .'">';
 				$o.= "<td>".$key;
 				foreach( $value as $val => $value1){
-					if ($val == 'availability' && $value1 == 'kdp'){
+					if ($val == 'availability' && $value1 == 'bdp'){
 						$o.= '<br><span class="label label-warning">Legacy Only</span>';
 						$restrictedAvailability = true;
 					}
@@ -256,53 +256,53 @@ $(function(){
 	});
 });</script>
 <div id="hps-resources"></div>
-<h2>Kaltura Player API</h2>
+<h2>Borhan Player API</h2>
 <p>This documentation covers version <strong><i><?php global $wgMwEmbedVersion; echo $wgMwEmbedVersion ?></i></strong> of the html5 library. </p>
 <p>
-<a href="#kWidget" class="btn btn btn-info">kWidget API &raquo;</a>
+<a href="#bWidget" class="btn btn btn-info">bWidget API &raquo;</a>
 <a href="#uiVars" class="btn btn btn-info">UiVars &raquo;</a>
-<a href="#kdpAPI" class="btn btn btn-info">Player API &raquo;</a>
-<a href="#kWidgetApi" class="btn btn btn-info">KWidget Server API &raquo;</a>
+<a href="#bdpAPI" class="btn btn btn-info">Player API &raquo;</a>
+<a href="#bWidgetApi" class="btn btn btn-info">BWidget Server API &raquo;</a>
 </p>
 
-<a name="kWidget"></a>
-<h2>kWidget Embedding API</h2>
-The kWidget API is available after you include the Kaltura player library. kWidget provides embedding and basic utility functions.
-The Kaltura player library can be embeded into both <a href="http://knowledge.kaltura.com/kaltura-player-sdk-android">Native Android</a>
- and <a href="http://knowledge.kaltura.com/kaltura-player-sdk-ios">Native iOS</a>.
-<br><br>Sample JavaScript Kaltura player library include :
+<a name="bWidget"></a>
+<h2>bWidget Embedding API</h2>
+The bWidget API is available after you include the Borhan player library. bWidget provides embedding and basic utility functions.
+The Borhan player library can be embeded into both <a href="http://knowledge.borhan.com/borhan-player-sdk-android">Native Android</a>
+ and <a href="http://knowledge.borhan.com/borhan-player-sdk-ios">Native iOS</a>.
+<br><br>Sample JavaScript Borhan player library include :
 <pre class="prettyprint linenums">
-&lt!-- Substitute {partner_id} for your Kaltura partner id, {uiconf_id} for uiconf player id --&gt;
-&lt;script src=&quot;http://cdnapi.kaltura.com/p/{partner_id}/sp/{partnerId}00/embedIframeJs/uiconf_id/{uiconf_id}/partner_id/{partnerId}&quot;&gt;&lt;/script&gt;
+&lt!-- Substitute {partner_id} for your Borhan partner id, {uiconf_id} for uiconf player id --&gt;
+&lt;script src=&quot;http://cdnapi.borhan.com/p/{partner_id}/sp/{partnerId}00/embedIframeJs/uiconf_id/{uiconf_id}/partner_id/{partnerId}&quot;&gt;&lt;/script&gt;
 </pre>
-After you include the Kaltura player library, the following kWidget API is available:
+After you include the Borhan player library, the following bWidget API is available:
 <div class="docblock">
-	<?php echo getDocs( array( 'kWidget.embed', 'kWidget.thumbEmbed', 'kWidget.getKalturaThumbUrl','kWidget.addReadyCallback','kWidget.destroy' ) ) ?>
-	<h3 class="linkable" id="kwidget-feature-and-user-agent"> User Agent and Feature Detection </h2>
-	<?php echo getDocs( array( 'kWidget.isMobileDevice', 'kWidget.supportsHTML5', 'kWidget.supportsFlash','kWidget.isIOS' ,'kWidget.isIE','kWidget.isIE8', 'kWidget.isAndroid','kWidget.isWindowsDevice') ) ?>
-	<h3 class="linkable" id="kwidget-settingsObject"> Settings Embed Object:</h2>
-	<?php echo getObjectDocs( array( 'kWidget.settingsObject' ) ) ?>
+	<?php echo getDocs( array( 'bWidget.embed', 'bWidget.thumbEmbed', 'bWidget.getBorhanThumbUrl','bWidget.addReadyCallback','bWidget.destroy' ) ) ?>
+	<h3 class="linkable" id="bwidget-feature-and-user-agent"> User Agent and Feature Detection </h2>
+	<?php echo getDocs( array( 'bWidget.isMobileDevice', 'bWidget.supportsHTML5', 'bWidget.supportsFlash','bWidget.isIOS' ,'bWidget.isIE','bWidget.isIE8', 'bWidget.isAndroid','bWidget.isWindowsDevice') ) ?>
+	<h3 class="linkable" id="bwidget-settingsObject"> Settings Embed Object:</h2>
+	<?php echo getObjectDocs( array( 'bWidget.settingsObject' ) ) ?>
 </div><br><br>
-<a name="kWidgetApi"></a>
-<h3>Server API requests ( kWidget.api )</h3>
-kWidget Server API enables direct <a href="http://www.kaltura.com/api_v3/testmeDoc/index.php">Kaltura Server API</a> calls from JavaScript. 
-This should not be confused with the <a href="http://www.kaltura.com/api_v3/testme/client-libs.php">JavaScript client library</a>, 
+<a name="bWidgetApi"></a>
+<h3>Server API requests ( bWidget.api )</h3>
+bWidget Server API enables direct <a href="http://www.borhan.com/api_v3/testmeDoc/index.php">Borhan Server API</a> calls from JavaScript. 
+This should not be confused with the <a href="http://www.borhan.com/api_v3/testme/client-libs.php">JavaScript client library</a>, 
 which offers object mappings and works with the code generated in the 
-<a href="http://www.kaltura.com/api_v3/testme/index.php">test me console</a>. <br>
-The Kaltura Server API offers minimal object validation, in exchange for being much smaller, and included with every kaltura player library include.<br><br>
-Creating a kWidget API object, issue a playlist request, log the result:
+<a href="http://www.borhan.com/api_v3/testme/index.php">test me console</a>. <br>
+The Borhan Server API offers minimal object validation, in exchange for being much smaller, and included with every borhan player library include.<br><br>
+Creating a bWidget API object, issue a playlist request, log the result:
 <pre class="prettyprint linenums">
-new kWidget.api( { 'wid' : '_243342', })
+new bWidget.api( { 'wid' : '_243342', })
 .doRequest({'service':'playlist', 'action': 'execute', 'id': '1_e387kavu'}, 
 	function( data ){
 		console.log( data );
 	}
 );
 </pre> 
-For more examples see the <a href="../kWidget/tests/kWidget.api.html">kWidget.api test page.</a>
+For more examples see the <a href="../bWidget/tests/bWidget.api.html">bWidget.api test page.</a>
 <div class="docblock">
-	<?php echo getDocs('kWidget.api' ) ?>
-	<?php echo getObjectDocs( array( 'kWidget.apiOptions' ) ) ?>
+	<?php echo getDocs('bWidget.api' ) ?>
+	<?php echo getObjectDocs( array( 'bWidget.apiOptions' ) ) ?>
 </div>
 
 <a name="uiVars"></a>
@@ -323,12 +323,12 @@ UiVars enable configuration of all player features. There are two classes of UiV
 </ul>
 These values can be set a few ways:<br> <br> 
 <p>
-Within the <a href="http://knowledge.kaltura.com/universal-studio-information-guide">player studio</a>
+Within the <a href="http://knowledge.borhan.com/universal-studio-information-guide">player studio</a>
 UiVar configuration appears plugins -> uivars:<br>
-<img src="http://knowledge.kaltura.com/sites/default/files/styles/large/public/ui_variables_2.png">
+<img src="http://knowledge.borhan.com/sites/default/files/styles/large/public/ui_variables_2.png">
 </p>
 <p>
-You can control the raw JSON code for UiVars by modifying the "uiVars" section of the JSON config using the <a href="http://player.kaltura.com/kWidget/tests/PlayerVersionUtility.html">player version utility</a>. 
+You can control the raw JSON code for UiVars by modifying the "uiVars" section of the JSON config using the <a href="http://player.borhan.com/bWidget/tests/PlayerVersionUtility.html">player version utility</a>. 
 </p>
 <pre class="prettyprint linenums">
 {
@@ -344,7 +344,7 @@ You can control the raw JSON code for UiVars by modifying the "uiVars" section o
 </pre>
 Player configuration can be set at embed time as "flashvars": 
 <pre class="prettyprint linenums">
-kWidget.embed({
+bWidget.embed({
 	...
 	flashvars:{
 		"autoPlay": false
@@ -355,11 +355,11 @@ kWidget.embed({
 </pre>
 All player properties can also be retrieved at runtime or used in plugins macro evaluations. 
 <pre class="prettyprint linenums">
-kWidget.addReadyCallback( function(playerId){
+bWidget.addReadyCallback( function(playerId){
 	alert( document.getElementById( playerId ).evaluate("{autoPlay}") );
 })
 </pre>
-Finally many properties can be upated at runtime using <a href="#setKDPAttribute-desc">setKDPAttribute</a>.
+Finally many properties can be upated at runtime using <a href="#setBDPAttribute-desc">setBDPAttribute</a>.
 <br>
 
 <?php
@@ -376,13 +376,13 @@ Finally many properties can be upated at runtime using <a href="#setKDPAttribute
 ?>
 
 </div><br><br>
-<h3>KDP Components & Plugins:</h3>
-<p>Using a standard OOP dot notation, each KDP component and plugin attribute can be overridden via Flashvars: objectId.parameter=value.<br>For example, to set the playlist to load automatically, pass the following Flashvar: playlistAPI.autoPlay=true</p><br><br>
+<h3>BDP Components & Plugins:</h3>
+<p>Using a standard OOP dot notation, each BDP component and plugin attribute can be overridden via Flashvars: objectId.parameter=value.<br>For example, to set the playlist to load automatically, pass the following Flashvar: playlistAPI.autoPlay=true</p><br><br>
 
 Code sample:<br>
 <pre class="prettyprint linenums">
-kWidget.embed({
-  "targetId": "kaltura_player_1402219661",
+bWidget.embed({
+  "targetId": "borhan_player_1402219661",
   "wid": "_1645161",
   "uiconf_id": 24231962,
   "flashvars": {
@@ -410,23 +410,23 @@ kWidget.embed({
 </pre>
 
 <br><br>
-<a name="kdpAPI"></a>
+<a name="bdpAPI"></a>
 
  <h2>Player API</h2>
 <p>The JavaScript API is a two-way communication channel that lets the player communicate what it is doing and lets you instruct the player to perform operations.
-<br>For more information: <a href="http://knowledge.kaltura.com/javascript-api-kaltura-media-players#UnderstandingtheJavaScriptAPIWorkflow" target="_blank">JavaScript API for Kaltura Media Players</a></p>
+<br>For more information: <a href="http://knowledge.borhan.com/javascript-api-borhan-media-players#UnderstandingtheJavaScriptAPIWorkflow" target="_blank">JavaScript API for Borhan Media Players</a></p>
 <p>Available JavaScript API:</p>
-<a class="btn btn btn-info" href="#kWidget.addReadyCallback-desc">Ready Notifications</a>
+<a class="btn btn btn-info" href="#bWidget.addReadyCallback-desc">Ready Notifications</a>
 <a class="btn btn btn-info" href="#sendNotification-desc">sendNotification</a>
 <a class="btn btn btn-info" href="#kBind-desc">Bind</a>
 <a class="btn btn btn-info" href="kUnbind-desc">unBind</a>
 <a class="btn btn btn-info" href="#evaluate-desc">Evaluate</a>
-<a class="btn btn btn-info" href="#setKDPAttribute-desc">Update properties</a>
+<a class="btn btn btn-info" href="#setBDPAttribute-desc">Update properties</a>
 
 
-<a name="kWidget.addReadyCallback-desc"></a>
+<a name="bWidget.addReadyCallback-desc"></a>
 <h3>Receiving notification that the player API is ready</h3>
-<p>See <a href="#kWidget.addReadyCallback">kWidget.addReadyCallback</a> or the "<a href="#kWidget.settingsObject">readyCallback</a>" function within a dynamic embed.</p>
+<p>See <a href="#bWidget.addReadyCallback">bWidget.addReadyCallback</a> or the "<a href="#bWidget.settingsObject">readyCallback</a>" function within a dynamic embed.</p>
 
 <a name="sendNotification-desc"></a>
 <h3>Calling a player method from JavaScript</h3>
@@ -434,11 +434,11 @@ kWidget.embed({
 <?php echo getDocs( array( 'sendNotification' ) ) ?>
 <br><br>Code sample:<br>
 <pre class="prettyprint linenums">
-kWidget.addReadyCallback( function( playerId ){
-	var kdp = document.getElementById( playerId );
-	kdp.kBind( 'mediaReady', function(){
+bWidget.addReadyCallback( function( playerId ){
+	var bdp = document.getElementById( playerId );
+	bdp.kBind( 'mediaReady', function(){
 		// Seek to 30 seconds from the start of the video
-		kdp.sendNotification("doSeek", 30);
+		bdp.sendNotification("doSeek", 30);
 	})
 });
 </pre>
@@ -455,10 +455,10 @@ such as the video is playing or is paused.</p>
 <?php echo getDocs( array( 'kBind' ) ) ?>
 <br><br>Code sample:<br>
 <pre class="prettyprint linenums">
-kWidget.addReadyCallback(function( playerId ){
-	var kdp = document.getElementById( playerId );
+bWidget.addReadyCallback(function( playerId ){
+	var bdp = document.getElementById( playerId );
 	// binds an event and namespces it to "myPluginName"
-	kdp.kBind("playerUpdatePlayhead.myPluginName", function( data, id ){
+	bdp.kBind("playerUpdatePlayhead.myPluginName", function( data, id ){
 		// data = the player's progress time in seconds
 		// id = the ID of the player that fired the notification
 	});
@@ -470,12 +470,12 @@ kWidget.addReadyCallback(function( playerId ){
 Removing event listeners that are no longer needed can improve performance 
 <br><br>Code sample:<br>
 <pre class="prettyprint linenums">
-kWidget.addReadyCallback(function( playerId ){
-	var kdp = document.getElementById( playerId );
+bWidget.addReadyCallback(function( playerId ){
+	var bdp = document.getElementById( playerId );
 	// removes all events namespaced with "myPluginName"
-	kdp.kUnbind(".myPluginName");
+	bdp.kUnbind(".myPluginName");
 	// removes events by event name: 
-	kdp.kUnbind("playerUpdatePlayhead");
+	bdp.kUnbind("playerUpdatePlayhead");
 });
 </pre>
 
@@ -499,34 +499,34 @@ kWidget.addReadyCallback(function( playerId ){
 <?php echo getDocs( array( 'evaluate' ) ) ?>
 <br><br>Code sample:<br>
 <pre class="prettyprint linenums">
-kWidget.addReadyCallback(function( playerId ){
-	var kdp = document.getElementById( playerId );
+bWidget.addReadyCallback(function( playerId ){
+	var bdp = document.getElementById( playerId );
 	// alert the entry name
-	alert('Entry name: '+ kdp.evaluate('{mediaProxy.entry.name}') );
+	alert('Entry name: '+ bdp.evaluate('{mediaProxy.entry.name}') );
 });
 </pre>
 <h3>Available Properties:</h3>
 <?php echo getOutlineContent( $evaluates ) ?>
 
 
-<a name="setKDPAttribute-desc"></a>
+<a name="setBDPAttribute-desc"></a>
 <h3>Setting a player attribute</h3>
-<p>Use the <b>setKDPAttribute</b> method to change a player attribute by setting its value.</p>
+<p>Use the <b>setBDPAttribute</b> method to change a player attribute by setting its value.</p>
 <br>Code sample:<br>
 <pre class="prettyprint linenums">
-kdp.setKDPAttribute("configProxy.flashvars","autoPlay","true")
+bdp.setBDPAttribute("configProxy.flashvars","autoPlay","true")
 </pre>
-<br><p>Some plugins support runtime updates using <b>setKDPAttribute</b>.
+<br><p>Some plugins support runtime updates using <b>setBDPAttribute</b>.
 <br>For example, the "theme" plugin supports such updates:</p>
 <pre class="prettyprint linenums">
-var kdp = document.getElementById('kVideoTarget');
-kdp.setKDPAttribute("theme", "buttonsSize", "14");
+var bdp = document.getElementById('kVideoTarget');
+bdp.setBDPAttribute("theme", "buttonsSize", "14");
 </pre>
-<?php echo getDocs( array( 'setKDPAttribute' ) ) ?>
+<?php echo getDocs( array( 'setBDPAttribute' ) ) ?>
 
 <h3 id="standAlonePlayerModes" > Stand Alone Player Modes </h3>
-	Kaltura player supports several modes for associating content and configuration with the player. To 
-	evaluate of what is best for your integration requirements we strongly recommend consulting with Kaltura 
+	Borhan player supports several modes for associating content and configuration with the player. To 
+	evaluate of what is best for your integration requirements we strongly recommend consulting with Borhan 
 	Solutions team.<br><br>
 	
 	<ul>
@@ -539,16 +539,16 @@ kdp.setKDPAttribute("theme", "buttonsSize", "14");
 			</ul>
 		</li>
 		<li> <b>Embed Services Lib</b> -- The "embed service" library includes tools for translating your own entitiy 
-		 and player JSON data store against Kaltura player provided identifiers.
+		 and player JSON data store against Borhan player provided identifiers.
 		 	<ul>
-				<li> Recommended approach for connecting the player to multiple entity services outside of Kaltura API</li>
+				<li> Recommended approach for connecting the player to multiple entity services outside of Borhan API</li>
 				<li> Retains portability, native apps, and player iframe services.</li>
 				<li> Compatible with entity baaed plugins or clip lists ( playlist, related videos, etc. ) </li>
 			</ul>
 		</li>
-		<li> <b> Kaltura Platform API </b> -- baseline platform data provider 
+		<li> <b> Borhan Platform API </b> -- baseline platform data provider 
 			<ul>
-				<li> Uses Kaltura provided entries with flexible custom MetaData store, internal and external asset urls references etc.</li>
+				<li> Uses Borhan provided entries with flexible custom MetaData store, internal and external asset urls references etc.</li>
 			</ul>
 		</li>  
 	</ul> 

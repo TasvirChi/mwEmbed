@@ -7,7 +7,7 @@
       "resources/IVQScreenTemplate.js"
     ],
     "dependencies": "mw.KBaseScreen",
-    "kalturaPluginName": "quiz",
+    "borhanPluginName": "quiz",
     "styles": ["resources/css/quiz.css",
                "resources/css/quizFonts.css"
               ],

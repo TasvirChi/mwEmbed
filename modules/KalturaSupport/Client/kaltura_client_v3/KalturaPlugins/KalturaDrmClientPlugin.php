@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,28 +28,28 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDrmProfileStatus
+class BorhanDrmProfileStatus
 {
 	const ACTIVE = 1;
 	const DELETED = 2;
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDrmProfileOrderBy
+class BorhanDrmProfileOrderBy
 {
 	const ID_ASC = "+id";
 	const NAME_ASC = "+name";
@@ -58,19 +58,19 @@ class KalturaDrmProfileOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDrmProviderType
+class BorhanDrmProviderType
 {
 	const WIDEVINE = "widevine.WIDEVINE";
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDrmProfile extends KalturaObjectBase
+class BorhanDrmProfile extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -105,14 +105,14 @@ class KalturaDrmProfile extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaDrmProviderType
+	 * @var BorhanDrmProviderType
 	 */
 	public $provider = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaDrmProfileStatus
+	 * @var BorhanDrmProfileStatus
 	 */
 	public $status = null;
 
@@ -150,15 +150,15 @@ class KalturaDrmProfile extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDrmProfileListResponse extends KalturaObjectBase
+class BorhanDrmProfileListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaDrmProfile
+	 * @var array of BorhanDrmProfile
 	 * @readonly
 	 */
 	public $objects;
@@ -175,10 +175,10 @@ class KalturaDrmProfileListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaDrmProfileBaseFilter extends KalturaFilter
+abstract class BorhanDrmProfileBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -218,7 +218,7 @@ abstract class KalturaDrmProfileBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaDrmProviderType
+	 * @var BorhanDrmProviderType
 	 */
 	public $providerEqual = null;
 
@@ -232,7 +232,7 @@ abstract class KalturaDrmProfileBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaDrmProfileStatus
+	 * @var BorhanDrmProfileStatus
 	 */
 	public $statusEqual = null;
 
@@ -247,22 +247,22 @@ abstract class KalturaDrmProfileBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDrmProfileFilter extends KalturaDrmProfileBaseFilter
+class BorhanDrmProfileFilter extends BorhanDrmProfileBaseFilter
 {
 
 }
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDrmProfileService extends KalturaServiceBase
+class BorhanDrmProfileService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -270,10 +270,10 @@ class KalturaDrmProfileService extends KalturaServiceBase
 	/**
 	 * Allows you to add a new DrmProfile object
 	 * 
-	 * @param KalturaDrmProfile $drmProfile 
-	 * @return KalturaDrmProfile
+	 * @param BorhanDrmProfile $drmProfile 
+	 * @return BorhanDrmProfile
 	 */
-	function add(KalturaDrmProfile $drmProfile)
+	function add(BorhanDrmProfile $drmProfile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "drmProfile", $drmProfile->toParams());
@@ -282,15 +282,15 @@ class KalturaDrmProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDrmProfile");
+		$this->client->validateObjectType($resultObject, "BorhanDrmProfile");
 		return $resultObject;
 	}
 
 	/**
-	 * Retrieve a KalturaDrmProfile object by ID
+	 * Retrieve a BorhanDrmProfile object by ID
 	 * 
 	 * @param int $drmProfileId 
-	 * @return KalturaDrmProfile
+	 * @return BorhanDrmProfile
 	 */
 	function get($drmProfileId)
 	{
@@ -301,18 +301,18 @@ class KalturaDrmProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDrmProfile");
+		$this->client->validateObjectType($resultObject, "BorhanDrmProfile");
 		return $resultObject;
 	}
 
 	/**
-	 * Update an existing KalturaDrmProfile object
+	 * Update an existing BorhanDrmProfile object
 	 * 
 	 * @param int $drmProfileId 
-	 * @param KalturaDrmProfile $drmProfile Id
-	 * @return KalturaDrmProfile
+	 * @param BorhanDrmProfile $drmProfile Id
+	 * @return BorhanDrmProfile
 	 */
-	function update($drmProfileId, KalturaDrmProfile $drmProfile)
+	function update($drmProfileId, BorhanDrmProfile $drmProfile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "drmProfileId", $drmProfileId);
@@ -322,15 +322,15 @@ class KalturaDrmProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDrmProfile");
+		$this->client->validateObjectType($resultObject, "BorhanDrmProfile");
 		return $resultObject;
 	}
 
 	/**
-	 * Mark the KalturaDrmProfile object as deleted
+	 * Mark the BorhanDrmProfile object as deleted
 	 * 
 	 * @param int $drmProfileId 
-	 * @return KalturaDrmProfile
+	 * @return BorhanDrmProfile
 	 */
 	function delete($drmProfileId)
 	{
@@ -341,18 +341,18 @@ class KalturaDrmProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDrmProfile");
+		$this->client->validateObjectType($resultObject, "BorhanDrmProfile");
 		return $resultObject;
 	}
 
 	/**
-	 * List KalturaDrmProfile objects
+	 * List BorhanDrmProfile objects
 	 * 
-	 * @param KalturaDrmProfileFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaDrmProfileListResponse
+	 * @param BorhanDrmProfileFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanDrmProfileListResponse
 	 */
-	function listAction(KalturaDrmProfileFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanDrmProfileFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -364,15 +364,15 @@ class KalturaDrmProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDrmProfileListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanDrmProfileListResponse");
 		return $resultObject;
 	}
 
 	/**
-	 * Retrieve a KalturaDrmProfile object by provider, if no specific profile defined return default profile
+	 * Retrieve a BorhanDrmProfile object by provider, if no specific profile defined return default profile
 	 * 
 	 * @param string $provider 
-	 * @return KalturaDrmProfile
+	 * @return BorhanDrmProfile
 	 */
 	function getByProvider($provider)
 	{
@@ -383,37 +383,37 @@ class KalturaDrmProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDrmProfile");
+		$this->client->validateObjectType($resultObject, "BorhanDrmProfile");
 		return $resultObject;
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDrmClientPlugin extends KalturaClientPlugin
+class BorhanDrmClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaDrmProfileService
+	 * @var BorhanDrmProfileService
 	 */
 	public $drmProfile = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->drmProfile = new KalturaDrmProfileService($client);
+		$this->drmProfile = new BorhanDrmProfileService($client);
 	}
 
 	/**
-	 * @return KalturaDrmClientPlugin
+	 * @return BorhanDrmClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaDrmClientPlugin($client);
+		return new BorhanDrmClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

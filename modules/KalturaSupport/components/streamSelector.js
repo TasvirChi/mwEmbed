@@ -1,4 +1,4 @@
-(function (mw, $, kWidget) {
+(function (mw, $, bWidget) {
 	"use strict";
 
 	mw.PluginManager.add('streamSelector', mw.KBaseComponent.extend({
@@ -56,8 +56,8 @@
 				_this.streams.splice(0, 0, {
 					id: _this.getPlayer().kentryid,
 					data: {
-						meta: _this.getPlayer().kalturaPlayerMetaData,
-						contextData: _this.getPlayer().kalturaContextData
+						meta: _this.getPlayer().borhanPlayerMetaData,
+						contextData: _this.getPlayer().borhanContextData
 					}
 				});
 				//Set default stream
@@ -122,7 +122,7 @@
 			requestObject.push({
 				'service': 'baseEntry',
 				'action': 'list',
-				'filter:objectType': 'KalturaBaseEntryFilter',
+				'filter:objectType': 'BorhanBaseEntryFilter',
 				// MEDIA_CLIP
 				'filter:typeEqual': 1,
 				'filter:parentEntryIdEqual': this.getPlayer().kentryid
@@ -139,7 +139,7 @@
 			}
 
 			// do the api request
-			this.getKalturaClient().doRequest(requestObject, function (data) {
+			this.getBorhanClient().doRequest(requestObject, function (data) {
 				// Validate result
 				if (data && _this.isValidResult(data[0] && data[0].totalCount > 0)) {
 					_this.createStreamList(data);
@@ -325,21 +325,21 @@
 
 				var checkPlayerSourcesFunction = function (callback) {
 					//Create source data from raw data
-					var sources = kWidgetSupport.getEntryIdSourcesFromPlayerData(embedPlayer.kpartnerid, stream.data);
+					var sources = bWidgetSupport.getEntryIdSourcesFromPlayerData(embedPlayer.kpartnerid, stream.data);
 					//handle player data mappings to embedPlayer and check for errors
-					kWidgetSupport.handlePlayerData(embedPlayer, stream.data);
+					bWidgetSupport.handlePlayerData(embedPlayer, stream.data);
 					//Replace sources
 					embedPlayer.replaceSources(sources);
 
 					//Update player metadata and poster/thumbnail urls
-					embedPlayer.kalturaPlayerMetaData = stream.data.meta;
+					embedPlayer.borhanPlayerMetaData = stream.data.meta;
 					//Do not show poster on switch to avoid poster flashing
 					mw.setConfig('EmbedPlayer.HidePosterOnStart', true);
-					embedPlayer.triggerHelper('KalturaSupport_EntryDataReady', embedPlayer.kalturaPlayerMetaData);
+					embedPlayer.triggerHelper('BorhanSupport_EntryDataReady', embedPlayer.borhanPlayerMetaData);
 					//Reinit the kCuePoints service
 					if( (embedPlayer.rawCuePoints && embedPlayer.rawCuePoints.length > 0)) {
 						embedPlayer.kCuePoints = new mw.KCuePoints( embedPlayer );
-						embedPlayer.triggerHelper('KalturaSupport_CuePointsReady', [embedPlayer.rawCuePoints]);
+						embedPlayer.triggerHelper('BorhanSupport_CuePointsReady', [embedPlayer.rawCuePoints]);
 					}
 					callback();
 				};
@@ -428,4 +428,4 @@
 		}
 	}));
 
-})(window.mw, window.jQuery, kWidget);
+})(window.mw, window.jQuery, bWidget);

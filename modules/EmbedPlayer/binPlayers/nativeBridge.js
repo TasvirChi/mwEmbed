@@ -128,8 +128,8 @@
 		removeJsListener: function (eventName) {
 			this.embedPlayer.removeJsListener(eventName + this.bindPostfix);
 		},
-		setKDPAttribute: function (host, prop, value) {
-			this.embedPlayer.setKDPAttribute(host, prop, value);
+		setBDPAttribute: function (host, prop, value) {
+			this.embedPlayer.setBDPAttribute(host, prop, value);
 		},
 		/**
 		 * will evaluate given expression and send the resulted value back to native code with the given callbackName
@@ -215,7 +215,7 @@
 		$(".mwPlayerContainer").one("playerError", function (e, errObj) {
 			NativeBridge.videoPlayer.notifyErrorOccurred(errObj);
 		});
-		kWidget.addReadyCallback(function () {
+		bWidget.addReadyCallback(function () {
 			NativeBridge.videoPlayer.isJsCallbackReady = true;
 			NativeBridge.videoPlayer.notifyJsReadyFunc();
 		});

@@ -1,18 +1,18 @@
 <?php
 /**
- * KalturaIframe support
+ * BorhanIframe support
  */
 @ob_end_clean();
 
 // Check for custom resource ps config file:
-if( isset( $wgKalturaPSHtml5SettingsPath ) && is_file( $wgKalturaPSHtml5SettingsPath ) ){
-	require_once( $wgKalturaPSHtml5SettingsPath );
+if( isset( $wgBorhanPSHtml5SettingsPath ) && is_file( $wgBorhanPSHtml5SettingsPath ) ){
+	require_once( $wgBorhanPSHtml5SettingsPath );
 }
 
-require_once 'kalturaIframeClass.php';
+require_once 'borhanIframeClass.php';
 
-// Setup the kalturaIframe
-$kIframe = new kalturaIframeClass();
+// Setup the borhanIframe
+$kIframe = new borhanIframeClass();
 
 // start gzip compression if available: 
 if(!ob_start("ob_gzhandler")) ob_start();
@@ -30,7 +30,7 @@ if( isset( $_REQUEST['callback']  )) {
 	if( isset ( $_REQUEST['parts'] ) && $_REQUEST['parts'] == '1' ){
 		$json = array(
 			'rawHead' =>  $kIframe->outputIframeHeadCss(),
-			'rawScripts' => $kIframe->getKalturaIframeScripts() . $kIframe->getPlayerCheckScript()
+			'rawScripts' => $kIframe->getBorhanIframeScripts() . $kIframe->getPlayerCheckScript()
 		);
 	} else {
 		// For full page replace:

@@ -1,12 +1,12 @@
-kWidget.addReadyCallback( function( playerId ){
-	var kdp = document.getElementById( playerId );
+bWidget.addReadyCallback( function( playerId ){
+	var bdp = document.getElementById( playerId );
 	// Shortcut to get config:
 	var gc = function( attr ){
-		return kdp.evaluate('{descriptionBox.' + attr + '}' );
+		return bdp.evaluate('{descriptionBox.' + attr + '}' );
 	}
 	
 	var addDescriptionBox = function(){
-		var descriptionTitle	= gc( 'descriptionLabel') || kdp.evaluate('{mediaProxy.entry.name}');
+		var descriptionTitle	= gc( 'descriptionLabel') || bdp.evaluate('{mediaProxy.entry.name}');
 		// check for target:
 		var boxTargetID = gc( 'boxTargetId' ) || 'descriptionBox_' + playerId;
 
@@ -22,26 +22,26 @@ kWidget.addReadyCallback( function( playerId ){
 					"height" : gc( 'boxHeight' ),
 					'width' : gc( 'boxWidth' ) || null
 				})
-				// for easy per site theme add kWidget class:
-				.addClass('kWidget-descriptionBox');
+				// for easy per site theme add bWidget class:
+				.addClass('bWidget-descriptionBox');
 			// check for where it should be appended:
 			switch( gc('boxLocation') ){
 				case 'before':
-					$(kdp)
+					$(bdp)
 						.css( 'float', 'none')
 						.before( $descBox );
 				break;
 				case 'left':
-					$descBox.css('float', 'left').insertBefore(kdp);
-					$(kdp).css('float', 'left');
+					$descBox.css('float', 'left').insertBefore(bdp);
+					$(bdp).css('float', 'left');
 				break;
 				case 'right':
-					$descBox.css('float', 'left').insertAfter( kdp );
-					$(kdp).css('float', 'left' );
+					$descBox.css('float', 'left').insertAfter( bdp );
+					$(bdp).css('float', 'left' );
 				break;
 				case 'after':
 				default:
-					$(kdp)
+					$(bdp)
 						.css( 'float', 'none')
 						.after( $descBox );
 				break;
@@ -52,11 +52,11 @@ kWidget.addReadyCallback( function( playerId ){
 			.empty()
 			.append(
 				$( "<h2>" ).text( descriptionTitle ),
-				$( "<p>" ).html( kdp.evaluate('{mediaProxy.entry.description}') )
+				$( "<p>" ).html( bdp.evaluate('{mediaProxy.entry.description}') )
 			)
 	}
 	window['descriptionBoxMediaReady'] = function(){
 		addDescriptionBox();
 	};
-	kdp.addJsListener( "mediaReady", "descriptionBoxMediaReady" );
+	bdp.addJsListener( "mediaReady", "descriptionBoxMediaReady" );
 });

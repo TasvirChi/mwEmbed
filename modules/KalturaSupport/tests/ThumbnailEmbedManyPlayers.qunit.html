@@ -8,15 +8,15 @@
 </head>
 <body>
 <h2> Thumbnail embed </h2>
-The thumbnail embed method takes the same arguments as "kWidget.embed". <br>
-Thumbnail embed will pass all the configuration to the kWidget.embed when the user "click" on the play button.<br>
+The thumbnail embed method takes the same arguments as "bWidget.embed". <br>
+Thumbnail embed will pass all the configuration to the bWidget.embed when the user "click" on the play button.<br>
 The player context menu can be disabled by setting the "EmbedPlayer.DisableContextMenu" UIVar to true.<br><br>
 <pre class="prettyprint linenums">
 &lt;div id=&quot;myEmbedTarget&quot; style=&quot;width:400px;height:330px;&quot;&gt;&lt;/div&gt;
 &lt;script src=&quot;{{HTML5LibraryURL}}&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
 	mw.setConfig("EmbedPlayer.DisableContextMenu",true);
-	kWidget.thumbEmbed({
+	bWidget.thumbEmbed({
 		'targetId': 'myEmbedTarget',
 		'wid': '_243342',
 		'uiconf_id' : '12905712',
@@ -63,7 +63,7 @@ if( window.QUnit ){
 		);
 		
 		// Do the thumb embed:
-		kWidget.thumbEmbed({
+		bWidget.thumbEmbed({
 			'targetId': playerId,
 			'wid': '_243342',
 			'uiconf_id' : '12905712',
@@ -72,26 +72,26 @@ if( window.QUnit ){
 				'externalInterfaceDisabled' : false
 			},
 			'readyCallback': function( cbPlayerId ){
-				var kdp = $('#' + cbPlayerId)[0];
-				equal( playerId, cbPlayerId, "kWidget readyCallback fired with playerid" );
+				var bdp = $('#' + cbPlayerId)[0];
+				equal( playerId, cbPlayerId, "bWidget readyCallback fired with playerid" );
 				window['onMediaReady'] = function(){
 					ok( true, "Ready callback fired onMedia ready");
-					kdp.sendNotification('doPause');
+					bdp.sendNotification('doPause');
 				}
-				kdp.addJsListener("mediaReady", "onMediaReady");
+				bdp.addJsListener("mediaReady", "onMediaReady");
 				// ( the click should trigger the play )
 				window['onPlayerUpdatePlayhead'] = function(){
 					ok( true, " onPlayerUpdatePlayhead event recived ( playing content after thumb click )");
-					kdp.sendNotification('doPause');
-					kdp.removeJsListener('playerUpdatePlayhead', 'onPlayerUpdatePlayhead' );
+					bdp.sendNotification('doPause');
+					bdp.removeJsListener('playerUpdatePlayhead', 'onPlayerUpdatePlayhead' );
 					start();
 				};
-				kdp.addJsListener('playerUpdatePlayhead', 'onPlayerUpdatePlayhead' );
+				bdp.addJsListener('playerUpdatePlayhead', 'onPlayerUpdatePlayhead' );
 						
 			},
 			'thumbReadyCallback': function( cbPlayerId ){
 				equal( playerId, cbPlayerId, "thumbReadyCallback fired with playerid" );
-				$( '#' + cbPlayerId ).find('.kWidgetPlayBtn').click();
+				$( '#' + cbPlayerId ).find('.bWidgetPlayBtn').click();
 			}
 		});
 	});
@@ -134,7 +134,7 @@ if( window.QUnit ){
 							})
 				)
 				var entryId = possibleEntries[ Math.floor(Math.random()*possibleEntries.length) ]
-				var kWidgetEmbedSettings = {
+				var bWidgetEmbedSettings = {
 					'targetId': playerId,
 					'wid': '_243342',
 					'uiconf_id' : '12905712',
@@ -144,8 +144,8 @@ if( window.QUnit ){
 					},
 					'readyCallback': function( playerId ){
 						console.log("player " + playerId + " ready for binding");
-						var kdp = document.getElementById( playerId )
-						kdp.kBind('mediaReady', function(){
+						var bdp = document.getElementById( playerId )
+						bdp.kBind('mediaReady', function(){
 							playersReady++;
 							if( playersReady == numOfPlayer ){
 								appendToScore( "to render " + numOfPlayer + " players" );
@@ -163,9 +163,9 @@ if( window.QUnit ){
 
 				if( useThumbEmbed ){
 					mw.setConfig("EmbedPlayer.DisableContextMenu",true);
-					kWidget.thumbEmbed( kWidgetEmbedSettings );
+					bWidget.thumbEmbed( bWidgetEmbedSettings );
 				} else {
-					kWidget.embed( kWidgetEmbedSettings );
+					bWidget.embed( bWidgetEmbedSettings );
 				}
 			})(i);
 		}
@@ -176,18 +176,18 @@ if( window.QUnit ){
 <h3 id="custom-play-btn">Custom play button</h3>
 You can override the playButton with on-page CSS: 
 <pre class="prettyprint linenums">
-.kWidgetPlayBtn {
+.bWidgetPlayBtn {
 	background: url("flower.jpg");
 }
 </pre>
 <style>
-#player-target-css-example .kWidgetPlayBtn{
+#player-target-css-example .bWidgetPlayBtn{
 	background: url("externalResources/flower.jpg");
 }
 </style>
 <div id="player-target-css-example" style="width:400px;height:300px"></div>
 <script type="text/javascript">
-kWidget.thumbEmbed({
+bWidget.thumbEmbed({
 	'targetId': 'player-target-css-example',
 	'wid': '_243342',
 	'uiconf_id' : '12905712',
@@ -203,16 +203,16 @@ kWidget.thumbEmbed({
 <b>Load the entry data from the API, then embed with captureClickEventForiOS flag for one click playback for iOS</b>
 <pre class="prettyprint linenums">
 var entryId =  '0_uka1msg4';
-new kWidget.api( {
+new bWidget.api( {
 	'wid' : '_243342',
 }).doRequest({
 	'service' : 'baseentry',
 	'action' : 'list',
-	'filter:objectType' : 'KalturaBaseEntryFilter',
+	'filter:objectType' : 'BorhanBaseEntryFilter',
 	'filter:idEqual' : entryId
 }, function(data){
 	if( !data.objects || !data.objects[0] ){
-		kWidget.log('Error getting entry')
+		bWidget.log('Error getting entry')
 		return ;	
 	}
 	var entry = data.objects[0];
@@ -227,39 +227,39 @@ new kWidget.api( {
 	// set callbakck to play on media ready ( works in iOS since we captured user gesture above) 
 	settings.readyCallback = function (playerId) {
 		// issue a play ( since we already clicked the play button )
-		var kdp = document.getElementById(playerId);
-		kdp.kBind('mediaReady', function () {
-			kdp.sendNotification('doPlay');
+		var bdp = document.getElementById(playerId);
+		bdp.kBind('mediaReady', function () {
+			bdp.sendNotification('doPlay');
 		});
 	}
 	$('#player-target')
 	.append(
 		'&lt;div style="position: relative; width: 100%; height: 100%;"&gt;' + 
-			'&lt;img class="kWidgetCentered" src="' + kWidget.getKalturaThumbUrl(settings)  + '""&gt;' + 
-			'&lt;div class="kWidgetCentered kWidgetPlayBtn"&gt;&lt;/div&gt;' + 
+			'&lt;img class="bWidgetCentered" src="' + bWidget.getBorhanThumbUrl(settings)  + '""&gt;' + 
+			'&lt;div class="bWidgetCentered bWidgetPlayBtn"&gt;&lt;/div&gt;' + 
 			'&lt;div style="position:absolute;top:10px;left:10px;width:300px;background-color:black;color:white"&gt;' +
 				entry.name + ' ' + entry.duration + ' seconds ' +
 			'&lt;/div&gt;' +
 		'&lt;/div&gt;'
 	)
 	.click(function(){
-		kWidget.embed(settings);
+		bWidget.embed(settings);
 	})
 	
 })
 </pre>
 <script>
 var entryId =  '0_uka1msg4';
-new kWidget.api( {
+new bWidget.api( {
 	'wid' : '_243342',
 }).doRequest({
 	'service' : 'baseentry',
 	'action' : 'list',
-	'filter:objectType' : 'KalturaBaseEntryFilter',
+	'filter:objectType' : 'BorhanBaseEntryFilter',
 	'filter:idEqual' : entryId
 }, function(data){
 	if( !data.objects || !data.objects[0] ){
-		kWidget.log('Error getting entry')
+		bWidget.log('Error getting entry')
 		return ;	
 	}
 	var entry = data.objects[0];
@@ -274,23 +274,23 @@ new kWidget.api( {
 	// set callback to play on media ready ( works in iOS since we captured user gesture above) 
 	settings.readyCallback = function (playerId) {
 		// issue a play ( since we already clicked the play button )
-		var kdp = document.getElementById(playerId);
-		kdp.kBind('mediaReady', function () {
-			kdp.sendNotification('doPlay');
+		var bdp = document.getElementById(playerId);
+		bdp.kBind('mediaReady', function () {
+			bdp.sendNotification('doPlay');
 		});
 	}
 	$('#player-target')
 	.append(
 		'<div style="position: relative; width: 100%; height: 100%;">' + 
-			'<img class="kWidgetCentered" src="' + kWidget.getKalturaThumbUrl(settings)  + '"">' + 
-			'<div class="kWidgetCentered kWidgetPlayBtn"></div>' + 
+			'<img class="bWidgetCentered" src="' + bWidget.getBorhanThumbUrl(settings)  + '"">' + 
+			'<div class="bWidgetCentered bWidgetPlayBtn"></div>' + 
 			'<div style="position:absolute;top:10px;left:10px;width:300px;background-color:black;color:white">' +
 				entry.name + ' ' + entry.duration + ' seconds ' +
 			'</div>' +
 		'</div>'
 	)
 	.click(function(){
-		kWidget.embed(settings);
+		bWidget.embed(settings);
 	})
 	
 })

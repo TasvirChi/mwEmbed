@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Description of KalturaResultEntry
+ * Description of BorhanResultEntry
  *
  * @author ran
  */
@@ -44,7 +44,7 @@ class EntryResult
 
     function getResponseHeaders()
     {
-        global $wgKalturaUiConfCacheTime;
+        global $wgBorhanUiConfCacheTime;
         // only use response headers if not cachable
         if (!$this->isCachable($this->entryResultObj)) {
             return $this->responseHeaders;
@@ -55,8 +55,8 @@ class EntryResult
             $saveTime = time();
         }
         return array(
-            "Cache-Control: public, max-age=$wgKalturaUiConfCacheTime, max-stale=0",
-            "Expires: " . gmdate("D, d M Y H:i:s", $saveTime + $wgKalturaUiConfCacheTime) . " GMT",
+            "Cache-Control: public, max-age=$wgBorhanUiConfCacheTime, max-stale=0",
+            "Expires: " . gmdate("D, d M Y H:i:s", $saveTime + $wgBorhanUiConfCacheTime) . " GMT",
         );
     }
 
@@ -141,10 +141,10 @@ class EntryResult
 
     function getEntryResultFromApi()
     {
-        global $wgKalturaApiFeatures;
+        global $wgBorhanApiFeatures;
 
         // Check if the API supports entryRedirect feature
-        $supportsEntryRedirect = isset($wgKalturaApiFeatures['entryRedirect']) ? $wgKalturaApiFeatures['entryRedirect'] : false;
+        $supportsEntryRedirect = isset($wgBorhanApiFeatures['entryRedirect']) ? $wgBorhanApiFeatures['entryRedirect'] : false;
 
         $client = $this->client->getClient();
         // define resultObject prior to try catch call
@@ -156,9 +156,9 @@ class EntryResult
             if ($this->request->noCache) {
                 $client->addParam($params, "nocache", true);
             }
-            $namedMultiRequest = new KalturaNamedMultiRequest($client, $params);
+            $namedMultiRequest = new BorhanNamedMultiRequest($client, $params);
 
-            $filter = new KalturaBaseEntryFilter();
+            $filter = new BorhanBaseEntryFilter();
             if (!$this->request->getEntryId() && $this->request->getReferenceId()) {
                 $filter->referenceIdEqual = $this->request->getReferenceId();
             } else if ($supportsEntryRedirect && $this->uiconf->getPlayerConfig(false, 'disableEntryRedirect') !== true) {
@@ -176,7 +176,7 @@ class EntryResult
             $entryId = '{' . $baseEntryIdx . ':result:objects:0:id}';
 
             // ------- Disabled AC from iframe. -----
-            // Access control NOTE: kaltura does not use http header spelling of Referer instead kaltura uses: "referrer"
+            // Access control NOTE: borhan does not use http header spelling of Referer instead borhan uses: "referrer"
             $filter = $this->getACFilter();
             $params = array(
                 "contextDataParams" => $filter,
@@ -188,17 +188,17 @@ class EntryResult
             // Entry Custom Metadata
             // Always get custom metadata for now
             //if( $this->uiconf->getPlayerConfig(false, 'requiredMetadataFields') ) {
-            $filter = new KalturaMetadataFilter();
-            $filter->orderBy = KalturaMetadataOrderBy::CREATED_AT_ASC;
+            $filter = new BorhanMetadataFilter();
+            $filter->orderBy = BorhanMetadataOrderBy::CREATED_AT_ASC;
             $filter->objectIdEqual = $entryId;
-            $filter->metadataObjectTypeEqual = KalturaMetadataObjectType::ENTRY;
+            $filter->metadataObjectTypeEqual = BorhanMetadataObjectType::ENTRY;
             // Check if metadataProfileId is defined
             $metadataProfileId = $this->uiconf->getPlayerConfig(false, 'metadataProfileId');
             if ($metadataProfileId) {
                 $filter->metadataProfileIdEqual = $metadataProfileId;
             }
 
-            $metadataPager = new KalturaFilterPager();
+            $metadataPager = new BorhanFilterPager();
             $metadataPager->pageSize = 1;
             $params = array('filter' => $filter, 'metadataPager', $metadataPager);
             $namedMultiRequest->addNamedRequest('entryMeta', 'metadata_metadata', 'list', $params);
@@ -207,8 +207,8 @@ class EntryResult
             // Entry Cue Points
             // Always get Cue Points for now
             //if( $this->uiconf->getPlayerConfig(false, 'getCuePointsData') !== false ) {
-            $filter = new KalturaCuePointFilter();
-            $filter->orderBy = KalturaAdCuePointOrderBy::START_TIME_ASC;
+            $filter = new BorhanCuePointFilter();
+            $filter->orderBy = BorhanAdCuePointOrderBy::START_TIME_ASC;
             $filter->entryIdEqual = $entryId;
 
             $params = array('filter' => $filter);
@@ -222,7 +222,7 @@ class EntryResult
 
         } catch (Exception $e) {
             // Update the Exception and pass it upward
-            throw new Exception(KALTURA_GENERIC_SERVER_ERROR . "\n" . $e->getMessage());
+            throw new Exception(BORHAN_GENERIC_SERVER_ERROR . "\n" . $e->getMessage());
             return array();
         }
 
@@ -315,7 +315,7 @@ class EntryResult
             if ($this->request->noCache) {
                 $client->addParam($params, "nocache", true);
             }
-            $pagesMultiRequest = new KalturaNamedMultiRequest($client, $params);
+            $pagesMultiRequest = new BorhanNamedMultiRequest($client, $params);
             // retrieve the number of missing pages.
             // for example: 700 / 500 = ceil(1.4) = 2 pages (500 from the first and 200 from the second)
             $missingPages = ceil($countDiff / $pageSize);
@@ -323,10 +323,10 @@ class EntryResult
                 // we added 2 to the requested page since we already have the first page.
                 // for example: i=0 -> page 2, i=1 -> page 3 and so on...
                 $requestedPage = $i + 2;
-                $filter = new KalturaCuePointFilter();
-                $filter->orderBy = KalturaAdCuePointOrderBy::START_TIME_ASC;
+                $filter = new BorhanCuePointFilter();
+                $filter->orderBy = BorhanAdCuePointOrderBy::START_TIME_ASC;
                 $filter->entryIdEqual = $this->request->getEntryId();
-                $pager = new KalturaFilterPager();
+                $pager = new BorhanFilterPager();
                 $pager->pageSize = $pageSize;
                 $pager->pageIndex = $requestedPage;
                 $pageParams = array('filter' => $filter, 'pager' => $pager);
@@ -335,7 +335,7 @@ class EntryResult
             return $pagesMultiRequest->doQueue();
         } catch (Exception $e) {
             // Update the Exception and pass it upward
-            throw new Exception(KALTURA_GENERIC_SERVER_ERROR . "\n" . $e->getMessage());
+            throw new Exception(BORHAN_GENERIC_SERVER_ERROR . "\n" . $e->getMessage());
             return array();
         }
     }
@@ -357,7 +357,7 @@ class EntryResult
 
     public function getACFilter()
     {
-        $filter = new KalturaEntryContextDataParams();
+        $filter = new BorhanEntryContextDataParams();
         $filter->referrer = $this->request->getReferer();
         $filter->userAgent = $this->request->getUserAgent();
         $filter->flavorTags = 'all';
@@ -377,7 +377,7 @@ class EntryResult
     function isAccessControlAllowed($resultObject = null)
     {
 
-        // Kaltura only has entry level access control not playlist level access control atm:
+        // Borhan only has entry level access control not playlist level access control atm:
         // don't check anything without an entry_id
         /*if( !$this->request->getEntryId() ){
             return true;
@@ -458,7 +458,7 @@ class EntryResult
             for ($i = 0; $i < count($actions); $i++) {
                 $actionsObj = $actions[$i];
 
-                if (get_class($actionsObj) == 'KalturaAccessControlBlockAction') {
+                if (get_class($actionsObj) == 'BorhanAccessControlBlockAction') {
                     return "No KS where KS is required\nWe're sorry, access to this content is restricted.";
                 }
             }

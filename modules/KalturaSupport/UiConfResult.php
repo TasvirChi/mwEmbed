@@ -1,6 +1,6 @@
 <?php
 /**
- * Description of KalturaUiConfResult
+ * Description of BorhanUiConfResult
  *
  * @author ran
  */
@@ -84,7 +84,7 @@ class UiConfResult {
 		if( $this->uiConfFile === false ){
 			$this->uiConfFile = $this->loadUiConfFromApi();
 			if( $this->uiConfFile !== null ) {
-				$this->logger->log('KalturaUiConfResult::loadUiConf: [' . $this->request->getUiConfId() . '] Cache uiConf xml to: ' . $cacheKey);
+				$this->logger->log('BorhanUiConfResult::loadUiConf: [' . $this->request->getUiConfId() . '] Cache uiConf xml to: ' . $cacheKey);
 				$this->cache->set( $cacheKey, $this->uiConfFile );
 			} else {
 				if (isset($this->error)){
@@ -120,10 +120,10 @@ class UiConfResult {
 	}
 
 	function loadFromLocalFile( $filePath ) {
-		global $wgKalturaPSHtml5SettingsPath;
+		global $wgBorhanPSHtml5SettingsPath;
 
 		$libPath = realpath(dirname(__FILE__) . '/../../' ); 
-		$psPath   = dirname( $wgKalturaPSHtml5SettingsPath ) . "../../ps";
+		$psPath   = dirname( $wgBorhanPSHtml5SettingsPath ) . "../../ps";
 		$filePath = str_replace('{libPath}', $libPath, $filePath);
 		$filePath = str_replace('{html5ps}', $psPath, $filePath);
 
@@ -143,7 +143,7 @@ class UiConfResult {
 			$rawResultObject = $client->doQueue();
 		} catch( Exception $e ){
 			// Update the Exception and pass it upward
-			throw new Exception( KALTURA_GENERIC_SERVER_ERROR . "\n" . $e->getMessage() );
+			throw new Exception( BORHAN_GENERIC_SERVER_ERROR . "\n" . $e->getMessage() );
 		}
 		
 		if( is_array( $rawResultObject ) && isset( $rawResultObject['code'] ) ) {
@@ -328,10 +328,10 @@ class UiConfResult {
 			$pluginKeys = explode(".", $key);
 			$pluginId = $pluginKeys[0];
 			// Don't remove common configuration prefixes:
-			// http://html5video.org/wiki/Kaltura_HTML5_Configuration
-			if( $pluginId == 'Kaltura' || 
+			// http://html5video.org/wiki/Borhan_HTML5_Configuration
+			if( $pluginId == 'Borhan' || 
 				$pluginId == 'EmbedPlayer' || 
-				$pluginId == 'KalturaSupport'
+				$pluginId == 'BorhanSupport'
 			){
 				continue;
 			}
@@ -395,9 +395,9 @@ class UiConfResult {
 			$pluginKeys = explode(".", $key);
 			$pluginId = $pluginKeys[0];
 			$pluginAttribute = $pluginKeys[1];
-			 if( $pluginId == 'Kaltura' ||
+			 if( $pluginId == 'Borhan' ||
 					$pluginId == 'EmbedPlayer' ||
-					$pluginId == 'KalturaSupport'
+					$pluginId == 'BorhanSupport'
 					){
 						continue;
 					}
@@ -536,7 +536,7 @@ class UiConfResult {
 
 		// Allow us to ignore old plugins
 		$ignorePlugins = array(
-			'kalturaMix', 'captionsOverFader', 'gigya'
+			'borhanMix', 'captionsOverFader', 'gigya'
 		);
 
 		// Default set of plugins, always enabled
@@ -595,7 +595,7 @@ class UiConfResult {
 			'flavorComboControllerScreen' => array(
 				'pluginName' => 'sourceSelector'
 			),
-			'kalturaLogo' => array(
+			'borhanLogo' => array(
 				'pluginName' => 'logo'
 			),
 			'mylogo' => array(
@@ -718,7 +718,7 @@ class UiConfResult {
 	 */
 	private function filterExternalResources( &$vars ){
 		global $wgResourceLoaderUrl, $wgMwEmbedEnabledModules;
-		$warningUrl = str_replace('load.php', 'kWidget/externalResourceWarning.js', $wgResourceLoaderUrl);
+		$warningUrl = str_replace('load.php', 'bWidget/externalResourceWarning.js', $wgResourceLoaderUrl);
 
 		# Register / load all the mwEmbed modules
 		$configRegister = array();

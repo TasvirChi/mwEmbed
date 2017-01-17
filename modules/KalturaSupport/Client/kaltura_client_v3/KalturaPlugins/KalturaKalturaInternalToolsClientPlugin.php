@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,18 +28,18 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaInternalToolsSession extends KalturaObjectBase
+class BorhanInternalToolsSession extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -65,7 +65,7 @@ class KalturaInternalToolsSession extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaSessionType
+	 * @var BorhanSessionType
 	 */
 	public $type = null;
 
@@ -102,12 +102,12 @@ class KalturaInternalToolsSession extends KalturaObjectBase
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaKalturaInternalToolsSystemHelperService extends KalturaServiceBase
+class BorhanBorhanInternalToolsSystemHelperService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -116,18 +116,18 @@ class KalturaKalturaInternalToolsSystemHelperService extends KalturaServiceBase
 	 * KS from Secure String
 	 * 
 	 * @param string $str 
-	 * @return KalturaInternalToolsSession
+	 * @return BorhanInternalToolsSession
 	 */
 	function fromSecureString($str)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "str", $str);
-		$this->client->queueServiceActionCall("kalturainternaltools_kalturainternaltoolssystemhelper", "fromSecureString", $kparams);
+		$this->client->queueServiceActionCall("borhaninternaltools_borhaninternaltoolssystemhelper", "fromSecureString", $kparams);
 		if ($this->client->isMultiRequest())
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaInternalToolsSession");
+		$this->client->validateObjectType($resultObject, "BorhanInternalToolsSession");
 		return $resultObject;
 	}
 
@@ -141,7 +141,7 @@ class KalturaKalturaInternalToolsSystemHelperService extends KalturaServiceBase
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "remote_addr", $remote_addr);
-		$this->client->queueServiceActionCall("kalturainternaltools_kalturainternaltoolssystemhelper", "iptocountry", $kparams);
+		$this->client->queueServiceActionCall("borhaninternaltools_borhaninternaltoolssystemhelper", "iptocountry", $kparams);
 		if ($this->client->isMultiRequest())
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
@@ -158,7 +158,7 @@ class KalturaKalturaInternalToolsSystemHelperService extends KalturaServiceBase
 	function getRemoteAddress()
 	{
 		$kparams = array();
-		$this->client->queueServiceActionCall("kalturainternaltools_kalturainternaltoolssystemhelper", "getRemoteAddress", $kparams);
+		$this->client->queueServiceActionCall("borhaninternaltools_borhaninternaltoolssystemhelper", "getRemoteAddress", $kparams);
 		if ($this->client->isMultiRequest())
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
@@ -168,37 +168,37 @@ class KalturaKalturaInternalToolsSystemHelperService extends KalturaServiceBase
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaKalturaInternalToolsClientPlugin extends KalturaClientPlugin
+class BorhanBorhanInternalToolsClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaKalturaInternalToolsSystemHelperService
+	 * @var BorhanBorhanInternalToolsSystemHelperService
 	 */
-	public $KalturaInternalToolsSystemHelper = null;
+	public $BorhanInternalToolsSystemHelper = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->KalturaInternalToolsSystemHelper = new KalturaKalturaInternalToolsSystemHelperService($client);
+		$this->BorhanInternalToolsSystemHelper = new BorhanBorhanInternalToolsSystemHelperService($client);
 	}
 
 	/**
-	 * @return KalturaKalturaInternalToolsClientPlugin
+	 * @return BorhanBorhanInternalToolsClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaKalturaInternalToolsClientPlugin($client);
+		return new BorhanBorhanInternalToolsClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{
 		$services = array(
-			'KalturaInternalToolsSystemHelper' => $this->KalturaInternalToolsSystemHelper,
+			'BorhanInternalToolsSystemHelper' => $this->BorhanInternalToolsSystemHelper,
 		);
 		return $services;
 	}
@@ -208,7 +208,7 @@ class KalturaKalturaInternalToolsClientPlugin extends KalturaClientPlugin
 	 */
 	public function getName()
 	{
-		return 'KalturaInternalTools';
+		return 'BorhanInternalTools';
 	}
 }
 

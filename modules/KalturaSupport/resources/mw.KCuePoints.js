@@ -40,7 +40,7 @@
 			this.embedPlayer = embedPlayer;
 
 			// Process cue points
-			embedPlayer.bindHelper('KalturaSupport_CuePointsReady' + this.bindPostfix, function () {
+			embedPlayer.bindHelper('BorhanSupport_CuePointsReady' + this.bindPostfix, function () {
 				_this.initSupportedCuepointTypes();
 				_this.processCuePoints();
 				// Add player bindings:
@@ -65,7 +65,7 @@
 			var _this = this;
 			var cuePoints = this.getCuePoints();
 			this.requestThumbAsset(cuePoints, function () {
-				_this.embedPlayer.triggerHelper('KalturaSupport_ThumbCuePointsReady');
+				_this.embedPlayer.triggerHelper('BorhanSupport_ThumbCuePointsReady');
 			});
 			// Create new array with midrolls only
 			var newCuePointsArray = [];
@@ -108,7 +108,7 @@
 				return (cuePoint.cuePointType == 'thumbCuePoint.Thumb');
 			});
 			var loadThumbnailWithReferrer = this.embedPlayer.getFlashvars( 'loadThumbnailWithReferrer' );
-			var referrer = window.kWidgetSupport.getHostPageUrl();
+			var referrer = window.bWidgetSupport.getHostPageUrl();
 			//Create request data only for cuepoints that have assetId
 			$.each(thumbCuePoint, function (index, item) {
 				// for some thumb cue points, assetId may be undefined from the API.
@@ -126,7 +126,7 @@
 
 			if (requestArray.length) {
 				// do the api request
-				this.getKalturaClient().doRequest(requestArray, function (data) {
+				this.getBorhanClient().doRequest(requestArray, function (data) {
 					// Validate result
 					if (requestArray.length === 1){
 						data = [data];
@@ -207,7 +207,7 @@
 				'service': 'cuepoint_cuepoint',
 				'action': 'list',
 				'filter:entryIdEqual': entryId,
-				'filter:objectType': 'KalturaCuePointFilter',
+				'filter:objectType': 'BorhanCuePointFilter',
 				'filter:statusIn': '1,3', //1=READY, 3=HANDLED  (3 is after copying to VOD)
 				'filter:cuePointTypeIn': 'thumbCuePoint.Thumb,codeCuePoint.Code',
 				'filter:orderBy': "+createdAt" //let backend sorting them
@@ -217,7 +217,7 @@
 			if (lastCreationTime > 0) {
 				request['filter:createdAtGreaterThanOrEqual'] = lastCreationTime;
 			}
-			this.getKalturaClient().doRequest( request,
+			this.getBorhanClient().doRequest( request,
 				function (data) {
 					// if an error pop out:
 					if (!data || data.code) {
@@ -227,7 +227,7 @@
 					}
 					_this.fixLiveCuePointArray(data.objects);
 					_this.updateCuePoints(data.objects);
-					_this.embedPlayer.triggerHelper('KalturaSupport_CuePointsUpdated', [data.totalCount]);
+					_this.embedPlayer.triggerHelper('BorhanSupport_CuePointsUpdated', [data.totalCount]);
 				}
 			);
 		},
@@ -265,7 +265,7 @@
 					$.merge(this.midCuePointsArray, thumbNewCuePoints);
 					//Request thumb asset only for new cuepoints
 					this.requestThumbAsset(thumbNewCuePoints, function () {
-						_this.embedPlayer.triggerHelper('KalturaSupport_ThumbCuePointsUpdated', [thumbNewCuePoints]);
+						_this.embedPlayer.triggerHelper('BorhanSupport_ThumbCuePointsUpdated', [thumbNewCuePoints]);
 					});
 				}
 
@@ -295,9 +295,9 @@
 			});
 			return lastCreationTime;
 		},
-		getKalturaClient: function () {
+		getBorhanClient: function () {
 			if (!this.kClient) {
-				this.kClient = mw.kApiGetPartnerClient(this.embedPlayer.kwidgetid);
+				this.kClient = mw.kApiGetPartnerClient(this.embedPlayer.bwidgetid);
 			}
 			return this.kClient;
 		},
@@ -336,7 +336,7 @@
 				"monitorEvent" + this.bindPostfix +
 				" seeked" + this.bindPostfix +
 				" onplay" + this.bindPostfix +
-				" KalturaSupport_ThumbCuePointsUpdated" + this.bindPostfix,
+				" BorhanSupport_ThumbCuePointsUpdated" + this.bindPostfix,
 				function (e) {
 					var currentTime = embedPlayer.getPlayerElementTime() * 1000;
 					//In case of seeked the current cuepoint needs to be updated to new seek time before
@@ -454,18 +454,18 @@
 			 * We used that property so that the different plugins will know the context of the ad
 			 * In case the cue point is not a adOpportunity their will be no context
 			 *
-			 * This matches the KDP implementation
+			 * This matches the BDP implementation
 			 * */
 			var cuePointWrapper = {
 				'cuePoint': rawCuePoint
 			};
 			if (rawCuePoint.cuePointType == 'adCuePoint.Ad') {
 				// Ad type cue point
-				eventName = 'KalturaSupport_AdOpportunity';
+				eventName = 'BorhanSupport_AdOpportunity';
 				cuePointWrapper.context = this.getVideoAdType(rawCuePoint);
 			} else if($.inArray(rawCuePoint.cuePointType, mw.getConfig("EmbedPlayer.SupportedCuepointTypes")) !== -1){
 				// Code type cue point ( make it easier for people grepping the code base for an event )
-				eventName = 'KalturaSupport_CuePointReached';
+				eventName = 'BorhanSupport_CuePointReached';
 			} else {
 				return;
 			}

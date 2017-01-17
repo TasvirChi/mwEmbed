@@ -60,8 +60,8 @@
 
 			// We can add this binding here, because we will always have vast in the uiConf when having cue points
 			// Catch Ads from adOpportunity event
-			if( embedPlayer.getKalturaConfig('vast', 'trackCuePoints') === true ) {
-				$( embedPlayer ).bind('KalturaSupport_AdOpportunity' + _this.bindPostfix, function( event, cuePointWrapper ) {
+			if( embedPlayer.getBorhanConfig('vast', 'trackCuePoints') === true ) {
+				$( embedPlayer ).bind('BorhanSupport_AdOpportunity' + _this.bindPostfix, function( event, cuePointWrapper ) {
 					// Check for  protocolType == 1 ( type = vast )
 					if( cuePointWrapper.cuePoint.protocolType == 1 ){
 						_this.handleAdOpportunity( cuePointWrapper );
@@ -74,7 +74,7 @@
 			}
 
 			// Disable seek for VAST in iPhone
-			if( !embedPlayer.getKalturaConfig('vast', 'allowSeekWithNativeControls') && mw.isIphone() ) {
+			if( !embedPlayer.getBorhanConfig('vast', 'allowSeekWithNativeControls') && mw.isIphone() ) {
 				$( embedPlayer ).bind('onAdOpen' + _this.bindPostfix, function() {
 					if( !_this.seekIntervalID ) {
 						_this.seekIntervalID = _this.seekIntervalTrigger();
@@ -122,7 +122,7 @@
 			});
 			// disable overlays on native devices
 			if (embedPlayer.useNativePlayerControls()){
-				_this.embedPlayer.setKalturaConfig('vast', 'supportOverlays', false);
+				_this.embedPlayer.setBorhanConfig('vast', 'supportOverlays', false);
 			}
 		},
 		handleAdsOnPlay: function( embedPlayer ){
@@ -168,7 +168,7 @@
 		 * @return
 		 */
 		getConfig: function( attr ){
-			return this.embedPlayer.getKalturaConfig( 'vast', attr );
+			return this.embedPlayer.getBorhanConfig( 'vast', attr );
 		},
 
 		handleAdOpportunity: function( cuePointWrapper ) {
@@ -385,7 +385,7 @@
 								_this.addSequenceProxyBinding( adType, adConfigSet, _this.getSequenceIndex( adType ) );
 							}
 						}
-						if( adType == 'overlay' && _this.embedPlayer.getKalturaConfig('vast', 'supportOverlays') !== false ){
+						if( adType == 'overlay' && _this.embedPlayer.getBorhanConfig('vast', 'supportOverlays') !== false ){
 							_this.addOverlayBinding( adConfigSet[ adType ] );
 						}
 					}
@@ -400,7 +400,7 @@
 		 */
 		setPersistentConfig: function( key, value ) {
 			// check if we are storing ads session:
-			if( this.embedPlayer.getKalturaConfig( this.confPrefix, 'storeSession' ) ){
+			if( this.embedPlayer.getBorhanConfig( this.confPrefix, 'storeSession' ) ){
 				// no object usage for this
 				$.cookie( this.confPrefix + '_' + key, value, {path: '/'} );
 			}
@@ -416,7 +416,7 @@
 		},
 		getPersistentConfig: function( attr ) {
 			// check if we are storing ads session
-			if( this.embedPlayer.getKalturaConfig( this.confPrefix, 'storeSession' ) ){
+			if( this.embedPlayer.getBorhanConfig( this.confPrefix, 'storeSession' ) ){
 				return $.cookie( this.confPrefix + '_' + attr );
 			}
 
@@ -511,7 +511,7 @@
 				return this.getConfig( adKey );
 			}
 			// else get raw and evaluate manually:
-			var rawAdUrl = this.embedPlayer.getRawKalturaConfig( 'vast', adKey );
+			var rawAdUrl = this.embedPlayer.getRawBorhanConfig( 'vast', adKey );
 			return this.embedPlayer.evaluate( rawAdUrl );
 		},
 		addOverlayBinding: function( overlayConfig ){
@@ -519,7 +519,7 @@
 			var embedPlayer = this.embedPlayer;
 			var startOvelrayDisplayed = false;
 			var lastDisplay = 0;
-			var timeout = this.embedPlayer.getKalturaConfig( 'vast', 'timeout' );
+			var timeout = this.embedPlayer.getBorhanConfig( 'vast', 'timeout' );
 
 			// turn start time from string to number
 			timeout = parseInt( timeout );
@@ -567,9 +567,9 @@
 			};
 
 			// Setup local pointer:
-			var notice = embedPlayer.getRawKalturaConfig('noticeMessage');
-			var skipBtn = embedPlayer.getRawKalturaConfig('skipBtn');
-			var skipNotice = embedPlayer.getRawKalturaConfig('skipNotice');
+			var notice = embedPlayer.getRawBorhanConfig('noticeMessage');
+			var skipBtn = embedPlayer.getRawBorhanConfig('skipBtn');
+			var skipNotice = embedPlayer.getRawBorhanConfig('skipNotice');
 			// Add notice if present
 			if( notice && notice['plugin'] !== false){
 				config.notice = {
@@ -622,7 +622,7 @@
 					loadQueueCount++;
 					// Load and parse the adXML into displayConf format
 					_this.adLoader.load( _this.getAdUrl( adType ) , function( adDisplayConf ){
-						mw.log("KalturaAds loaded: " + adType );
+						mw.log("BorhanAds loaded: " + adType );
 						loadQueueCount--;
 						addAdCheckLoadDone( adType,  $.extend({}, _this.getBaseAdConf( adType ), adDisplayConf ));
 					},

@@ -13,21 +13,21 @@
 </div>
 <script>
 // qunit: 
-function jsKalturaPlayerTest( videoId ){
+function jsBorhanPlayerTest( videoId ){
 	// Name this module
 	module( "Watermark present test" );
 
 	var $iframe = $( '#' + videoId + '_ifp' ).contents();
 	
 	asyncTest("Watermark in DOM", function(){
-		kalturaQunitWaitForPlayer(function(){
+		borhanQunitWaitForPlayer(function(){
 			ok( $iframe.find('.watermark').length, "watermark class found" );
 			equal( $iframe.find('.watermark a').attr('href'), 
-					"http://www.kaltura.com/", 
+					"http://www.borhan.com/", 
 					"watermark link found" 
 				);
 			equal( $iframe.find('.watermark img').attr('src'), 
-					"http://www.kaltura.com/content/uiconf/kaltura/kmc/appstudio/kdp3/exampleWatermark.png", 
+					"http://www.borhan.com/content/uiconf/borhan/bmc/appstudio/bdp3/exampleWatermark.png", 
 					"watermark img found" 
 				);
 			start();
@@ -35,9 +35,9 @@ function jsKalturaPlayerTest( videoId ){
 	});
 }
 </script>
-<script type="text/javascript" src="resources/qunit-kaltura-bootstrap.js"></script>
+<script type="text/javascript" src="resources/qunit-borhan-bootstrap.js"></script>
 <script>
-	kWidget.featureConfig({
+	bWidget.featureConfig({
 		'targetId': 'myVideoTarget',
 		'wid': '_243342',
 		'uiconf_id' : '21099702',
@@ -45,8 +45,8 @@ function jsKalturaPlayerTest( videoId ){
 		'flashvars': {
 			'watermark': {
 				'plugin' : "true",
-				'img' : "http://www.kaltura.com/content/uiconf/kaltura/kmc/appstudio/kdp3/exampleWatermark.png",
-				'href' : "http://www.kaltura.com/",
+				'img' : "http://www.borhan.com/content/uiconf/borhan/bmc/appstudio/bdp3/exampleWatermark.png",
+				'href' : "http://www.borhan.com/",
 				'cssClass' : "topRight"
 			}
 		}

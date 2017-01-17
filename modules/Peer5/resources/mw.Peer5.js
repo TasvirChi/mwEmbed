@@ -26,10 +26,10 @@
                     mw.log('Peer5: Error loading peer5 client. Plugging out.');
                     thi$.initCompleteCallback()
                 });
-            $.ajax({dataType: 'script', url: 'https://api.peer5.com/peer5.kaltura.plugin.js', cache: true})
+            $.ajax({dataType: 'script', url: 'https://api.peer5.com/peer5.borhan.plugin.js', cache: true})
                 .done(setupCompleteCallback)
                 .fail(function() {
-                    mw.log('Peer5: Error loading peer5.kaltura.plugin Plugging out.');
+                    mw.log('Peer5: Error loading peer5.borhan.plugin Plugging out.');
                     thi$.initCompleteCallback()
                 });
         }

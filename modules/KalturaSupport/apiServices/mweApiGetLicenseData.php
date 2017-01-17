@@ -8,7 +8,7 @@
 		
 	Return value:
 	{
-        "licenseUri": "https://udrm.kaltura.com/widevine/license?custom_data=xyz123&signature=sxyz123&files=sdhu3R",
+        "licenseUri": "https://udrm.borhan.com/widevine/license?custom_data=xyz123&signature=sxyz123&files=sdhu3R",
         "fpsCertificate": "BASE64-ENCODED-CERTIFICATE"
     }
     
@@ -30,7 +30,7 @@
 
 $wgMwEmbedApiServices['getLicenseData'] = 'mweApiGetLicenseData';
 
-require_once( dirname( __FILE__ ) . '/../KalturaCommon.php' );	// For EntryResult
+require_once( dirname( __FILE__ ) . '/../BorhanCommon.php' );	// For EntryResult
 
 class mweApiGetLicenseData {
 
@@ -39,7 +39,7 @@ class mweApiGetLicenseData {
 	}
 
 	function run() {
-		global $wgKalturaUdrmLicenseServerUrl;
+		global $wgBorhanUdrmLicenseServerUrl;
 
 		// Always send 200, errors are signalled in json.		
 		$this->sendHeaders();
@@ -47,7 +47,7 @@ class mweApiGetLicenseData {
 		$response = array();
 		
         // Trim possible ending slash
-        $udrmBaseURL = rtrim($wgKalturaUdrmLicenseServerUrl, '/');
+        $udrmBaseURL = rtrim($wgBorhanUdrmLicenseServerUrl, '/');
         
         try {
             $missingParams = array_diff(array('drm', 'entry_id', 'uiconf_id'), array_keys($_REQUEST));
@@ -153,13 +153,13 @@ class mweApiGetLicenseData {
         }
         
         $pluginData = $resultObject['contextData']->pluginData;
-        if (!isset($pluginData['KalturaDrmEntryContextPluginData'])) {
+        if (!isset($pluginData['BorhanDrmEntryContextPluginData'])) {
             throw new Exception("Entry does not have DRM data");
         }
         
-		$drmPluginData = (array)$pluginData['KalturaDrmEntryContextPluginData'];
-        if (isset($pluginData['KalturaFairplayEntryContextPluginData'])) {
-            $fpsPluginData = (array)$pluginData['KalturaFairplayEntryContextPluginData'];
+		$drmPluginData = (array)$pluginData['BorhanDrmEntryContextPluginData'];
+        if (isset($pluginData['BorhanFairplayEntryContextPluginData'])) {
+            $fpsPluginData = (array)$pluginData['BorhanFairplayEntryContextPluginData'];
             $fpsCertificate = $fpsPluginData['publicCertificate'];
         } else {
             $fpsCertificate = null;

@@ -141,7 +141,7 @@
 		// Live stream only - not playing live edge, user paused or seeked to play DVR content
 		"liveOffSynch": false,
 
-		// Is Audio Player (defined in kWidgetSupport)
+		// Is Audio Player (defined in bWidgetSupport)
 		"isAudioPlayer": false,
 
 		// Should tooltips be enabled by default?
@@ -843,7 +843,7 @@
 			// Auto select player based on default order
 			if (this.mediaElement.selectedSource) {
 
-				// Loading kaltura native cordova component only when it's media type
+				// Loading borhan native cordova component only when it's media type
 				if (this.isImageSource()) {
 					mw.setConfig('EmbedPlayer.ForceNativeComponent', false);
 				}
@@ -873,16 +873,16 @@
 				var errorObj;
 				if (this.isDrmRequired()){
 					if (!this.isPluginEnabled( 'multiDrm' )){
-						errorObj = this.getKalturaMsgObject('mwe-embedplayer-drm-error-not-enabled');
+						errorObj = this.getBorhanMsgObject('mwe-embedplayer-drm-error-not-enabled');
 					} else {
-						errorObj = this.getKalturaMsgObject('mwe-embedplayer-drm-error-not-supported');
+						errorObj = this.getBorhanMsgObject('mwe-embedplayer-drm-error-not-supported');
 					}
 				} else {
 					//check if we had silverlight flavors and no silverlight installed - prompt to install silverlight
 					if (!mw.isMobileDevice() && !mw.EmbedTypes.getMediaPlayers().isSupportedPlayer('splayer')) {
 						$.each(this.mediaElement.sources, function (currentIndex, currentSource) {
 							if (currentSource.getFlavorId() == "ism") {
-								errorObj = _this.getKalturaMsgObject('mwe-embedplayer-install-silverlight');
+								errorObj = _this.getBorhanMsgObject('mwe-embedplayer-install-silverlight');
 								errorObj.code = "7000";
 								return;
 							}
@@ -991,8 +991,8 @@
 				var failCallback = function(){
 					_this.removePoster();
 					_this.layoutBuilder.displayAlert( {
-						title: _this.getKalturaMsg( 'ks-PLUGIN-BLOCKED-TITLE' ),
-						message: _this.getKalturaMsg( 'ks-PLUGIN-BLOCKED' ),
+						title: _this.getBorhanMsg( 'ks-PLUGIN-BLOCKED-TITLE' ),
+						message: _this.getBorhanMsg( 'ks-PLUGIN-BLOCKED' ),
 						keepOverlay: true,
 						noButtons : true,
 						props: {
@@ -1285,7 +1285,7 @@
 				}
 				// A secondary end event for playlist and clip sequence endings
 				if (this.onDoneInterfaceFlag) {
-					// We trigger two end events to match KDP and ensure playbackComplete always comes before  playerPlayEnd
+					// We trigger two end events to match BDP and ensure playbackComplete always comes before  playerPlayEnd
 					// in content ends.
 					mw.log("EmbedPlayer:: trigger: playbackComplete");
 					$(this).trigger('playbackComplete');
@@ -1481,7 +1481,7 @@
 			var _this = this;
 			if (typeof errorObj == 'string') {
 				this.playerError = {
-					'title': _this.getKalturaMsg('ks-GENERIC_ERROR_TITLE'),
+					'title': _this.getBorhanMsg('ks-GENERIC_ERROR_TITLE'),
 					'message': errorObj
 				}
 				return;
@@ -1617,7 +1617,7 @@
 		 */
 		showNoPlayableSources: function () {
 			var $this = $(this);
-			var errorObj = this.getKalturaMsgObject('mwe-embedplayer-missing-source');
+			var errorObj = this.getBorhanMsgObject('mwe-embedplayer-missing-source');
 
 			// Support no sources custom error msg:
 			$this.trigger('NoSourcesCustomError', function (customErrorMsg) {
@@ -1634,7 +1634,7 @@
 
 		showWrongReferenceIdMessege: function () {
 			var $this = $(this);
-			var errorObj = this.getKalturaMsgObject('mwe-embedplayer-wrong-reference-id');
+			var errorObj = this.getBorhanMsgObject('mwe-embedplayer-wrong-reference-id');
 
 			// Support wrong reference id custom error msg:
 			$this.trigger('WrongReferenceIdCustomError', function (customErrorMsg) {
@@ -2210,7 +2210,7 @@
 		},
 
 		isMobileSkin: function(){
-			var skin = this.getRawKalturaConfig("layout") ? this.getRawKalturaConfig("layout").skin : window["kalturaIframePackageData"].playerConfig.layout ? window["kalturaIframePackageData"].playerConfig.layout.skin : "kdark";
+			var skin = this.getRawBorhanConfig("layout") ? this.getRawBorhanConfig("layout").skin : window["borhanIframePackageData"].playerConfig.layout ? window["borhanIframePackageData"].playerConfig.layout.skin : "kdark";
 			return (mw.isChromeCast() || ( mw.getConfig("EmbedPlayer.EnableMobileSkin") === true && skin === "kdark" &&
 				mw.isMobileDevice() && !mw.isWindowsPhone() ));		},
 
@@ -3034,8 +3034,8 @@
 				mw.log("EmbedPlayer::getCompatibleSource: add " + source.src + ' of type:' + source.type);
 			});
 			var myMediaElement = new mw.MediaElement($media[0]);
-			if ( this.getRawKalturaConfig('mediaProxy') && this.getRawKalturaConfig('mediaProxy').preferedFlavorBR ){
-				myMediaElement.preferedFlavorBR = this.getRawKalturaConfig('mediaProxy').preferedFlavorBR * 1000;
+			if ( this.getRawBorhanConfig('mediaProxy') && this.getRawBorhanConfig('mediaProxy').preferedFlavorBR ){
+				myMediaElement.preferedFlavorBR = this.getRawBorhanConfig('mediaProxy').preferedFlavorBR * 1000;
 			}
 			var baseTimeOptions =  {
 				'supportsURLTimeEncoding': this.supportsURLTimeEncoding(),
@@ -3111,12 +3111,12 @@
 		},
 
 		isDrmRequired: function () {
-			return this.drmRequired && !this.getRawKalturaConfig("embedPlayerChromecastReceiver","plugin") === true;
+			return this.drmRequired && !this.getRawBorhanConfig("embedPlayerChromecastReceiver","plugin") === true;
 		},
 
 		isDVR: function () {
-			if (this.kalturaPlayerMetaData && this.kalturaPlayerMetaData[ 'dvrStatus' ]) {
-				return this.kalturaPlayerMetaData[ 'dvrStatus' ];
+			if (this.borhanPlayerMetaData && this.borhanPlayerMetaData[ 'dvrStatus' ]) {
+				return this.borhanPlayerMetaData[ 'dvrStatus' ];
 			}
 			if (mw.getConfig("forceDVR")){
 				return true;
@@ -3308,8 +3308,8 @@
 			}
 		},
 
-		getKalturaAttributeConfig: function (attr) {
-			return this.getKalturaConfig(null, attr);
+		getBorhanAttributeConfig: function (attr) {
+			return this.getBorhanConfig(null, attr);
 		},
 
 		isVideoSiblingEnabled: function () {
@@ -3323,7 +3323,7 @@
 		handlePlayerError: function (data, shouldHandlePlayerError) {
 			if (this.shouldHandlePlayerError || shouldHandlePlayerError) {
 				var message = this.getErrorMessage(data);
-				var errorObj = { title: this.getKalturaMsg('ks-GENERIC_ERROR_TITLE'), message: message};
+				var errorObj = { title: this.getBorhanMsg('ks-GENERIC_ERROR_TITLE'), message: message};
 				if(data.code){
 					errorObj.code = data.code;
 				}
@@ -3332,7 +3332,7 @@
 		},
 
 		getErrorMessage: function(data){
-			var message = data ? data : this.getKalturaMsg('ks-CLIP_NOT_FOUND');
+			var message = data ? data : this.getBorhanMsg('ks-CLIP_NOT_FOUND');
 			/* there are two formats used to represent error messages*/
 			if(message.errorMessage){
 				message = message.errorMessage;
@@ -3340,7 +3340,7 @@
 				message = message.message;
 			}
 			if (!message || message == undefined){
-				message = this.getKalturaMsg('ks-CLIP_NOT_FOUND');
+				message = this.getBorhanMsg('ks-CLIP_NOT_FOUND');
 			}
 			return message;
 		},
@@ -3357,7 +3357,7 @@
 		onFlavorsListChanged: function (newFlavors) {
 			//we can't use simpleFormat with flavors that came from playmanifest otherwise sourceSelector list won't match
 			// to what is actually being played
-			this.setKDPAttribute('sourceSelector', 'simpleFormat', false);
+			this.setBDPAttribute('sourceSelector', 'simpleFormat', false);
 			// update the manifest defined flavor set:
 			this.manifestAdaptiveFlavors = [];
 			var _this = this;

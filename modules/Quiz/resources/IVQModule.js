@@ -77,10 +77,10 @@
                     if(_this.isKPlaylist){
                         if (_this.quizSubmitted){
                             mw.log("Quiz: Playlist Auto Continue When Submitted");
-                            _this.embedPlayer.setKDPAttribute('playlistAPI','autoContinue',true);
+                            _this.embedPlayer.setBDPAttribute('playlistAPI','autoContinue',true);
                         }else{
                             mw.log("Quiz: Playlist Don't Auto Continue");
-                            _this.embedPlayer.setKDPAttribute('playlistAPI','autoContinue',false);
+                            _this.embedPlayer.setBDPAttribute('playlistAPI','autoContinue',false);
                         }
                     }
 
@@ -535,9 +535,9 @@
             sendIVQMesageToListener:function(){
                 try {
                     var _this = this;
-                    window.kdp = document.getElementById( _this.embedPlayer.id );
-                    window.kdp.sendNotification("QuizSubmitted", _this.kQuizUserEntryId);
-                    mw.log('Quiz: QuizSubmitted sent to kdp');
+                    window.bdp = document.getElementById( _this.embedPlayer.id );
+                    window.bdp.sendNotification("QuizSubmitted", _this.kQuizUserEntryId);
+                    mw.log('Quiz: QuizSubmitted sent to bdp');
                 } catch (e) {
                     mw.log('postMessage listener of parent is undefined: ', e);
                 }

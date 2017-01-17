@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,18 +28,18 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaShortLinkStatus
+class BorhanShortLinkStatus
 {
 	const DISABLED = 1;
 	const ENABLED = 2;
@@ -47,10 +47,10 @@ class KalturaShortLinkStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaShortLinkOrderBy
+class BorhanShortLinkOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const EXPIRES_AT_ASC = "+expiresAt";
@@ -61,10 +61,10 @@ class KalturaShortLinkOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaShortLink extends KalturaObjectBase
+class BorhanShortLink extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -136,7 +136,7 @@ class KalturaShortLink extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaShortLinkStatus
+	 * @var BorhanShortLinkStatus
 	 */
 	public $status = null;
 
@@ -144,15 +144,15 @@ class KalturaShortLink extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaShortLinkListResponse extends KalturaObjectBase
+class BorhanShortLinkListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaShortLink
+	 * @var array of BorhanShortLink
 	 * @readonly
 	 */
 	public $objects;
@@ -169,10 +169,10 @@ class KalturaShortLinkListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaShortLinkBaseFilter extends KalturaFilter
+abstract class BorhanShortLinkBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -275,7 +275,7 @@ abstract class KalturaShortLinkBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaShortLinkStatus
+	 * @var BorhanShortLinkStatus
 	 */
 	public $statusEqual = null;
 
@@ -290,22 +290,22 @@ abstract class KalturaShortLinkBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaShortLinkFilter extends KalturaShortLinkBaseFilter
+class BorhanShortLinkFilter extends BorhanShortLinkBaseFilter
 {
 
 }
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaShortLinkService extends KalturaServiceBase
+class BorhanShortLinkService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -313,11 +313,11 @@ class KalturaShortLinkService extends KalturaServiceBase
 	/**
 	 * List short link objects by filter and pager
 	 * 
-	 * @param KalturaShortLinkFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaShortLinkListResponse
+	 * @param BorhanShortLinkFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanShortLinkListResponse
 	 */
-	function listAction(KalturaShortLinkFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanShortLinkFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -329,17 +329,17 @@ class KalturaShortLinkService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaShortLinkListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanShortLinkListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * Allows you to add a short link object
 	 * 
-	 * @param KalturaShortLink $shortLink 
-	 * @return KalturaShortLink
+	 * @param BorhanShortLink $shortLink 
+	 * @return BorhanShortLink
 	 */
-	function add(KalturaShortLink $shortLink)
+	function add(BorhanShortLink $shortLink)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "shortLink", $shortLink->toParams());
@@ -348,7 +348,7 @@ class KalturaShortLinkService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaShortLink");
+		$this->client->validateObjectType($resultObject, "BorhanShortLink");
 		return $resultObject;
 	}
 
@@ -356,7 +356,7 @@ class KalturaShortLinkService extends KalturaServiceBase
 	 * Retrieve an short link object by id
 	 * 
 	 * @param string $id 
-	 * @return KalturaShortLink
+	 * @return BorhanShortLink
 	 */
 	function get($id)
 	{
@@ -367,7 +367,7 @@ class KalturaShortLinkService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaShortLink");
+		$this->client->validateObjectType($resultObject, "BorhanShortLink");
 		return $resultObject;
 	}
 
@@ -375,10 +375,10 @@ class KalturaShortLinkService extends KalturaServiceBase
 	 * Update exisitng short link
 	 * 
 	 * @param string $id 
-	 * @param KalturaShortLink $shortLink 
-	 * @return KalturaShortLink
+	 * @param BorhanShortLink $shortLink 
+	 * @return BorhanShortLink
 	 */
-	function update($id, KalturaShortLink $shortLink)
+	function update($id, BorhanShortLink $shortLink)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -388,7 +388,7 @@ class KalturaShortLinkService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaShortLink");
+		$this->client->validateObjectType($resultObject, "BorhanShortLink");
 		return $resultObject;
 	}
 
@@ -396,7 +396,7 @@ class KalturaShortLinkService extends KalturaServiceBase
 	 * Mark the short link as deleted
 	 * 
 	 * @param string $id 
-	 * @return KalturaShortLink
+	 * @return BorhanShortLink
 	 */
 	function delete($id)
 	{
@@ -407,7 +407,7 @@ class KalturaShortLinkService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaShortLink");
+		$this->client->validateObjectType($resultObject, "BorhanShortLink");
 		return $resultObject;
 	}
 
@@ -430,32 +430,32 @@ class KalturaShortLinkService extends KalturaServiceBase
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaShortLinkClientPlugin extends KalturaClientPlugin
+class BorhanShortLinkClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaShortLinkService
+	 * @var BorhanShortLinkService
 	 */
 	public $shortLink = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->shortLink = new KalturaShortLinkService($client);
+		$this->shortLink = new BorhanShortLinkService($client);
 	}
 
 	/**
-	 * @return KalturaShortLinkClientPlugin
+	 * @return BorhanShortLinkClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaShortLinkClientPlugin($client);
+		return new BorhanShortLinkClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

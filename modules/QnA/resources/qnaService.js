@@ -206,7 +206,7 @@ DAL for Q&A Module
         moduleStatusLastUpdateTime: -1,
         QandA_ResponseProfile: "QandA_ResponseProfile",
         QandA_ResponseProfileSystemName: "QandA",
-        QandA_MetadataProfileSystemName: "Kaltura-QnA",
+        QandA_MetadataProfileSystemName: "Borhan-QnA",
         QandA_cuePointTag: "qna",
         QandA_cuePointTypes: {"Question":1,"Answer":2, "Announcement":3},
         bootPromise:null,
@@ -262,7 +262,7 @@ DAL for Q&A Module
 
         getKClient: function () {
             if (!this.kClient) {
-                this.kClient = mw.kApiGetPartnerClient(this.embedPlayer.kwidgetid);
+                this.kClient = mw.kApiGetPartnerClient(this.embedPlayer.bwidgetid);
             }
             return this.kClient;
         },
@@ -300,7 +300,7 @@ DAL for Q&A Module
                 var createCuePointRequest = {
                     "service": "cuePoint_cuePoint",
                     "action": "add",
-                    "cuePoint:objectType": "KalturaAnnotation",
+                    "cuePoint:objectType": "BorhanAnnotation",
                     "cuePoint:entryId": embedPlayer.kentryid,
                     "cuePoint:startTime": embedPlayer.currentTime,
                     "cuePoint:text": question,
@@ -324,7 +324,7 @@ DAL for Q&A Module
                     "service": "cuePoint_cuePoint",
                     "action": "update",
                     "id": "{1:result:id}",
-                    "cuePoint:objectType": "KalturaAnnotation",
+                    "cuePoint:objectType": "BorhanAnnotation",
                     "cuePoint:tags": _this.QandA_cuePointTag
                 };
 
@@ -550,29 +550,29 @@ DAL for Q&A Module
                     'action': 'list',
                     'filter:tagsLike':_this.QandA_cuePointTag,
                     'filter:entryIdEqual': entryId,
-                    'filter:objectType': 'KalturaAnnotationFilter',
+                    'filter:objectType': 'BorhanAnnotationFilter',
                     'filter:orderBy': '+createdAt',
                     'filter:isPublicEqual': '1',
-                    "responseProfile:objectType":"KalturaResponseProfileHolder",
+                    "responseProfile:objectType":"BorhanResponseProfileHolder",
                     "responseProfile:systemName":_this.QandA_ResponseProfileSystemName,
 
                     /*Search  metadata   */
-                    'filter:advancedSearch:objectType': 'KalturaMetadataSearchItem',
+                    'filter:advancedSearch:objectType': 'BorhanMetadataSearchItem',
                     'filter:advancedSearch:metadataProfileId': _this.metadataProfile.id,
                     'filter:advancedSearch:type': 2, //or
 
                     //search all messages on my session id
-                    'filter:advancedSearch:items:item0:objectType': "KalturaSearchCondition",
+                    'filter:advancedSearch:items:item0:objectType': "BorhanSearchCondition",
                     'filter:advancedSearch:items:item0:field': "/*[local-name()='metadata']/*[local-name()='ThreadCreatorId']",
                     'filter:advancedSearch:items:item0:value': _this.userId,
 
                     //find all announcements
-                    'filter:advancedSearch:items:item1:objectType': "KalturaSearchCondition",
+                    'filter:advancedSearch:items:item1:objectType': "BorhanSearchCondition",
                     'filter:advancedSearch:items:item1:field': "/*[local-name()='metadata']/*[local-name()='Type']",
                     'filter:advancedSearch:items:item1:value': "Announcement",
 
                     //find all AnswerOnAir cue points
-                    'filter:advancedSearch:items:item2:objectType': "KalturaSearchCondition",
+                    'filter:advancedSearch:items:item2:objectType': "BorhanSearchCondition",
                     'filter:advancedSearch:items:item2:field': "/*[local-name()='metadata']/*[local-name()='Type']",
                     'filter:advancedSearch:items:item2:value': "AnswerOnAir"
                 };

@@ -14,16 +14,16 @@
 			'order': 7,
 			'visible': false,
 			'align': "right",
-			'applicationID': "276999A7", // DB6462E9: Chromecast default receiver, 276999A7: Kaltura custom receiver supporting DRM, HLS and smooth streaming
+			'applicationID': "276999A7", // DB6462E9: Chromecast default receiver, 276999A7: Borhan custom receiver supporting DRM, HLS and smooth streaming
 			'showTooltip': true,
 			'tooltip': gM('mwe-chromecast-chromecast'),
 			'title': gM('mwe-chromecast-chromecast'),
 			'debugReceiver': false,
 			'receiverLogo': true,
 			'logoUrl': null,
-			'useKalturaPlayer': true,
+			'useBorhanPlayer': true,
 			'useReceiverSource': true,
-			'debugKalturaPlayer': false,
+			'debugBorhanPlayer': false,
 			'uiconfid':null,
 			'defaultConfig':true,
 			'disableSenderUI':false,
@@ -50,7 +50,7 @@
 		stopCastTitle: gM( 'mwe-chromecast-stopcast' ),
 
 		receiverName: '',
-		MESSAGE_NAMESPACE: 'urn:x-cast:com.kaltura.cast.player',
+		MESSAGE_NAMESPACE: 'urn:x-cast:com.borhan.cast.player',
 
 		isNativeSDK: false, //flag for using native mobile IMA SDK
 		pendingRelated: false,
@@ -70,13 +70,13 @@
 
 			if (!this.isNativeSDK) {
 				var loadScriptInFrame = function(){
-					kWidget.appendScriptUrl("https://www.gstatic.com/cv/js/sender/v1/cast_sender.js", function(){
+					bWidget.appendScriptUrl("https://www.gstatic.com/cv/js/sender/v1/cast_sender.js", function(){
 						_this.chromeLib = window.chrome;
 					});
 				}
 				if (mw.getConfig('EmbedPlayer.IsFriendlyIframe')){
 					try{
-						kWidget.appendScriptUrl("https://www.gstatic.com/cv/js/sender/v1/cast_sender.js", function(){
+						bWidget.appendScriptUrl("https://www.gstatic.com/cv/js/sender/v1/cast_sender.js", function(){
 							try{
 								_this.chromeLib = window.top.chrome;
 							}catch(e){
@@ -147,7 +147,7 @@
 					}
 				};
 				if (_this.restoreDoubleclick){
-					_this.sendMessage({'type': 'setKDPAttribute', 'plugin': 'doubleClick', 'property': 'plugin', 'value': true});
+					_this.sendMessage({'type': 'setBDPAttribute', 'plugin': 'doubleClick', 'property': 'plugin', 'value': true});
 					_this.restoreDoubleclick = false;
 				}
 				var proxyData = _this.getProxyData();
@@ -314,7 +314,7 @@
 			if ( this.getConfig("debugReceiver") ){
 				this.sendMessage({'type': 'show', 'target': 'debug'});
 			}
-			// set kaltura logo if needed
+			// set borhan logo if needed
 			if ( this.getConfig("logoUrl") && this.getConfig("receiverLogo") ){
 				this.sendMessage({'type': 'setLogo', 'logo': this.getConfig("logoUrl")});
 			}
@@ -330,9 +330,9 @@
 				this.sendMessage({'type': 'license', 'value': licenseUrl});
 				this.log("set license URL to: " + licenseUrl);
 			}
-			if (this.getConfig("useKalturaPlayer") === true){
+			if (this.getConfig("useBorhanPlayer") === true){
 				var flashVars = this.getFlashVars();
-				this.sendMessage({'type': 'embed', 'lib': kWidget.getPath(), 'publisherID': this.embedPlayer.kwidgetid.substr(1), 'uiconfID': this.getConfig('uiconfid') || this.embedPlayer.kuiconfid, 'entryID': this.embedPlayer.kentryid, 'debugKalturaPlayer': this.getConfig("debugKalturaPlayer"), 'flashVars': flashVars});
+				this.sendMessage({'type': 'embed', 'lib': bWidget.getPath(), 'publisherID': this.embedPlayer.bwidgetid.substr(1), 'uiconfID': this.getConfig('uiconfid') || this.embedPlayer.kuiconfid, 'entryID': this.embedPlayer.kentryid, 'debugBorhanPlayer': this.getConfig("debugBorhanPlayer"), 'flashVars': flashVars});
 				this.displayMessage(gM('mwe-chromecast-loading'));
 			} else {
 				this.sendMessage({'type': 'load'});
@@ -399,8 +399,8 @@
 
 			var fv = {};
 			this.supportedPlugins.forEach( function ( plugin ) {
-				if ( !$.isEmptyObject( _this.embedPlayer.getRawKalturaConfig( plugin ) ) ) {
-					fv[plugin] = _this.embedPlayer.getRawKalturaConfig( plugin );
+				if ( !$.isEmptyObject( _this.embedPlayer.getRawBorhanConfig( plugin ) ) ) {
+					fv[plugin] = _this.embedPlayer.getRawBorhanConfig( plugin );
 				}
 			} );
 			// add support for custom proxyData for OTT app developers
@@ -447,7 +447,7 @@
 				recursiveIteration( proxyData );
 				return proxyData;
 			} else {
-				var proxyData  = this.embedPlayer.getKalturaConfig('originalProxyData');
+				var proxyData  = this.embedPlayer.getBorhanConfig('originalProxyData');
 				if (!$.isEmptyObject(proxyData)) {
 					if(proxyData.data){
 						return proxyData.data;
@@ -571,7 +571,7 @@
 						_this.embedPlayer.play();
 					}
 					_this.updateScreen();
-					// hide kaltura logo
+					// hide borhan logo
 					if ( _this.getConfig("receiverLogo") ){
 						_this.sendMessage({'type': 'hide', 'target': 'logo'});
 					}
@@ -661,7 +661,7 @@
 		},
 
 		buildUdrmLicenseUri: function(mimeType) {
-			var licenseServer = mw.getConfig('Kaltura.UdrmServerURL');
+			var licenseServer = mw.getConfig('Borhan.UdrmServerURL');
 			var licenseParams = this.getPlayer().mediaElement.getLicenseUriComponent();
 			var licenseUri = null;
 

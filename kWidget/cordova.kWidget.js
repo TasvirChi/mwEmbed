@@ -7,15 +7,15 @@
  */
 
 /**
- * Cordova kWidget lib
+ * Cordova bWidget lib
  */
-(function(kWidget){ "use strict";
-	if( !kWidget ){
+(function(bWidget){ "use strict";
+	if( !bWidget ){
 		return ;
 	}
 	var init = function(){
 
-		if ( kWidget.isAndroid() ){
+		if ( bWidget.isAndroid() ){
 			var executeCordova;
 
 			cordova.define("cordova/plugin/NativeComponentPlugin",
@@ -32,7 +32,7 @@
 				window.plugins.NativeComponentPlugin = cordova.require( "cordova/plugin/NativeComponentPlugin" );
 			}
 		}
-		cordova.kWidget = {
+		cordova.bWidget = {
 			// This element is populated by cordova
 			proxyElement: null,
 			// callbacks to auth object events go here:
@@ -41,13 +41,13 @@
 				this.target = document.getElementById( targetId );
 
 				if( !this.target ){
-					kWidget.log( "Error could not find target id, for cordova embed" );
+					bWidget.log( "Error could not find target id, for cordova embed" );
 				}
 
 				this.target.style.backgroundColor += "transparent";
 
-				//kWidget.getIframeRequest( targetId, settings ) - we get it encoded so we decode before encoding whole url again
-				this.iframeUrl = kWidget.getIframeUrl() + '?' + decodeURIComponent(kWidget.getIframeRequest( targetId, settings ));
+				//bWidget.getIframeRequest( targetId, settings ) - we get it encoded so we decode before encoding whole url again
+				this.iframeUrl = bWidget.getIframeUrl() + '?' + decodeURIComponent(bWidget.getIframeRequest( targetId, settings ));
 				this.iframeUrl += '#' + JSON.stringify( window.preMwEmbedConfig );
 				this.iframeUrl = this.iframeUrl.replace(/'/g,"");
 				this.addApi( this.target );
@@ -56,17 +56,17 @@
 				this.setKPlayerId( targetId );
 
 				if ( settings.playOnlyFullscreen )  {
-					kWidget.addThumbCssRules();
-					var thumbUrl = mw.getConfig('EmbedPlayer.BlackPixel') || kWidget.getKalturaThumbUrl( settings );
+					bWidget.addThumbCssRules();
+					var thumbUrl = mw.getConfig('EmbedPlayer.BlackPixel') || bWidget.getBorhanThumbUrl( settings );
 					this.target.innerHTML = '' +
 						'<div style="position: relative; width: 100%; height: 100%;">' +
 						'<img src="' + thumbUrl  + '" >' +
-						'<div class="kWidgetCentered kWidgetPlayBtn" ' +
+						'<div class="bWidgetCentered bWidgetPlayBtn" ' +
 						'id="' + targetId + '_playBtn"' +
 						'></div></div>';
 					// Add a click binding to do the really embed:
 					var playBtn = document.getElementById( targetId + '_playBtn' );
-					kWidget.addEvent(playBtn, 'touchstart', function(){
+					bWidget.addEvent(playBtn, 'touchstart', function(){
 						_this.drawPlayer( _this.target, true );
 						_this.exec( "setIframeUrl", [ _this.iframeUrl ], "NativeComponentPlugin" );
 					});
@@ -75,7 +75,7 @@
 					this.exec( "setIframeUrl", [ this.iframeUrl ], "NativeComponentPlugin" );
 					window.addEventListener('orientationchange', function(){
 						//when we get this event the new dimensions aren't set yet
-						if ( kWidget.isAndroid() ){
+						if ( bWidget.isAndroid() ){
 							setTimeout( function() {
 								_this.drawPlayer( _this.target );
 							}, 250 );
@@ -91,7 +91,7 @@
 				target.sendNotification = this.sendNotification;
 				target.addJsListener = this.addJsListener;
 				target.asyncEvaluate = this.asyncEvaluate;
-				target.setKDPAttribute = this.setKDPAttribute;
+				target.setBDPAttribute = this.setBDPAttribute;
 				target.removeJsListener = this.removeJsListener;
 			},
 			exec: function( command, args, pluginName ){
@@ -105,7 +105,7 @@
 					pluginName = "NativeComponentPlugin";
 				}
 
-				if ( kWidget.isAndroid() ){
+				if ( bWidget.isAndroid() ){
 					cordova.exec = executeCordova;
 				}
 				cordova.exec(null, null, pluginName, command, args);
@@ -125,8 +125,8 @@
 			asyncEvaluate: function( expression, callbackName ) {
 				this.exec( "asyncEvaluate", [ expression, callbackName ], "NativeComponentPlugin" );
 			},
-			setKDPAttribute: function( host, prop, value ) {
-				this.exec( "setKDPAttribute", [ host, prop, value ], "NativeComponentPlugin" );
+			setBDPAttribute: function( host, prop, value ) {
+				this.exec( "setBDPAttribute", [ host, prop, value ], "NativeComponentPlugin" );
 			},
 			drawPlayer: function( target , openInFullscreen ){
 				var isFullscreen = 0;
@@ -149,4 +149,4 @@
 		};
 	}
 	document.addEventListener( "deviceready", init, false );
-})( window.kWidget );
+})( window.bWidget );

@@ -1,6 +1,6 @@
 <?php
 /*
- * Description of KalturaPlaylistResult
+ * Description of BorhanPlaylistResult
  * Holds playlist request methods
  * @author ran, michael dale
  */
@@ -61,7 +61,7 @@ class PlaylistResult {
 			if( preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $firstPlaylist) != 0 ){
 				$this->playlistObject = $this->getPlaylistObjectFromMrss( $firstPlaylist );
 			} else {
-				// kaltura playlist id:
+				// borhan playlist id:
 				// Check for entry cache:
 				if ( !$this->request->hasKS() ){
 					// Check if we have a cached result object
@@ -69,13 +69,13 @@ class PlaylistResult {
 					// If no cache, then request data from API
 					if( !$this->playlistObject ){
 						$foundInCache = false;
-						$this->playlistObject = $this->getPlaylistObjectFromKalturaApi();
+						$this->playlistObject = $this->getPlaylistObjectFromBorhanApi();
 					} else {
 						$foundInCache = true;
 					}
 				} else {
 					$foundInCache = false;
-					$this->playlistObject = $this->getPlaylistObjectFromKalturaApi();
+					$this->playlistObject = $this->getPlaylistObjectFromBorhanApi();
 				}
 
 				//Only cache request that don't have KS
@@ -135,7 +135,7 @@ class PlaylistResult {
 		// Build the entry set array:		
 		$entrySet = array();
 		foreach ($xml->channel->item as $item) {
-			$kaltuarNS = $item->children('http://kaltura.com/playlist/1.0'); 
+			$kaltuarNS = $item->children('http://borhan.com/playlist/1.0'); 
 			if( isset( $kaltuarNS->entryId ) ){
 				$entrySet[] = $kaltuarNS->entryId;
 			}
@@ -159,7 +159,7 @@ class PlaylistResult {
 			);
 		} catch( Exception $e ){
 			// Throw an Exception and pass it upward
-			throw new Exception( KALTURA_GENERIC_SERVER_ERROR . "\n" . $e->getMessage() );
+			throw new Exception( BORHAN_GENERIC_SERVER_ERROR . "\n" . $e->getMessage() );
 			return array();
 		}
 		return $this->playlistObject;
@@ -175,7 +175,7 @@ class PlaylistResult {
 		return $playlistIds;
 	}
 
-	function getPlaylistObjectFromKalturaApi(){
+	function getPlaylistObjectFromBorhanApi(){
 		$client = $this->client->getClient();
 		$client->startMultiRequest();
 		$firstPlaylist = $this->getPlaylistId(0);
@@ -187,7 +187,7 @@ class PlaylistResult {
 			}
 			$maxClips = $this->uiconf->getPlayerConfig('playlistAPI', 'pageSize');
 			if (isset($maxClips) && $this->uiconf->getPlayerConfig('playlistAPI', 'paging') === true){
-				$params = array( 'id' => $firstPlaylist, 'pager:objectType' => 'KalturaFilterPager', 'pager:pageIndex' => 1, 'pager:pageSize' => $maxClips);
+				$params = array( 'id' => $firstPlaylist, 'pager:objectType' => 'BorhanFilterPager', 'pager:pageIndex' => 1, 'pager:pageSize' => $maxClips);
 			}else{
 				$params = array( 'id' => $firstPlaylist );
 			}
@@ -224,7 +224,7 @@ class PlaylistResult {
 			$this->playlistObject = $playlistResult;
 		} catch( Exception $e ) {
 			// Throw an Exception and pass it upward
-			throw new Exception( KALTURA_GENERIC_SERVER_ERROR . "\n" . $e->getMessage() );
+			throw new Exception( BORHAN_GENERIC_SERVER_ERROR . "\n" . $e->getMessage() );
 			return array();
 		}
 		
@@ -237,7 +237,7 @@ class PlaylistResult {
 		// build multi-request: 
 		$client = $this->client->getClient();
 		$client->startMultiRequest();
-		$namedMultiRequest = new KalturaNamedMultiRequest( $client );
+		$namedMultiRequest = new BorhanNamedMultiRequest( $client );
 		// get AC filter from entry class:
 		$filter = $this->entry->getACFilter();
 		$aPerPlaylist = array();

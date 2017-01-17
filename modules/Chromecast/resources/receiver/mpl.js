@@ -22,7 +22,7 @@ var mediaPlayer = null;  // an instance of cast.player.api.Player
 var playerInitialized = false;
 var isInSequence = false;
 var debugMode = false;
-var kdp;
+var bdp;
 var maskAdEndedIdelState = false;
 var adsPluginEnabled = false;
 var protocol;
@@ -39,7 +39,7 @@ onload = function () {
 	mediaManager = new cast.receiver.MediaManager(mediaElement);
 
 	castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
-	messageBus = castReceiverManager.getCastMessageBus('urn:x-cast:com.kaltura.cast.player');
+	messageBus = castReceiverManager.getCastMessageBus('urn:x-cast:com.borhan.cast.player');
 
 	setCastReceiverManagerEvents();
 	initApp();
@@ -120,11 +120,11 @@ onload = function () {
 		} else if (payload['type'] === 'load') {
 			//setMediaManagerEvents();
 		} else if (payload['type'] === 'notification') {
-			kdp.sendNotification(payload['event'], [payload['data']]); // pass notification event to the player
+			bdp.sendNotification(payload['event'], [payload['data']]); // pass notification event to the player
 		} else if (payload['type'] === 'setLogo') {
 			document.getElementById('logo').style.backgroundImage = "url(" + payload['logo'] + ")";
-		} else if (payload['type'] === 'setKDPAttribute') {
-			kdp.setKDPAttribute(payload['plugin'], payload['property'], payload['value']);
+		} else if (payload['type'] === 'setBDPAttribute') {
+			bdp.setBDPAttribute(payload['plugin'], payload['property'], payload['value']);
 		} else if (payload['type'] === 'changeMedia') {
 			var logoElem = document.getElementById('logo');
 			logoElem.style.display = 'block';
@@ -134,7 +134,7 @@ onload = function () {
 				mediaPlayer.unload();
 				mediaPlayer = null;
 			}
-			kdp.sendNotification('changeMedia', payload.data);
+			bdp.sendNotification('changeMedia', payload.data);
 		} else if (payload['type'] === 'embed') {
 			if (!playerInitialized) {
 				var playerLib = payload['lib'] + "mwEmbedLoader.php";
@@ -150,7 +150,7 @@ onload = function () {
 						var uiconfID = payload['uiconfID'];
 						var entryID = payload['entryID'];
 						mw.setConfig("EmbedPlayer.HidePosterOnStart", true);
-						if (payload['debugKalturaPlayer'] == true) {
+						if (payload['debugBorhanPlayer'] == true) {
 							mw.setConfig("debug", true);
 							mw.setConfig("debugTarget", "kdebug");
 							//mw.setConfig("debugFilter", "---");
@@ -158,7 +158,7 @@ onload = function () {
 							document.getElementById('kdebug').style.display = 'block';
 						}
 						mw.setConfig("chromecastReceiver", true);
-						mw.setConfig("Kaltura.ExcludedModules", "chromecast");
+						mw.setConfig("Borhan.ExcludedModules", "chromecast");
 						var fv = {
 							"dash":{
 								'plugin': false
@@ -180,15 +180,15 @@ onload = function () {
 						var mimeType = null;
 						var src = null;
 
-						kWidget.embed({
-							"targetId": "kaltura_player",
+						bWidget.embed({
+							"targetId": "borhan_player",
 							"wid": "_" + publisherID,
 							"uiconf_id": uiconfID,
 							"readyCallback": function (playerId) {
 								if (!playerInitialized) {
 									playerInitialized = true;
-									kdp = document.getElementById(playerId);
-									kdp.kBind("broadcastToSender", function (msg) {
+									bdp = document.getElementById(playerId);
+									bdp.kBind("broadcastToSender", function (msg) {
 										messageBus.broadcast(msg);
 										isInSequence = ( msg == "chromecastReceiverAdOpen" );
 									});
@@ -209,26 +209,26 @@ onload = function () {
 											mediaElement.addEventListener("durationchange", updateDuration, false);
 										}
 									};
-									kdp.kBind("firstPlay", function(){
+									bdp.kBind("firstPlay", function(){
 										document.getElementById('logo').style.display = 'block';
 									});
-									kdp.kBind("onContentResumeRequested", function(){
+									bdp.kBind("onContentResumeRequested", function(){
 										console.info("Ad ended");
 										loadContent();
 									});
-									kdp.kBind("adErrorEvent", function(){
+									bdp.kBind("adErrorEvent", function(){
 										console.info("Ad error");
 										loadContent();
 									});
-									kdp.kBind("chromecastReceiverLoaded", function () {
+									bdp.kBind("chromecastReceiverLoaded", function () {
 										setMediaManagerEvents();
 									});
-									kdp.kBind("SourceSelected", function (source) {
+									bdp.kBind("SourceSelected", function (source) {
 										mimeType = source.mimeType;
 										src = source.src;
 									});
-									kdp.kBind("widgetLoaded layoutReady", function () {
-										 if (kdp.evaluate('{doubleClick.plugin}') || kdp.evaluate('{vast.plugin}')){
+									bdp.kBind("widgetLoaded layoutReady", function () {
+										 if (bdp.evaluate('{doubleClick.plugin}') || bdp.evaluate('{vast.plugin}')){
 											 adsPluginEnabled = true;
 										 }
 										var msg = "readyForMedia";
@@ -273,8 +273,8 @@ function setMediaManagerEvents() {
 	 */
 	mediaManager.onEnded = function () {
 		setDebugMessage('mediaManagerMessage', 'ENDED');
-		console.info("onEnded: sequenceProxy.isInSequence=" + kdp.evaluate("{sequenceProxy.isInSequence}"));
-		if (kdp.evaluate('{sequenceProxy.isInSequence}')) {
+		console.info("onEnded: sequenceProxy.isInSequence=" + bdp.evaluate("{sequenceProxy.isInSequence}"));
+		if (bdp.evaluate('{sequenceProxy.isInSequence}')) {
 			maskAdEndedIdelState = true;
 		} else {
 			var logoElement =  document.getElementById('logo');
@@ -390,7 +390,7 @@ function setMediaManagerEvents() {
 	 * @param {Object} event
 	 */
 	mediaManager.onPause = function (event) {
-		if (kdp.evaluate("{sequenceProxy.isInSequence}")) {
+		if (bdp.evaluate("{sequenceProxy.isInSequence}")) {
 			console.info("======Prevent pause during ad!!!!!");
 		}else {
 			console.log('### Media Manager - PAUSE: ' + JSON.stringify(event));
@@ -413,7 +413,7 @@ function setMediaManagerEvents() {
 	mediaManager.onPlay = function (event) {
 		console.log('### Media Manager - PLAY: ' + JSON.stringify(event));
 		setDebugMessage('mediaManagerMessage', 'PLAY: ' + JSON.stringify(event));
-		kdp.sendNotification("doPlay");
+		bdp.sendNotification("doPlay");
 		mediaManager['onPlayOrig'](event);
 	};
 
@@ -435,7 +435,7 @@ function setMediaManagerEvents() {
 	mediaManager.onSeek = function (event) {
 		console.log('### Media Manager - SEEK: ' + JSON.stringify(event));
 		setDebugMessage('mediaManagerMessage', 'SEEK: ' + JSON.stringify(event));
-		if (kdp.evaluate('{sequenceProxy.isInSequence}')) {
+		if (bdp.evaluate('{sequenceProxy.isInSequence}')) {
 			var requestId = event.data.requestId;
 			window.mediaManager.broadcastStatus(true, requestId);
 		} else {
@@ -783,8 +783,8 @@ function setCastReceiverManagerEvents() {
 
 function setMediaElementEvents(mediaElement) {
 	mediaElement.addEventListener('loadstart', function (e) {
-		kdp.sendNotification("loadstart");
-		document.getElementById("kaltura_player").style.visibility = "visible";
+		bdp.sendNotification("loadstart");
+		document.getElementById("borhan_player").style.visibility = "visible";
 		console.log('######### MEDIA ELEMENT LOAD START');
 		setDebugMessage('mediaElementState', 'Load Start');
 		messageBus.broadcast("mediaElement: Load Start");

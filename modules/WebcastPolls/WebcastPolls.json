@@ -2,13 +2,13 @@
     "webcastPolls": {
         "scripts": [
             "resources/webcastPolls.js",
-            "resources/webcastPollsKalturaProxy.js",
+            "resources/webcastPollsBorhanProxy.js",
             "resources/webcastPollsView.js",
-            "../KalturaSupport/resources/webcast/cuePointsManager.js",
-            "../KalturaSupport/resources/webcast/userProfile.js"
+            "../BorhanSupport/resources/webcast/cuePointsManager.js",
+            "../BorhanSupport/resources/webcast/userProfile.js"
         ],
         "dependencies": "mw.KBaseScreen",
-        "kalturaPluginName": "webcastPolls",
+        "borhanPluginName": "webcastPolls",
 	    "templates": ["../WebcastPolls/resources/webcastPolls-large.tmpl.html",
             "../WebcastPolls/resources/webcastPolls-medium.tmpl.html",
             "../WebcastPolls/resources/webcastPolls-small.tmpl.html"

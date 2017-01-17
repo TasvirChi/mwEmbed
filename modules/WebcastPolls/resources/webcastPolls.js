@@ -10,7 +10,7 @@
             'userId' : 'User'
         },
         cuePointsManager: null, // manages all the cue points tracking (cue point reached of poll results, poll states etc).
-        kalturaProxy: null, // manages the communication with the Kaltura api (invoke a vote, extract poll data).
+        borhanProxy: null, // manages the communication with the Borhan api (invoke a vote, extract poll data).
         userProfile: null, // manages active user profile
         configuration: {}, // ## Should remain empty (filled by 'resetPersistData')
         userVote: {}, // ## Should remain empty (filled by 'resetPersistData')
@@ -64,7 +64,7 @@
                 _this.log("got user id '" + _this.globals.userId + "'  that will be used for voting");
 
                 //  get voting metadata id needed to create user voting
-                _this.kalturaProxy.getVoteCustomMetadataProfileId().then(function (result) {
+                _this.borhanProxy.getVoteCustomMetadataProfileId().then(function (result) {
                     _this.log("got voting metadata profile id '" + result.profileId + "', reload current poll user voting (if any)");
                     // got metadata id - store for later use and reload user voting of current poll
                     _this.globals.votingProfileId = result.profileId;
@@ -224,16 +224,16 @@
                 }, "webcastPolls_UserProfile");
             }
 
-            if (!_this.kalturaProxy) {
-                // kaltura api proxy used to communicate with the kaltura api (transmit voting, fetch poll data etc)
-                _this.kalturaProxy = new mw.webcastPolls.WebcastPollsKalturaProxy(_this.getPlayer(), function () {
-                }, "webcastPolls_KalturaProxy");
+            if (!_this.borhanProxy) {
+                // borhan api proxy used to communicate with the borhan api (transmit voting, fetch poll data etc)
+                _this.borhanProxy = new mw.webcastPolls.WebcastPollsBorhanProxy(_this.getPlayer(), function () {
+                }, "webcastPolls_BorhanProxy");
             }
 
             if (!_this.view) {
                 // initialize component that manages the interactions with polls DOM elements.
                 _this.view = new mw.webcastPolls.WebcastPollsView(_this.getPlayer(), function () {
-                }, "webcastPolls_KalturaView");
+                }, "webcastPolls_BorhanView");
                 _this.view.parent = _this;
             }
 
@@ -512,16 +512,16 @@
             if (this.embedPlayer.isLive()) {
 
                 if (_this.globals.votingProfileId) {
-                    _this.log("requesting user vote for  poll '" + pollId + "' from kaltura api");
-                    _this.kalturaProxy.getUserVote(pollId, _this.globals.votingProfileId, _this.globals.userId).then(function (result) {
-                        _this.log("retrieved user vote for poll '" + pollId + "' from kaltura api");
+                    _this.log("requesting user vote for  poll '" + pollId + "' from borhan api");
+                    _this.borhanProxy.getUserVote(pollId, _this.globals.votingProfileId, _this.globals.userId).then(function (result) {
+                        _this.log("retrieved user vote for poll '" + pollId + "' from borhan api");
                         defer.resolve(result);
                     }, function (reason) {
-                        _this.log("failed to retrieve user vote for poll '" + pollId + "' from kaltura api." + JSON.stringify(reason || {}));
-                        defer.reject({error: "failed to retrieve user vote for poll '" + pollId + "' from kaltura api"});
+                        _this.log("failed to retrieve user vote for poll '" + pollId + "' from borhan api." + JSON.stringify(reason || {}));
+                        defer.reject({error: "failed to retrieve user vote for poll '" + pollId + "' from borhan api"});
                     });
                 } else {
-                    _this.log("request aborted. missing voting profile id required by Kaltura api");
+                    _this.log("request aborted. missing voting profile id required by Borhan api");
                     defer.reject({error: "missing required information to retrieve user vote"});
                 }
             } else {
@@ -598,7 +598,7 @@
                 if (_this.userVote.metadataId) {
                     _this.log('user already voted for this poll, update user vote');
                     var invokedByPollId = _this.pollData.pollId;
-                    _this.kalturaProxy.transmitVoteUpdate(_this.userVote.metadataId, _this.globals.userId, selectedAnswer, _this.pollData.pollId).then(function (result) {
+                    _this.borhanProxy.transmitVoteUpdate(_this.userVote.metadataId, _this.globals.userId, selectedAnswer, _this.pollData.pollId).then(function (result) {
                         if (invokedByPollId === _this.pollData.pollId) {
                             _this.log('successfully updated server with user answer');
                             _this.userVote.inProgress = false;
@@ -627,7 +627,7 @@
 
 
                     var invokedByPollId = _this.pollData.pollId;
-                    _this.kalturaProxy.transmitNewVote(_this.pollData.pollId, _this.globals.votingProfileId, _this.globals.userId, selectedAnswer).then(function (result) {
+                    _this.borhanProxy.transmitNewVote(_this.pollData.pollId, _this.globals.votingProfileId, _this.globals.userId, selectedAnswer).then(function (result) {
                         if (invokedByPollId === _this.pollData.pollId) {
                             _this.log('successfully updated server with user vote');
                             _this.userVote.inProgress = false;
@@ -655,7 +655,7 @@
 
 
             } catch (e) {
-                _this.log('failed to get update user vote in kaltura server - undo to previously selected answer (if any)');
+                _this.log('failed to get update user vote in borhan server - undo to previously selected answer (if any)');
                 _this.userVote.inProgress = false;
                 _this.userVote.answer = previousAnswer;
                 _this.view.syncDOMUserVoting();

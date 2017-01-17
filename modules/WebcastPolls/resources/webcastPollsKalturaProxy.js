@@ -2,7 +2,7 @@
     "use strict";
     mw.webcastPolls = mw.webcastPolls || {};
 
-    mw.webcastPolls.WebcastPollsKalturaProxy = mw.KBasePlugin.extend({
+    mw.webcastPolls.WebcastPollsBorhanProxy = mw.KBasePlugin.extend({
         /* DEVELOPER NOTICE: you should not set any property directly here (they will be shared between instances) - use the setup function instead */
         defaultConfig :
         {
@@ -34,11 +34,11 @@
             {
                 $.each(result,function(index, response)
                 {
-                    hasError = hasError || (response && response.objectType && response.objectType === "KalturaAPIException");
+                    hasError = hasError || (response && response.objectType && response.objectType === "BorhanAPIException");
                 });
             }else
             {
-                hasError = (result && result.objectType && result.objectType === "KalturaAPIException");
+                hasError = (result && result.objectType && result.objectType === "BorhanAPIException");
             }
 
             if (hasError)
@@ -60,18 +60,18 @@
                     'action': 'list',
                     'filter:entryIdEqual': _this.getPlayer().kentryid,
                     'filter:orderBy': '-createdAt', // although only one vote is allowed per user, we fetch the last one so if for unknown reason we have duplicates, the user will see his last choice
-                    'filter:objectType': 'KalturaAnnotationFilter',
+                    'filter:objectType': 'BorhanAnnotationFilter',
                     'filter:cuePointTypeIn': 'annotation.Annotation',
                     'filter:tagsMultiLikeOr': ('id:' + pollId),
 
                     /*Search  metadata   */
-                    'filter:advancedSearch:objectType': 'KalturaMetadataSearchItem',
+                    'filter:advancedSearch:objectType': 'BorhanMetadataSearchItem',
                     'filter:advancedSearch:metadataProfileId': profileId,
-                    "responseProfile:objectType":"KalturaResponseProfileHolder",
+                    "responseProfile:objectType":"BorhanResponseProfileHolder",
                     "responseProfile:systemName":"pollVoteResponseProfile",
 
                     //search all messages on my session id
-                    'filter:advancedSearch:items:item1:objectType': "KalturaSearchCondition",
+                    'filter:advancedSearch:items:item1:objectType': "BorhanSearchCondition",
                     'filter:advancedSearch:items:item1:field': "/*[local-name()='metadata']/*[local-name()='UserId']",
                     'filter:advancedSearch:items:item1:value': userId,
 
@@ -80,7 +80,7 @@
                 };
 
                 _this.log("requesting information about poll user vote for poll id '" + pollId + "' for user '" + userId + "'");
-                _this.getKalturaClient().doRequest(request, function (response) {
+                _this.getBorhanClient().doRequest(request, function (response) {
                     if (!_this.isErrorResponse(response)) {
                         var cuePoint = (response && response.objects && response.objects.length > 0) ? response.objects[0] : null;
 
@@ -102,7 +102,7 @@
 
                             } else {
                                 // ## got cue point without metadata - invalid situation
-                                _this.log("rejecting request due to invalid response from kaltura api");
+                                _this.log("rejecting request due to invalid response from borhan api");
                                 defer.reject();
                             }
                         }else {
@@ -110,12 +110,12 @@
                             defer.resolve({});
                         }
                     } else {
-                        _this.log("rejecting request due to error from kaltura api server");
+                        _this.log("rejecting request due to error from borhan api server");
                         defer.reject();
                     }
 
                 }, false, function (reason) {
-                    _this.log("rejecting request due to error from kaltura api server with reason " + (reason ? JSON.stringify(reason) : ''));
+                    _this.log("rejecting request due to error from borhan api server with reason " + (reason ? JSON.stringify(reason) : ''));
                     defer.reject({});
                 });
             }else
@@ -145,11 +145,11 @@
                         _this.log('successfully transmitted update of vote');
                         defer.resolve({});
                     } else {
-                        _this.log("rejecting request due to error from kaltura api server");
+                        _this.log("rejecting request due to error from borhan api server");
                         defer.reject();
                     }
                 }, false, function (reason) {
-                    _this.log("rejecting request due to error from kaltura api server with reason " + (reason ? JSON.stringify(reason) : ''));
+                    _this.log("rejecting request due to error from borhan api server with reason " + (reason ? JSON.stringify(reason) : ''));
                     defer.reject();
                 });
             }else {
@@ -168,7 +168,7 @@
                 var createCuePointRequest = {
                     "service": "cuePoint_cuePoint",
                     "action": "add",
-                    "cuePoint:objectType": "KalturaAnnotation",
+                    "cuePoint:objectType": "BorhanAnnotation",
                     "cuePoint:entryId": _this.getPlayer().kentryid,
                     "cuePoint:isPublic": 0,
                     "cuePoint:tags": ('id:' + pollId)
@@ -190,11 +190,11 @@
                         _this.log("successfully transmitted new vote, got back metadata id '" + result[1].id + "'");
                         defer.resolve({metadataId: result[1].id});
                     } else {
-                        _this.log("rejecting request due to error from kaltura api server");
+                        _this.log("rejecting request due to error from borhan api server");
                         defer.reject();
                     }
                 }, false, function (reason) {
-                    _this.log("rejecting request due to error from kaltura api server with reason " + (reason ? JSON.stringify(reason) : ''));
+                    _this.log("rejecting request due to error from borhan api server with reason " + (reason ? JSON.stringify(reason) : ''));
                     defer.reject();
                 });
             }else {
@@ -221,12 +221,12 @@
                 if (!_this.isErrorResponse(result) && result.objects.length) {
                     defer.resolve({profileId: result.objects[0].id});
                 } else {
-                    _this.log("rejecting request due to error from kaltura api server");
+                    _this.log("rejecting request due to error from borhan api server");
                     defer.reject();
                 }
             },false,function(reason)
             {
-                _this.log("rejecting request due to error from kaltura api server with reason " + (reason ? JSON.stringify(reason) : ''));
+                _this.log("rejecting request due to error from borhan api server with reason " + (reason ? JSON.stringify(reason) : ''));
                 defer.reject();
             });
 
@@ -235,7 +235,7 @@
         getKClient: function ()
         {
             if (!this.kClient) {
-                this.kClient = mw.kApiGetPartnerClient(this.getPlayer().kwidgetid);
+                this.kClient = mw.kApiGetPartnerClient(this.getPlayer().bwidgetid);
             }
             return this.kClient;
         }

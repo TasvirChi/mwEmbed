@@ -1,6 +1,6 @@
 <?php
 
-define( 'KALTURA_GENERIC_SERVER_ERROR', "Error getting sources from server. Please try again.");
+define( 'BORHAN_GENERIC_SERVER_ERROR', "Error getting sources from server. Please try again.");
 
 /* 
  * TODO: Use PHP5 auto loading capability instead of requiring all of our resources all the time
@@ -11,17 +11,17 @@ define( 'KALTURA_GENERIC_SERVER_ERROR', "Error getting sources from server. Plea
 require_once( dirname( __FILE__ ) . '/../../includes/Pimple.php' );
 // Include request utility helper
 require_once( dirname( __FILE__ ) . '/RequestHelper.php' );
-// Include the kaltura client
-require_once( dirname( __FILE__ ) . '/Client/KalturaClientHelper.php' );
-// Include Kaltura Logger
-require_once( dirname( __FILE__ ) . '/KalturaLogger.php' );
-// Include Kaltura Cache
+// Include the borhan client
+require_once( dirname( __FILE__ ) . '/Client/BorhanClientHelper.php' );
+// Include Borhan Logger
+require_once( dirname( __FILE__ ) . '/BorhanLogger.php' );
+// Include Borhan Cache
 require_once( dirname( __FILE__ ) . '/Cache/kFileSystemCacheWrapper.php');
 require_once( dirname( __FILE__ ) . '/Cache/kNoCacheWrapper.php');
-require_once( dirname( __FILE__ ) . '/KalturaCache.php');
-require_once( dirname( __FILE__ ) . '/KalturaUtils.php');
+require_once( dirname( __FILE__ ) . '/BorhanCache.php');
+require_once( dirname( __FILE__ ) . '/BorhanUtils.php');
 
-// Include Kaltura Utilities
+// Include Borhan Utilities
 
 // Initilize our shared container
 $container = new Pimple();
@@ -32,7 +32,7 @@ $container['request_helper'] = $container->share(function ($c) {
 });
 
 $container['utility_helper'] = $container->share(function ($c) {
-	return new KalturaUtils();
+	return new BorhanUtils();
 });
 
 $kUtility = $container['utility_helper'];
@@ -41,13 +41,13 @@ $kUtility = $container['utility_helper'];
 $container['mwembed_version'] = $wgMwEmbedVersion;
 $container['cache_directory'] = $wgScriptCacheDirectory;
 $container['logs_directory'] = $wgScriptCacheDirectory . '/logs';
-$container['cache_expiry'] = $wgKalturaUiConfCacheTime;
+$container['cache_expiry'] = $wgBorhanUiConfCacheTime;
 $container['enable_logs'] = $wgLogApiRequests;
-$container['service_timeout'] = $wgKalturaServiceTimeout;
+$container['service_timeout'] = $wgBorhanServiceTimeout;
 
 // Setup Logger object
 $container['logger'] = $container->share(function ($c) {
-	return new KalturaLogger( $c['logs_directory'], $c['enable_logs'] );
+	return new BorhanLogger( $c['logs_directory'], $c['enable_logs'] );
 });
 
 // Setup Cache Adapter / Helper
@@ -62,10 +62,10 @@ $container['file_cache_adapter'] = $container->share(function ($c) {
 $container['cache_helper'] = $container->share(function ($c) {
 
 	// Choose which cache adapter to use
-	global $wgEnableScriptDebug, $wgKalturaForceResultCache;
+	global $wgEnableScriptDebug, $wgBorhanForceResultCache;
 	$useCache = !$wgEnableScriptDebug;
 	// Force cache flag ( even in debug )
-	if( $wgKalturaForceResultCache === true){
+	if( $wgBorhanForceResultCache === true){
 		$useCache = true;
 	}
 	$request = $c['request_helper'];
@@ -76,7 +76,7 @@ $container['cache_helper'] = $container->share(function ($c) {
 	}
 
 	$className = ($useCache) ? 'file_cache_adapter' : 'no_cache_adapter';
-	return new KalturaCache( $c[ $className ], $c['cache_expiry'] );
+	return new BorhanCache( $c[ $className ], $c['cache_expiry'] );
 });
 
 // Setup client helper
@@ -109,7 +109,7 @@ $container['client_helper'] = $container->share(function ($c) {
 		$config['WidgetId'] = $request->getWidgetId();
 	}	
 
-	return new KalturaClientHelper( $config );
+	return new BorhanClientHelper( $config );
 });
 
 $container['uiconf_result'] = $container->share(function ($c) {

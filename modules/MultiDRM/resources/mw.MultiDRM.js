@@ -40,8 +40,8 @@
 
 		getFpsCertificate: function (embedPlayer) {
 			var cert = null;
-			if (window.kWidgetSupport) {
-				cert = window.kWidgetSupport.getFairplayCert({contextData: embedPlayer.kalturaContextData});
+			if (window.bWidgetSupport) {
+				cert = window.bWidgetSupport.getFairplayCert({contextData: embedPlayer.borhanContextData});
 			}
 			return cert;
 		},
@@ -92,7 +92,7 @@
 				$.each(nativeSdkDRMTypes, function(i, nativeSdkDRMType){
 					mediaPlayers.setMIMETypePlayers(nativeSdkDRMType, 'NativeComponent');
 				});
-				if (kWidget.isIOS()) {
+				if (bWidget.isIOS()) {
 					var sources = _this.getPlayer().getSources();
 					var hlsIndex = sources.findIndex(function(src) {return src.mimeType === "application/vnd.apple.mpegurl";});
 					var wvmIndex = sources.findIndex(function(src) {return src.mimeType === "video/wvm";});
@@ -113,12 +113,12 @@
 
 		setEmbedPlayerConfig: function (embedPlayer) {
 			//Get user configuration
-			var drmUserConfig = embedPlayer.getKalturaConfig("multiDrm");
+			var drmUserConfig = embedPlayer.getBorhanConfig("multiDrm");
 			//Get default config
 			var drmConfig = this.getDefaultDrmConfig(embedPlayer.kpartnerid);
 			//Deep extend custom config
 			$.extend(true, drmConfig, drmUserConfig);
-			embedPlayer.setKalturaConfig("multiDrm", drmConfig);
+			embedPlayer.setBorhanConfig("multiDrm", drmConfig);
 			return drmConfig;
 		},
 
@@ -128,7 +128,7 @@
 				"customData": {
 					"userId": partnerId,
 					"sessionId": "castlab-session",
-					"merchant": "kaltura"
+					"merchant": "borhan"
 				},
 				"sendCustomData": false,
 				"generatePSSH": false,

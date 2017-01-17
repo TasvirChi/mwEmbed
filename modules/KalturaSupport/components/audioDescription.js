@@ -22,9 +22,9 @@
 		setup: function() {
 			var _this = this;
 			// known limitation - kplayer is not supported on Safari desktop
-			if ( kWidget.supportsFlash() && !mw.isDesktopSafari() ) {
+			if ( bWidget.supportsFlash() && !mw.isDesktopSafari() ) {
 				mw.setConfig( 'EmbedPlayer.ForceKPlayer' , true ); //only kplayer supports audio description
-				this.getPlayer().setKalturaConfig('kdpVars', 'audioDescription',
+				this.getPlayer().setBorhanConfig('bdpVars', 'audioDescription',
 						{ plugin: 'true', volume: this.getConfig( 'volume' ) } );
 				
 				this.bind("playerReady", function(){

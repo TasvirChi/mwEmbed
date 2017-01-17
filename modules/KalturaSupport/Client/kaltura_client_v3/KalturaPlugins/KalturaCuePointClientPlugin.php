@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,28 +28,28 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCuePointStatus
+class BorhanCuePointStatus
 {
 	const READY = 1;
 	const DELETED = 2;
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCuePointOrderBy
+class BorhanCuePointOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const PARTNER_SORT_VALUE_ASC = "+partnerSortValue";
@@ -62,10 +62,10 @@ class KalturaCuePointOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCuePointType
+class BorhanCuePointType
 {
 	const AD = "adCuePoint.Ad";
 	const ANNOTATION = "annotation.Annotation";
@@ -73,10 +73,10 @@ class KalturaCuePointType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaCuePoint extends KalturaObjectBase
+abstract class BorhanCuePoint extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -89,7 +89,7 @@ abstract class KalturaCuePoint extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaCuePointType
+	 * @var BorhanCuePointType
 	 * @readonly
 	 */
 	public $cuePointType = null;
@@ -97,7 +97,7 @@ abstract class KalturaCuePoint extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaCuePointStatus
+	 * @var BorhanCuePointStatus
 	 * @readonly
 	 */
 	public $status = null;
@@ -174,7 +174,7 @@ abstract class KalturaCuePoint extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaNullableBoolean
+	 * @var BorhanNullableBoolean
 	 */
 	public $forceStop = null;
 
@@ -196,15 +196,15 @@ abstract class KalturaCuePoint extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCuePointListResponse extends KalturaObjectBase
+class BorhanCuePointListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaCuePoint
+	 * @var array of BorhanCuePoint
 	 * @readonly
 	 */
 	public $objects;
@@ -221,10 +221,10 @@ class KalturaCuePointListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaCuePointBaseFilter extends KalturaFilter
+abstract class BorhanCuePointBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -243,7 +243,7 @@ abstract class KalturaCuePointBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaCuePointType
+	 * @var BorhanCuePointType
 	 */
 	public $cuePointTypeEqual = null;
 
@@ -257,7 +257,7 @@ abstract class KalturaCuePointBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaCuePointStatus
+	 * @var BorhanCuePointStatus
 	 */
 	public $statusEqual = null;
 
@@ -390,7 +390,7 @@ abstract class KalturaCuePointBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaNullableBoolean
+	 * @var BorhanNullableBoolean
 	 */
 	public $forceStopEqual = null;
 
@@ -412,22 +412,22 @@ abstract class KalturaCuePointBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCuePointFilter extends KalturaCuePointBaseFilter
+class BorhanCuePointFilter extends BorhanCuePointBaseFilter
 {
 
 }
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCuePointService extends KalturaServiceBase
+class BorhanCuePointService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -435,10 +435,10 @@ class KalturaCuePointService extends KalturaServiceBase
 	/**
 	 * Allows you to add an cue point object associated with an entry
 	 * 
-	 * @param KalturaCuePoint $cuePoint 
-	 * @return KalturaCuePoint
+	 * @param BorhanCuePoint $cuePoint 
+	 * @return BorhanCuePoint
 	 */
-	function add(KalturaCuePoint $cuePoint)
+	function add(BorhanCuePoint $cuePoint)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "cuePoint", $cuePoint->toParams());
@@ -447,7 +447,7 @@ class KalturaCuePointService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCuePoint");
+		$this->client->validateObjectType($resultObject, "BorhanCuePoint");
 		return $resultObject;
 	}
 
@@ -455,7 +455,7 @@ class KalturaCuePointService extends KalturaServiceBase
 	 * Allows you to add multiple cue points objects by uploading XML that contains multiple cue point definitions
 	 * 
 	 * @param file $fileData 
-	 * @return KalturaCuePointListResponse
+	 * @return BorhanCuePointListResponse
 	 */
 	function addFromBulk($fileData)
 	{
@@ -467,18 +467,18 @@ class KalturaCuePointService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCuePointListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanCuePointListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * Download multiple cue points objects as XML definitions
 	 * 
-	 * @param KalturaCuePointFilter $filter 
-	 * @param KalturaFilterPager $pager 
+	 * @param BorhanCuePointFilter $filter 
+	 * @param BorhanFilterPager $pager 
 	 * @return file
 	 */
-	function serveBulk(KalturaCuePointFilter $filter = null, KalturaFilterPager $pager = null)
+	function serveBulk(BorhanCuePointFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -495,7 +495,7 @@ class KalturaCuePointService extends KalturaServiceBase
 	 * Retrieve an CuePoint object by id
 	 * 
 	 * @param string $id 
-	 * @return KalturaCuePoint
+	 * @return BorhanCuePoint
 	 */
 	function get($id)
 	{
@@ -506,18 +506,18 @@ class KalturaCuePointService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCuePoint");
+		$this->client->validateObjectType($resultObject, "BorhanCuePoint");
 		return $resultObject;
 	}
 
 	/**
 	 * List cue point objects by filter and pager
 	 * 
-	 * @param KalturaCuePointFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaCuePointListResponse
+	 * @param BorhanCuePointFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanCuePointListResponse
 	 */
-	function listAction(KalturaCuePointFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanCuePointFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -529,17 +529,17 @@ class KalturaCuePointService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCuePointListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanCuePointListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * Count cue point objects by filter
 	 * 
-	 * @param KalturaCuePointFilter $filter 
+	 * @param BorhanCuePointFilter $filter 
 	 * @return int
 	 */
-	function count(KalturaCuePointFilter $filter = null)
+	function count(BorhanCuePointFilter $filter = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -557,10 +557,10 @@ class KalturaCuePointService extends KalturaServiceBase
 	 * Update cue point by id
 	 * 
 	 * @param string $id 
-	 * @param KalturaCuePoint $cuePoint 
-	 * @return KalturaCuePoint
+	 * @param BorhanCuePoint $cuePoint 
+	 * @return BorhanCuePoint
 	 */
-	function update($id, KalturaCuePoint $cuePoint)
+	function update($id, BorhanCuePoint $cuePoint)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -570,7 +570,7 @@ class KalturaCuePointService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCuePoint");
+		$this->client->validateObjectType($resultObject, "BorhanCuePoint");
 		return $resultObject;
 	}
 
@@ -594,32 +594,32 @@ class KalturaCuePointService extends KalturaServiceBase
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCuePointClientPlugin extends KalturaClientPlugin
+class BorhanCuePointClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaCuePointService
+	 * @var BorhanCuePointService
 	 */
 	public $cuePoint = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->cuePoint = new KalturaCuePointService($client);
+		$this->cuePoint = new BorhanCuePointService($client);
 	}
 
 	/**
-	 * @return KalturaCuePointClientPlugin
+	 * @return BorhanCuePointClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaCuePointClientPlugin($client);
+		return new BorhanCuePointClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

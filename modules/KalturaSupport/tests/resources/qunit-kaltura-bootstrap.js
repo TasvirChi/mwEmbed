@@ -11,16 +11,16 @@ if( window.QUnit ){
 
 	window.QUnit.start();
 	jsCallbackCalledId = null;
-	asyncTest( "KalturaSupport::PlayerLoaded", function(){
+	asyncTest( "BorhanSupport::PlayerLoaded", function(){
 		// Player time out in 90 seconds:
 		setTimeout( function(){
 			ok( false, "Player timed out" );
 			start();
 		}, 180000 );
-		window['kalturaPlayerLoadedCallbackCalled'] = function( playerId ){
+		window['borhanPlayerLoadedCallbackCalled'] = function( playerId ){
 			ok( true, "Player loaded: " + playerId );
-			if( typeof jsKalturaPlayerTest == 'function' ){
-				jsKalturaPlayerTest( playerId );
+			if( typeof jsBorhanPlayerTest == 'function' ){
+				jsBorhanPlayerTest( playerId );
 			}
 			// add timeout for async test to register
 			setTimeout( function(){
@@ -29,11 +29,11 @@ if( window.QUnit ){
 		}
 		// check if jscallback ready fired before async test:
 		if( jsCallbackCalledId != null ){
-			kalturaPlayerLoadedCallbackCalled( jsCallbackCalledId );
+			borhanPlayerLoadedCallbackCalled( jsCallbackCalledId );
 		}
 	});
 
-	kWidget.addReadyCallback( function( videoId ){
+	bWidget.addReadyCallback( function( videoId ){
 		// check if the test can access the iframe
 		var domainRegEx = new RegExp(/^((http[s]?):\/)?\/?([^:\/\s]+)(:([^\/]*))?((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(\?([^#]*))?(#(.*))?$/);
 		var match = document.URL.match( domainRegEx );
@@ -46,18 +46,18 @@ if( window.QUnit ){
 			stop();
 		}
 		// Add entry ready listener
-		document.getElementById( videoId ).addJsListener("mediaReady", "kalturaQunitMediaReady");
+		document.getElementById( videoId ).addJsListener("mediaReady", "borhanQunitMediaReady");
 
 		jsCallbackCalledId = videoId;
-		if( typeof kalturaPlayerLoadedCallbackCalled == 'function' ){
-			kalturaPlayerLoadedCallbackCalled( videoId );
+		if( typeof borhanPlayerLoadedCallbackCalled == 'function' ){
+			borhanPlayerLoadedCallbackCalled( videoId );
 		}
 	});
 
 	var mediaReadyCallbacks = [];
 	var mediaReadyAlreadyCalled = false;
 	// Utility function for entry ready testing handler
-	window['kalturaQunitMediaReady'] = function(){
+	window['borhanQunitMediaReady'] = function(){
 		// Run in async call to ensure non-blocking build out is in dom
 		setTimeout(function(){
 			while( mediaReadyCallbacks.length ){
@@ -66,7 +66,7 @@ if( window.QUnit ){
 			mediaReadyAlreadyCalled = true;
 		}, 0 );
 	};
-	window['kalturaQunitWaitForPlayer'] = function( callback ){
+	window['borhanQunitWaitForPlayer'] = function( callback ){
 		if( mediaReadyAlreadyCalled ){
 			callback();
 			return ;

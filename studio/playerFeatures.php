@@ -98,7 +98,7 @@ $basePluginConfig = array(
 );
 
 $configRegister = array();
-global $wgMwEmbedEnabledModules, $wgKalturaPSHtml5SettingsPath, $wgBaseMwEmbedPath;
+global $wgMwEmbedEnabledModules, $wgBorhanPSHtml5SettingsPath, $wgBaseMwEmbedPath;
 foreach ($wgMwEmbedEnabledModules as $moduleName) {
     $manifestPath =  $wgBaseMwEmbedPath . "/modules/$moduleName/{$moduleName}.manifest.";
     if( is_file( $manifestPath . "json" ) ){
@@ -113,7 +113,7 @@ foreach ($wgMwEmbedEnabledModules as $moduleName) {
     }
 }
 # Register all the onPage scripts:
-$onPageManifestPath =  realpath(dirname(__FILE__)) . '/../kWidget/onPagePlugins/onPagePlugins.manifest.';
+$onPageManifestPath =  realpath(dirname(__FILE__)) . '/../bWidget/onPagePlugins/onPagePlugins.manifest.';
 if( is_file( $onPageManifestPath . "json" ) ){
     $onPagePlugins = json_decode( file_get_contents($onPageManifestPath . "json"), TRUE );
 } elseif( is_file( $onPageManifestPath . "php" ) ){
@@ -121,8 +121,8 @@ if( is_file( $onPageManifestPath . "json" ) ){
 }
 $configRegister = array_merge($configRegister, $onPagePlugins);
 
-# Register all kwidget-ps based scripts: ( if setup )
-$html5ManifestFile = realpath(dirname($wgKalturaPSHtml5SettingsPath) . '/ps/kwidget-ps.manifest.json');
+# Register all bwidget-ps based scripts: ( if setup )
+$html5ManifestFile = realpath(dirname($wgBorhanPSHtml5SettingsPath) . '/ps/bwidget-ps.manifest.json');
 if (is_file($html5ManifestFile)) {
     $json = json_decode(file_get_contents($html5ManifestFile), true);
     if ($json == null) {

@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,21 +28,21 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/KalturaEnums.php");
-require_once(dirname(__FILE__) . "/KalturaTypes.php");
+require_once(dirname(__FILE__) . "/BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/BorhanEnums.php");
+require_once(dirname(__FILE__) . "/BorhanTypes.php");
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAccessControlProfileService extends KalturaServiceBase
+class BorhanAccessControlProfileService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -50,10 +50,10 @@ class KalturaAccessControlProfileService extends KalturaServiceBase
 	/**
 	 * Add new access control profile
 	 * 
-	 * @param KalturaAccessControlProfile $accessControlProfile 
-	 * @return KalturaAccessControlProfile
+	 * @param BorhanAccessControlProfile $accessControlProfile 
+	 * @return BorhanAccessControlProfile
 	 */
-	function add(KalturaAccessControlProfile $accessControlProfile)
+	function add(BorhanAccessControlProfile $accessControlProfile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "accessControlProfile", $accessControlProfile->toParams());
@@ -62,7 +62,7 @@ class KalturaAccessControlProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAccessControlProfile");
+		$this->client->validateObjectType($resultObject, "BorhanAccessControlProfile");
 		return $resultObject;
 	}
 
@@ -70,7 +70,7 @@ class KalturaAccessControlProfileService extends KalturaServiceBase
 	 * Get access control profile by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaAccessControlProfile
+	 * @return BorhanAccessControlProfile
 	 */
 	function get($id)
 	{
@@ -81,7 +81,7 @@ class KalturaAccessControlProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAccessControlProfile");
+		$this->client->validateObjectType($resultObject, "BorhanAccessControlProfile");
 		return $resultObject;
 	}
 
@@ -89,10 +89,10 @@ class KalturaAccessControlProfileService extends KalturaServiceBase
 	 * Update access control profile by id
 	 * 
 	 * @param int $id 
-	 * @param KalturaAccessControlProfile $accessControlProfile 
-	 * @return KalturaAccessControlProfile
+	 * @param BorhanAccessControlProfile $accessControlProfile 
+	 * @return BorhanAccessControlProfile
 	 */
-	function update($id, KalturaAccessControlProfile $accessControlProfile)
+	function update($id, BorhanAccessControlProfile $accessControlProfile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -102,7 +102,7 @@ class KalturaAccessControlProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAccessControlProfile");
+		$this->client->validateObjectType($resultObject, "BorhanAccessControlProfile");
 		return $resultObject;
 	}
 
@@ -128,11 +128,11 @@ class KalturaAccessControlProfileService extends KalturaServiceBase
 	/**
 	 * List access control profiles by filter and pager
 	 * 
-	 * @param KalturaAccessControlProfileFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaAccessControlProfileListResponse
+	 * @param BorhanAccessControlProfileFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanAccessControlProfileListResponse
 	 */
-	function listAction(KalturaAccessControlProfileFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanAccessControlProfileFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -144,18 +144,18 @@ class KalturaAccessControlProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAccessControlProfileListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanAccessControlProfileListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAccessControlService extends KalturaServiceBase
+class BorhanAccessControlService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -163,10 +163,10 @@ class KalturaAccessControlService extends KalturaServiceBase
 	/**
 	 * Add new Access Control Profile
 	 * 
-	 * @param KalturaAccessControl $accessControl 
-	 * @return KalturaAccessControl
+	 * @param BorhanAccessControl $accessControl 
+	 * @return BorhanAccessControl
 	 */
-	function add(KalturaAccessControl $accessControl)
+	function add(BorhanAccessControl $accessControl)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "accessControl", $accessControl->toParams());
@@ -175,7 +175,7 @@ class KalturaAccessControlService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAccessControl");
+		$this->client->validateObjectType($resultObject, "BorhanAccessControl");
 		return $resultObject;
 	}
 
@@ -183,7 +183,7 @@ class KalturaAccessControlService extends KalturaServiceBase
 	 * Get Access Control Profile by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaAccessControl
+	 * @return BorhanAccessControl
 	 */
 	function get($id)
 	{
@@ -194,7 +194,7 @@ class KalturaAccessControlService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAccessControl");
+		$this->client->validateObjectType($resultObject, "BorhanAccessControl");
 		return $resultObject;
 	}
 
@@ -202,10 +202,10 @@ class KalturaAccessControlService extends KalturaServiceBase
 	 * Update Access Control Profile by id
 	 * 
 	 * @param int $id 
-	 * @param KalturaAccessControl $accessControl 
-	 * @return KalturaAccessControl
+	 * @param BorhanAccessControl $accessControl 
+	 * @return BorhanAccessControl
 	 */
-	function update($id, KalturaAccessControl $accessControl)
+	function update($id, BorhanAccessControl $accessControl)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -215,7 +215,7 @@ class KalturaAccessControlService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAccessControl");
+		$this->client->validateObjectType($resultObject, "BorhanAccessControl");
 		return $resultObject;
 	}
 
@@ -241,11 +241,11 @@ class KalturaAccessControlService extends KalturaServiceBase
 	/**
 	 * List Access Control Profiles by filter and pager
 	 * 
-	 * @param KalturaAccessControlFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaAccessControlListResponse
+	 * @param BorhanAccessControlFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanAccessControlListResponse
 	 */
-	function listAction(KalturaAccessControlFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanAccessControlFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -257,18 +257,18 @@ class KalturaAccessControlService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAccessControlListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanAccessControlListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaAdminUserService extends KalturaServiceBase
+class BorhanAdminUserService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -280,7 +280,7 @@ class KalturaAdminUserService extends KalturaServiceBase
 	 * @param string $password 
 	 * @param string $newEmail Optional, provide only when you want to update the email
 	 * @param string $newPassword 
-	 * @return KalturaAdminUser
+	 * @return BorhanAdminUser
 	 */
 	function updatePassword($email, $password, $newEmail = "", $newPassword = "")
 	{
@@ -294,7 +294,7 @@ class KalturaAdminUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaAdminUser");
+		$this->client->validateObjectType($resultObject, "BorhanAdminUser");
 		return $resultObject;
 	}
 
@@ -318,7 +318,7 @@ class KalturaAdminUserService extends KalturaServiceBase
 	}
 
 	/**
-	 * Get an admin session using admin email and password (Used for login to the KMC application)
+	 * Get an admin session using admin email and password (Used for login to the BMC application)
 	 * 
 	 * @param string $email 
 	 * @param string $password 
@@ -363,12 +363,12 @@ class KalturaAdminUserService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaBaseEntryService extends KalturaServiceBase
+class BorhanBaseEntryService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -376,11 +376,11 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	/**
 	 * Generic add entry, should be used when the uploaded entry type is not known.
 	 * 
-	 * @param KalturaBaseEntry $entry 
+	 * @param BorhanBaseEntry $entry 
 	 * @param string $type 
-	 * @return KalturaBaseEntry
+	 * @return BorhanBaseEntry
 	 */
-	function add(KalturaBaseEntry $entry, $type = null)
+	function add(BorhanBaseEntry $entry, $type = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entry", $entry->toParams());
@@ -390,7 +390,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntry");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntry");
 		return $resultObject;
 	}
 
@@ -398,10 +398,10 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * Attach content resource to entry in status NO_MEDIA
 	 * 
 	 * @param string $entryId 
-	 * @param KalturaResource $resource 
-	 * @return KalturaBaseEntry
+	 * @param BorhanResource $resource 
+	 * @return BorhanBaseEntry
 	 */
-	function addContent($entryId, KalturaResource $resource)
+	function addContent($entryId, BorhanResource $resource)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -411,19 +411,19 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntry");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntry");
 		return $resultObject;
 	}
 
 	/**
 	 * Generic add entry using an uploaded file, should be used when the uploaded entry type is not known.
 	 * 
-	 * @param KalturaBaseEntry $entry 
+	 * @param BorhanBaseEntry $entry 
 	 * @param string $uploadTokenId 
 	 * @param string $type 
-	 * @return KalturaBaseEntry
+	 * @return BorhanBaseEntry
 	 */
-	function addFromUploadedFile(KalturaBaseEntry $entry, $uploadTokenId, $type = null)
+	function addFromUploadedFile(BorhanBaseEntry $entry, $uploadTokenId, $type = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entry", $entry->toParams());
@@ -434,7 +434,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntry");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntry");
 		return $resultObject;
 	}
 
@@ -443,7 +443,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Entry id
 	 * @param int $version Desired version of the data
-	 * @return KalturaBaseEntry
+	 * @return BorhanBaseEntry
 	 */
 	function get($entryId, $version = -1)
 	{
@@ -455,7 +455,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntry");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntry");
 		return $resultObject;
 	}
 
@@ -463,7 +463,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * Get remote storage existing paths for the asset.
 	 * 
 	 * @param string $entryId 
-	 * @return KalturaRemotePathListResponse
+	 * @return BorhanRemotePathListResponse
 	 */
 	function getRemotePaths($entryId)
 	{
@@ -474,7 +474,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaRemotePathListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanRemotePathListResponse");
 		return $resultObject;
 	}
 
@@ -482,10 +482,10 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * Update base entry. Only the properties that were set will be updated.
 	 * 
 	 * @param string $entryId Entry id to update
-	 * @param KalturaBaseEntry $baseEntry Base entry metadata to update
-	 * @return KalturaBaseEntry
+	 * @param BorhanBaseEntry $baseEntry Base entry metadata to update
+	 * @return BorhanBaseEntry
 	 */
-	function update($entryId, KalturaBaseEntry $baseEntry)
+	function update($entryId, BorhanBaseEntry $baseEntry)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -495,7 +495,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntry");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntry");
 		return $resultObject;
 	}
 
@@ -503,11 +503,11 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * Update the content resource associated with the entry.
 	 * 
 	 * @param string $entryId Entry id to update
-	 * @param KalturaResource $resource Resource to be used to replace entry content
+	 * @param BorhanResource $resource Resource to be used to replace entry content
 	 * @param int $conversionProfileId The conversion profile id to be used on the entry
-	 * @return KalturaBaseEntry
+	 * @return BorhanBaseEntry
 	 */
-	function updateContent($entryId, KalturaResource $resource, $conversionProfileId = null)
+	function updateContent($entryId, BorhanResource $resource, $conversionProfileId = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -518,12 +518,12 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntry");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntry");
 		return $resultObject;
 	}
 
 	/**
-	 * Get an array of KalturaBaseEntry objects by a comma-separated list of ids.
+	 * Get an array of BorhanBaseEntry objects by a comma-separated list of ids.
 	 * 
 	 * @param string $entryIds Comma separated string of entry ids
 	 * @return array
@@ -563,11 +563,11 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	/**
 	 * List base entries by filter with paging support.
 	 * 
-	 * @param KalturaBaseEntryFilter $filter Entry filter
-	 * @param KalturaFilterPager $pager Pager
-	 * @return KalturaBaseEntryListResponse
+	 * @param BorhanBaseEntryFilter $filter Entry filter
+	 * @param BorhanFilterPager $pager Pager
+	 * @return BorhanBaseEntryListResponse
 	 */
-	function listAction(KalturaBaseEntryFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanBaseEntryFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -579,7 +579,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntryListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntryListResponse");
 		return $resultObject;
 	}
 
@@ -587,10 +587,10 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * List base entries by filter according to reference id
 	 * 
 	 * @param string $refId Entry Reference ID
-	 * @param KalturaFilterPager $pager Pager
-	 * @return KalturaBaseEntryListResponse
+	 * @param BorhanFilterPager $pager Pager
+	 * @return BorhanBaseEntryListResponse
 	 */
-	function listByReferenceId($refId, KalturaFilterPager $pager = null)
+	function listByReferenceId($refId, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "refId", $refId);
@@ -601,17 +601,17 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntryListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntryListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * Count base entries by filter.
 	 * 
-	 * @param KalturaBaseEntryFilter $filter Entry filter
+	 * @param BorhanBaseEntryFilter $filter Entry filter
 	 * @return int
 	 */
-	function count(KalturaBaseEntryFilter $filter = null)
+	function count(BorhanBaseEntryFilter $filter = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -626,7 +626,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	}
 
 	/**
-	 * Upload a file to Kaltura, that can be used to create an entry.
+	 * Upload a file to Borhan, that can be used to create an entry.
 	 * 
 	 * @param file $fileData The file data
 	 * @return string
@@ -650,7 +650,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Media entry id
 	 * @param file $fileData Jpeg file data
-	 * @return KalturaBaseEntry
+	 * @return BorhanBaseEntry
 	 */
 	function updateThumbnailJpeg($entryId, $fileData)
 	{
@@ -663,7 +663,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntry");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntry");
 		return $resultObject;
 	}
 
@@ -672,7 +672,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Media entry id
 	 * @param string $url File url
-	 * @return KalturaBaseEntry
+	 * @return BorhanBaseEntry
 	 */
 	function updateThumbnailFromUrl($entryId, $url)
 	{
@@ -684,7 +684,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntry");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntry");
 		return $resultObject;
 	}
 
@@ -694,7 +694,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * @param string $entryId Media entry id
 	 * @param string $sourceEntryId Media entry id
 	 * @param int $timeOffset Time offset (in seconds)
-	 * @return KalturaBaseEntry
+	 * @return BorhanBaseEntry
 	 */
 	function updateThumbnailFromSourceEntry($entryId, $sourceEntryId, $timeOffset)
 	{
@@ -707,17 +707,17 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntry");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntry");
 		return $resultObject;
 	}
 
 	/**
 	 * Flag inappropriate entry for moderation.
 	 * 
-	 * @param KalturaModerationFlag $moderationFlag 
+	 * @param BorhanModerationFlag $moderationFlag 
 	 * @return 
 	 */
-	function flag(KalturaModerationFlag $moderationFlag)
+	function flag(BorhanModerationFlag $moderationFlag)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "moderationFlag", $moderationFlag->toParams());
@@ -772,10 +772,10 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * List all pending flags for the entry.
 	 * 
 	 * @param string $entryId 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaModerationFlagListResponse
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanModerationFlagListResponse
 	 */
-	function listFlags($entryId, KalturaFilterPager $pager = null)
+	function listFlags($entryId, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -786,7 +786,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaModerationFlagListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanModerationFlagListResponse");
 		return $resultObject;
 	}
 
@@ -815,10 +815,10 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * This action delivers entry-related data, based on the user's context: access control, restriction, playback format and storage information.
 	 * 
 	 * @param string $entryId 
-	 * @param KalturaEntryContextDataParams $contextDataParams 
-	 * @return KalturaEntryContextDataResult
+	 * @param BorhanEntryContextDataParams $contextDataParams 
+	 * @return BorhanEntryContextDataResult
 	 */
-	function getContextData($entryId, KalturaEntryContextDataParams $contextDataParams)
+	function getContextData($entryId, BorhanEntryContextDataParams $contextDataParams)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -828,7 +828,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEntryContextDataResult");
+		$this->client->validateObjectType($resultObject, "BorhanEntryContextDataResult");
 		return $resultObject;
 	}
 
@@ -837,7 +837,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId 
 	 * @param int $storageProfileId 
-	 * @return KalturaBaseEntry
+	 * @return BorhanBaseEntry
 	 */
 	function export($entryId, $storageProfileId)
 	{
@@ -849,7 +849,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntry");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntry");
 		return $resultObject;
 	}
 
@@ -878,7 +878,7 @@ class KalturaBaseEntryService extends KalturaServiceBase
 	 * Clone an entry with optional attributes to apply to the clone
 	 * 
 	 * @param string $entryId Id of entry to clone
-	 * @return KalturaBaseEntry
+	 * @return BorhanBaseEntry
 	 */
 	function cloneAction($entryId)
 	{
@@ -889,18 +889,18 @@ class KalturaBaseEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntry");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntry");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaBulkUploadService extends KalturaServiceBase
+class BorhanBulkUploadService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -915,7 +915,7 @@ class KalturaBulkUploadService extends KalturaServiceBase
 	 * @param string $bulkUploadType 
 	 * @param string $uploadedBy 
 	 * @param string $fileName Friendly name of the file, used to be recognized later in the logs.
-	 * @return KalturaBulkUpload
+	 * @return BorhanBulkUpload
 	 */
 	function add($conversionProfileId, $csvFileData, $bulkUploadType = null, $uploadedBy = null, $fileName = null)
 	{
@@ -931,7 +931,7 @@ class KalturaBulkUploadService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBulkUpload");
+		$this->client->validateObjectType($resultObject, "BorhanBulkUpload");
 		return $resultObject;
 	}
 
@@ -939,7 +939,7 @@ class KalturaBulkUploadService extends KalturaServiceBase
 	 * Get bulk upload batch job by id
 	 * 
 	 * @param bigint $id 
-	 * @return KalturaBulkUpload
+	 * @return BorhanBulkUpload
 	 */
 	function get($id)
 	{
@@ -950,17 +950,17 @@ class KalturaBulkUploadService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBulkUpload");
+		$this->client->validateObjectType($resultObject, "BorhanBulkUpload");
 		return $resultObject;
 	}
 
 	/**
 	 * List bulk upload batch jobs
 	 * 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaBulkUploadListResponse
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanBulkUploadListResponse
 	 */
-	function listAction(KalturaFilterPager $pager = null)
+	function listAction(BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($pager !== null)
@@ -970,7 +970,7 @@ class KalturaBulkUploadService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBulkUploadListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanBulkUploadListResponse");
 		return $resultObject;
 	}
 
@@ -1010,7 +1010,7 @@ class KalturaBulkUploadService extends KalturaServiceBase
 	 * Aborts the bulk upload and all its child jobs
 	 * 
 	 * @param bigint $id Job id
-	 * @return KalturaBulkUpload
+	 * @return BorhanBulkUpload
 	 */
 	function abort($id)
 	{
@@ -1021,18 +1021,18 @@ class KalturaBulkUploadService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBulkUpload");
+		$this->client->validateObjectType($resultObject, "BorhanBulkUpload");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCategoryEntryService extends KalturaServiceBase
+class BorhanCategoryEntryService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -1040,10 +1040,10 @@ class KalturaCategoryEntryService extends KalturaServiceBase
 	/**
 	 * Add new CategoryEntry
 	 * 
-	 * @param KalturaCategoryEntry $categoryEntry 
-	 * @return KalturaCategoryEntry
+	 * @param BorhanCategoryEntry $categoryEntry 
+	 * @return BorhanCategoryEntry
 	 */
-	function add(KalturaCategoryEntry $categoryEntry)
+	function add(BorhanCategoryEntry $categoryEntry)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "categoryEntry", $categoryEntry->toParams());
@@ -1052,7 +1052,7 @@ class KalturaCategoryEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategoryEntry");
+		$this->client->validateObjectType($resultObject, "BorhanCategoryEntry");
 		return $resultObject;
 	}
 
@@ -1080,11 +1080,11 @@ class KalturaCategoryEntryService extends KalturaServiceBase
 	/**
 	 * List all categoryEntry
 	 * 
-	 * @param KalturaCategoryEntryFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaCategoryEntryListResponse
+	 * @param BorhanCategoryEntryFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanCategoryEntryListResponse
 	 */
-	function listAction(KalturaCategoryEntryFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanCategoryEntryFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -1096,7 +1096,7 @@ class KalturaCategoryEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategoryEntryListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanCategoryEntryListResponse");
 		return $resultObject;
 	}
 
@@ -1189,11 +1189,11 @@ class KalturaCategoryEntryService extends KalturaServiceBase
 	/**
 	 * 
 	 * 
-	 * @param KalturaBulkServiceData $bulkUploadData 
-	 * @param KalturaBulkUploadCategoryEntryData $bulkUploadCategoryEntryData 
-	 * @return KalturaBulkUpload
+	 * @param BorhanBulkServiceData $bulkUploadData 
+	 * @param BorhanBulkUploadCategoryEntryData $bulkUploadCategoryEntryData 
+	 * @return BorhanBulkUpload
 	 */
-	function addFromBulkUpload(KalturaBulkServiceData $bulkUploadData, KalturaBulkUploadCategoryEntryData $bulkUploadCategoryEntryData = null)
+	function addFromBulkUpload(BorhanBulkServiceData $bulkUploadData, BorhanBulkUploadCategoryEntryData $bulkUploadCategoryEntryData = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "bulkUploadData", $bulkUploadData->toParams());
@@ -1204,18 +1204,18 @@ class KalturaCategoryEntryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBulkUpload");
+		$this->client->validateObjectType($resultObject, "BorhanBulkUpload");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCategoryService extends KalturaServiceBase
+class BorhanCategoryService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -1223,10 +1223,10 @@ class KalturaCategoryService extends KalturaServiceBase
 	/**
 	 * Add new Category
 	 * 
-	 * @param KalturaCategory $category 
-	 * @return KalturaCategory
+	 * @param BorhanCategory $category 
+	 * @return BorhanCategory
 	 */
-	function add(KalturaCategory $category)
+	function add(BorhanCategory $category)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "category", $category->toParams());
@@ -1235,7 +1235,7 @@ class KalturaCategoryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategory");
+		$this->client->validateObjectType($resultObject, "BorhanCategory");
 		return $resultObject;
 	}
 
@@ -1243,7 +1243,7 @@ class KalturaCategoryService extends KalturaServiceBase
 	 * Get Category by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaCategory
+	 * @return BorhanCategory
 	 */
 	function get($id)
 	{
@@ -1254,7 +1254,7 @@ class KalturaCategoryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategory");
+		$this->client->validateObjectType($resultObject, "BorhanCategory");
 		return $resultObject;
 	}
 
@@ -1262,10 +1262,10 @@ class KalturaCategoryService extends KalturaServiceBase
 	 * Update Category
 	 * 
 	 * @param int $id 
-	 * @param KalturaCategory $category 
-	 * @return KalturaCategory
+	 * @param BorhanCategory $category 
+	 * @return BorhanCategory
 	 */
-	function update($id, KalturaCategory $category)
+	function update($id, BorhanCategory $category)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -1275,7 +1275,7 @@ class KalturaCategoryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategory");
+		$this->client->validateObjectType($resultObject, "BorhanCategory");
 		return $resultObject;
 	}
 
@@ -1303,11 +1303,11 @@ class KalturaCategoryService extends KalturaServiceBase
 	/**
 	 * List all categories
 	 * 
-	 * @param KalturaCategoryFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaCategoryListResponse
+	 * @param BorhanCategoryFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanCategoryListResponse
 	 */
-	function listAction(KalturaCategoryFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanCategoryFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -1319,7 +1319,7 @@ class KalturaCategoryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategoryListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanCategoryListResponse");
 		return $resultObject;
 	}
 
@@ -1349,7 +1349,7 @@ class KalturaCategoryService extends KalturaServiceBase
 	 * 
 	 * @param string $categoryIds 
 	 * @param int $targetCategoryParentId 
-	 * @return KalturaCategoryListResponse
+	 * @return BorhanCategoryListResponse
 	 */
 	function move($categoryIds, $targetCategoryParentId)
 	{
@@ -1361,7 +1361,7 @@ class KalturaCategoryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategoryListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanCategoryListResponse");
 		return $resultObject;
 	}
 
@@ -1386,11 +1386,11 @@ class KalturaCategoryService extends KalturaServiceBase
 	 * 
 	 * 
 	 * @param file $fileData 
-	 * @param KalturaBulkUploadJobData $bulkUploadData 
-	 * @param KalturaBulkUploadCategoryData $bulkUploadCategoryData 
-	 * @return KalturaBulkUpload
+	 * @param BorhanBulkUploadJobData $bulkUploadData 
+	 * @param BorhanBulkUploadCategoryData $bulkUploadCategoryData 
+	 * @return BorhanBulkUpload
 	 */
-	function addFromBulkUpload($fileData, KalturaBulkUploadJobData $bulkUploadData = null, KalturaBulkUploadCategoryData $bulkUploadCategoryData = null)
+	function addFromBulkUpload($fileData, BorhanBulkUploadJobData $bulkUploadData = null, BorhanBulkUploadCategoryData $bulkUploadCategoryData = null)
 	{
 		$kparams = array();
 		$kfiles = array();
@@ -1404,18 +1404,18 @@ class KalturaCategoryService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBulkUpload");
+		$this->client->validateObjectType($resultObject, "BorhanBulkUpload");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCategoryUserService extends KalturaServiceBase
+class BorhanCategoryUserService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -1423,10 +1423,10 @@ class KalturaCategoryUserService extends KalturaServiceBase
 	/**
 	 * Add new CategoryUser
 	 * 
-	 * @param KalturaCategoryUser $categoryUser 
-	 * @return KalturaCategoryUser
+	 * @param BorhanCategoryUser $categoryUser 
+	 * @return BorhanCategoryUser
 	 */
-	function add(KalturaCategoryUser $categoryUser)
+	function add(BorhanCategoryUser $categoryUser)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "categoryUser", $categoryUser->toParams());
@@ -1435,7 +1435,7 @@ class KalturaCategoryUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategoryUser");
+		$this->client->validateObjectType($resultObject, "BorhanCategoryUser");
 		return $resultObject;
 	}
 
@@ -1444,7 +1444,7 @@ class KalturaCategoryUserService extends KalturaServiceBase
 	 * 
 	 * @param int $categoryId 
 	 * @param string $userId 
-	 * @return KalturaCategoryUser
+	 * @return BorhanCategoryUser
 	 */
 	function get($categoryId, $userId)
 	{
@@ -1456,7 +1456,7 @@ class KalturaCategoryUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategoryUser");
+		$this->client->validateObjectType($resultObject, "BorhanCategoryUser");
 		return $resultObject;
 	}
 
@@ -1465,11 +1465,11 @@ class KalturaCategoryUserService extends KalturaServiceBase
 	 * 
 	 * @param int $categoryId 
 	 * @param string $userId 
-	 * @param KalturaCategoryUser $categoryUser 
+	 * @param BorhanCategoryUser $categoryUser 
 	 * @param bool $override - to override manual changes
-	 * @return KalturaCategoryUser
+	 * @return BorhanCategoryUser
 	 */
-	function update($categoryId, $userId, KalturaCategoryUser $categoryUser, $override = false)
+	function update($categoryId, $userId, BorhanCategoryUser $categoryUser, $override = false)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "categoryId", $categoryId);
@@ -1481,7 +1481,7 @@ class KalturaCategoryUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategoryUser");
+		$this->client->validateObjectType($resultObject, "BorhanCategoryUser");
 		return $resultObject;
 	}
 
@@ -1511,7 +1511,7 @@ class KalturaCategoryUserService extends KalturaServiceBase
 	 * 
 	 * @param int $categoryId 
 	 * @param string $userId 
-	 * @return KalturaCategoryUser
+	 * @return BorhanCategoryUser
 	 */
 	function activate($categoryId, $userId)
 	{
@@ -1523,7 +1523,7 @@ class KalturaCategoryUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategoryUser");
+		$this->client->validateObjectType($resultObject, "BorhanCategoryUser");
 		return $resultObject;
 	}
 
@@ -1532,7 +1532,7 @@ class KalturaCategoryUserService extends KalturaServiceBase
 	 * 
 	 * @param int $categoryId 
 	 * @param string $userId 
-	 * @return KalturaCategoryUser
+	 * @return BorhanCategoryUser
 	 */
 	function deactivate($categoryId, $userId)
 	{
@@ -1544,18 +1544,18 @@ class KalturaCategoryUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategoryUser");
+		$this->client->validateObjectType($resultObject, "BorhanCategoryUser");
 		return $resultObject;
 	}
 
 	/**
 	 * List all categories
 	 * 
-	 * @param KalturaCategoryUserFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaCategoryUserListResponse
+	 * @param BorhanCategoryUserFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanCategoryUserListResponse
 	 */
-	function listAction(KalturaCategoryUserFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanCategoryUserFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -1567,7 +1567,7 @@ class KalturaCategoryUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCategoryUserListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanCategoryUserListResponse");
 		return $resultObject;
 	}
 
@@ -1617,11 +1617,11 @@ class KalturaCategoryUserService extends KalturaServiceBase
 	 * 
 	 * 
 	 * @param file $fileData 
-	 * @param KalturaBulkUploadJobData $bulkUploadData 
-	 * @param KalturaBulkUploadCategoryUserData $bulkUploadCategoryUserData 
-	 * @return KalturaBulkUpload
+	 * @param BorhanBulkUploadJobData $bulkUploadData 
+	 * @param BorhanBulkUploadCategoryUserData $bulkUploadCategoryUserData 
+	 * @return BorhanBulkUpload
 	 */
-	function addFromBulkUpload($fileData, KalturaBulkUploadJobData $bulkUploadData = null, KalturaBulkUploadCategoryUserData $bulkUploadCategoryUserData = null)
+	function addFromBulkUpload($fileData, BorhanBulkUploadJobData $bulkUploadData = null, BorhanBulkUploadCategoryUserData $bulkUploadCategoryUserData = null)
 	{
 		$kparams = array();
 		$kfiles = array();
@@ -1635,18 +1635,18 @@ class KalturaCategoryUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBulkUpload");
+		$this->client->validateObjectType($resultObject, "BorhanBulkUpload");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaConversionProfileAssetParamsService extends KalturaServiceBase
+class BorhanConversionProfileAssetParamsService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -1654,11 +1654,11 @@ class KalturaConversionProfileAssetParamsService extends KalturaServiceBase
 	/**
 	 * Lists asset parmas of conversion profile by ID
 	 * 
-	 * @param KalturaConversionProfileAssetParamsFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaConversionProfileAssetParamsListResponse
+	 * @param BorhanConversionProfileAssetParamsFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanConversionProfileAssetParamsListResponse
 	 */
-	function listAction(KalturaConversionProfileAssetParamsFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanConversionProfileAssetParamsFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -1670,7 +1670,7 @@ class KalturaConversionProfileAssetParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaConversionProfileAssetParamsListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanConversionProfileAssetParamsListResponse");
 		return $resultObject;
 	}
 
@@ -1679,10 +1679,10 @@ class KalturaConversionProfileAssetParamsService extends KalturaServiceBase
 	 * 
 	 * @param int $conversionProfileId 
 	 * @param int $assetParamsId 
-	 * @param KalturaConversionProfileAssetParams $conversionProfileAssetParams 
-	 * @return KalturaConversionProfileAssetParams
+	 * @param BorhanConversionProfileAssetParams $conversionProfileAssetParams 
+	 * @return BorhanConversionProfileAssetParams
 	 */
-	function update($conversionProfileId, $assetParamsId, KalturaConversionProfileAssetParams $conversionProfileAssetParams)
+	function update($conversionProfileId, $assetParamsId, BorhanConversionProfileAssetParams $conversionProfileAssetParams)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "conversionProfileId", $conversionProfileId);
@@ -1693,18 +1693,18 @@ class KalturaConversionProfileAssetParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaConversionProfileAssetParams");
+		$this->client->validateObjectType($resultObject, "BorhanConversionProfileAssetParams");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaConversionProfileService extends KalturaServiceBase
+class BorhanConversionProfileService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -1713,7 +1713,7 @@ class KalturaConversionProfileService extends KalturaServiceBase
 	 * Set Conversion Profile to be the partner default
 	 * 
 	 * @param int $id 
-	 * @return KalturaConversionProfile
+	 * @return BorhanConversionProfile
 	 */
 	function setAsDefault($id)
 	{
@@ -1724,7 +1724,7 @@ class KalturaConversionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaConversionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanConversionProfile");
 		return $resultObject;
 	}
 
@@ -1732,7 +1732,7 @@ class KalturaConversionProfileService extends KalturaServiceBase
 	 * Get the partner's default conversion profile
 	 * 
 	 * @param string $type 
-	 * @return KalturaConversionProfile
+	 * @return BorhanConversionProfile
 	 */
 	function getDefault($type = null)
 	{
@@ -1743,17 +1743,17 @@ class KalturaConversionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaConversionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanConversionProfile");
 		return $resultObject;
 	}
 
 	/**
 	 * Add new Conversion Profile
 	 * 
-	 * @param KalturaConversionProfile $conversionProfile 
-	 * @return KalturaConversionProfile
+	 * @param BorhanConversionProfile $conversionProfile 
+	 * @return BorhanConversionProfile
 	 */
-	function add(KalturaConversionProfile $conversionProfile)
+	function add(BorhanConversionProfile $conversionProfile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "conversionProfile", $conversionProfile->toParams());
@@ -1762,7 +1762,7 @@ class KalturaConversionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaConversionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanConversionProfile");
 		return $resultObject;
 	}
 
@@ -1770,7 +1770,7 @@ class KalturaConversionProfileService extends KalturaServiceBase
 	 * Get Conversion Profile by ID
 	 * 
 	 * @param int $id 
-	 * @return KalturaConversionProfile
+	 * @return BorhanConversionProfile
 	 */
 	function get($id)
 	{
@@ -1781,7 +1781,7 @@ class KalturaConversionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaConversionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanConversionProfile");
 		return $resultObject;
 	}
 
@@ -1789,10 +1789,10 @@ class KalturaConversionProfileService extends KalturaServiceBase
 	 * Update Conversion Profile by ID
 	 * 
 	 * @param int $id 
-	 * @param KalturaConversionProfile $conversionProfile 
-	 * @return KalturaConversionProfile
+	 * @param BorhanConversionProfile $conversionProfile 
+	 * @return BorhanConversionProfile
 	 */
-	function update($id, KalturaConversionProfile $conversionProfile)
+	function update($id, BorhanConversionProfile $conversionProfile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -1802,7 +1802,7 @@ class KalturaConversionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaConversionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanConversionProfile");
 		return $resultObject;
 	}
 
@@ -1828,11 +1828,11 @@ class KalturaConversionProfileService extends KalturaServiceBase
 	/**
 	 * List Conversion Profiles by filter with paging support
 	 * 
-	 * @param KalturaConversionProfileFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaConversionProfileListResponse
+	 * @param BorhanConversionProfileFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanConversionProfileListResponse
 	 */
-	function listAction(KalturaConversionProfileFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanConversionProfileFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -1844,18 +1844,18 @@ class KalturaConversionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaConversionProfileListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanConversionProfileListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDataService extends KalturaServiceBase
+class BorhanDataService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -1863,10 +1863,10 @@ class KalturaDataService extends KalturaServiceBase
 	/**
 	 * Adds a new data entry
 	 * 
-	 * @param KalturaDataEntry $dataEntry Data entry
-	 * @return KalturaDataEntry
+	 * @param BorhanDataEntry $dataEntry Data entry
+	 * @return BorhanDataEntry
 	 */
-	function add(KalturaDataEntry $dataEntry)
+	function add(BorhanDataEntry $dataEntry)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "dataEntry", $dataEntry->toParams());
@@ -1875,7 +1875,7 @@ class KalturaDataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDataEntry");
+		$this->client->validateObjectType($resultObject, "BorhanDataEntry");
 		return $resultObject;
 	}
 
@@ -1884,7 +1884,7 @@ class KalturaDataService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Data entry id
 	 * @param int $version Desired version of the data
-	 * @return KalturaDataEntry
+	 * @return BorhanDataEntry
 	 */
 	function get($entryId, $version = -1)
 	{
@@ -1896,7 +1896,7 @@ class KalturaDataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDataEntry");
+		$this->client->validateObjectType($resultObject, "BorhanDataEntry");
 		return $resultObject;
 	}
 
@@ -1904,10 +1904,10 @@ class KalturaDataService extends KalturaServiceBase
 	 * Update data entry. Only the properties that were set will be updated.
 	 * 
 	 * @param string $entryId Data entry id to update
-	 * @param KalturaDataEntry $documentEntry Data entry metadata to update
-	 * @return KalturaDataEntry
+	 * @param BorhanDataEntry $documentEntry Data entry metadata to update
+	 * @return BorhanDataEntry
 	 */
-	function update($entryId, KalturaDataEntry $documentEntry)
+	function update($entryId, BorhanDataEntry $documentEntry)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -1917,7 +1917,7 @@ class KalturaDataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDataEntry");
+		$this->client->validateObjectType($resultObject, "BorhanDataEntry");
 		return $resultObject;
 	}
 
@@ -1943,11 +1943,11 @@ class KalturaDataService extends KalturaServiceBase
 	/**
 	 * List data entries by filter with paging support.
 	 * 
-	 * @param KalturaDataEntryFilter $filter Document entry filter
-	 * @param KalturaFilterPager $pager Pager
-	 * @return KalturaDataListResponse
+	 * @param BorhanDataEntryFilter $filter Document entry filter
+	 * @param BorhanFilterPager $pager Pager
+	 * @return BorhanDataListResponse
 	 */
-	function listAction(KalturaDataEntryFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanDataEntryFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -1959,7 +1959,7 @@ class KalturaDataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDataListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanDataListResponse");
 		return $resultObject;
 	}
 
@@ -1985,12 +1985,12 @@ class KalturaDataService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaDocumentService extends KalturaServiceBase
+class BorhanDocumentService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -1998,11 +1998,11 @@ class KalturaDocumentService extends KalturaServiceBase
 	/**
 	 * Add new document entry after the specific document file was uploaded and the upload token id exists
 	 * 
-	 * @param KalturaDocumentEntry $documentEntry Document entry metadata
+	 * @param BorhanDocumentEntry $documentEntry Document entry metadata
 	 * @param string $uploadTokenId Upload token id
-	 * @return KalturaDocumentEntry
+	 * @return BorhanDocumentEntry
 	 */
-	function addFromUploadedFile(KalturaDocumentEntry $documentEntry, $uploadTokenId)
+	function addFromUploadedFile(BorhanDocumentEntry $documentEntry, $uploadTokenId)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "documentEntry", $documentEntry->toParams());
@@ -2012,7 +2012,7 @@ class KalturaDocumentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDocumentEntry");
+		$this->client->validateObjectType($resultObject, "BorhanDocumentEntry");
 		return $resultObject;
 	}
 
@@ -2020,11 +2020,11 @@ class KalturaDocumentService extends KalturaServiceBase
 	 * Copy entry into new entry
 	 * 
 	 * @param string $sourceEntryId Document entry id to copy from
-	 * @param KalturaDocumentEntry $documentEntry Document entry metadata
+	 * @param BorhanDocumentEntry $documentEntry Document entry metadata
 	 * @param int $sourceFlavorParamsId The flavor to be used as the new entry source, source flavor will be used if not specified
-	 * @return KalturaDocumentEntry
+	 * @return BorhanDocumentEntry
 	 */
-	function addFromEntry($sourceEntryId, KalturaDocumentEntry $documentEntry = null, $sourceFlavorParamsId = null)
+	function addFromEntry($sourceEntryId, BorhanDocumentEntry $documentEntry = null, $sourceFlavorParamsId = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "sourceEntryId", $sourceEntryId);
@@ -2036,7 +2036,7 @@ class KalturaDocumentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDocumentEntry");
+		$this->client->validateObjectType($resultObject, "BorhanDocumentEntry");
 		return $resultObject;
 	}
 
@@ -2044,10 +2044,10 @@ class KalturaDocumentService extends KalturaServiceBase
 	 * Copy flavor asset into new entry
 	 * 
 	 * @param string $sourceFlavorAssetId Flavor asset id to be used as the new entry source
-	 * @param KalturaDocumentEntry $documentEntry Document entry metadata
-	 * @return KalturaDocumentEntry
+	 * @param BorhanDocumentEntry $documentEntry Document entry metadata
+	 * @return BorhanDocumentEntry
 	 */
-	function addFromFlavorAsset($sourceFlavorAssetId, KalturaDocumentEntry $documentEntry = null)
+	function addFromFlavorAsset($sourceFlavorAssetId, BorhanDocumentEntry $documentEntry = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "sourceFlavorAssetId", $sourceFlavorAssetId);
@@ -2058,7 +2058,7 @@ class KalturaDocumentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDocumentEntry");
+		$this->client->validateObjectType($resultObject, "BorhanDocumentEntry");
 		return $resultObject;
 	}
 
@@ -2094,7 +2094,7 @@ class KalturaDocumentService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Document entry id
 	 * @param int $version Desired version of the data
-	 * @return KalturaDocumentEntry
+	 * @return BorhanDocumentEntry
 	 */
 	function get($entryId, $version = -1)
 	{
@@ -2106,7 +2106,7 @@ class KalturaDocumentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDocumentEntry");
+		$this->client->validateObjectType($resultObject, "BorhanDocumentEntry");
 		return $resultObject;
 	}
 
@@ -2114,10 +2114,10 @@ class KalturaDocumentService extends KalturaServiceBase
 	 * Update document entry. Only the properties that were set will be updated.
 	 * 
 	 * @param string $entryId Document entry id to update
-	 * @param KalturaDocumentEntry $documentEntry Document entry metadata to update
-	 * @return KalturaDocumentEntry
+	 * @param BorhanDocumentEntry $documentEntry Document entry metadata to update
+	 * @return BorhanDocumentEntry
 	 */
-	function update($entryId, KalturaDocumentEntry $documentEntry)
+	function update($entryId, BorhanDocumentEntry $documentEntry)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -2127,7 +2127,7 @@ class KalturaDocumentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDocumentEntry");
+		$this->client->validateObjectType($resultObject, "BorhanDocumentEntry");
 		return $resultObject;
 	}
 
@@ -2153,11 +2153,11 @@ class KalturaDocumentService extends KalturaServiceBase
 	/**
 	 * List document entries by filter with paging support.
 	 * 
-	 * @param KalturaDocumentEntryFilter $filter Document entry filter
-	 * @param KalturaFilterPager $pager Pager
-	 * @return KalturaDocumentListResponse
+	 * @param BorhanDocumentEntryFilter $filter Document entry filter
+	 * @param BorhanFilterPager $pager Pager
+	 * @return BorhanDocumentListResponse
 	 */
-	function listAction(KalturaDocumentEntryFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanDocumentEntryFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -2169,12 +2169,12 @@ class KalturaDocumentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDocumentListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanDocumentListResponse");
 		return $resultObject;
 	}
 
 	/**
-	 * Upload a document file to Kaltura, then the file can be used to create a document entry.
+	 * Upload a document file to Borhan, then the file can be used to create a document entry.
 	 * 
 	 * @param file $fileData The file data
 	 * @return string
@@ -2257,11 +2257,11 @@ class KalturaDocumentService extends KalturaServiceBase
 	 * Replace content associated with the given document entry.
 	 * 
 	 * @param string $entryId Document entry id to update
-	 * @param KalturaResource $resource Resource to be used to replace entry doc content
+	 * @param BorhanResource $resource Resource to be used to replace entry doc content
 	 * @param int $conversionProfileId The conversion profile id to be used on the entry
-	 * @return KalturaDocumentEntry
+	 * @return BorhanDocumentEntry
 	 */
-	function updateContent($entryId, KalturaResource $resource, $conversionProfileId = null)
+	function updateContent($entryId, BorhanResource $resource, $conversionProfileId = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -2272,7 +2272,7 @@ class KalturaDocumentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDocumentEntry");
+		$this->client->validateObjectType($resultObject, "BorhanDocumentEntry");
 		return $resultObject;
 	}
 
@@ -2280,7 +2280,7 @@ class KalturaDocumentService extends KalturaServiceBase
 	 * Approves document replacement
 	 * 
 	 * @param string $entryId Document entry id to replace
-	 * @return KalturaDocumentEntry
+	 * @return BorhanDocumentEntry
 	 */
 	function approveReplace($entryId)
 	{
@@ -2291,7 +2291,7 @@ class KalturaDocumentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDocumentEntry");
+		$this->client->validateObjectType($resultObject, "BorhanDocumentEntry");
 		return $resultObject;
 	}
 
@@ -2299,7 +2299,7 @@ class KalturaDocumentService extends KalturaServiceBase
 	 * Cancels document replacement
 	 * 
 	 * @param string $entryId Document entry id to cancel
-	 * @return KalturaDocumentEntry
+	 * @return BorhanDocumentEntry
 	 */
 	function cancelReplace($entryId)
 	{
@@ -2310,29 +2310,29 @@ class KalturaDocumentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaDocumentEntry");
+		$this->client->validateObjectType($resultObject, "BorhanDocumentEntry");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailIngestionProfileService extends KalturaServiceBase
+class BorhanEmailIngestionProfileService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * EmailIngestionProfile Add action allows you to add a EmailIngestionProfile to Kaltura DB
+	 * EmailIngestionProfile Add action allows you to add a EmailIngestionProfile to Borhan DB
 	 * 
-	 * @param KalturaEmailIngestionProfile $EmailIP Mandatory input parameter of type KalturaEmailIngestionProfile
-	 * @return KalturaEmailIngestionProfile
+	 * @param BorhanEmailIngestionProfile $EmailIP Mandatory input parameter of type BorhanEmailIngestionProfile
+	 * @return BorhanEmailIngestionProfile
 	 */
-	function add(KalturaEmailIngestionProfile $EmailIP)
+	function add(BorhanEmailIngestionProfile $EmailIP)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "EmailIP", $EmailIP->toParams());
@@ -2341,7 +2341,7 @@ class KalturaEmailIngestionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEmailIngestionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanEmailIngestionProfile");
 		return $resultObject;
 	}
 
@@ -2349,7 +2349,7 @@ class KalturaEmailIngestionProfileService extends KalturaServiceBase
 	 * Retrieve a EmailIngestionProfile by email address
 	 * 
 	 * @param string $emailAddress 
-	 * @return KalturaEmailIngestionProfile
+	 * @return BorhanEmailIngestionProfile
 	 */
 	function getByEmailAddress($emailAddress)
 	{
@@ -2360,7 +2360,7 @@ class KalturaEmailIngestionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEmailIngestionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanEmailIngestionProfile");
 		return $resultObject;
 	}
 
@@ -2368,7 +2368,7 @@ class KalturaEmailIngestionProfileService extends KalturaServiceBase
 	 * Retrieve a EmailIngestionProfile by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaEmailIngestionProfile
+	 * @return BorhanEmailIngestionProfile
 	 */
 	function get($id)
 	{
@@ -2379,7 +2379,7 @@ class KalturaEmailIngestionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEmailIngestionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanEmailIngestionProfile");
 		return $resultObject;
 	}
 
@@ -2387,10 +2387,10 @@ class KalturaEmailIngestionProfileService extends KalturaServiceBase
 	 * Update an existing EmailIngestionProfile
 	 * 
 	 * @param int $id 
-	 * @param KalturaEmailIngestionProfile $EmailIP 
-	 * @return KalturaEmailIngestionProfile
+	 * @param BorhanEmailIngestionProfile $EmailIP 
+	 * @return BorhanEmailIngestionProfile
 	 */
-	function update($id, KalturaEmailIngestionProfile $EmailIP)
+	function update($id, BorhanEmailIngestionProfile $EmailIP)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -2400,7 +2400,7 @@ class KalturaEmailIngestionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaEmailIngestionProfile");
+		$this->client->validateObjectType($resultObject, "BorhanEmailIngestionProfile");
 		return $resultObject;
 	}
 
@@ -2424,16 +2424,16 @@ class KalturaEmailIngestionProfileService extends KalturaServiceBase
 	}
 
 	/**
-	 * Add KalturaMediaEntry from email ingestion
+	 * Add BorhanMediaEntry from email ingestion
 	 * 
-	 * @param KalturaMediaEntry $mediaEntry Media entry metadata
+	 * @param BorhanMediaEntry $mediaEntry Media entry metadata
 	 * @param string $uploadTokenId Upload token id
 	 * @param int $emailProfId 
 	 * @param string $fromAddress 
 	 * @param string $emailMsgId 
-	 * @return KalturaMediaEntry
+	 * @return BorhanMediaEntry
 	 */
-	function addMediaEntry(KalturaMediaEntry $mediaEntry, $uploadTokenId, $emailProfId, $fromAddress, $emailMsgId)
+	function addMediaEntry(BorhanMediaEntry $mediaEntry, $uploadTokenId, $emailProfId, $fromAddress, $emailMsgId)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "mediaEntry", $mediaEntry->toParams());
@@ -2446,18 +2446,18 @@ class KalturaEmailIngestionProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFileAssetService extends KalturaServiceBase
+class BorhanFileAssetService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -2465,10 +2465,10 @@ class KalturaFileAssetService extends KalturaServiceBase
 	/**
 	 * Add new file asset
 	 * 
-	 * @param KalturaFileAsset $fileAsset 
-	 * @return KalturaFileAsset
+	 * @param BorhanFileAsset $fileAsset 
+	 * @return BorhanFileAsset
 	 */
-	function add(KalturaFileAsset $fileAsset)
+	function add(BorhanFileAsset $fileAsset)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "fileAsset", $fileAsset->toParams());
@@ -2477,7 +2477,7 @@ class KalturaFileAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFileAsset");
+		$this->client->validateObjectType($resultObject, "BorhanFileAsset");
 		return $resultObject;
 	}
 
@@ -2485,7 +2485,7 @@ class KalturaFileAssetService extends KalturaServiceBase
 	 * Get file asset by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaFileAsset
+	 * @return BorhanFileAsset
 	 */
 	function get($id)
 	{
@@ -2496,7 +2496,7 @@ class KalturaFileAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFileAsset");
+		$this->client->validateObjectType($resultObject, "BorhanFileAsset");
 		return $resultObject;
 	}
 
@@ -2504,10 +2504,10 @@ class KalturaFileAssetService extends KalturaServiceBase
 	 * Update file asset by id
 	 * 
 	 * @param int $id 
-	 * @param KalturaFileAsset $fileAsset 
-	 * @return KalturaFileAsset
+	 * @param BorhanFileAsset $fileAsset 
+	 * @return BorhanFileAsset
 	 */
-	function update($id, KalturaFileAsset $fileAsset)
+	function update($id, BorhanFileAsset $fileAsset)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -2517,7 +2517,7 @@ class KalturaFileAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFileAsset");
+		$this->client->validateObjectType($resultObject, "BorhanFileAsset");
 		return $resultObject;
 	}
 
@@ -2560,10 +2560,10 @@ class KalturaFileAssetService extends KalturaServiceBase
 	 * Set content of file asset
 	 * 
 	 * @param string $id 
-	 * @param KalturaContentResource $contentResource 
-	 * @return KalturaFileAsset
+	 * @param BorhanContentResource $contentResource 
+	 * @return BorhanFileAsset
 	 */
-	function setContent($id, KalturaContentResource $contentResource)
+	function setContent($id, BorhanContentResource $contentResource)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -2573,18 +2573,18 @@ class KalturaFileAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFileAsset");
+		$this->client->validateObjectType($resultObject, "BorhanFileAsset");
 		return $resultObject;
 	}
 
 	/**
 	 * List file assets by filter and pager
 	 * 
-	 * @param KalturaFileAssetFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaFileAssetListResponse
+	 * @param BorhanFileAssetFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanFileAssetListResponse
 	 */
-	function listAction(KalturaFileAssetFilter $filter, KalturaFilterPager $pager = null)
+	function listAction(BorhanFileAssetFilter $filter, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "filter", $filter->toParams());
@@ -2595,18 +2595,18 @@ class KalturaFileAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFileAssetListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanFileAssetListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFlavorAssetService extends KalturaServiceBase
+class BorhanFlavorAssetService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -2615,10 +2615,10 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 	 * Add flavor asset
 	 * 
 	 * @param string $entryId 
-	 * @param KalturaFlavorAsset $flavorAsset 
-	 * @return KalturaFlavorAsset
+	 * @param BorhanFlavorAsset $flavorAsset 
+	 * @return BorhanFlavorAsset
 	 */
-	function add($entryId, KalturaFlavorAsset $flavorAsset)
+	function add($entryId, BorhanFlavorAsset $flavorAsset)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -2628,7 +2628,7 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFlavorAsset");
+		$this->client->validateObjectType($resultObject, "BorhanFlavorAsset");
 		return $resultObject;
 	}
 
@@ -2636,10 +2636,10 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 	 * Update flavor asset
 	 * 
 	 * @param string $id 
-	 * @param KalturaFlavorAsset $flavorAsset 
-	 * @return KalturaFlavorAsset
+	 * @param BorhanFlavorAsset $flavorAsset 
+	 * @return BorhanFlavorAsset
 	 */
-	function update($id, KalturaFlavorAsset $flavorAsset)
+	function update($id, BorhanFlavorAsset $flavorAsset)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -2649,7 +2649,7 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFlavorAsset");
+		$this->client->validateObjectType($resultObject, "BorhanFlavorAsset");
 		return $resultObject;
 	}
 
@@ -2657,10 +2657,10 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 	 * Update content of flavor asset
 	 * 
 	 * @param string $id 
-	 * @param KalturaContentResource $contentResource 
-	 * @return KalturaFlavorAsset
+	 * @param BorhanContentResource $contentResource 
+	 * @return BorhanFlavorAsset
 	 */
-	function setContent($id, KalturaContentResource $contentResource)
+	function setContent($id, BorhanContentResource $contentResource)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -2670,7 +2670,7 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFlavorAsset");
+		$this->client->validateObjectType($resultObject, "BorhanFlavorAsset");
 		return $resultObject;
 	}
 
@@ -2678,7 +2678,7 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 	 * Get Flavor Asset by ID
 	 * 
 	 * @param string $id 
-	 * @return KalturaFlavorAsset
+	 * @return BorhanFlavorAsset
 	 */
 	function get($id)
 	{
@@ -2689,7 +2689,7 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFlavorAsset");
+		$this->client->validateObjectType($resultObject, "BorhanFlavorAsset");
 		return $resultObject;
 	}
 
@@ -2715,11 +2715,11 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 	/**
 	 * List Flavor Assets by filter and pager
 	 * 
-	 * @param KalturaAssetFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaFlavorAssetListResponse
+	 * @param BorhanAssetFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanFlavorAssetListResponse
 	 */
-	function listAction(KalturaAssetFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanAssetFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -2731,7 +2731,7 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFlavorAssetListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanFlavorAssetListResponse");
 		return $resultObject;
 	}
 
@@ -2823,7 +2823,7 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 	 * @param bool $forceProxy 
 	 * @return string
 	 */
-	function getUrl($id, $storageId = null, $forceProxy = false, KalturaFlavorAssetUrlOptions $options = null)
+	function getUrl($id, $storageId = null, $forceProxy = false, BorhanFlavorAssetUrlOptions $options = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -2844,7 +2844,7 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 	 * Get remote storage existing paths for the asset
 	 * 
 	 * @param string $id 
-	 * @return KalturaRemotePathListResponse
+	 * @return BorhanRemotePathListResponse
 	 */
 	function getRemotePaths($id)
 	{
@@ -2855,7 +2855,7 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaRemotePathListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanRemotePathListResponse");
 		return $resultObject;
 	}
 
@@ -2904,7 +2904,7 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 	 * 
 	 * @param string $assetId 
 	 * @param int $storageProfileId 
-	 * @return KalturaFlavorAsset
+	 * @return BorhanFlavorAsset
 	 */
 	function export($assetId, $storageProfileId)
 	{
@@ -2916,7 +2916,7 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFlavorAsset");
+		$this->client->validateObjectType($resultObject, "BorhanFlavorAsset");
 		return $resultObject;
 	}
 
@@ -2941,12 +2941,12 @@ class KalturaFlavorAssetService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFlavorParamsOutputService extends KalturaServiceBase
+class BorhanFlavorParamsOutputService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -2955,7 +2955,7 @@ class KalturaFlavorParamsOutputService extends KalturaServiceBase
 	 * Get flavor params output object by ID
 	 * 
 	 * @param int $id 
-	 * @return KalturaFlavorParamsOutput
+	 * @return BorhanFlavorParamsOutput
 	 */
 	function get($id)
 	{
@@ -2966,18 +2966,18 @@ class KalturaFlavorParamsOutputService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFlavorParamsOutput");
+		$this->client->validateObjectType($resultObject, "BorhanFlavorParamsOutput");
 		return $resultObject;
 	}
 
 	/**
 	 * List flavor params output objects by filter and pager
 	 * 
-	 * @param KalturaFlavorParamsOutputFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaFlavorParamsOutputListResponse
+	 * @param BorhanFlavorParamsOutputFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanFlavorParamsOutputListResponse
 	 */
-	function listAction(KalturaFlavorParamsOutputFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanFlavorParamsOutputFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -2989,18 +2989,18 @@ class KalturaFlavorParamsOutputService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFlavorParamsOutputListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanFlavorParamsOutputListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFlavorParamsService extends KalturaServiceBase
+class BorhanFlavorParamsService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -3008,10 +3008,10 @@ class KalturaFlavorParamsService extends KalturaServiceBase
 	/**
 	 * Add new Flavor Params
 	 * 
-	 * @param KalturaFlavorParams $flavorParams 
-	 * @return KalturaFlavorParams
+	 * @param BorhanFlavorParams $flavorParams 
+	 * @return BorhanFlavorParams
 	 */
-	function add(KalturaFlavorParams $flavorParams)
+	function add(BorhanFlavorParams $flavorParams)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "flavorParams", $flavorParams->toParams());
@@ -3020,7 +3020,7 @@ class KalturaFlavorParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFlavorParams");
+		$this->client->validateObjectType($resultObject, "BorhanFlavorParams");
 		return $resultObject;
 	}
 
@@ -3028,7 +3028,7 @@ class KalturaFlavorParamsService extends KalturaServiceBase
 	 * Get Flavor Params by ID
 	 * 
 	 * @param int $id 
-	 * @return KalturaFlavorParams
+	 * @return BorhanFlavorParams
 	 */
 	function get($id)
 	{
@@ -3039,7 +3039,7 @@ class KalturaFlavorParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFlavorParams");
+		$this->client->validateObjectType($resultObject, "BorhanFlavorParams");
 		return $resultObject;
 	}
 
@@ -3047,10 +3047,10 @@ class KalturaFlavorParamsService extends KalturaServiceBase
 	 * Update Flavor Params by ID
 	 * 
 	 * @param int $id 
-	 * @param KalturaFlavorParams $flavorParams 
-	 * @return KalturaFlavorParams
+	 * @param BorhanFlavorParams $flavorParams 
+	 * @return BorhanFlavorParams
 	 */
-	function update($id, KalturaFlavorParams $flavorParams)
+	function update($id, BorhanFlavorParams $flavorParams)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -3060,7 +3060,7 @@ class KalturaFlavorParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFlavorParams");
+		$this->client->validateObjectType($resultObject, "BorhanFlavorParams");
 		return $resultObject;
 	}
 
@@ -3086,11 +3086,11 @@ class KalturaFlavorParamsService extends KalturaServiceBase
 	/**
 	 * List Flavor Params by filter with paging support (By default - all system default params will be listed too)
 	 * 
-	 * @param KalturaFlavorParamsFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaFlavorParamsListResponse
+	 * @param BorhanFlavorParamsFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanFlavorParamsListResponse
 	 */
-	function listAction(KalturaFlavorParamsFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanFlavorParamsFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -3102,7 +3102,7 @@ class KalturaFlavorParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFlavorParamsListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanFlavorParamsListResponse");
 		return $resultObject;
 	}
 
@@ -3127,12 +3127,12 @@ class KalturaFlavorParamsService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaLiveChannelSegmentService extends KalturaServiceBase
+class BorhanLiveChannelSegmentService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -3140,10 +3140,10 @@ class KalturaLiveChannelSegmentService extends KalturaServiceBase
 	/**
 	 * Add new live channel segment
 	 * 
-	 * @param KalturaLiveChannelSegment $liveChannelSegment 
-	 * @return KalturaLiveChannelSegment
+	 * @param BorhanLiveChannelSegment $liveChannelSegment 
+	 * @return BorhanLiveChannelSegment
 	 */
-	function add(KalturaLiveChannelSegment $liveChannelSegment)
+	function add(BorhanLiveChannelSegment $liveChannelSegment)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "liveChannelSegment", $liveChannelSegment->toParams());
@@ -3152,7 +3152,7 @@ class KalturaLiveChannelSegmentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveChannelSegment");
+		$this->client->validateObjectType($resultObject, "BorhanLiveChannelSegment");
 		return $resultObject;
 	}
 
@@ -3160,7 +3160,7 @@ class KalturaLiveChannelSegmentService extends KalturaServiceBase
 	 * Get live channel segment by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaLiveChannelSegment
+	 * @return BorhanLiveChannelSegment
 	 */
 	function get($id)
 	{
@@ -3171,7 +3171,7 @@ class KalturaLiveChannelSegmentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveChannelSegment");
+		$this->client->validateObjectType($resultObject, "BorhanLiveChannelSegment");
 		return $resultObject;
 	}
 
@@ -3179,10 +3179,10 @@ class KalturaLiveChannelSegmentService extends KalturaServiceBase
 	 * Update live channel segment by id
 	 * 
 	 * @param int $id 
-	 * @param KalturaLiveChannelSegment $liveChannelSegment 
-	 * @return KalturaLiveChannelSegment
+	 * @param BorhanLiveChannelSegment $liveChannelSegment 
+	 * @return BorhanLiveChannelSegment
 	 */
-	function update($id, KalturaLiveChannelSegment $liveChannelSegment)
+	function update($id, BorhanLiveChannelSegment $liveChannelSegment)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -3192,7 +3192,7 @@ class KalturaLiveChannelSegmentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveChannelSegment");
+		$this->client->validateObjectType($resultObject, "BorhanLiveChannelSegment");
 		return $resultObject;
 	}
 
@@ -3218,11 +3218,11 @@ class KalturaLiveChannelSegmentService extends KalturaServiceBase
 	/**
 	 * List live channel segments by filter and pager
 	 * 
-	 * @param KalturaLiveChannelSegmentFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaLiveChannelSegmentListResponse
+	 * @param BorhanLiveChannelSegmentFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanLiveChannelSegmentListResponse
 	 */
-	function listAction(KalturaLiveChannelSegmentFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanLiveChannelSegmentFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -3234,18 +3234,18 @@ class KalturaLiveChannelSegmentService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveChannelSegmentListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanLiveChannelSegmentListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaLiveChannelService extends KalturaServiceBase
+class BorhanLiveChannelService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -3253,10 +3253,10 @@ class KalturaLiveChannelService extends KalturaServiceBase
 	/**
 	 * Adds new live channel.
 	 * 
-	 * @param KalturaLiveChannel $liveChannel Live channel metadata
-	 * @return KalturaLiveChannel
+	 * @param BorhanLiveChannel $liveChannel Live channel metadata
+	 * @return BorhanLiveChannel
 	 */
-	function add(KalturaLiveChannel $liveChannel)
+	function add(BorhanLiveChannel $liveChannel)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "liveChannel", $liveChannel->toParams());
@@ -3265,7 +3265,7 @@ class KalturaLiveChannelService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveChannel");
+		$this->client->validateObjectType($resultObject, "BorhanLiveChannel");
 		return $resultObject;
 	}
 
@@ -3273,7 +3273,7 @@ class KalturaLiveChannelService extends KalturaServiceBase
 	 * Get live channel by ID.
 	 * 
 	 * @param string $id Live channel id
-	 * @return KalturaLiveChannel
+	 * @return BorhanLiveChannel
 	 */
 	function get($id)
 	{
@@ -3284,7 +3284,7 @@ class KalturaLiveChannelService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveChannel");
+		$this->client->validateObjectType($resultObject, "BorhanLiveChannel");
 		return $resultObject;
 	}
 
@@ -3292,10 +3292,10 @@ class KalturaLiveChannelService extends KalturaServiceBase
 	 * Update live channel. Only the properties that were set will be updated.
 	 * 
 	 * @param string $id Live channel id to update
-	 * @param KalturaLiveChannel $liveChannel Live channel metadata to update
-	 * @return KalturaLiveChannel
+	 * @param BorhanLiveChannel $liveChannel Live channel metadata to update
+	 * @return BorhanLiveChannel
 	 */
-	function update($id, KalturaLiveChannel $liveChannel)
+	function update($id, BorhanLiveChannel $liveChannel)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -3305,7 +3305,7 @@ class KalturaLiveChannelService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveChannel");
+		$this->client->validateObjectType($resultObject, "BorhanLiveChannel");
 		return $resultObject;
 	}
 
@@ -3331,11 +3331,11 @@ class KalturaLiveChannelService extends KalturaServiceBase
 	/**
 	 * List live channels by filter with paging support.
 	 * 
-	 * @param KalturaLiveChannelFilter $filter Live channel filter
-	 * @param KalturaFilterPager $pager Pager
-	 * @return KalturaLiveChannelListResponse
+	 * @param BorhanLiveChannelFilter $filter Live channel filter
+	 * @param BorhanFilterPager $pager Pager
+	 * @return BorhanLiveChannelListResponse
 	 */
-	function listAction(KalturaLiveChannelFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanLiveChannelFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -3347,7 +3347,7 @@ class KalturaLiveChannelService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveChannelListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanLiveChannelListResponse");
 		return $resultObject;
 	}
 
@@ -3375,11 +3375,11 @@ class KalturaLiveChannelService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Live entry id
 	 * @param int $mediaServerIndex 
-	 * @param KalturaDataCenterContentResource $resource 
+	 * @param BorhanDataCenterContentResource $resource 
 	 * @param float $duration 
-	 * @return KalturaLiveEntry
+	 * @return BorhanLiveEntry
 	 */
-	function appendRecording($entryId, $mediaServerIndex, KalturaDataCenterContentResource $resource, $duration)
+	function appendRecording($entryId, $mediaServerIndex, BorhanDataCenterContentResource $resource, $duration)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -3391,7 +3391,7 @@ class KalturaLiveChannelService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveEntry");
+		$this->client->validateObjectType($resultObject, "BorhanLiveEntry");
 		return $resultObject;
 	}
 
@@ -3401,7 +3401,7 @@ class KalturaLiveChannelService extends KalturaServiceBase
 	 * @param string $entryId Live entry id
 	 * @param string $hostname Media server host name
 	 * @param int $mediaServerIndex Media server index primary / secondary
-	 * @return KalturaLiveEntry
+	 * @return BorhanLiveEntry
 	 */
 	function registerMediaServer($entryId, $hostname, $mediaServerIndex)
 	{
@@ -3414,7 +3414,7 @@ class KalturaLiveChannelService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveEntry");
+		$this->client->validateObjectType($resultObject, "BorhanLiveEntry");
 		return $resultObject;
 	}
 
@@ -3424,7 +3424,7 @@ class KalturaLiveChannelService extends KalturaServiceBase
 	 * @param string $entryId Live entry id
 	 * @param string $hostname Media server host name
 	 * @param int $mediaServerIndex Media server index primary / secondary
-	 * @return KalturaLiveEntry
+	 * @return BorhanLiveEntry
 	 */
 	function unregisterMediaServer($entryId, $hostname, $mediaServerIndex)
 	{
@@ -3437,7 +3437,7 @@ class KalturaLiveChannelService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveEntry");
+		$this->client->validateObjectType($resultObject, "BorhanLiveEntry");
 		return $resultObject;
 	}
 
@@ -3462,12 +3462,12 @@ class KalturaLiveChannelService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaLiveStreamService extends KalturaServiceBase
+class BorhanLiveStreamService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -3476,11 +3476,11 @@ class KalturaLiveStreamService extends KalturaServiceBase
 	 * Adds new live stream entry.
 	 The entry will be queued for provision.
 	 * 
-	 * @param KalturaLiveStreamEntry $liveStreamEntry Live stream entry metadata
+	 * @param BorhanLiveStreamEntry $liveStreamEntry Live stream entry metadata
 	 * @param string $sourceType Live stream source type
-	 * @return KalturaLiveStreamEntry
+	 * @return BorhanLiveStreamEntry
 	 */
-	function add(KalturaLiveStreamEntry $liveStreamEntry, $sourceType = null)
+	function add(BorhanLiveStreamEntry $liveStreamEntry, $sourceType = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "liveStreamEntry", $liveStreamEntry->toParams());
@@ -3490,7 +3490,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveStreamEntry");
+		$this->client->validateObjectType($resultObject, "BorhanLiveStreamEntry");
 		return $resultObject;
 	}
 
@@ -3499,7 +3499,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Live stream entry id
 	 * @param int $version Desired version of the data
-	 * @return KalturaLiveStreamEntry
+	 * @return BorhanLiveStreamEntry
 	 */
 	function get($entryId, $version = -1)
 	{
@@ -3511,7 +3511,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveStreamEntry");
+		$this->client->validateObjectType($resultObject, "BorhanLiveStreamEntry");
 		return $resultObject;
 	}
 
@@ -3520,7 +3520,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Live stream entry id
 	 * @param string $token Live stream broadcasting token
-	 * @return KalturaLiveStreamEntry
+	 * @return BorhanLiveStreamEntry
 	 */
 	function authenticate($entryId, $token)
 	{
@@ -3532,7 +3532,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveStreamEntry");
+		$this->client->validateObjectType($resultObject, "BorhanLiveStreamEntry");
 		return $resultObject;
 	}
 
@@ -3540,10 +3540,10 @@ class KalturaLiveStreamService extends KalturaServiceBase
 	 * Update live stream entry. Only the properties that were set will be updated.
 	 * 
 	 * @param string $entryId Live stream entry id to update
-	 * @param KalturaLiveStreamEntry $liveStreamEntry Live stream entry metadata to update
-	 * @return KalturaLiveStreamEntry
+	 * @param BorhanLiveStreamEntry $liveStreamEntry Live stream entry metadata to update
+	 * @return BorhanLiveStreamEntry
 	 */
-	function update($entryId, KalturaLiveStreamEntry $liveStreamEntry)
+	function update($entryId, BorhanLiveStreamEntry $liveStreamEntry)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -3553,7 +3553,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveStreamEntry");
+		$this->client->validateObjectType($resultObject, "BorhanLiveStreamEntry");
 		return $resultObject;
 	}
 
@@ -3579,11 +3579,11 @@ class KalturaLiveStreamService extends KalturaServiceBase
 	/**
 	 * List live stream entries by filter with paging support.
 	 * 
-	 * @param KalturaLiveStreamEntryFilter $filter Live stream entry filter
-	 * @param KalturaFilterPager $pager Pager
-	 * @return KalturaLiveStreamListResponse
+	 * @param BorhanLiveStreamEntryFilter $filter Live stream entry filter
+	 * @param BorhanFilterPager $pager Pager
+	 * @return BorhanLiveStreamListResponse
 	 */
-	function listAction(KalturaLiveStreamEntryFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanLiveStreamEntryFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -3595,7 +3595,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveStreamListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanLiveStreamListResponse");
 		return $resultObject;
 	}
 
@@ -3604,7 +3604,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Live stream entry id
 	 * @param file $fileData Jpeg file data
-	 * @return KalturaLiveStreamEntry
+	 * @return BorhanLiveStreamEntry
 	 */
 	function updateOfflineThumbnailJpeg($entryId, $fileData)
 	{
@@ -3617,7 +3617,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveStreamEntry");
+		$this->client->validateObjectType($resultObject, "BorhanLiveStreamEntry");
 		return $resultObject;
 	}
 
@@ -3626,7 +3626,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Live stream entry id
 	 * @param string $url File url
-	 * @return KalturaLiveStreamEntry
+	 * @return BorhanLiveStreamEntry
 	 */
 	function updateOfflineThumbnailFromUrl($entryId, $url)
 	{
@@ -3638,7 +3638,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveStreamEntry");
+		$this->client->validateObjectType($resultObject, "BorhanLiveStreamEntry");
 		return $resultObject;
 	}
 
@@ -3668,11 +3668,11 @@ class KalturaLiveStreamService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Live entry id
 	 * @param int $mediaServerIndex 
-	 * @param KalturaDataCenterContentResource $resource 
+	 * @param BorhanDataCenterContentResource $resource 
 	 * @param float $duration 
-	 * @return KalturaLiveEntry
+	 * @return BorhanLiveEntry
 	 */
-	function appendRecording($entryId, $mediaServerIndex, KalturaDataCenterContentResource $resource, $duration)
+	function appendRecording($entryId, $mediaServerIndex, BorhanDataCenterContentResource $resource, $duration)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -3684,7 +3684,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveEntry");
+		$this->client->validateObjectType($resultObject, "BorhanLiveEntry");
 		return $resultObject;
 	}
 
@@ -3694,7 +3694,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 	 * @param string $entryId Live entry id
 	 * @param string $hostname Media server host name
 	 * @param int $mediaServerIndex Media server index primary / secondary
-	 * @return KalturaLiveEntry
+	 * @return BorhanLiveEntry
 	 */
 	function registerMediaServer($entryId, $hostname, $mediaServerIndex)
 	{
@@ -3707,7 +3707,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveEntry");
+		$this->client->validateObjectType($resultObject, "BorhanLiveEntry");
 		return $resultObject;
 	}
 
@@ -3717,7 +3717,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 	 * @param string $entryId Live entry id
 	 * @param string $hostname Media server host name
 	 * @param int $mediaServerIndex Media server index primary / secondary
-	 * @return KalturaLiveEntry
+	 * @return BorhanLiveEntry
 	 */
 	function unregisterMediaServer($entryId, $hostname, $mediaServerIndex)
 	{
@@ -3730,7 +3730,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaLiveEntry");
+		$this->client->validateObjectType($resultObject, "BorhanLiveEntry");
 		return $resultObject;
 	}
 
@@ -3756,7 +3756,7 @@ class KalturaLiveStreamService extends KalturaServiceBase
 	/**
 	 * Creates perioding metadata sync-point events on a live stream
 	 * 
-	 * @param string $entryId Kaltura live-stream entry id
+	 * @param string $entryId Borhan live-stream entry id
 	 * @param int $interval Events interval in seconds
 	 * @param int $duration Duration in seconds
 	 * @return 
@@ -3778,12 +3778,12 @@ class KalturaLiveStreamService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMediaInfoService extends KalturaServiceBase
+class BorhanMediaInfoService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -3791,11 +3791,11 @@ class KalturaMediaInfoService extends KalturaServiceBase
 	/**
 	 * List media info objects by filter and pager
 	 * 
-	 * @param KalturaMediaInfoFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaMediaInfoListResponse
+	 * @param BorhanMediaInfoFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanMediaInfoListResponse
 	 */
-	function listAction(KalturaMediaInfoFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanMediaInfoFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -3807,18 +3807,18 @@ class KalturaMediaInfoService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaInfoListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanMediaInfoListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMediaServerService extends KalturaServiceBase
+class BorhanMediaServerService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -3827,7 +3827,7 @@ class KalturaMediaServerService extends KalturaServiceBase
 	 * Get media server by hostname
 	 * 
 	 * @param string $hostname 
-	 * @return KalturaMediaServer
+	 * @return BorhanMediaServer
 	 */
 	function get($hostname)
 	{
@@ -3838,7 +3838,7 @@ class KalturaMediaServerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaServer");
+		$this->client->validateObjectType($resultObject, "BorhanMediaServer");
 		return $resultObject;
 	}
 
@@ -3846,10 +3846,10 @@ class KalturaMediaServerService extends KalturaServiceBase
 	 * Update media server status
 	 * 
 	 * @param string $hostname 
-	 * @param KalturaMediaServerStatus $mediaServerStatus 
-	 * @return KalturaMediaServer
+	 * @param BorhanMediaServerStatus $mediaServerStatus 
+	 * @return BorhanMediaServer
 	 */
-	function reportStatus($hostname, KalturaMediaServerStatus $mediaServerStatus)
+	function reportStatus($hostname, BorhanMediaServerStatus $mediaServerStatus)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "hostname", $hostname);
@@ -3859,18 +3859,18 @@ class KalturaMediaServerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaServer");
+		$this->client->validateObjectType($resultObject, "BorhanMediaServer");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMediaService extends KalturaServiceBase
+class BorhanMediaService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -3878,10 +3878,10 @@ class KalturaMediaService extends KalturaServiceBase
 	/**
 	 * Add entry
 	 * 
-	 * @param KalturaMediaEntry $entry 
-	 * @return KalturaMediaEntry
+	 * @param BorhanMediaEntry $entry 
+	 * @return BorhanMediaEntry
 	 */
-	function add(KalturaMediaEntry $entry)
+	function add(BorhanMediaEntry $entry)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entry", $entry->toParams());
@@ -3890,7 +3890,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -3899,10 +3899,10 @@ class KalturaMediaService extends KalturaServiceBase
      If the requirement is to replace the entry's associated content, use action updateContent.
 	 * 
 	 * @param string $entryId 
-	 * @param KalturaResource $resource 
-	 * @return KalturaMediaEntry
+	 * @param BorhanResource $resource 
+	 * @return BorhanMediaEntry
 	 */
-	function addContent($entryId, KalturaResource $resource = null)
+	function addContent($entryId, BorhanResource $resource = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -3913,7 +3913,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -3921,11 +3921,11 @@ class KalturaMediaService extends KalturaServiceBase
 	 * Adds new media entry by importing an HTTP or FTP URL.
 	 The entry will be queued for import and then for conversion.
 	 * 
-	 * @param KalturaMediaEntry $mediaEntry Media entry metadata
+	 * @param BorhanMediaEntry $mediaEntry Media entry metadata
 	 * @param string $url An HTTP or FTP URL
-	 * @return KalturaMediaEntry
+	 * @return BorhanMediaEntry
 	 */
-	function addFromUrl(KalturaMediaEntry $mediaEntry, $url)
+	function addFromUrl(BorhanMediaEntry $mediaEntry, $url)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "mediaEntry", $mediaEntry->toParams());
@@ -3935,7 +3935,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -3943,11 +3943,11 @@ class KalturaMediaService extends KalturaServiceBase
 	 * Adds new media entry by importing the media file from a search provider.
 	 This action should be used with the search service result.
 	 * 
-	 * @param KalturaMediaEntry $mediaEntry Media entry metadata
-	 * @param KalturaSearchResult $searchResult Result object from search service
-	 * @return KalturaMediaEntry
+	 * @param BorhanMediaEntry $mediaEntry Media entry metadata
+	 * @param BorhanSearchResult $searchResult Result object from search service
+	 * @return BorhanMediaEntry
 	 */
-	function addFromSearchResult(KalturaMediaEntry $mediaEntry = null, KalturaSearchResult $searchResult = null)
+	function addFromSearchResult(BorhanMediaEntry $mediaEntry = null, BorhanSearchResult $searchResult = null)
 	{
 		$kparams = array();
 		if ($mediaEntry !== null)
@@ -3959,18 +3959,18 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
 	/**
 	 * Add new entry after the specific media file was uploaded and the upload token id exists
 	 * 
-	 * @param KalturaMediaEntry $mediaEntry Media entry metadata
+	 * @param BorhanMediaEntry $mediaEntry Media entry metadata
 	 * @param string $uploadTokenId Upload token id
-	 * @return KalturaMediaEntry
+	 * @return BorhanMediaEntry
 	 */
-	function addFromUploadedFile(KalturaMediaEntry $mediaEntry, $uploadTokenId)
+	function addFromUploadedFile(BorhanMediaEntry $mediaEntry, $uploadTokenId)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "mediaEntry", $mediaEntry->toParams());
@@ -3980,18 +3980,18 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
 	/**
 	 * Add new entry after the file was recored on the server and the token id exists
 	 * 
-	 * @param KalturaMediaEntry $mediaEntry Media entry metadata
+	 * @param BorhanMediaEntry $mediaEntry Media entry metadata
 	 * @param string $webcamTokenId Token id for the recored webcam file
-	 * @return KalturaMediaEntry
+	 * @return BorhanMediaEntry
 	 */
-	function addFromRecordedWebcam(KalturaMediaEntry $mediaEntry, $webcamTokenId)
+	function addFromRecordedWebcam(BorhanMediaEntry $mediaEntry, $webcamTokenId)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "mediaEntry", $mediaEntry->toParams());
@@ -4001,7 +4001,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -4009,11 +4009,11 @@ class KalturaMediaService extends KalturaServiceBase
 	 * Copy entry into new entry
 	 * 
 	 * @param string $sourceEntryId Media entry id to copy from
-	 * @param KalturaMediaEntry $mediaEntry Media entry metadata
+	 * @param BorhanMediaEntry $mediaEntry Media entry metadata
 	 * @param int $sourceFlavorParamsId The flavor to be used as the new entry source, source flavor will be used if not specified
-	 * @return KalturaMediaEntry
+	 * @return BorhanMediaEntry
 	 */
-	function addFromEntry($sourceEntryId, KalturaMediaEntry $mediaEntry = null, $sourceFlavorParamsId = null)
+	function addFromEntry($sourceEntryId, BorhanMediaEntry $mediaEntry = null, $sourceFlavorParamsId = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "sourceEntryId", $sourceEntryId);
@@ -4025,7 +4025,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -4033,10 +4033,10 @@ class KalturaMediaService extends KalturaServiceBase
 	 * Copy flavor asset into new entry
 	 * 
 	 * @param string $sourceFlavorAssetId Flavor asset id to be used as the new entry source
-	 * @param KalturaMediaEntry $mediaEntry Media entry metadata
-	 * @return KalturaMediaEntry
+	 * @param BorhanMediaEntry $mediaEntry Media entry metadata
+	 * @return BorhanMediaEntry
 	 */
-	function addFromFlavorAsset($sourceFlavorAssetId, KalturaMediaEntry $mediaEntry = null)
+	function addFromFlavorAsset($sourceFlavorAssetId, BorhanMediaEntry $mediaEntry = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "sourceFlavorAssetId", $sourceFlavorAssetId);
@@ -4047,7 +4047,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -4083,7 +4083,7 @@ class KalturaMediaService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Media entry id
 	 * @param int $version Desired version of the data
-	 * @return KalturaMediaEntry
+	 * @return BorhanMediaEntry
 	 */
 	function get($entryId, $version = -1)
 	{
@@ -4095,7 +4095,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -4129,10 +4129,10 @@ class KalturaMediaService extends KalturaServiceBase
 	 * Update media entry. Only the properties that were set will be updated.
 	 * 
 	 * @param string $entryId Media entry id to update
-	 * @param KalturaMediaEntry $mediaEntry Media entry metadata to update
-	 * @return KalturaMediaEntry
+	 * @param BorhanMediaEntry $mediaEntry Media entry metadata to update
+	 * @return BorhanMediaEntry
 	 */
-	function update($entryId, KalturaMediaEntry $mediaEntry)
+	function update($entryId, BorhanMediaEntry $mediaEntry)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -4142,7 +4142,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -4150,11 +4150,11 @@ class KalturaMediaService extends KalturaServiceBase
 	 * Replace content associated with the media entry.
 	 * 
 	 * @param string $entryId Media entry id to update
-	 * @param KalturaResource $resource Resource to be used to replace entry media content
+	 * @param BorhanResource $resource Resource to be used to replace entry media content
 	 * @param int $conversionProfileId The conversion profile id to be used on the entry
-	 * @return KalturaMediaEntry
+	 * @return BorhanMediaEntry
 	 */
-	function updateContent($entryId, KalturaResource $resource, $conversionProfileId = null)
+	function updateContent($entryId, BorhanResource $resource, $conversionProfileId = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -4165,7 +4165,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -4192,7 +4192,7 @@ class KalturaMediaService extends KalturaServiceBase
 	 * Approves media replacement
 	 * 
 	 * @param string $entryId Media entry id to replace
-	 * @return KalturaMediaEntry
+	 * @return BorhanMediaEntry
 	 */
 	function approveReplace($entryId)
 	{
@@ -4203,7 +4203,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -4211,7 +4211,7 @@ class KalturaMediaService extends KalturaServiceBase
 	 * Cancels media replacement
 	 * 
 	 * @param string $entryId Media entry id to cancel
-	 * @return KalturaMediaEntry
+	 * @return BorhanMediaEntry
 	 */
 	function cancelReplace($entryId)
 	{
@@ -4222,18 +4222,18 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
 	/**
 	 * List media entries by filter with paging support.
 	 * 
-	 * @param KalturaMediaEntryFilter $filter Media entry filter
-	 * @param KalturaFilterPager $pager Pager
-	 * @return KalturaMediaListResponse
+	 * @param BorhanMediaEntryFilter $filter Media entry filter
+	 * @param BorhanFilterPager $pager Pager
+	 * @return BorhanMediaListResponse
 	 */
-	function listAction(KalturaMediaEntryFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanMediaEntryFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -4245,17 +4245,17 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanMediaListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * Count media entries by filter.
 	 * 
-	 * @param KalturaMediaEntryFilter $filter Media entry filter
+	 * @param BorhanMediaEntryFilter $filter Media entry filter
 	 * @return int
 	 */
-	function count(KalturaMediaEntryFilter $filter = null)
+	function count(BorhanMediaEntryFilter $filter = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -4270,7 +4270,7 @@ class KalturaMediaService extends KalturaServiceBase
 	}
 
 	/**
-	 * Upload a media file to Kaltura, then the file can be used to create a media entry.
+	 * Upload a media file to Borhan, then the file can be used to create a media entry.
 	 * 
 	 * @param file $fileData The file data
 	 * @return string
@@ -4296,7 +4296,7 @@ class KalturaMediaService extends KalturaServiceBase
 	 * @param string $entryId Media entry id
 	 * @param int $timeOffset Time offset (in seconds)
 	 * @param int $flavorParamsId The flavor params id to be used
-	 * @return KalturaMediaEntry
+	 * @return BorhanMediaEntry
 	 */
 	function updateThumbnail($entryId, $timeOffset, $flavorParamsId = null)
 	{
@@ -4309,7 +4309,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -4321,7 +4321,7 @@ class KalturaMediaService extends KalturaServiceBase
 	 * @param string $sourceEntryId Media entry id
 	 * @param int $timeOffset Time offset (in seconds)
 	 * @param int $flavorParamsId The flavor params id to be used
-	 * @return KalturaMediaEntry
+	 * @return BorhanMediaEntry
 	 */
 	function updateThumbnailFromSourceEntry($entryId, $sourceEntryId, $timeOffset, $flavorParamsId = null)
 	{
@@ -4335,7 +4335,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -4344,7 +4344,7 @@ class KalturaMediaService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Media entry id
 	 * @param file $fileData Jpeg file data
-	 * @return KalturaMediaEntry
+	 * @return BorhanMediaEntry
 	 */
 	function updateThumbnailJpeg($entryId, $fileData)
 	{
@@ -4357,7 +4357,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMediaEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMediaEntry");
 		return $resultObject;
 	}
 
@@ -4366,7 +4366,7 @@ class KalturaMediaService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Media entry id
 	 * @param string $url File url
-	 * @return KalturaBaseEntry
+	 * @return BorhanBaseEntry
 	 */
 	function updateThumbnailFromUrl($entryId, $url)
 	{
@@ -4378,7 +4378,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseEntry");
+		$this->client->validateObjectType($resultObject, "BorhanBaseEntry");
 		return $resultObject;
 	}
 
@@ -4406,10 +4406,10 @@ class KalturaMediaService extends KalturaServiceBase
 	/**
 	 * Flag inappropriate media entry for moderation
 	 * 
-	 * @param KalturaModerationFlag $moderationFlag 
+	 * @param BorhanModerationFlag $moderationFlag 
 	 * @return 
 	 */
-	function flag(KalturaModerationFlag $moderationFlag)
+	function flag(BorhanModerationFlag $moderationFlag)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "moderationFlag", $moderationFlag->toParams());
@@ -4464,10 +4464,10 @@ class KalturaMediaService extends KalturaServiceBase
 	 * List all pending flags for the media entry
 	 * 
 	 * @param string $entryId 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaModerationFlagListResponse
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanModerationFlagListResponse
 	 */
-	function listFlags($entryId, KalturaFilterPager $pager = null)
+	function listFlags($entryId, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -4478,7 +4478,7 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaModerationFlagListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanModerationFlagListResponse");
 		return $resultObject;
 	}
 
@@ -4509,11 +4509,11 @@ class KalturaMediaService extends KalturaServiceBase
 	 If no conversion profile was specified, partner's default will be used
 	 * 
 	 * @param file $fileData 
-	 * @param KalturaBulkUploadJobData $bulkUploadData 
-	 * @param KalturaBulkUploadEntryData $bulkUploadEntryData 
-	 * @return KalturaBulkUpload
+	 * @param BorhanBulkUploadJobData $bulkUploadData 
+	 * @param BorhanBulkUploadEntryData $bulkUploadEntryData 
+	 * @return BorhanBulkUpload
 	 */
-	function bulkUploadAdd($fileData, KalturaBulkUploadJobData $bulkUploadData = null, KalturaBulkUploadEntryData $bulkUploadEntryData = null)
+	function bulkUploadAdd($fileData, BorhanBulkUploadJobData $bulkUploadData = null, BorhanBulkUploadEntryData $bulkUploadEntryData = null)
 	{
 		$kparams = array();
 		$kfiles = array();
@@ -4527,18 +4527,18 @@ class KalturaMediaService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBulkUpload");
+		$this->client->validateObjectType($resultObject, "BorhanBulkUpload");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMixingService extends KalturaServiceBase
+class BorhanMixingService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -4547,10 +4547,10 @@ class KalturaMixingService extends KalturaServiceBase
 	 * Adds a new mix.
 	 If the dataContent is null, a default timeline will be created.
 	 * 
-	 * @param KalturaMixEntry $mixEntry Mix entry metadata
-	 * @return KalturaMixEntry
+	 * @param BorhanMixEntry $mixEntry Mix entry metadata
+	 * @return BorhanMixEntry
 	 */
-	function add(KalturaMixEntry $mixEntry)
+	function add(BorhanMixEntry $mixEntry)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "mixEntry", $mixEntry->toParams());
@@ -4559,7 +4559,7 @@ class KalturaMixingService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMixEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMixEntry");
 		return $resultObject;
 	}
 
@@ -4568,7 +4568,7 @@ class KalturaMixingService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId Mix entry id
 	 * @param int $version Desired version of the data
-	 * @return KalturaMixEntry
+	 * @return BorhanMixEntry
 	 */
 	function get($entryId, $version = -1)
 	{
@@ -4580,7 +4580,7 @@ class KalturaMixingService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMixEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMixEntry");
 		return $resultObject;
 	}
 
@@ -4588,10 +4588,10 @@ class KalturaMixingService extends KalturaServiceBase
 	 * Update mix entry. Only the properties that were set will be updated.
 	 * 
 	 * @param string $entryId Mix entry id to update
-	 * @param KalturaMixEntry $mixEntry Mix entry metadata to update
-	 * @return KalturaMixEntry
+	 * @param BorhanMixEntry $mixEntry Mix entry metadata to update
+	 * @return BorhanMixEntry
 	 */
-	function update($entryId, KalturaMixEntry $mixEntry)
+	function update($entryId, BorhanMixEntry $mixEntry)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -4601,7 +4601,7 @@ class KalturaMixingService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMixEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMixEntry");
 		return $resultObject;
 	}
 
@@ -4628,11 +4628,11 @@ class KalturaMixingService extends KalturaServiceBase
 	 * List entries by filter with paging support.
 	 Return parameter is an array of mix entries.
 	 * 
-	 * @param KalturaMixEntryFilter $filter Mix entry filter
-	 * @param KalturaFilterPager $pager Pager
-	 * @return KalturaMixListResponse
+	 * @param BorhanMixEntryFilter $filter Mix entry filter
+	 * @param BorhanFilterPager $pager Pager
+	 * @return BorhanMixListResponse
 	 */
-	function listAction(KalturaMixEntryFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanMixEntryFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -4644,17 +4644,17 @@ class KalturaMixingService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMixListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanMixListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * Count mix entries by filter.
 	 * 
-	 * @param KalturaMediaEntryFilter $filter Media entry filter
+	 * @param BorhanMediaEntryFilter $filter Media entry filter
 	 * @return int
 	 */
-	function count(KalturaMediaEntryFilter $filter = null)
+	function count(BorhanMediaEntryFilter $filter = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -4672,7 +4672,7 @@ class KalturaMixingService extends KalturaServiceBase
 	 * Clones an existing mix.
 	 * 
 	 * @param string $entryId Mix entry id to clone
-	 * @return KalturaMixEntry
+	 * @return BorhanMixEntry
 	 */
 	function cloneAction($entryId)
 	{
@@ -4683,7 +4683,7 @@ class KalturaMixingService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMixEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMixEntry");
 		return $resultObject;
 	}
 
@@ -4692,7 +4692,7 @@ class KalturaMixingService extends KalturaServiceBase
 	 * 
 	 * @param string $mixEntryId Mix entry to append to its timeline
 	 * @param string $mediaEntryId Media entry to append to the timeline
-	 * @return KalturaMixEntry
+	 * @return BorhanMixEntry
 	 */
 	function appendMediaEntry($mixEntryId, $mediaEntryId)
 	{
@@ -4704,7 +4704,7 @@ class KalturaMixingService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMixEntry");
+		$this->client->validateObjectType($resultObject, "BorhanMixEntry");
 		return $resultObject;
 	}
 
@@ -4771,12 +4771,12 @@ class KalturaMixingService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaNotificationService extends KalturaServiceBase
+class BorhanNotificationService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -4786,7 +4786,7 @@ class KalturaNotificationService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId 
 	 * @param int $type 
-	 * @return KalturaClientNotification
+	 * @return BorhanClientNotification
 	 */
 	function getClientNotification($entryId, $type)
 	{
@@ -4798,18 +4798,18 @@ class KalturaNotificationService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaClientNotification");
+		$this->client->validateObjectType($resultObject, "BorhanClientNotification");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaPartnerService extends KalturaServiceBase
+class BorhanPartnerService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -4817,13 +4817,13 @@ class KalturaPartnerService extends KalturaServiceBase
 	/**
 	 * Create a new Partner object
 	 * 
-	 * @param KalturaPartner $partner 
+	 * @param BorhanPartner $partner 
 	 * @param string $cmsPassword 
 	 * @param int $templatePartnerId 
 	 * @param bool $silent 
-	 * @return KalturaPartner
+	 * @return BorhanPartner
 	 */
-	function register(KalturaPartner $partner, $cmsPassword = "", $templatePartnerId = null, $silent = false)
+	function register(BorhanPartner $partner, $cmsPassword = "", $templatePartnerId = null, $silent = false)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "partner", $partner->toParams());
@@ -4835,18 +4835,18 @@ class KalturaPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPartner");
+		$this->client->validateObjectType($resultObject, "BorhanPartner");
 		return $resultObject;
 	}
 
 	/**
 	 * Update details and settings of an existing partner
 	 * 
-	 * @param KalturaPartner $partner 
+	 * @param BorhanPartner $partner 
 	 * @param bool $allowEmpty 
-	 * @return KalturaPartner
+	 * @return BorhanPartner
 	 */
-	function update(KalturaPartner $partner, $allowEmpty = false)
+	function update(BorhanPartner $partner, $allowEmpty = false)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "partner", $partner->toParams());
@@ -4856,7 +4856,7 @@ class KalturaPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPartner");
+		$this->client->validateObjectType($resultObject, "BorhanPartner");
 		return $resultObject;
 	}
 
@@ -4864,7 +4864,7 @@ class KalturaPartnerService extends KalturaServiceBase
 	 * Retrieve partner object by Id
 	 * 
 	 * @param int $id 
-	 * @return KalturaPartner
+	 * @return BorhanPartner
 	 */
 	function get($id = null)
 	{
@@ -4875,7 +4875,7 @@ class KalturaPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPartner");
+		$this->client->validateObjectType($resultObject, "BorhanPartner");
 		return $resultObject;
 	}
 
@@ -4885,7 +4885,7 @@ class KalturaPartnerService extends KalturaServiceBase
 	 * @param int $partnerId 
 	 * @param string $adminEmail 
 	 * @param string $cmsPassword 
-	 * @return KalturaPartner
+	 * @return BorhanPartner
 	 */
 	function getSecrets($partnerId, $adminEmail, $cmsPassword)
 	{
@@ -4898,7 +4898,7 @@ class KalturaPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPartner");
+		$this->client->validateObjectType($resultObject, "BorhanPartner");
 		return $resultObject;
 	}
 
@@ -4906,7 +4906,7 @@ class KalturaPartnerService extends KalturaServiceBase
 	 * Retrieve all info attributed to the partner
 	 This action expects no parameters. It returns information for the current KS partnerId.
 	 * 
-	 * @return KalturaPartner
+	 * @return BorhanPartner
 	 */
 	function getInfo()
 	{
@@ -4916,7 +4916,7 @@ class KalturaPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPartner");
+		$this->client->validateObjectType($resultObject, "BorhanPartner");
 		return $resultObject;
 	}
 
@@ -4929,7 +4929,7 @@ class KalturaPartnerService extends KalturaServiceBase
 	 * @param int $year 
 	 * @param int $month 
 	 * @param string $resolution 
-	 * @return KalturaPartnerUsage
+	 * @return BorhanPartnerUsage
 	 */
 	function getUsage($year = "", $month = 1, $resolution = null)
 	{
@@ -4942,7 +4942,7 @@ class KalturaPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPartnerUsage");
+		$this->client->validateObjectType($resultObject, "BorhanPartnerUsage");
 		return $resultObject;
 	}
 
@@ -4950,7 +4950,7 @@ class KalturaPartnerService extends KalturaServiceBase
 	 * Get usage statistics for a partner
 	 Calculation is done according to partner's package
 	 * 
-	 * @return KalturaPartnerStatistics
+	 * @return BorhanPartnerStatistics
 	 */
 	function getStatistics()
 	{
@@ -4960,18 +4960,18 @@ class KalturaPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPartnerStatistics");
+		$this->client->validateObjectType($resultObject, "BorhanPartnerStatistics");
 		return $resultObject;
 	}
 
 	/**
 	 * Retrieve a list of partner objects which the current user is allowed to access.
 	 * 
-	 * @param KalturaPartnerFilter $partnerFilter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaPartnerListResponse
+	 * @param BorhanPartnerFilter $partnerFilter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanPartnerListResponse
 	 */
-	function listPartnersForUser(KalturaPartnerFilter $partnerFilter = null, KalturaFilterPager $pager = null)
+	function listPartnersForUser(BorhanPartnerFilter $partnerFilter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($partnerFilter !== null)
@@ -4983,7 +4983,7 @@ class KalturaPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPartnerListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanPartnerListResponse");
 		return $resultObject;
 	}
 
@@ -4992,11 +4992,11 @@ class KalturaPartnerService extends KalturaServiceBase
 	 Current implementation will only list the sub partners of the partner initiating the api call (using the current KS).
 	 This action is only partially implemented to support listing sub partners of a VAR partner.
 	 * 
-	 * @param KalturaPartnerFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaPartnerListResponse
+	 * @param BorhanPartnerFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanPartnerListResponse
 	 */
-	function listAction(KalturaPartnerFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanPartnerFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -5008,14 +5008,14 @@ class KalturaPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPartnerListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanPartnerListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * List partner's current processes' statuses
 	 * 
-	 * @return KalturaFeatureStatusListResponse
+	 * @return BorhanFeatureStatusListResponse
 	 */
 	function listFeatureStatus()
 	{
@@ -5025,17 +5025,17 @@ class KalturaPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaFeatureStatusListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanFeatureStatusListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * Count partner's existing sub-publishers (count includes the partner itself).
 	 * 
-	 * @param KalturaPartnerFilter $filter 
+	 * @param BorhanPartnerFilter $filter 
 	 * @return int
 	 */
-	function count(KalturaPartnerFilter $filter = null)
+	function count(BorhanPartnerFilter $filter = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -5051,24 +5051,24 @@ class KalturaPartnerService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaPermissionItemService extends KalturaServiceBase
+class BorhanPermissionItemService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
 
 	/**
 	 * Adds a new permission item object to the account.
-	 This action is available only to Kaltura system administrators.
+	 This action is available only to Borhan system administrators.
 	 * 
-	 * @param KalturaPermissionItem $permissionItem The new permission item
-	 * @return KalturaPermissionItem
+	 * @param BorhanPermissionItem $permissionItem The new permission item
+	 * @return BorhanPermissionItem
 	 */
-	function add(KalturaPermissionItem $permissionItem)
+	function add(BorhanPermissionItem $permissionItem)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "permissionItem", $permissionItem->toParams());
@@ -5077,7 +5077,7 @@ class KalturaPermissionItemService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPermissionItem");
+		$this->client->validateObjectType($resultObject, "BorhanPermissionItem");
 		return $resultObject;
 	}
 
@@ -5085,7 +5085,7 @@ class KalturaPermissionItemService extends KalturaServiceBase
 	 * Retrieves a permission item object using its ID.
 	 * 
 	 * @param int $permissionItemId The permission item's unique identifier
-	 * @return KalturaPermissionItem
+	 * @return BorhanPermissionItem
 	 */
 	function get($permissionItemId)
 	{
@@ -5096,19 +5096,19 @@ class KalturaPermissionItemService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPermissionItem");
+		$this->client->validateObjectType($resultObject, "BorhanPermissionItem");
 		return $resultObject;
 	}
 
 	/**
 	 * Updates an existing permission item object.
-	 This action is available only to Kaltura system administrators.
+	 This action is available only to Borhan system administrators.
 	 * 
 	 * @param int $permissionItemId The permission item's unique identifier
-	 * @param KalturaPermissionItem $permissionItem Id The permission item's unique identifier
-	 * @return KalturaPermissionItem
+	 * @param BorhanPermissionItem $permissionItem Id The permission item's unique identifier
+	 * @return BorhanPermissionItem
 	 */
-	function update($permissionItemId, KalturaPermissionItem $permissionItem)
+	function update($permissionItemId, BorhanPermissionItem $permissionItem)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "permissionItemId", $permissionItemId);
@@ -5118,16 +5118,16 @@ class KalturaPermissionItemService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPermissionItem");
+		$this->client->validateObjectType($resultObject, "BorhanPermissionItem");
 		return $resultObject;
 	}
 
 	/**
 	 * Deletes an existing permission item object.
-	 This action is available only to Kaltura system administrators.
+	 This action is available only to Borhan system administrators.
 	 * 
 	 * @param int $permissionItemId The permission item's unique identifier
-	 * @return KalturaPermissionItem
+	 * @return BorhanPermissionItem
 	 */
 	function delete($permissionItemId)
 	{
@@ -5138,18 +5138,18 @@ class KalturaPermissionItemService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPermissionItem");
+		$this->client->validateObjectType($resultObject, "BorhanPermissionItem");
 		return $resultObject;
 	}
 
 	/**
 	 * Lists permission item objects that are associated with an account.
 	 * 
-	 * @param KalturaPermissionItemFilter $filter A filter used to exclude specific types of permission items
-	 * @param KalturaFilterPager $pager A limit for the number of records to display on a page
-	 * @return KalturaPermissionItemListResponse
+	 * @param BorhanPermissionItemFilter $filter A filter used to exclude specific types of permission items
+	 * @param BorhanFilterPager $pager A limit for the number of records to display on a page
+	 * @return BorhanPermissionItemListResponse
 	 */
-	function listAction(KalturaPermissionItemFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanPermissionItemFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -5161,18 +5161,18 @@ class KalturaPermissionItemService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPermissionItemListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanPermissionItemListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaPermissionService extends KalturaServiceBase
+class BorhanPermissionService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -5180,10 +5180,10 @@ class KalturaPermissionService extends KalturaServiceBase
 	/**
 	 * Adds a new permission object to the account.
 	 * 
-	 * @param KalturaPermission $permission The new permission
-	 * @return KalturaPermission
+	 * @param BorhanPermission $permission The new permission
+	 * @return BorhanPermission
 	 */
-	function add(KalturaPermission $permission)
+	function add(BorhanPermission $permission)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "permission", $permission->toParams());
@@ -5192,7 +5192,7 @@ class KalturaPermissionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPermission");
+		$this->client->validateObjectType($resultObject, "BorhanPermission");
 		return $resultObject;
 	}
 
@@ -5200,7 +5200,7 @@ class KalturaPermissionService extends KalturaServiceBase
 	 * Retrieves a permission object using its ID.
 	 * 
 	 * @param string $permissionName The name assigned to the permission
-	 * @return KalturaPermission
+	 * @return BorhanPermission
 	 */
 	function get($permissionName)
 	{
@@ -5211,7 +5211,7 @@ class KalturaPermissionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPermission");
+		$this->client->validateObjectType($resultObject, "BorhanPermission");
 		return $resultObject;
 	}
 
@@ -5219,10 +5219,10 @@ class KalturaPermissionService extends KalturaServiceBase
 	 * Updates an existing permission object.
 	 * 
 	 * @param string $permissionName The name assigned to the permission
-	 * @param KalturaPermission $permission Name The name assigned to the permission
-	 * @return KalturaPermission
+	 * @param BorhanPermission $permission Name The name assigned to the permission
+	 * @return BorhanPermission
 	 */
-	function update($permissionName, KalturaPermission $permission)
+	function update($permissionName, BorhanPermission $permission)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "permissionName", $permissionName);
@@ -5232,7 +5232,7 @@ class KalturaPermissionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPermission");
+		$this->client->validateObjectType($resultObject, "BorhanPermission");
 		return $resultObject;
 	}
 
@@ -5240,7 +5240,7 @@ class KalturaPermissionService extends KalturaServiceBase
 	 * Deletes an existing permission object.
 	 * 
 	 * @param string $permissionName The name assigned to the permission
-	 * @return KalturaPermission
+	 * @return BorhanPermission
 	 */
 	function delete($permissionName)
 	{
@@ -5251,7 +5251,7 @@ class KalturaPermissionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPermission");
+		$this->client->validateObjectType($resultObject, "BorhanPermission");
 		return $resultObject;
 	}
 
@@ -5260,11 +5260,11 @@ class KalturaPermissionService extends KalturaServiceBase
 	 Blocked permissions are listed unless you use a filter to exclude them.
 	 Blocked permissions are listed unless you use a filter to exclude them.
 	 * 
-	 * @param KalturaPermissionFilter $filter A filter used to exclude specific types of permissions
-	 * @param KalturaFilterPager $pager A limit for the number of records to display on a page
-	 * @return KalturaPermissionListResponse
+	 * @param BorhanPermissionFilter $filter A filter used to exclude specific types of permissions
+	 * @param BorhanFilterPager $pager A limit for the number of records to display on a page
+	 * @return BorhanPermissionListResponse
 	 */
-	function listAction(KalturaPermissionFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanPermissionFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -5276,7 +5276,7 @@ class KalturaPermissionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPermissionListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanPermissionListResponse");
 		return $resultObject;
 	}
 
@@ -5299,25 +5299,25 @@ class KalturaPermissionService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaPlaylistService extends KalturaServiceBase
+class BorhanPlaylistService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
 
 	/**
 	 * Add new playlist
-	 Note that all entries used in a playlist will become public and may appear in KalturaNetwork
+	 Note that all entries used in a playlist will become public and may appear in BorhanNetwork
 	 * 
-	 * @param KalturaPlaylist $playlist 
+	 * @param BorhanPlaylist $playlist 
 	 * @param bool $updateStats Indicates that the playlist statistics attributes should be updated synchronously now
-	 * @return KalturaPlaylist
+	 * @return BorhanPlaylist
 	 */
-	function add(KalturaPlaylist $playlist, $updateStats = false)
+	function add(BorhanPlaylist $playlist, $updateStats = false)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "playlist", $playlist->toParams());
@@ -5327,7 +5327,7 @@ class KalturaPlaylistService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPlaylist");
+		$this->client->validateObjectType($resultObject, "BorhanPlaylist");
 		return $resultObject;
 	}
 
@@ -5336,7 +5336,7 @@ class KalturaPlaylistService extends KalturaServiceBase
 	 * 
 	 * @param string $id 
 	 * @param int $version Desired version of the data
-	 * @return KalturaPlaylist
+	 * @return BorhanPlaylist
 	 */
 	function get($id, $version = -1)
 	{
@@ -5348,7 +5348,7 @@ class KalturaPlaylistService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPlaylist");
+		$this->client->validateObjectType($resultObject, "BorhanPlaylist");
 		return $resultObject;
 	}
 
@@ -5357,11 +5357,11 @@ class KalturaPlaylistService extends KalturaServiceBase
 	 Note - you cannot change playlist type. updated playlist must be of the same type.
 	 * 
 	 * @param string $id 
-	 * @param KalturaPlaylist $playlist 
+	 * @param BorhanPlaylist $playlist 
 	 * @param bool $updateStats 
-	 * @return KalturaPlaylist
+	 * @return BorhanPlaylist
 	 */
-	function update($id, KalturaPlaylist $playlist, $updateStats = false)
+	function update($id, BorhanPlaylist $playlist, $updateStats = false)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -5372,7 +5372,7 @@ class KalturaPlaylistService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPlaylist");
+		$this->client->validateObjectType($resultObject, "BorhanPlaylist");
 		return $resultObject;
 	}
 
@@ -5399,10 +5399,10 @@ class KalturaPlaylistService extends KalturaServiceBase
 	 * Clone an existing playlist
 	 * 
 	 * @param string $id Id of the playlist to clone
-	 * @param KalturaPlaylist $newPlaylist Parameters defined here will override the ones in the cloned playlist
-	 * @return KalturaPlaylist
+	 * @param BorhanPlaylist $newPlaylist Parameters defined here will override the ones in the cloned playlist
+	 * @return BorhanPlaylist
 	 */
-	function cloneAction($id, KalturaPlaylist $newPlaylist = null)
+	function cloneAction($id, BorhanPlaylist $newPlaylist = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -5413,18 +5413,18 @@ class KalturaPlaylistService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPlaylist");
+		$this->client->validateObjectType($resultObject, "BorhanPlaylist");
 		return $resultObject;
 	}
 
 	/**
 	 * List available playlists
 	 * 
-	 * @param KalturaPlaylistFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaPlaylistListResponse
+	 * @param BorhanPlaylistFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanPlaylistListResponse
 	 */
-	function listAction(KalturaPlaylistFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanPlaylistFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -5436,7 +5436,7 @@ class KalturaPlaylistService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPlaylistListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanPlaylistListResponse");
 		return $resultObject;
 	}
 
@@ -5445,11 +5445,11 @@ class KalturaPlaylistService extends KalturaServiceBase
 	 * 
 	 * @param string $id 
 	 * @param string $detailed 
-	 * @param KalturaContext $playlistContext 
-	 * @param KalturaMediaEntryFilterForPlaylist $filter 
+	 * @param BorhanContext $playlistContext 
+	 * @param BorhanMediaEntryFilterForPlaylist $filter 
 	 * @return array
 	 */
-	function execute($id, $detailed = "", KalturaContext $playlistContext = null, KalturaMediaEntryFilterForPlaylist $filter = null)
+	function execute($id, $detailed = "", BorhanContext $playlistContext = null, BorhanMediaEntryFilterForPlaylist $filter = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -5521,7 +5521,7 @@ class KalturaPlaylistService extends KalturaServiceBase
 	 * 
 	 * @param int $playlistType 
 	 * @param string $playlistContent 
-	 * @return KalturaPlaylist
+	 * @return BorhanPlaylist
 	 */
 	function getStatsFromContent($playlistType, $playlistContent)
 	{
@@ -5533,18 +5533,18 @@ class KalturaPlaylistService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPlaylist");
+		$this->client->validateObjectType($resultObject, "BorhanPlaylist");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaReportService extends KalturaServiceBase
+class BorhanReportService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -5553,12 +5553,12 @@ class KalturaReportService extends KalturaServiceBase
 	 * Report getGraphs action allows to get a graph data for a specific report.
 	 * 
 	 * @param int $reportType 
-	 * @param KalturaReportInputFilter $reportInputFilter 
+	 * @param BorhanReportInputFilter $reportInputFilter 
 	 * @param string $dimension 
 	 * @param string $objectIds - one ID or more (separated by ',') of specific objects to query
 	 * @return array
 	 */
-	function getGraphs($reportType, KalturaReportInputFilter $reportInputFilter, $dimension = null, $objectIds = null)
+	function getGraphs($reportType, BorhanReportInputFilter $reportInputFilter, $dimension = null, $objectIds = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "reportType", $reportType);
@@ -5578,11 +5578,11 @@ class KalturaReportService extends KalturaServiceBase
 	 * Report getTotal action allows to get a graph data for a specific report.
 	 * 
 	 * @param int $reportType 
-	 * @param KalturaReportInputFilter $reportInputFilter 
+	 * @param BorhanReportInputFilter $reportInputFilter 
 	 * @param string $objectIds - one ID or more (separated by ',') of specific objects to query
-	 * @return KalturaReportTotal
+	 * @return BorhanReportTotal
 	 */
-	function getTotal($reportType, KalturaReportInputFilter $reportInputFilter, $objectIds = null)
+	function getTotal($reportType, BorhanReportInputFilter $reportInputFilter, $objectIds = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "reportType", $reportType);
@@ -5593,7 +5593,7 @@ class KalturaReportService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaReportTotal");
+		$this->client->validateObjectType($resultObject, "BorhanReportTotal");
 		return $resultObject;
 	}
 
@@ -5601,11 +5601,11 @@ class KalturaReportService extends KalturaServiceBase
 	 * Report getBaseTotal action allows to get a the total base for storage reports
 	 * 
 	 * @param int $reportType 
-	 * @param KalturaReportInputFilter $reportInputFilter 
+	 * @param BorhanReportInputFilter $reportInputFilter 
 	 * @param string $objectIds - one ID or more (separated by ',') of specific objects to query
 	 * @return array
 	 */
-	function getBaseTotal($reportType, KalturaReportInputFilter $reportInputFilter, $objectIds = null)
+	function getBaseTotal($reportType, BorhanReportInputFilter $reportInputFilter, $objectIds = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "reportType", $reportType);
@@ -5624,13 +5624,13 @@ class KalturaReportService extends KalturaServiceBase
 	 * Report getTable action allows to get a graph data for a specific report.
 	 * 
 	 * @param int $reportType 
-	 * @param KalturaReportInputFilter $reportInputFilter 
-	 * @param KalturaFilterPager $pager 
+	 * @param BorhanReportInputFilter $reportInputFilter 
+	 * @param BorhanFilterPager $pager 
 	 * @param string $order 
 	 * @param string $objectIds - one ID or more (separated by ',') of specific objects to query
-	 * @return KalturaReportTable
+	 * @return BorhanReportTable
 	 */
-	function getTable($reportType, KalturaReportInputFilter $reportInputFilter, KalturaFilterPager $pager, $order = null, $objectIds = null)
+	function getTable($reportType, BorhanReportInputFilter $reportInputFilter, BorhanFilterPager $pager, $order = null, $objectIds = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "reportType", $reportType);
@@ -5643,7 +5643,7 @@ class KalturaReportService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaReportTable");
+		$this->client->validateObjectType($resultObject, "BorhanReportTable");
 		return $resultObject;
 	}
 
@@ -5654,14 +5654,14 @@ class KalturaReportService extends KalturaServiceBase
 	 * @param string $reportText The text of the filter of the report
 	 * @param string $headers The headers of the columns - a map between the enumerations on the server side and the their display text
 	 * @param int $reportType 
-	 * @param KalturaReportInputFilter $reportInputFilter 
+	 * @param BorhanReportInputFilter $reportInputFilter 
 	 * @param string $dimension 
-	 * @param KalturaFilterPager $pager 
+	 * @param BorhanFilterPager $pager 
 	 * @param string $order 
 	 * @param string $objectIds - one ID or more (separated by ',') of specific objects to query
 	 * @return string
 	 */
-	function getUrlForReportAsCsv($reportTitle, $reportText, $headers, $reportType, KalturaReportInputFilter $reportInputFilter, $dimension = null, KalturaFilterPager $pager = null, $order = null, $objectIds = null)
+	function getUrlForReportAsCsv($reportTitle, $reportText, $headers, $reportType, BorhanReportInputFilter $reportInputFilter, $dimension = null, BorhanFilterPager $pager = null, $order = null, $objectIds = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "reportTitle", $reportTitle);
@@ -5688,7 +5688,7 @@ class KalturaReportService extends KalturaServiceBase
 	 * 
 	 * @param int $id 
 	 * @param array $params 
-	 * @return KalturaReportResponse
+	 * @return BorhanReportResponse
 	 */
 	function execute($id, array $params = null)
 	{
@@ -5704,7 +5704,7 @@ class KalturaReportService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaReportResponse");
+		$this->client->validateObjectType($resultObject, "BorhanReportResponse");
 		return $resultObject;
 	}
 
@@ -5750,12 +5750,12 @@ class KalturaReportService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSchemaService extends KalturaServiceBase
+class BorhanSchemaService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -5778,12 +5778,12 @@ class KalturaSchemaService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSearchService extends KalturaServiceBase
+class BorhanSearchService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -5791,11 +5791,11 @@ class KalturaSearchService extends KalturaServiceBase
 	/**
 	 * Search for media in one of the supported media providers
 	 * 
-	 * @param KalturaSearch $search A KalturaSearch object contains the search keywords, media provider and media type
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaSearchResultResponse
+	 * @param BorhanSearch $search A BorhanSearch object contains the search keywords, media provider and media type
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanSearchResultResponse
 	 */
-	function search(KalturaSearch $search, KalturaFilterPager $pager = null)
+	function search(BorhanSearch $search, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "search", $search->toParams());
@@ -5806,7 +5806,7 @@ class KalturaSearchService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaSearchResultResponse");
+		$this->client->validateObjectType($resultObject, "BorhanSearchResultResponse");
 		return $resultObject;
 	}
 
@@ -5814,10 +5814,10 @@ class KalturaSearchService extends KalturaServiceBase
 	 * Retrieve extra information about media found in search action
 	 Some providers return only part of the fields needed to create entry from, use this action to get the rest of the fields.
 	 * 
-	 * @param KalturaSearchResult $searchResult KalturaSearchResult object extends KalturaSearch and has all fields required for media:add
-	 * @return KalturaSearchResult
+	 * @param BorhanSearchResult $searchResult BorhanSearchResult object extends BorhanSearch and has all fields required for media:add
+	 * @return BorhanSearchResult
 	 */
-	function getMediaInfo(KalturaSearchResult $searchResult)
+	function getMediaInfo(BorhanSearchResult $searchResult)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "searchResult", $searchResult->toParams());
@@ -5826,18 +5826,18 @@ class KalturaSearchService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaSearchResult");
+		$this->client->validateObjectType($resultObject, "BorhanSearchResult");
 		return $resultObject;
 	}
 
 	/**
 	 * Search for media given a specific URL
-	 Kaltura supports a searchURL action on some of the media providers.
-	 This action will return a KalturaSearchResult object based on a given URL (assuming the media provider is supported)
+	 Borhan supports a searchURL action on some of the media providers.
+	 This action will return a BorhanSearchResult object based on a given URL (assuming the media provider is supported)
 	 * 
 	 * @param int $mediaType 
 	 * @param string $url 
-	 * @return KalturaSearchResult
+	 * @return BorhanSearchResult
 	 */
 	function searchUrl($mediaType, $url)
 	{
@@ -5849,7 +5849,7 @@ class KalturaSearchService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaSearchResult");
+		$this->client->validateObjectType($resultObject, "BorhanSearchResult");
 		return $resultObject;
 	}
 
@@ -5859,7 +5859,7 @@ class KalturaSearchService extends KalturaServiceBase
 	 * @param int $searchSource 
 	 * @param string $userName 
 	 * @param string $password 
-	 * @return KalturaSearchAuthData
+	 * @return BorhanSearchAuthData
 	 */
 	function externalLogin($searchSource, $userName, $password)
 	{
@@ -5872,24 +5872,24 @@ class KalturaSearchService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaSearchAuthData");
+		$this->client->validateObjectType($resultObject, "BorhanSearchAuthData");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSessionService extends KalturaServiceBase
+class BorhanSessionService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * Start a session with Kaltura's server.
+	 * Start a session with Borhan's server.
 	 The result KS is the session key that you should pass to all services that requires a ticket.
 	 * 
 	 * @param string $secret Remember to provide the correct secret according to the sessionType you want
@@ -5919,7 +5919,7 @@ class KalturaSessionService extends KalturaServiceBase
 	}
 
 	/**
-	 * End a session with the Kaltura server, making the current KS invalid.
+	 * End a session with the Borhan server, making the current KS invalid.
 	 * 
 	 * @return 
 	 */
@@ -5936,7 +5936,7 @@ class KalturaSessionService extends KalturaServiceBase
 	}
 
 	/**
-	 * Start an impersonated session with Kaltura's server.
+	 * Start an impersonated session with Borhan's server.
 	 The result KS is the session key that you should pass to all services that requires a ticket.
 	 * 
 	 * @param string $secret - should be the secret (admin or user) of the original partnerId (not impersonatedPartnerId).
@@ -5968,7 +5968,7 @@ class KalturaSessionService extends KalturaServiceBase
 	}
 
 	/**
-	 * Start an impersonated session with Kaltura's server.
+	 * Start an impersonated session with Borhan's server.
 	 The result KS info contains the session key that you should pass to all services that requires a ticket.
 	 Type, expiry and privileges won't be changed if they're not set
 	 * 
@@ -5976,7 +5976,7 @@ class KalturaSessionService extends KalturaServiceBase
 	 * @param int $type Type of the new KS
 	 * @param int $expiry Expiry time in seconds of the new KS
 	 * @param string $privileges Privileges of the new KS
-	 * @return KalturaSessionInfo
+	 * @return BorhanSessionInfo
 	 */
 	function impersonateByKs($session, $type = null, $expiry = null, $privileges = null)
 	{
@@ -5990,7 +5990,7 @@ class KalturaSessionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaSessionInfo");
+		$this->client->validateObjectType($resultObject, "BorhanSessionInfo");
 		return $resultObject;
 	}
 
@@ -5998,7 +5998,7 @@ class KalturaSessionService extends KalturaServiceBase
 	 * Parse session key and return its info
 	 * 
 	 * @param string $session The KS to be parsed, keep it empty to use current session.
-	 * @return KalturaSessionInfo
+	 * @return BorhanSessionInfo
 	 */
 	function get($session = null)
 	{
@@ -6009,16 +6009,16 @@ class KalturaSessionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaSessionInfo");
+		$this->client->validateObjectType($resultObject, "BorhanSessionInfo");
 		return $resultObject;
 	}
 
 	/**
-	 * Start a session for Kaltura's flash widgets
+	 * Start a session for Borhan's flash widgets
 	 * 
 	 * @param string $widgetId 
 	 * @param int $expiry 
-	 * @return KalturaStartWidgetSessionResponse
+	 * @return BorhanStartWidgetSessionResponse
 	 */
 	function startWidgetSession($widgetId, $expiry = 86400)
 	{
@@ -6030,18 +6030,18 @@ class KalturaSessionService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaStartWidgetSessionResponse");
+		$this->client->validateObjectType($resultObject, "BorhanStartWidgetSessionResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaStatsService extends KalturaServiceBase
+class BorhanStatsService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -6068,12 +6068,12 @@ new point
 referrer
 	
 	
-	 KalturaStatsEvent $event
+	 BorhanStatsEvent $event
 	 * 
-	 * @param KalturaStatsEvent $event 
+	 * @param BorhanStatsEvent $event 
 	 * @return bool
 	 */
-	function collect(KalturaStatsEvent $event)
+	function collect(BorhanStatsEvent $event)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "event", $event->toParams());
@@ -6087,17 +6087,17 @@ referrer
 	}
 
 	/**
-	 * Will collect the kmcEvent sent form the KMC client
+	 * Will collect the bmcEvent sent form the BMC client
 	 // this will actually be an empty function because all events will be sent using GET and will anyway be logged in the apache log
 	 * 
-	 * @param KalturaStatsKmcEvent $kmcEvent 
+	 * @param BorhanStatsBmcEvent $bmcEvent 
 	 * @return 
 	 */
-	function kmcCollect(KalturaStatsKmcEvent $kmcEvent)
+	function bmcCollect(BorhanStatsBmcEvent $bmcEvent)
 	{
 		$kparams = array();
-		$this->client->addParam($kparams, "kmcEvent", $kmcEvent->toParams());
-		$this->client->queueServiceActionCall("stats", "kmcCollect", $kparams);
+		$this->client->addParam($kparams, "bmcEvent", $bmcEvent->toParams());
+		$this->client->queueServiceActionCall("stats", "bmcCollect", $kparams);
 		if ($this->client->isMultiRequest())
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
@@ -6109,24 +6109,24 @@ referrer
 	/**
 	 * 
 	 * 
-	 * @param KalturaCEError $kalturaCEError 
-	 * @return KalturaCEError
+	 * @param BorhanCEError $borhanCEError 
+	 * @return BorhanCEError
 	 */
-	function reportKceError(KalturaCEError $kalturaCEError)
+	function reportKceError(BorhanCEError $borhanCEError)
 	{
 		$kparams = array();
-		$this->client->addParam($kparams, "kalturaCEError", $kalturaCEError->toParams());
+		$this->client->addParam($kparams, "borhanCEError", $borhanCEError->toParams());
 		$this->client->queueServiceActionCall("stats", "reportKceError", $kparams);
 		if ($this->client->isMultiRequest())
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaCEError");
+		$this->client->validateObjectType($resultObject, "BorhanCEError");
 		return $resultObject;
 	}
 
 	/**
-	 * Use this action to report errors to the kaltura server.
+	 * Use this action to report errors to the borhan server.
 	 * 
 	 * @param string $errorCode 
 	 * @param string $errorMessage 
@@ -6148,23 +6148,23 @@ referrer
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaStorageProfileService extends KalturaServiceBase
+class BorhanStorageProfileService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * Adds a storage profile to the Kaltura DB.
+	 * Adds a storage profile to the Borhan DB.
 	 * 
-	 * @param KalturaStorageProfile $storageProfile 
-	 * @return KalturaStorageProfile
+	 * @param BorhanStorageProfile $storageProfile 
+	 * @return BorhanStorageProfile
 	 */
-	function add(KalturaStorageProfile $storageProfile)
+	function add(BorhanStorageProfile $storageProfile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "storageProfile", $storageProfile->toParams());
@@ -6173,7 +6173,7 @@ class KalturaStorageProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaStorageProfile");
+		$this->client->validateObjectType($resultObject, "BorhanStorageProfile");
 		return $resultObject;
 	}
 
@@ -6202,7 +6202,7 @@ class KalturaStorageProfileService extends KalturaServiceBase
 	 * Get storage profile by id
 	 * 
 	 * @param int $storageProfileId 
-	 * @return KalturaStorageProfile
+	 * @return BorhanStorageProfile
 	 */
 	function get($storageProfileId)
 	{
@@ -6213,7 +6213,7 @@ class KalturaStorageProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaStorageProfile");
+		$this->client->validateObjectType($resultObject, "BorhanStorageProfile");
 		return $resultObject;
 	}
 
@@ -6221,10 +6221,10 @@ class KalturaStorageProfileService extends KalturaServiceBase
 	 * Update storage profile by id
 	 * 
 	 * @param int $storageProfileId 
-	 * @param KalturaStorageProfile $storageProfile Id
-	 * @return KalturaStorageProfile
+	 * @param BorhanStorageProfile $storageProfile Id
+	 * @return BorhanStorageProfile
 	 */
-	function update($storageProfileId, KalturaStorageProfile $storageProfile)
+	function update($storageProfileId, BorhanStorageProfile $storageProfile)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "storageProfileId", $storageProfileId);
@@ -6234,18 +6234,18 @@ class KalturaStorageProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaStorageProfile");
+		$this->client->validateObjectType($resultObject, "BorhanStorageProfile");
 		return $resultObject;
 	}
 
 	/**
 	 * 
 	 * 
-	 * @param KalturaStorageProfileFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaStorageProfileListResponse
+	 * @param BorhanStorageProfileFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanStorageProfileListResponse
 	 */
-	function listAction(KalturaStorageProfileFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanStorageProfileFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -6257,18 +6257,18 @@ class KalturaStorageProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaStorageProfileListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanStorageProfileListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSyndicationFeedService extends KalturaServiceBase
+class BorhanSyndicationFeedService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -6276,10 +6276,10 @@ class KalturaSyndicationFeedService extends KalturaServiceBase
 	/**
 	 * Add new Syndication Feed
 	 * 
-	 * @param KalturaBaseSyndicationFeed $syndicationFeed 
-	 * @return KalturaBaseSyndicationFeed
+	 * @param BorhanBaseSyndicationFeed $syndicationFeed 
+	 * @return BorhanBaseSyndicationFeed
 	 */
-	function add(KalturaBaseSyndicationFeed $syndicationFeed)
+	function add(BorhanBaseSyndicationFeed $syndicationFeed)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "syndicationFeed", $syndicationFeed->toParams());
@@ -6288,7 +6288,7 @@ class KalturaSyndicationFeedService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseSyndicationFeed");
+		$this->client->validateObjectType($resultObject, "BorhanBaseSyndicationFeed");
 		return $resultObject;
 	}
 
@@ -6296,7 +6296,7 @@ class KalturaSyndicationFeedService extends KalturaServiceBase
 	 * Get Syndication Feed by ID
 	 * 
 	 * @param string $id 
-	 * @return KalturaBaseSyndicationFeed
+	 * @return BorhanBaseSyndicationFeed
 	 */
 	function get($id)
 	{
@@ -6307,7 +6307,7 @@ class KalturaSyndicationFeedService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseSyndicationFeed");
+		$this->client->validateObjectType($resultObject, "BorhanBaseSyndicationFeed");
 		return $resultObject;
 	}
 
@@ -6315,10 +6315,10 @@ class KalturaSyndicationFeedService extends KalturaServiceBase
 	 * Update Syndication Feed by ID
 	 * 
 	 * @param string $id 
-	 * @param KalturaBaseSyndicationFeed $syndicationFeed 
-	 * @return KalturaBaseSyndicationFeed
+	 * @param BorhanBaseSyndicationFeed $syndicationFeed 
+	 * @return BorhanBaseSyndicationFeed
 	 */
-	function update($id, KalturaBaseSyndicationFeed $syndicationFeed)
+	function update($id, BorhanBaseSyndicationFeed $syndicationFeed)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -6328,7 +6328,7 @@ class KalturaSyndicationFeedService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseSyndicationFeed");
+		$this->client->validateObjectType($resultObject, "BorhanBaseSyndicationFeed");
 		return $resultObject;
 	}
 
@@ -6354,11 +6354,11 @@ class KalturaSyndicationFeedService extends KalturaServiceBase
 	/**
 	 * List Syndication Feeds by filter with paging support
 	 * 
-	 * @param KalturaBaseSyndicationFeedFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaBaseSyndicationFeedListResponse
+	 * @param BorhanBaseSyndicationFeedFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanBaseSyndicationFeedListResponse
 	 */
-	function listAction(KalturaBaseSyndicationFeedFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanBaseSyndicationFeedFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -6370,7 +6370,7 @@ class KalturaSyndicationFeedService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBaseSyndicationFeedListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanBaseSyndicationFeedListResponse");
 		return $resultObject;
 	}
 
@@ -6378,7 +6378,7 @@ class KalturaSyndicationFeedService extends KalturaServiceBase
 	 * Get entry count for a syndication feed
 	 * 
 	 * @param string $feedId 
-	 * @return KalturaSyndicationFeedEntryCount
+	 * @return BorhanSyndicationFeedEntryCount
 	 */
 	function getEntryCount($feedId)
 	{
@@ -6389,7 +6389,7 @@ class KalturaSyndicationFeedService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaSyndicationFeedEntryCount");
+		$this->client->validateObjectType($resultObject, "BorhanSyndicationFeedEntryCount");
 		return $resultObject;
 	}
 
@@ -6415,12 +6415,12 @@ class KalturaSyndicationFeedService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSystemService extends KalturaServiceBase
+class BorhanSystemService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -6478,12 +6478,12 @@ class KalturaSystemService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaThumbAssetService extends KalturaServiceBase
+class BorhanThumbAssetService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -6492,10 +6492,10 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	 * Add thumbnail asset
 	 * 
 	 * @param string $entryId 
-	 * @param KalturaThumbAsset $thumbAsset 
-	 * @return KalturaThumbAsset
+	 * @param BorhanThumbAsset $thumbAsset 
+	 * @return BorhanThumbAsset
 	 */
-	function add($entryId, KalturaThumbAsset $thumbAsset)
+	function add($entryId, BorhanThumbAsset $thumbAsset)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -6505,7 +6505,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbAsset");
+		$this->client->validateObjectType($resultObject, "BorhanThumbAsset");
 		return $resultObject;
 	}
 
@@ -6513,10 +6513,10 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	 * Update content of thumbnail asset
 	 * 
 	 * @param string $id 
-	 * @param KalturaContentResource $contentResource 
-	 * @return KalturaThumbAsset
+	 * @param BorhanContentResource $contentResource 
+	 * @return BorhanThumbAsset
 	 */
-	function setContent($id, KalturaContentResource $contentResource)
+	function setContent($id, BorhanContentResource $contentResource)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -6526,7 +6526,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbAsset");
+		$this->client->validateObjectType($resultObject, "BorhanThumbAsset");
 		return $resultObject;
 	}
 
@@ -6534,10 +6534,10 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	 * Update thumbnail asset
 	 * 
 	 * @param string $id 
-	 * @param KalturaThumbAsset $thumbAsset 
-	 * @return KalturaThumbAsset
+	 * @param BorhanThumbAsset $thumbAsset 
+	 * @return BorhanThumbAsset
 	 */
-	function update($id, KalturaThumbAsset $thumbAsset)
+	function update($id, BorhanThumbAsset $thumbAsset)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -6547,7 +6547,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbAsset");
+		$this->client->validateObjectType($resultObject, "BorhanThumbAsset");
 		return $resultObject;
 	}
 
@@ -6574,11 +6574,11 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	 * 
 	 * @param string $thumbAssetId 
 	 * @param int $version 
-	 * @param KalturaThumbParams $thumbParams 
-	 * @param KalturaThumbnailServeOptions $options 
+	 * @param BorhanThumbParams $thumbParams 
+	 * @param BorhanThumbnailServeOptions $options 
 	 * @return file
 	 */
-	function serve($thumbAssetId, $version = null, KalturaThumbParams $thumbParams = null, KalturaThumbnailServeOptions $options = null)
+	function serve($thumbAssetId, $version = null, BorhanThumbParams $thumbParams = null, BorhanThumbnailServeOptions $options = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "thumbAssetId", $thumbAssetId);
@@ -6618,7 +6618,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId 
 	 * @param int $destThumbParamsId Indicate the id of the ThumbParams to be generate this thumbnail by
-	 * @return KalturaThumbAsset
+	 * @return BorhanThumbAsset
 	 */
 	function generateByEntryId($entryId, $destThumbParamsId)
 	{
@@ -6630,7 +6630,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbAsset");
+		$this->client->validateObjectType($resultObject, "BorhanThumbAsset");
 		return $resultObject;
 	}
 
@@ -6638,11 +6638,11 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	 * 
 	 * 
 	 * @param string $entryId 
-	 * @param KalturaThumbParams $thumbParams 
+	 * @param BorhanThumbParams $thumbParams 
 	 * @param string $sourceAssetId Id of the source asset (flavor or thumbnail) to be used as source for the thumbnail generation
-	 * @return KalturaThumbAsset
+	 * @return BorhanThumbAsset
 	 */
-	function generate($entryId, KalturaThumbParams $thumbParams, $sourceAssetId = null)
+	function generate($entryId, BorhanThumbParams $thumbParams, $sourceAssetId = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "entryId", $entryId);
@@ -6653,7 +6653,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbAsset");
+		$this->client->validateObjectType($resultObject, "BorhanThumbAsset");
 		return $resultObject;
 	}
 
@@ -6661,7 +6661,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	 * 
 	 * 
 	 * @param string $thumbAssetId 
-	 * @return KalturaThumbAsset
+	 * @return BorhanThumbAsset
 	 */
 	function regenerate($thumbAssetId)
 	{
@@ -6672,7 +6672,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbAsset");
+		$this->client->validateObjectType($resultObject, "BorhanThumbAsset");
 		return $resultObject;
 	}
 
@@ -6680,7 +6680,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	 * 
 	 * 
 	 * @param string $thumbAssetId 
-	 * @return KalturaThumbAsset
+	 * @return BorhanThumbAsset
 	 */
 	function get($thumbAssetId)
 	{
@@ -6691,7 +6691,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbAsset");
+		$this->client->validateObjectType($resultObject, "BorhanThumbAsset");
 		return $resultObject;
 	}
 
@@ -6717,11 +6717,11 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	/**
 	 * List Thumbnail Assets by filter and pager
 	 * 
-	 * @param KalturaAssetFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaThumbAssetListResponse
+	 * @param BorhanAssetFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanThumbAssetListResponse
 	 */
-	function listAction(KalturaAssetFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanAssetFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -6733,7 +6733,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbAssetListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanThumbAssetListResponse");
 		return $resultObject;
 	}
 
@@ -6742,7 +6742,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId 
 	 * @param string $url 
-	 * @return KalturaThumbAsset
+	 * @return BorhanThumbAsset
 	 */
 	function addFromUrl($entryId, $url)
 	{
@@ -6754,7 +6754,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbAsset");
+		$this->client->validateObjectType($resultObject, "BorhanThumbAsset");
 		return $resultObject;
 	}
 
@@ -6763,7 +6763,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	 * 
 	 * @param string $entryId 
 	 * @param file $fileData 
-	 * @return KalturaThumbAsset
+	 * @return BorhanThumbAsset
 	 */
 	function addFromImage($entryId, $fileData)
 	{
@@ -6776,7 +6776,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbAsset");
+		$this->client->validateObjectType($resultObject, "BorhanThumbAsset");
 		return $resultObject;
 	}
 
@@ -6804,10 +6804,10 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	 * 
 	 * @param string $id 
 	 * @param int $storageId 
-	 * @param KalturaThumbParams $thumbParams 
+	 * @param BorhanThumbParams $thumbParams 
 	 * @return string
 	 */
-	function getUrl($id, $storageId = null, KalturaThumbParams $thumbParams = null)
+	function getUrl($id, $storageId = null, BorhanThumbParams $thumbParams = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -6827,7 +6827,7 @@ class KalturaThumbAssetService extends KalturaServiceBase
 	 * Get remote storage existing paths for the asset
 	 * 
 	 * @param string $id 
-	 * @return KalturaRemotePathListResponse
+	 * @return BorhanRemotePathListResponse
 	 */
 	function getRemotePaths($id)
 	{
@@ -6838,18 +6838,18 @@ class KalturaThumbAssetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaRemotePathListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanRemotePathListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaThumbParamsOutputService extends KalturaServiceBase
+class BorhanThumbParamsOutputService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -6858,7 +6858,7 @@ class KalturaThumbParamsOutputService extends KalturaServiceBase
 	 * Get thumb params output object by ID
 	 * 
 	 * @param int $id 
-	 * @return KalturaThumbParamsOutput
+	 * @return BorhanThumbParamsOutput
 	 */
 	function get($id)
 	{
@@ -6869,18 +6869,18 @@ class KalturaThumbParamsOutputService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbParamsOutput");
+		$this->client->validateObjectType($resultObject, "BorhanThumbParamsOutput");
 		return $resultObject;
 	}
 
 	/**
 	 * List thumb params output objects by filter and pager
 	 * 
-	 * @param KalturaThumbParamsOutputFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaThumbParamsOutputListResponse
+	 * @param BorhanThumbParamsOutputFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanThumbParamsOutputListResponse
 	 */
-	function listAction(KalturaThumbParamsOutputFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanThumbParamsOutputFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -6892,18 +6892,18 @@ class KalturaThumbParamsOutputService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbParamsOutputListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanThumbParamsOutputListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaThumbParamsService extends KalturaServiceBase
+class BorhanThumbParamsService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -6911,10 +6911,10 @@ class KalturaThumbParamsService extends KalturaServiceBase
 	/**
 	 * Add new Thumb Params
 	 * 
-	 * @param KalturaThumbParams $thumbParams 
-	 * @return KalturaThumbParams
+	 * @param BorhanThumbParams $thumbParams 
+	 * @return BorhanThumbParams
 	 */
-	function add(KalturaThumbParams $thumbParams)
+	function add(BorhanThumbParams $thumbParams)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "thumbParams", $thumbParams->toParams());
@@ -6923,7 +6923,7 @@ class KalturaThumbParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbParams");
+		$this->client->validateObjectType($resultObject, "BorhanThumbParams");
 		return $resultObject;
 	}
 
@@ -6931,7 +6931,7 @@ class KalturaThumbParamsService extends KalturaServiceBase
 	 * Get Thumb Params by ID
 	 * 
 	 * @param int $id 
-	 * @return KalturaThumbParams
+	 * @return BorhanThumbParams
 	 */
 	function get($id)
 	{
@@ -6942,7 +6942,7 @@ class KalturaThumbParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbParams");
+		$this->client->validateObjectType($resultObject, "BorhanThumbParams");
 		return $resultObject;
 	}
 
@@ -6950,10 +6950,10 @@ class KalturaThumbParamsService extends KalturaServiceBase
 	 * Update Thumb Params by ID
 	 * 
 	 * @param int $id 
-	 * @param KalturaThumbParams $thumbParams 
-	 * @return KalturaThumbParams
+	 * @param BorhanThumbParams $thumbParams 
+	 * @return BorhanThumbParams
 	 */
-	function update($id, KalturaThumbParams $thumbParams)
+	function update($id, BorhanThumbParams $thumbParams)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -6963,7 +6963,7 @@ class KalturaThumbParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbParams");
+		$this->client->validateObjectType($resultObject, "BorhanThumbParams");
 		return $resultObject;
 	}
 
@@ -6989,11 +6989,11 @@ class KalturaThumbParamsService extends KalturaServiceBase
 	/**
 	 * List Thumb Params by filter with paging support (By default - all system default params will be listed too)
 	 * 
-	 * @param KalturaThumbParamsFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaThumbParamsListResponse
+	 * @param BorhanThumbParamsFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanThumbParamsListResponse
 	 */
-	function listAction(KalturaThumbParamsFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanThumbParamsFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -7005,7 +7005,7 @@ class KalturaThumbParamsService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaThumbParamsListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanThumbParamsListResponse");
 		return $resultObject;
 	}
 
@@ -7030,23 +7030,23 @@ class KalturaThumbParamsService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaUiConfService extends KalturaServiceBase
+class BorhanUiConfService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * UIConf Add action allows you to add a UIConf to Kaltura DB
+	 * UIConf Add action allows you to add a UIConf to Borhan DB
 	 * 
-	 * @param KalturaUiConf $uiConf Mandatory input parameter of type KalturaUiConf
-	 * @return KalturaUiConf
+	 * @param BorhanUiConf $uiConf Mandatory input parameter of type BorhanUiConf
+	 * @return BorhanUiConf
 	 */
-	function add(KalturaUiConf $uiConf)
+	function add(BorhanUiConf $uiConf)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "uiConf", $uiConf->toParams());
@@ -7055,7 +7055,7 @@ class KalturaUiConfService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUiConf");
+		$this->client->validateObjectType($resultObject, "BorhanUiConf");
 		return $resultObject;
 	}
 
@@ -7063,10 +7063,10 @@ class KalturaUiConfService extends KalturaServiceBase
 	 * Update an existing UIConf
 	 * 
 	 * @param int $id 
-	 * @param KalturaUiConf $uiConf 
-	 * @return KalturaUiConf
+	 * @param BorhanUiConf $uiConf 
+	 * @return BorhanUiConf
 	 */
-	function update($id, KalturaUiConf $uiConf)
+	function update($id, BorhanUiConf $uiConf)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -7076,7 +7076,7 @@ class KalturaUiConfService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUiConf");
+		$this->client->validateObjectType($resultObject, "BorhanUiConf");
 		return $resultObject;
 	}
 
@@ -7084,7 +7084,7 @@ class KalturaUiConfService extends KalturaServiceBase
 	 * Retrieve a UIConf by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaUiConf
+	 * @return BorhanUiConf
 	 */
 	function get($id)
 	{
@@ -7095,7 +7095,7 @@ class KalturaUiConfService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUiConf");
+		$this->client->validateObjectType($resultObject, "BorhanUiConf");
 		return $resultObject;
 	}
 
@@ -7122,7 +7122,7 @@ class KalturaUiConfService extends KalturaServiceBase
 	 * Clone an existing UIConf
 	 * 
 	 * @param int $id 
-	 * @return KalturaUiConf
+	 * @return BorhanUiConf
 	 */
 	function cloneAction($id)
 	{
@@ -7133,18 +7133,18 @@ class KalturaUiConfService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUiConf");
+		$this->client->validateObjectType($resultObject, "BorhanUiConf");
 		return $resultObject;
 	}
 
 	/**
 	 * Retrieve a list of available template UIConfs
 	 * 
-	 * @param KalturaUiConfFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaUiConfListResponse
+	 * @param BorhanUiConfFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanUiConfListResponse
 	 */
-	function listTemplates(KalturaUiConfFilter $filter = null, KalturaFilterPager $pager = null)
+	function listTemplates(BorhanUiConfFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -7156,18 +7156,18 @@ class KalturaUiConfService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUiConfListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanUiConfListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * Retrieve a list of available UIConfs
 	 * 
-	 * @param KalturaUiConfFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaUiConfListResponse
+	 * @param BorhanUiConfFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanUiConfListResponse
 	 */
-	function listAction(KalturaUiConfFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanUiConfFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -7179,7 +7179,7 @@ class KalturaUiConfService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUiConfListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanUiConfListResponse");
 		return $resultObject;
 	}
 
@@ -7202,12 +7202,12 @@ class KalturaUiConfService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaUploadService extends KalturaServiceBase
+class BorhanUploadService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -7236,7 +7236,7 @@ class KalturaUploadService extends KalturaServiceBase
 	 * 
 	 * 
 	 * @param string $fileName 
-	 * @return KalturaUploadResponse
+	 * @return BorhanUploadResponse
 	 */
 	function getUploadedFileTokenByFileName($fileName)
 	{
@@ -7247,18 +7247,18 @@ class KalturaUploadService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUploadResponse");
+		$this->client->validateObjectType($resultObject, "BorhanUploadResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaUploadTokenService extends KalturaServiceBase
+class BorhanUploadTokenService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -7266,10 +7266,10 @@ class KalturaUploadTokenService extends KalturaServiceBase
 	/**
 	 * Adds new upload token to upload a file
 	 * 
-	 * @param KalturaUploadToken $uploadToken 
-	 * @return KalturaUploadToken
+	 * @param BorhanUploadToken $uploadToken 
+	 * @return BorhanUploadToken
 	 */
-	function add(KalturaUploadToken $uploadToken = null)
+	function add(BorhanUploadToken $uploadToken = null)
 	{
 		$kparams = array();
 		if ($uploadToken !== null)
@@ -7279,7 +7279,7 @@ class KalturaUploadTokenService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUploadToken");
+		$this->client->validateObjectType($resultObject, "BorhanUploadToken");
 		return $resultObject;
 	}
 
@@ -7287,7 +7287,7 @@ class KalturaUploadTokenService extends KalturaServiceBase
 	 * Get upload token by id
 	 * 
 	 * @param string $uploadTokenId 
-	 * @return KalturaUploadToken
+	 * @return BorhanUploadToken
 	 */
 	function get($uploadTokenId)
 	{
@@ -7298,19 +7298,19 @@ class KalturaUploadTokenService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUploadToken");
+		$this->client->validateObjectType($resultObject, "BorhanUploadToken");
 		return $resultObject;
 	}
 
 	/**
-	 * Upload a file using the upload token id, returns an error on failure (an exception will be thrown when using one of the Kaltura clients)
+	 * Upload a file using the upload token id, returns an error on failure (an exception will be thrown when using one of the Borhan clients)
 	 * 
 	 * @param string $uploadTokenId 
 	 * @param file $fileData 
 	 * @param bool $resume 
 	 * @param bool $finalChunk 
 	 * @param float $resumeAt 
-	 * @return KalturaUploadToken
+	 * @return BorhanUploadToken
 	 */
 	function upload($uploadTokenId, $fileData, $resume = false, $finalChunk = true, $resumeAt = -1)
 	{
@@ -7326,7 +7326,7 @@ class KalturaUploadTokenService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUploadToken");
+		$this->client->validateObjectType($resultObject, "BorhanUploadToken");
 		return $resultObject;
 	}
 
@@ -7353,11 +7353,11 @@ class KalturaUploadTokenService extends KalturaServiceBase
 	 * List upload token by filter with pager support. 
 	 When using a user session the service will be restricted to users objects only.
 	 * 
-	 * @param KalturaUploadTokenFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaUploadTokenListResponse
+	 * @param BorhanUploadTokenFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanUploadTokenListResponse
 	 */
-	function listAction(KalturaUploadTokenFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanUploadTokenFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -7369,18 +7369,18 @@ class KalturaUploadTokenService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUploadTokenListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanUploadTokenListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaUserRoleService extends KalturaServiceBase
+class BorhanUserRoleService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -7388,10 +7388,10 @@ class KalturaUserRoleService extends KalturaServiceBase
 	/**
 	 * Adds a new user role object to the account.
 	 * 
-	 * @param KalturaUserRole $userRole A new role
-	 * @return KalturaUserRole
+	 * @param BorhanUserRole $userRole A new role
+	 * @return BorhanUserRole
 	 */
-	function add(KalturaUserRole $userRole)
+	function add(BorhanUserRole $userRole)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "userRole", $userRole->toParams());
@@ -7400,7 +7400,7 @@ class KalturaUserRoleService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUserRole");
+		$this->client->validateObjectType($resultObject, "BorhanUserRole");
 		return $resultObject;
 	}
 
@@ -7408,7 +7408,7 @@ class KalturaUserRoleService extends KalturaServiceBase
 	 * Retrieves a user role object using its ID.
 	 * 
 	 * @param int $userRoleId The user role's unique identifier
-	 * @return KalturaUserRole
+	 * @return BorhanUserRole
 	 */
 	function get($userRoleId)
 	{
@@ -7419,7 +7419,7 @@ class KalturaUserRoleService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUserRole");
+		$this->client->validateObjectType($resultObject, "BorhanUserRole");
 		return $resultObject;
 	}
 
@@ -7427,10 +7427,10 @@ class KalturaUserRoleService extends KalturaServiceBase
 	 * Updates an existing user role object.
 	 * 
 	 * @param int $userRoleId The user role's unique identifier
-	 * @param KalturaUserRole $userRole Id The user role's unique identifier
-	 * @return KalturaUserRole
+	 * @param BorhanUserRole $userRole Id The user role's unique identifier
+	 * @return BorhanUserRole
 	 */
-	function update($userRoleId, KalturaUserRole $userRole)
+	function update($userRoleId, BorhanUserRole $userRole)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "userRoleId", $userRoleId);
@@ -7440,7 +7440,7 @@ class KalturaUserRoleService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUserRole");
+		$this->client->validateObjectType($resultObject, "BorhanUserRole");
 		return $resultObject;
 	}
 
@@ -7448,7 +7448,7 @@ class KalturaUserRoleService extends KalturaServiceBase
 	 * Deletes an existing user role object.
 	 * 
 	 * @param int $userRoleId The user role's unique identifier
-	 * @return KalturaUserRole
+	 * @return BorhanUserRole
 	 */
 	function delete($userRoleId)
 	{
@@ -7459,7 +7459,7 @@ class KalturaUserRoleService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUserRole");
+		$this->client->validateObjectType($resultObject, "BorhanUserRole");
 		return $resultObject;
 	}
 
@@ -7468,11 +7468,11 @@ class KalturaUserRoleService extends KalturaServiceBase
 	 Blocked user roles are listed unless you use a filter to exclude them.
 	 Deleted user roles are not listed unless you use a filter to include them.
 	 * 
-	 * @param KalturaUserRoleFilter $filter A filter used to exclude specific types of user roles
-	 * @param KalturaFilterPager $pager A limit for the number of records to display on a page
-	 * @return KalturaUserRoleListResponse
+	 * @param BorhanUserRoleFilter $filter A filter used to exclude specific types of user roles
+	 * @param BorhanFilterPager $pager A limit for the number of records to display on a page
+	 * @return BorhanUserRoleListResponse
 	 */
-	function listAction(KalturaUserRoleFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanUserRoleFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -7484,7 +7484,7 @@ class KalturaUserRoleService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUserRoleListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanUserRoleListResponse");
 		return $resultObject;
 	}
 
@@ -7492,7 +7492,7 @@ class KalturaUserRoleService extends KalturaServiceBase
 	 * Creates a new user role object that is a duplicate of an existing role.
 	 * 
 	 * @param int $userRoleId The user role's unique identifier
-	 * @return KalturaUserRole
+	 * @return BorhanUserRole
 	 */
 	function cloneAction($userRoleId)
 	{
@@ -7503,30 +7503,30 @@ class KalturaUserRoleService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUserRole");
+		$this->client->validateObjectType($resultObject, "BorhanUserRole");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaUserService extends KalturaServiceBase
+class BorhanUserService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * Adds a new user to an existing account in the Kaltura database.
+	 * Adds a new user to an existing account in the Borhan database.
 	 Input param $id is the unique identifier in the partner's system.
 	 * 
-	 * @param KalturaUser $user The new user
-	 * @return KalturaUser
+	 * @param BorhanUser $user The new user
+	 * @return BorhanUser
 	 */
-	function add(KalturaUser $user)
+	function add(BorhanUser $user)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "user", $user->toParams());
@@ -7535,7 +7535,7 @@ class KalturaUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUser");
+		$this->client->validateObjectType($resultObject, "BorhanUser");
 		return $resultObject;
 	}
 
@@ -7544,10 +7544,10 @@ class KalturaUserService extends KalturaServiceBase
 	 You can also use this action to update the userId.
 	 * 
 	 * @param string $userId The user's unique identifier in the partner's system
-	 * @param KalturaUser $user Id The user's unique identifier in the partner's system
-	 * @return KalturaUser
+	 * @param BorhanUser $user Id The user's unique identifier in the partner's system
+	 * @return BorhanUser
 	 */
-	function update($userId, KalturaUser $user)
+	function update($userId, BorhanUser $user)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "userId", $userId);
@@ -7557,7 +7557,7 @@ class KalturaUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUser");
+		$this->client->validateObjectType($resultObject, "BorhanUser");
 		return $resultObject;
 	}
 
@@ -7565,7 +7565,7 @@ class KalturaUserService extends KalturaServiceBase
 	 * Retrieves a user object for a specified user ID.
 	 * 
 	 * @param string $userId The user's unique identifier in the partner's system
-	 * @return KalturaUser
+	 * @return BorhanUser
 	 */
 	function get($userId = null)
 	{
@@ -7576,7 +7576,7 @@ class KalturaUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUser");
+		$this->client->validateObjectType($resultObject, "BorhanUser");
 		return $resultObject;
 	}
 
@@ -7585,7 +7585,7 @@ class KalturaUserService extends KalturaServiceBase
 	 A login ID is the email address used by a user to log into the system.
 	 * 
 	 * @param string $loginId The user's email address that identifies the user for login
-	 * @return KalturaUser
+	 * @return BorhanUser
 	 */
 	function getByLoginId($loginId)
 	{
@@ -7596,7 +7596,7 @@ class KalturaUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUser");
+		$this->client->validateObjectType($resultObject, "BorhanUser");
 		return $resultObject;
 	}
 
@@ -7604,7 +7604,7 @@ class KalturaUserService extends KalturaServiceBase
 	 * Deletes a user from a partner account.
 	 * 
 	 * @param string $userId The user's unique identifier in the partner's system
-	 * @return KalturaUser
+	 * @return BorhanUser
 	 */
 	function delete($userId)
 	{
@@ -7615,7 +7615,7 @@ class KalturaUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUser");
+		$this->client->validateObjectType($resultObject, "BorhanUser");
 		return $resultObject;
 	}
 
@@ -7624,11 +7624,11 @@ class KalturaUserService extends KalturaServiceBase
 	 Blocked users are listed unless you use a filter to exclude them.
 	 Deleted users are not listed unless you use a filter to include them.
 	 * 
-	 * @param KalturaUserFilter $filter A filter used to exclude specific types of users
-	 * @param KalturaFilterPager $pager A limit for the number of records to display on a page
-	 * @return KalturaUserListResponse
+	 * @param BorhanUserFilter $filter A filter used to exclude specific types of users
+	 * @param BorhanFilterPager $pager A limit for the number of records to display on a page
+	 * @return BorhanUserListResponse
 	 */
-	function listAction(KalturaUserFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanUserFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -7640,7 +7640,7 @@ class KalturaUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUserListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanUserListResponse");
 		return $resultObject;
 	}
 
@@ -7792,7 +7792,7 @@ class KalturaUserService extends KalturaServiceBase
 	 * @param string $userId The user's unique identifier in the partner's system
 	 * @param string $loginId The user's email address that identifies the user for login
 	 * @param string $password The user's password
-	 * @return KalturaUser
+	 * @return BorhanUser
 	 */
 	function enableLogin($userId, $loginId, $password = null)
 	{
@@ -7805,7 +7805,7 @@ class KalturaUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUser");
+		$this->client->validateObjectType($resultObject, "BorhanUser");
 		return $resultObject;
 	}
 
@@ -7815,7 +7815,7 @@ class KalturaUserService extends KalturaServiceBase
 	 * 
 	 * @param string $userId The user's unique identifier in the partner's system
 	 * @param string $loginId The user's email address that identifies the user for login
-	 * @return KalturaUser
+	 * @return BorhanUser
 	 */
 	function disableLogin($userId = null, $loginId = null)
 	{
@@ -7827,7 +7827,7 @@ class KalturaUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUser");
+		$this->client->validateObjectType($resultObject, "BorhanUser");
 		return $resultObject;
 	}
 
@@ -7856,11 +7856,11 @@ class KalturaUserService extends KalturaServiceBase
 	 * 
 	 * 
 	 * @param file $fileData 
-	 * @param KalturaBulkUploadJobData $bulkUploadData 
-	 * @param KalturaBulkUploadUserData $bulkUploadUserData 
-	 * @return KalturaBulkUpload
+	 * @param BorhanBulkUploadJobData $bulkUploadData 
+	 * @param BorhanBulkUploadUserData $bulkUploadUserData 
+	 * @return BorhanBulkUpload
 	 */
-	function addFromBulkUpload($fileData, KalturaBulkUploadJobData $bulkUploadData = null, KalturaBulkUploadUserData $bulkUploadUserData = null)
+	function addFromBulkUpload($fileData, BorhanBulkUploadJobData $bulkUploadData = null, BorhanBulkUploadUserData $bulkUploadUserData = null)
 	{
 		$kparams = array();
 		$kfiles = array();
@@ -7874,17 +7874,17 @@ class KalturaUserService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaBulkUpload");
+		$this->client->validateObjectType($resultObject, "BorhanBulkUpload");
 		return $resultObject;
 	}
 
 	/**
 	 * Action which checks whther user login
 	 * 
-	 * @param KalturaUserLoginDataFilter $filter 
+	 * @param BorhanUserLoginDataFilter $filter 
 	 * @return bool
 	 */
-	function checkLoginDataExists(KalturaUserLoginDataFilter $filter)
+	function checkLoginDataExists(BorhanUserLoginDataFilter $filter)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "filter", $filter->toParams());
@@ -7899,12 +7899,12 @@ class KalturaUserService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWidgetService extends KalturaServiceBase
+class BorhanWidgetService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -7913,10 +7913,10 @@ class KalturaWidgetService extends KalturaServiceBase
 	 * Add new widget, can be attached to entry or kshow
 	 SourceWidget is ignored.
 	 * 
-	 * @param KalturaWidget $widget 
-	 * @return KalturaWidget
+	 * @param BorhanWidget $widget 
+	 * @return BorhanWidget
 	 */
-	function add(KalturaWidget $widget)
+	function add(BorhanWidget $widget)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "widget", $widget->toParams());
@@ -7925,7 +7925,7 @@ class KalturaWidgetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaWidget");
+		$this->client->validateObjectType($resultObject, "BorhanWidget");
 		return $resultObject;
 	}
 
@@ -7933,10 +7933,10 @@ class KalturaWidgetService extends KalturaServiceBase
 	 * Update exisiting widget
 	 * 
 	 * @param string $id 
-	 * @param KalturaWidget $widget 
-	 * @return KalturaWidget
+	 * @param BorhanWidget $widget 
+	 * @return BorhanWidget
 	 */
-	function update($id, KalturaWidget $widget)
+	function update($id, BorhanWidget $widget)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -7946,7 +7946,7 @@ class KalturaWidgetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaWidget");
+		$this->client->validateObjectType($resultObject, "BorhanWidget");
 		return $resultObject;
 	}
 
@@ -7954,7 +7954,7 @@ class KalturaWidgetService extends KalturaServiceBase
 	 * Get widget by id
 	 * 
 	 * @param string $id 
-	 * @return KalturaWidget
+	 * @return BorhanWidget
 	 */
 	function get($id)
 	{
@@ -7965,7 +7965,7 @@ class KalturaWidgetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaWidget");
+		$this->client->validateObjectType($resultObject, "BorhanWidget");
 		return $resultObject;
 	}
 
@@ -7973,10 +7973,10 @@ class KalturaWidgetService extends KalturaServiceBase
 	 * Add widget based on existing widget.
 	 Must provide valid sourceWidgetId
 	 * 
-	 * @param KalturaWidget $widget 
-	 * @return KalturaWidget
+	 * @param BorhanWidget $widget 
+	 * @return BorhanWidget
 	 */
-	function cloneAction(KalturaWidget $widget)
+	function cloneAction(BorhanWidget $widget)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "widget", $widget->toParams());
@@ -7985,18 +7985,18 @@ class KalturaWidgetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaWidget");
+		$this->client->validateObjectType($resultObject, "BorhanWidget");
 		return $resultObject;
 	}
 
 	/**
 	 * Retrieve a list of available widget depends on the filter given
 	 * 
-	 * @param KalturaWidgetFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaWidgetListResponse
+	 * @param BorhanWidgetFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanWidgetListResponse
 	 */
-	function listAction(KalturaWidgetFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanWidgetFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -8008,18 +8008,18 @@ class KalturaWidgetService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaWidgetListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanWidgetListResponse");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaXInternalService extends KalturaServiceBase
+class BorhanXInternalService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -8055,10 +8055,10 @@ class KalturaXInternalService extends KalturaServiceBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaClient extends KalturaClientBase
+class BorhanClient extends BorhanClientBase
 {
 	/**
 	 * @var string
@@ -8067,348 +8067,348 @@ class KalturaClient extends KalturaClientBase
 
 	/**
 	 * Manage access control profiles
-	 * @var KalturaAccessControlProfileService
+	 * @var BorhanAccessControlProfileService
 	 */
 	public $accessControlProfile = null;
 
 	/**
 	 * Add & Manage Access Controls
-	 * @var KalturaAccessControlService
+	 * @var BorhanAccessControlService
 	 */
 	public $accessControl = null;
 
 	/**
 	 * Manage details for the administrative user
-	 * @var KalturaAdminUserService
+	 * @var BorhanAdminUserService
 	 */
 	public $adminUser = null;
 
 	/**
 	 * Base Entry Service
-	 * @var KalturaBaseEntryService
+	 * @var BorhanBaseEntryService
 	 */
 	public $baseEntry = null;
 
 	/**
 	 * Bulk upload service is used to upload & manage bulk uploads using CSV files.
 	 *  This service manages only entry bulk uploads.
-	 * @var KalturaBulkUploadService
+	 * @var BorhanBulkUploadService
 	 */
 	public $bulkUpload = null;
 
 	/**
 	 * Add & Manage CategoryEntry - assign entry to category
-	 * @var KalturaCategoryEntryService
+	 * @var BorhanCategoryEntryService
 	 */
 	public $categoryEntry = null;
 
 	/**
 	 * Add & Manage Categories
-	 * @var KalturaCategoryService
+	 * @var BorhanCategoryService
 	 */
 	public $category = null;
 
 	/**
 	 * Add & Manage CategoryUser - membership of a user in a category
-	 * @var KalturaCategoryUserService
+	 * @var BorhanCategoryUserService
 	 */
 	public $categoryUser = null;
 
 	/**
 	 * Manage the connection between Conversion Profiles and Asset Params
-	 * @var KalturaConversionProfileAssetParamsService
+	 * @var BorhanConversionProfileAssetParamsService
 	 */
 	public $conversionProfileAssetParams = null;
 
 	/**
 	 * Add & Manage Conversion Profiles
-	 * @var KalturaConversionProfileService
+	 * @var BorhanConversionProfileService
 	 */
 	public $conversionProfile = null;
 
 	/**
 	 * Data service lets you manage data content (textual content)
-	 * @var KalturaDataService
+	 * @var BorhanDataService
 	 */
 	public $data = null;
 
 	/**
 	 * Document service
-	 * @var KalturaDocumentService
+	 * @var BorhanDocumentService
 	 */
 	public $document = null;
 
 	/**
 	 * EmailIngestionProfile service lets you manage email ingestion profile records
-	 * @var KalturaEmailIngestionProfileService
+	 * @var BorhanEmailIngestionProfileService
 	 */
 	public $EmailIngestionProfile = null;
 
 	/**
 	 * Manage file assets
-	 * @var KalturaFileAssetService
+	 * @var BorhanFileAssetService
 	 */
 	public $fileAsset = null;
 
 	/**
 	 * Retrieve information and invoke actions on Flavor Asset
-	 * @var KalturaFlavorAssetService
+	 * @var BorhanFlavorAssetService
 	 */
 	public $flavorAsset = null;
 
 	/**
 	 * Flavor Params Output service
-	 * @var KalturaFlavorParamsOutputService
+	 * @var BorhanFlavorParamsOutputService
 	 */
 	public $flavorParamsOutput = null;
 
 	/**
 	 * Add & Manage Flavor Params
-	 * @var KalturaFlavorParamsService
+	 * @var BorhanFlavorParamsService
 	 */
 	public $flavorParams = null;
 
 	/**
 	 * Manage live channel segments
-	 * @var KalturaLiveChannelSegmentService
+	 * @var BorhanLiveChannelSegmentService
 	 */
 	public $liveChannelSegment = null;
 
 	/**
 	 * Live Channel service lets you manage live channels
-	 * @var KalturaLiveChannelService
+	 * @var BorhanLiveChannelService
 	 */
 	public $liveChannel = null;
 
 	/**
 	 * Live Stream service lets you manage live stream entries
-	 * @var KalturaLiveStreamService
+	 * @var BorhanLiveStreamService
 	 */
 	public $liveStream = null;
 
 	/**
 	 * Media Info service
-	 * @var KalturaMediaInfoService
+	 * @var BorhanMediaInfoService
 	 */
 	public $mediaInfo = null;
 
 	/**
 	 * Manage media servers
-	 * @var KalturaMediaServerService
+	 * @var BorhanMediaServerService
 	 */
 	public $mediaServer = null;
 
 	/**
 	 * Media service lets you upload and manage media files (images / videos & audio)
-	 * @var KalturaMediaService
+	 * @var BorhanMediaService
 	 */
 	public $media = null;
 
 	/**
-	 * A Mix is an XML unique format invented by Kaltura, it allows the user to create a mix of videos and images, in and out points, transitions, text overlays, soundtrack, effects and much more...
+	 * A Mix is an XML unique format invented by Borhan, it allows the user to create a mix of videos and images, in and out points, transitions, text overlays, soundtrack, effects and much more...
 	 *  Mixing service lets you create a new mix, manage its metadata and make basic manipulations.
-	 * @var KalturaMixingService
+	 * @var BorhanMixingService
 	 */
 	public $mixing = null;
 
 	/**
 	 * Notification Service
-	 * @var KalturaNotificationService
+	 * @var BorhanNotificationService
 	 */
 	public $notification = null;
 
 	/**
 	 * Partner service allows you to change/manage your partner personal details and settings as well
-	 * @var KalturaPartnerService
+	 * @var BorhanPartnerService
 	 */
 	public $partner = null;
 
 	/**
 	 * PermissionItem service lets you create and manage permission items
-	 * @var KalturaPermissionItemService
+	 * @var BorhanPermissionItemService
 	 */
 	public $permissionItem = null;
 
 	/**
 	 * Permission service lets you create and manage user permissions
-	 * @var KalturaPermissionService
+	 * @var BorhanPermissionService
 	 */
 	public $permission = null;
 
 	/**
 	 * Playlist service lets you create,manage and play your playlists
 	 *  Playlists could be static (containing a fixed list of entries) or dynamic (baseed on a filter)
-	 * @var KalturaPlaylistService
+	 * @var BorhanPlaylistService
 	 */
 	public $playlist = null;
 
 	/**
 	 * Api for getting reports data by the report type and some inputFilter
-	 * @var KalturaReportService
+	 * @var BorhanReportService
 	 */
 	public $report = null;
 
 	/**
 	 * Expose the schema definitions for syndication MRSS, bulk upload XML and other schema types.
-	 * @var KalturaSchemaService
+	 * @var BorhanSchemaService
 	 */
 	public $schema = null;
 
 	/**
 	 * Search service allows you to search for media in various media providers
 	 *  This service is being used mostly by the CW component
-	 * @var KalturaSearchService
+	 * @var BorhanSearchService
 	 */
 	public $search = null;
 
 	/**
 	 * Session service
-	 * @var KalturaSessionService
+	 * @var BorhanSessionService
 	 */
 	public $session = null;
 
 	/**
 	 * Stats Service
-	 * @var KalturaStatsService
+	 * @var BorhanStatsService
 	 */
 	public $stats = null;
 
 	/**
 	 * Storage Profiles service
-	 * @var KalturaStorageProfileService
+	 * @var BorhanStorageProfileService
 	 */
 	public $storageProfile = null;
 
 	/**
 	 * Add & Manage Syndication Feeds
-	 * @var KalturaSyndicationFeedService
+	 * @var BorhanSyndicationFeedService
 	 */
 	public $syndicationFeed = null;
 
 	/**
 	 * System service is used for internal system helpers & to retrieve system level information
-	 * @var KalturaSystemService
+	 * @var BorhanSystemService
 	 */
 	public $system = null;
 
 	/**
 	 * Retrieve information and invoke actions on Thumb Asset
-	 * @var KalturaThumbAssetService
+	 * @var BorhanThumbAssetService
 	 */
 	public $thumbAsset = null;
 
 	/**
 	 * Thumbnail Params Output service
-	 * @var KalturaThumbParamsOutputService
+	 * @var BorhanThumbParamsOutputService
 	 */
 	public $thumbParamsOutput = null;
 
 	/**
 	 * Add & Manage Thumb Params
-	 * @var KalturaThumbParamsService
+	 * @var BorhanThumbParamsService
 	 */
 	public $thumbParams = null;
 
 	/**
 	 * UiConf service lets you create and manage your UIConfs for the various flash components
-	 *  This service is used by the KMC-ApplicationStudio
-	 * @var KalturaUiConfService
+	 *  This service is used by the BMC-ApplicationStudio
+	 * @var BorhanUiConfService
 	 */
 	public $uiConf = null;
 
 	/**
 	 * 
-	 * @var KalturaUploadService
+	 * @var BorhanUploadService
 	 */
 	public $upload = null;
 
 	/**
 	 * 
-	 * @var KalturaUploadTokenService
+	 * @var BorhanUploadTokenService
 	 */
 	public $uploadToken = null;
 
 	/**
 	 * UserRole service lets you create and manage user roles
-	 * @var KalturaUserRoleService
+	 * @var BorhanUserRoleService
 	 */
 	public $userRole = null;
 
 	/**
-	 * Manage partner users on Kaltura's side
-	 *  The userId in kaltura is the unique Id in the partner's system, and the [partnerId,Id] couple are unique key in kaltura's DB
-	 * @var KalturaUserService
+	 * Manage partner users on Borhan's side
+	 *  The userId in borhan is the unique Id in the partner's system, and the [partnerId,Id] couple are unique key in borhan's DB
+	 * @var BorhanUserService
 	 */
 	public $user = null;
 
 	/**
 	 * Widget service for full widget management
-	 * @var KalturaWidgetService
+	 * @var BorhanWidgetService
 	 */
 	public $widget = null;
 
 	/**
-	 * Internal Service is used for actions that are used internally in Kaltura applications and might be changed in the future without any notice.
-	 * @var KalturaXInternalService
+	 * Internal Service is used for actions that are used internally in Borhan applications and might be changed in the future without any notice.
+	 * @var BorhanXInternalService
 	 */
 	public $xInternal = null;
 
 	/**
-	 * Kaltura client constructor
+	 * Borhan client constructor
 	 *
-	 * @param KalturaConfiguration $config
+	 * @param BorhanConfiguration $config
 	 */
-	public function __construct(KalturaConfiguration $config)
+	public function __construct(BorhanConfiguration $config)
 	{
 		parent::__construct($config);
 		
-		$this->accessControlProfile = new KalturaAccessControlProfileService($this);
-		$this->accessControl = new KalturaAccessControlService($this);
-		$this->adminUser = new KalturaAdminUserService($this);
-		$this->baseEntry = new KalturaBaseEntryService($this);
-		$this->bulkUpload = new KalturaBulkUploadService($this);
-		$this->categoryEntry = new KalturaCategoryEntryService($this);
-		$this->category = new KalturaCategoryService($this);
-		$this->categoryUser = new KalturaCategoryUserService($this);
-		$this->conversionProfileAssetParams = new KalturaConversionProfileAssetParamsService($this);
-		$this->conversionProfile = new KalturaConversionProfileService($this);
-		$this->data = new KalturaDataService($this);
-		$this->document = new KalturaDocumentService($this);
-		$this->EmailIngestionProfile = new KalturaEmailIngestionProfileService($this);
-		$this->fileAsset = new KalturaFileAssetService($this);
-		$this->flavorAsset = new KalturaFlavorAssetService($this);
-		$this->flavorParamsOutput = new KalturaFlavorParamsOutputService($this);
-		$this->flavorParams = new KalturaFlavorParamsService($this);
-		$this->liveChannelSegment = new KalturaLiveChannelSegmentService($this);
-		$this->liveChannel = new KalturaLiveChannelService($this);
-		$this->liveStream = new KalturaLiveStreamService($this);
-		$this->mediaInfo = new KalturaMediaInfoService($this);
-		$this->mediaServer = new KalturaMediaServerService($this);
-		$this->media = new KalturaMediaService($this);
-		$this->mixing = new KalturaMixingService($this);
-		$this->notification = new KalturaNotificationService($this);
-		$this->partner = new KalturaPartnerService($this);
-		$this->permissionItem = new KalturaPermissionItemService($this);
-		$this->permission = new KalturaPermissionService($this);
-		$this->playlist = new KalturaPlaylistService($this);
-		$this->report = new KalturaReportService($this);
-		$this->schema = new KalturaSchemaService($this);
-		$this->search = new KalturaSearchService($this);
-		$this->session = new KalturaSessionService($this);
-		$this->stats = new KalturaStatsService($this);
-		$this->storageProfile = new KalturaStorageProfileService($this);
-		$this->syndicationFeed = new KalturaSyndicationFeedService($this);
-		$this->system = new KalturaSystemService($this);
-		$this->thumbAsset = new KalturaThumbAssetService($this);
-		$this->thumbParamsOutput = new KalturaThumbParamsOutputService($this);
-		$this->thumbParams = new KalturaThumbParamsService($this);
-		$this->uiConf = new KalturaUiConfService($this);
-		$this->upload = new KalturaUploadService($this);
-		$this->uploadToken = new KalturaUploadTokenService($this);
-		$this->userRole = new KalturaUserRoleService($this);
-		$this->user = new KalturaUserService($this);
-		$this->widget = new KalturaWidgetService($this);
-		$this->xInternal = new KalturaXInternalService($this);
+		$this->accessControlProfile = new BorhanAccessControlProfileService($this);
+		$this->accessControl = new BorhanAccessControlService($this);
+		$this->adminUser = new BorhanAdminUserService($this);
+		$this->baseEntry = new BorhanBaseEntryService($this);
+		$this->bulkUpload = new BorhanBulkUploadService($this);
+		$this->categoryEntry = new BorhanCategoryEntryService($this);
+		$this->category = new BorhanCategoryService($this);
+		$this->categoryUser = new BorhanCategoryUserService($this);
+		$this->conversionProfileAssetParams = new BorhanConversionProfileAssetParamsService($this);
+		$this->conversionProfile = new BorhanConversionProfileService($this);
+		$this->data = new BorhanDataService($this);
+		$this->document = new BorhanDocumentService($this);
+		$this->EmailIngestionProfile = new BorhanEmailIngestionProfileService($this);
+		$this->fileAsset = new BorhanFileAssetService($this);
+		$this->flavorAsset = new BorhanFlavorAssetService($this);
+		$this->flavorParamsOutput = new BorhanFlavorParamsOutputService($this);
+		$this->flavorParams = new BorhanFlavorParamsService($this);
+		$this->liveChannelSegment = new BorhanLiveChannelSegmentService($this);
+		$this->liveChannel = new BorhanLiveChannelService($this);
+		$this->liveStream = new BorhanLiveStreamService($this);
+		$this->mediaInfo = new BorhanMediaInfoService($this);
+		$this->mediaServer = new BorhanMediaServerService($this);
+		$this->media = new BorhanMediaService($this);
+		$this->mixing = new BorhanMixingService($this);
+		$this->notification = new BorhanNotificationService($this);
+		$this->partner = new BorhanPartnerService($this);
+		$this->permissionItem = new BorhanPermissionItemService($this);
+		$this->permission = new BorhanPermissionService($this);
+		$this->playlist = new BorhanPlaylistService($this);
+		$this->report = new BorhanReportService($this);
+		$this->schema = new BorhanSchemaService($this);
+		$this->search = new BorhanSearchService($this);
+		$this->session = new BorhanSessionService($this);
+		$this->stats = new BorhanStatsService($this);
+		$this->storageProfile = new BorhanStorageProfileService($this);
+		$this->syndicationFeed = new BorhanSyndicationFeedService($this);
+		$this->system = new BorhanSystemService($this);
+		$this->thumbAsset = new BorhanThumbAssetService($this);
+		$this->thumbParamsOutput = new BorhanThumbParamsOutputService($this);
+		$this->thumbParams = new BorhanThumbParamsService($this);
+		$this->uiConf = new BorhanUiConfService($this);
+		$this->upload = new BorhanUploadService($this);
+		$this->uploadToken = new BorhanUploadTokenService($this);
+		$this->userRole = new BorhanUserRoleService($this);
+		$this->user = new BorhanUserService($this);
+		$this->widget = new BorhanWidgetService($this);
+		$this->xInternal = new BorhanXInternalService($this);
 	}
 	
 }

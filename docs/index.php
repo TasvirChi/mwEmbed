@@ -8,13 +8,13 @@
   <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Kaltura Player � Fastest, Most Flexible Online Video Player Toolkit, view feature test files that highlight kaltura player toolkit features.">
-	<meta name="author" content="kaltura">
+	<meta name="description" content="Borhan Player � Fastest, Most Flexible Online Video Player Toolkit, view feature test files that highlight borhan player toolkit features.">
+	<meta name="author" content="borhan">
 
-	<?php if( $wgKalturaGoogleAnalyticsUA ){ ?>
+	<?php if( $wgBorhanGoogleAnalyticsUA ){ ?>
 		<script type="text/javascript">
 		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', '<?php echo $wgKalturaGoogleAnalyticsUA?>']);
+		_gaq.push(['_setAccount', '<?php echo $wgBorhanGoogleAnalyticsUA?>']);
 		_gaq.push(['_trackPageview']);
 
 		(function() {
@@ -49,7 +49,7 @@
 	<script>
 	// Output the exported configuration:
 	mw.setConfig( 'KalutraDocUseRewriteUrls', <?php echo $wgUseRewriteUrls ? 'true' : 'false' ?> );
-	// A configuration var for autodetecting kaltura docs context in child frames. 
+	// A configuration var for autodetecting borhan docs context in child frames. 
 	mw.setConfig( "KalutraDocContext", true );
 	</script>
 	
@@ -66,7 +66,7 @@
 	<script src="<?php echo $pathPrefix; ?>jquery/jquery.ba-hashchange.js"></script>
 	<script src="<?php echo $pathPrefix; ?>pagedown/showdown.js"></script>
 	
-	<title>Kaltura Player - Fast, Flexible, Video Player Toolkit - <?php echo $kdocPageTitle; ?></title>
+	<title>Borhan Player - Fast, Flexible, Video Player Toolkit - <?php echo $kdocPageTitle; ?></title>
   </head>
 
   <body class="kdoc">
@@ -206,7 +206,7 @@
 				// update title: 
 				$( '#page-bg-gradient' ).empty();
 				
-				$('title').text( 'Kaltura Player - ' + pathName );
+				$('title').text( 'Borhan Player - ' + pathName );
 				
 				if( pathName != 'main' && $selected.length ){
 					$( '#page-bg-gradient' ).append(
@@ -220,7 +220,7 @@
 						)
 					)
 					// update the page title: 
-					$('title').text( 'Kaltura Player - ' + $selected.text() );
+					$('title').text( 'Borhan Player - ' + $selected.text() );
 				}
 				// unset all active siblings of nav-category
 				$selected.parents('.nav-category').siblings().removeClass('active').find('.active').removeClass('active');
@@ -244,7 +244,7 @@
 				
 				// Check if we need to update contnet ( check page for history push state key );
 				if( document.getElementById( 'hps-' + pathName ) ){
-					if( console ) console.log( "KalturaDoc:: " + pathName + " already present " ) ;
+					if( console ) console.log( "BorhanDoc:: " + pathName + " already present " ) ;
 					return true;
 				}
 				var basePath = kDocGetBasePath();
@@ -349,8 +349,8 @@
 				} else {
 					if( history &&  history.pushState ){
 						var stateData = { 'key':  href };
-						history.pushState( stateData , 'Kaltura player docs -- ' + href, kDocGetBasePath() + href );
-						<?php if( $wgKalturaGoogleAnalyticsUA ){
+						history.pushState( stateData , 'Borhan player docs -- ' + href, kDocGetBasePath() + href );
+						<?php if( $wgBorhanGoogleAnalyticsUA ){
 							?>
 						// include google log for pushState views:
 						_gaq.push(['_trackPageview', '/docs/' + href ]);
@@ -381,20 +381,20 @@
 			<div class="social-links">
 				<h2>Stay in Touch</h2>
 				<ul>
-				<li><a class="twitter" title="twitter" href="https://twitter.com/@kaltura" target="_blank">Kaltura on Twitter</a></li>
-				<li><a class="chat" title="blog" href="http://blog.kaltura.org/" target="_blank">Kaltura Blog</a></li>
-				<li><a class="linkedin" title="linkedin" href="http://www.linkedin.com/groups/Open-Video-Kaltura-2179100" target="_blank">Kaltura on Linkedin</a></li>
-				<li><a class="facebook" title="facebook" href="http://www.facebook.com/pages/Kaltura/6839024691" target="_blank">Kaltura on Facebook</a></li>
+				<li><a class="twitter" title="twitter" href="https://twitter.com/@borhan" target="_blank">Borhan on Twitter</a></li>
+				<li><a class="chat" title="blog" href="http://blog.borhan.org/" target="_blank">Borhan Blog</a></li>
+				<li><a class="linkedin" title="linkedin" href="http://www.linkedin.com/groups/Open-Video-Borhan-2179100" target="_blank">Borhan on Linkedin</a></li>
+				<li><a class="facebook" title="facebook" href="http://www.facebook.com/pages/Borhan/6839024691" target="_blank">Borhan on Facebook</a></li>
 				</ul>
 			</div>
-			<p class="footer-top">Kaltura is the world's first Open Source Online Video Platform, providing both enterprise level commercial
-			software and services, fully supported and maintained by Kaltura, as well as free open-source community 
+			<p class="footer-top">Borhan is the world's first Open Source Online Video Platform, providing both enterprise level commercial
+			software and services, fully supported and maintained by Borhan, as well as free open-source community 
 			supported solutions, for video publishing, management, syndication and monetization.
 			</p>
 			<div class="divider"></div>
 			<div class="footer-bottom">
 				<img src="images/logo-footer.png">
-				This page reflects <a target="_new" href="http://html5video.org/wiki/Kaltura_HTML5_Release_Notes">Kaltura HTML5 v<?php 
+				This page reflects <a target="_new" href="http://html5video.org/wiki/Borhan_HTML5_Release_Notes">Borhan HTML5 v<?php 
 				 $_pos = strpos( $wgMwEmbedVersion, '__' );
 				 $prettyVersion = $wgMwEmbedVersion;
 				 if( $_pos !== false ){
@@ -402,10 +402,10 @@
 				 }
 				 echo $prettyVersion;
 				 ?></a>
-				Copyright © 2012 Kaltura Inc. All Rights Reserved. Designated trademarks and brands 
+				Copyright © 2012 Borhan Inc. All Rights Reserved. Designated trademarks and brands 
 				are the property of their respective owners, Use of this web site constitutes acceptance 
-				of the <a href="http://corp.kaltura.com/terms-of-use">Terms of Use</a> and 
-				<a href="http://corp.kaltura.com/privacy-policy">Privacy Policy</a>, 
+				of the <a href="http://corp.borhan.com/terms-of-use">Terms of Use</a> and 
+				<a href="http://corp.borhan.com/privacy-policy">Privacy Policy</a>, 
 				User submitted media on this site is licensed under: <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">
 					Creative Commons Attribution-Share Alike 3.0 Unported License</a>.
 			</div>

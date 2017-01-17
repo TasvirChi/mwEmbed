@@ -6,7 +6,7 @@
 	var bumperPlugin = function( embedPlayer, callback ){
 		var bumpPostfix = '.Bumper';
 		// <plugin id="bumper" bumperentryid="1_187nvs4c" clickurl="http://www.nokia.com" playonce="false" presequence="1" width="100%" height="100%"></plugin>
-		var bumperConfig = embedPlayer.getKalturaConfig('bumper');
+		var bumperConfig = embedPlayer.getBorhanConfig('bumper');
 
 		// Convert the pre and post to ints:
 		bumperConfig.preSequence = parseInt( bumperConfig.preSequence );
@@ -37,7 +37,7 @@
 			mw.getEntryIdSourcesFromApi( embedPlayer, bumperConfig.bumperEntryID, function( sources ){
 				if( ! sources || sources.message ){
 					// no sources, or access control error. 
-					mw.log("Error: bumperPlugin: No sources for: " + embedPlayer.kwidgetid + ' entry: ' +  bumperConfig.bumperEntryID );
+					mw.log("Error: bumperPlugin: No sources for: " + embedPlayer.bwidgetid + ' entry: ' +  bumperConfig.bumperEntryID );
 					callback();
 					return ;
 				}
@@ -45,7 +45,7 @@
 				var clickUrl = bumperConfig.clickUrl ? bumperConfig.clickUrl : bumperConfig.clickurl;
 
 				// Remove adaptive sources since KAdPlayer works with the video tag directly without MSE
-				kWidgetSupport.removeAdaptiveFlavors(sources);
+				bWidgetSupport.removeAdaptiveFlavors(sources);
 
 				// Load adSupport for player timeline:
 				var adConf =  {
@@ -59,7 +59,7 @@
 				};
 
 				// Check for skip button
-				var skipBtn = embedPlayer.getRawKalturaConfig('skipBtn');
+				var skipBtn = embedPlayer.getRawBorhanConfig('skipBtn');
 				if( ! $.isEmptyObject( skipBtn ) ){
 					adConf.skipBtn = {
 						'text' : ( skipBtn['label'] )? skipBtn['label']: 'skip ad', // TODO i8ln
@@ -101,7 +101,7 @@
 		}
 	};
 
-	mw.addKalturaPlugin( 'bumper', function(embedPlayer, callback){
+	mw.addBorhanPlugin( 'bumper', function(embedPlayer, callback){
 		bumperPlugin( embedPlayer, callback );
 	});
 

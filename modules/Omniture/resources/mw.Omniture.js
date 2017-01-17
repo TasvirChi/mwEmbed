@@ -45,7 +45,7 @@ mw.Omniture.prototype = {
  	},
  	getConfig: function( key ){
  		// Make sure all the config takes flash override values or what's in the uiconf
- 		return this.embedPlayer.getKalturaConfig( this.pluginName, key );
+ 		return this.embedPlayer.getBorhanConfig( this.pluginName, key );
  	},
  	loadSCode: function( callback ){
 	    var _this = this;
@@ -155,7 +155,7 @@ mw.Omniture.prototype = {
 
  	},
  	getUiConfName: function(){
- 		// NOTE: the KDP version access cp.vo.kuiConf.name ... We don't have that in html5.
+ 		// NOTE: the BDP version access cp.vo.kuiConf.name ... We don't have that in html5.
  		return 'localPlayer'
  	},
  	getMediaMapping: function(){
@@ -251,7 +251,7 @@ mw.Omniture.prototype = {
  			);
  		});
  		embedPlayer.addJsListener( 'playerSeekEnd', function(){
- 			// kdp includes a "media.play" call on seek end.
+ 			// bdp includes a "media.play" call on seek end.
  			_this.runMediaCommand( 'play',
  				_this.getMediaName(),
 				_this.getCurrentTime()

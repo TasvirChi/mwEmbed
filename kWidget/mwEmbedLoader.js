@@ -4,7 +4,7 @@
 
 // The version of this script
 var logIfInIframe = ( typeof preMwEmbedConfig != 'undefined' && preMwEmbedConfig['EmbedPlayer.IsIframeServer'] ) ? ' ( iframe ) ': '';
-kWidget.log( 'Kaltura HTML5 Version: ' + MWEMBED_VERSION  + logIfInIframe );
+bWidget.log( 'Borhan HTML5 Version: ' + MWEMBED_VERSION  + logIfInIframe );
 
 // Define mw ( if not already set )
 if( !window['mw'] ) {
@@ -91,10 +91,10 @@ if( !mw.ready ){
 }
 
 /**
- *  getKalturaThumbUrl is now supported via kWidget.getKalturaThumbUrl
+ *  getBorhanThumbUrl is now supported via bWidget.getBorhanThumbUrl
  */
-mw.getKalturaThumbUrl = function( entry ){
-	kWidget.log( 'mw.getKalturaThumbUrl is deprecated. Please use kWidget.getKalturaThumbUrl' );
-	return kWidget.getKalturaThumbUrl( entry );
+mw.getBorhanThumbUrl = function( entry ){
+	bWidget.log( 'mw.getBorhanThumbUrl is deprecated. Please use bWidget.getBorhanThumbUrl' );
+	return bWidget.getBorhanThumbUrl( entry );
 };
 

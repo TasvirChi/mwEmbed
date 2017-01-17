@@ -1,5 +1,5 @@
 /*
- * The "kaltura player" embedPlayer interface for fallback h.264 and flv video format support
+ * The "borhan player" embedPlayer interface for fallback h.264 and flv video format support
  */
 (function (mw, $) {
 	"use strict";
@@ -32,7 +32,7 @@
 		// Stores the current time as set from flash player
 		flashCurrentTime: 0,
 		selectedFlavorIndex: 0,
-		b64Referrer: base64_encode(window.kWidgetSupport.getHostPageUrl()),
+		b64Referrer: base64_encode(window.bWidgetSupport.getHostPageUrl()),
 		playerObject: null,
 		//when playing live rtmp we increase the timeout until we display the "offline" alert, cuz player takes a while to identify "online" state
 		LIVE_OFFLINE_ALERT_TIMEOUT: 8000,
@@ -82,13 +82,13 @@
 				flashvars.entryDuration = _this.getDuration();
 				flashvars.isMp4 = _this.isMp4Src();
 				flashvars.ks = _this.getFlashvars('ks');
-				flashvars.serviceUrl = mw.getConfig('Kaltura.ServiceUrl');
+				flashvars.serviceUrl = mw.getConfig('Borhan.ServiceUrl');
 				flashvars.b64Referrer = _this.b64Referrer;
-				flashvars.forceDynamicStream = _this.getKalturaAttributeConfig('forceDynamicStream');
+				flashvars.forceDynamicStream = _this.getBorhanAttributeConfig('forceDynamicStream');
 				flashvars.isLive = _this.isLive();
-				flashvars.stretchVideo = _this.getKalturaAttributeConfig('stretchVideo') || false;
+				flashvars.stretchVideo = _this.getBorhanAttributeConfig('stretchVideo') || false;
 
-				flashvars.flavorId = _this.getKalturaAttributeConfig('flavorId');
+				flashvars.flavorId = _this.getBorhanAttributeConfig('flavorId');
 				if (!flashvars.flavorId && _this.mediaElement.selectedSource) {
 					flashvars.flavorId = _this.mediaElement.selectedSource.getAssetId();
 					//_this workaround saves the last real flavorId (usefull for example in widevine_mbr replay )
@@ -122,7 +122,7 @@
                     var preferedBitRate = _this.evaluate( '{mediaProxy.preferedFlavorBR}' );
                     if( preferedBitRate ) {
                         hlsPluginConfiguration["prefBitrate"] = preferedBitRate;
-                        flashvars.disableAutoDynamicStreamSwitch = true; // disable autoDynamicStreamSwitch logic inside KDP (while playing + if player.isDynamicStream turn autoSwitch on)
+                        flashvars.disableAutoDynamicStreamSwitch = true; // disable autoDynamicStreamSwitch logic inside BDP (while playing + if player.isDynamicStream turn autoSwitch on)
                     }
                     if( mw.getConfig("maxBitrate") ) {
                         hlsPluginConfiguration["maxBitrate"] = mw.getConfig("maxBitrate");
@@ -145,7 +145,7 @@
                             })();
                         }
                     }
-                    flashvars.KalturaHLS = hlsPluginConfiguration;
+                    flashvars.BorhanHLS = hlsPluginConfiguration;
                     flashvars.streamerType = _this.streamerType = 'hls';
 				}
 
@@ -153,22 +153,22 @@
 					flashvars.autoPlay = true;
 				}
 
-				if (_this.getKalturaAttributeConfig('maxAllowedRegularBitrate')) {
-					flashvars.maxAllowedRegularBitrate = _this.getKalturaAttributeConfig('maxAllowedRegularBitrate');
+				if (_this.getBorhanAttributeConfig('maxAllowedRegularBitrate')) {
+					flashvars.maxAllowedRegularBitrate = _this.getBorhanAttributeConfig('maxAllowedRegularBitrate');
 				}
-				if (_this.getKalturaAttributeConfig('maxAllowedFSBitrate')) {
-					flashvars.maxAllowedFSBitrate = _this.getKalturaAttributeConfig('maxAllowedFSBitrate');
+				if (_this.getBorhanAttributeConfig('maxAllowedFSBitrate')) {
+					flashvars.maxAllowedFSBitrate = _this.getBorhanAttributeConfig('maxAllowedFSBitrate');
 				}
 
 				//will contain flash plugins we need to load
-				var kdpVars = _this.getKalturaConfig('kdpVars', null);
-				$.extend(flashvars, kdpVars);
+				var bdpVars = _this.getBorhanConfig('bdpVars', null);
+				$.extend(flashvars, bdpVars);
 
 				var flashFailCallback = function(){
 					_this.removePoster();
 					_this.layoutBuilder.displayAlert( {
-						title: _this.getKalturaMsg( 'ks-FLASH-BLOCKED-TITLE' ),
-						message: _this.getKalturaMsg( 'ks-FLASH-BLOCKED' ),
+						title: _this.getBorhanMsg( 'ks-FLASH-BLOCKED-TITLE' ),
+						message: _this.getBorhanMsg( 'ks-FLASH-BLOCKED' ),
 						keepOverlay: true,
 						noButtons : true,
 						props: {
@@ -214,7 +214,7 @@
 						_this.playerObject.addJsListener(bindName, localMethod);
 					});
 					if (_this.startTime !== undefined && _this.startTime != 0 && !_this.supportsURLTimeEncoding()) {
-						_this.playerObject.setKDPAttribute('mediaProxy', 'mediaPlayFrom', _this.startTime);
+						_this.playerObject.setBDPAttribute('mediaProxy', 'mediaPlayFrom', _this.startTime);
 					}
 					readyCallback();
 
@@ -346,17 +346,17 @@
 			if( this.manifestAdaptiveFlavors.length ){
 				return this.manifestAdaptiveFlavors;
 			}
-			return this.getSourcesForKDP();
+			return this.getSourcesForBDP();
 		},
 		
 		/**
-		 * Get required sources for KDP. Either by flavorTags flashvar or tagged wtih 'web'/'mbr' by default
+		 * Get required sources for BDP. Either by flavorTags flashvar or tagged wtih 'web'/'mbr' by default
 		 * or hls sources
 		 **/
-		getSourcesForKDP: function () {
+		getSourcesForBDP: function () {
 			var _this = this;
 			var sourcesByTags = [];
-			var flavorTags = _this.getKalturaAttributeConfig('flavorTags');
+			var flavorTags = _this.getBorhanAttributeConfig('flavorTags');
 			//select default 'web' / 'mbr' flavors
 			if (flavorTags === undefined) {
 				var sources = _this.mediaElement.getPlayableSources();
@@ -376,7 +376,7 @@
 
 		updateSources: function () {
 			if (!( this.isLive() || this.sourcesReplaced || this.isHlsSource(this.mediaElement.selectedSource) )) {
-				this.autoSelectTemporalSource( { 'sources': this.getSourcesForKDP() } );
+				this.autoSelectTemporalSource( { 'sources': this.getSourcesForBDP() } );
 			}
 			else if (this.isLive() && this.streamerType == 'rtmp') {
 				var _this = this;
@@ -386,10 +386,10 @@
 					//cancel the autoPlay once Flash starts the live checks
 					this.cancelLiveAutoPlay = true;
 				} else if (this.playerObject) {
-					this.playerObject.setKDPAttribute('configProxy.flashvars', 'autoPlay', 'true');
+					this.playerObject.setBDPAttribute('configProxy.flashvars', 'autoPlay', 'true');
 				}
 				//with rtmp the first seconds look offline, delay the "offline" message
-				this.setKDPAttribute('liveCore', 'offlineAlertOffest', this.LIVE_OFFLINE_ALERT_TIMEOUT);
+				this.setBDPAttribute('liveCore', 'offlineAlertOffest', this.LIVE_OFFLINE_ALERT_TIMEOUT);
 				$(this).bind('layoutBuildDone', function () {
 					_this.disablePlayControls();
 				});
@@ -403,9 +403,9 @@
 			this.seekStarted = false;
 			this.mediaLoadedFlag = false;
 			this.flashCurrentTime = 0;
-			this.playerObject.setKDPAttribute('mediaProxy', 'isLive', this.isLive());
-			this.playerObject.setKDPAttribute('mediaProxy', 'isMp4', this.isMp4Src());
-			this.playerObject.setKDPAttribute('mediaProxy', 'entryDuration', this.getDuration()); //TODO - to support inteliseek - set the correct duration using seekFrom and clipTo
+			this.playerObject.setBDPAttribute('mediaProxy', 'isLive', this.isLive());
+			this.playerObject.setBDPAttribute('mediaProxy', 'isMp4', this.isMp4Src());
+			this.playerObject.setBDPAttribute('mediaProxy', 'entryDuration', this.getDuration()); //TODO - to support inteliseek - set the correct duration using seekFrom and clipTo
 			this.getEntryUrl().then(function (srcToPlay) {
 				if (!_this.playlist || _this.autoplay){
 					_this.bindHelper("onChangeMediaDone"+_this.bindPostfix, function(){
@@ -436,7 +436,7 @@
 		},
 
 		/**
-		 * on Pause callback from the kaltura flash player calls parent_pause to
+		 * on Pause callback from the borhan flash player calls parent_pause to
 		 * update the interface
 		 */
 		onPause: function () {
@@ -452,7 +452,7 @@
 		},
 
 		/**
-		 * onPlay function callback from the kaltura flash player directly call the
+		 * onPlay function callback from the borhan flash player directly call the
 		 * parent_play
 		 */
 		onPlay: function () {
@@ -538,7 +538,7 @@
 			if (data) {
 				error = data.errorId + " detail:" + data.errorDetail;
 			}
-			data.errorMessage = this.getKalturaMsg('ks-CLIP_NOT_FOUND');
+			data.errorMessage = this.getBorhanMsg('ks-CLIP_NOT_FOUND');
 			mw.log("EmbedPlayerKPlayer::MediaError error code: " + error);
 			this.triggerHelper('embedPlayerError', [ data ]);
 		},
@@ -628,7 +628,7 @@
 				if (this.streamerType == 'http') {
 					this.playerObject.seek(seekTime);
 				} else {
-					this.playerObject.setKDPAttribute( 'mediaProxy', 'mediaPlayFrom', seekTime );
+					this.playerObject.setBDPAttribute( 'mediaProxy', 'mediaPlayFrom', seekTime );
 					this.playerObject.play();
 				}
 			} else {
@@ -733,7 +733,7 @@
 						}
 					});
 				}
-				this.setKDPAttribute('sourceSelector', 'visible', true);
+				this.setBDPAttribute('sourceSelector', 'visible', true);
 				this.parent_onFlavorsListChanged(flavors);
 			}
 		},
@@ -748,7 +748,7 @@
 			if (this.streamerType == 'rtmp') {
 				//first time the livestream is ready
 				this.hideSpinner();
-				this.playerObject.setKDPAttribute('configProxy.flashvars', 'autoPlay', 'false');  //reset property for next media
+				this.playerObject.setBDPAttribute('configProxy.flashvars', 'autoPlay', 'false');  //reset property for next media
 				this.triggerHelper('liveStreamStatusUpdate', { 'onAirStatus': true });
 				if (this.cancelLiveAutoPlay) {
 					this.cancelLiveAutoPlay = false;
@@ -848,15 +848,15 @@
 		},
 
 		/**
-		 * Get the URL to pass to KDP according to the current streamerType
+		 * Get the URL to pass to BDP according to the current streamerType
 		 */
 		getEntryUrl: function () {
             var _this = this;
 			var deferred = $.Deferred();
 			var originalSrc = this.mediaElement.selectedSource.getSrc();
 			if (this.isHlsSource(this.mediaElement.selectedSource)) {
-                // add playerType=flash indicator (Kaltura Live HLS only)
-                //if( this.isLive() &&  mw.getConfig('isLiveKalturaHLS') ) {
+                // add playerType=flash indicator (Borhan Live HLS only)
+                //if( this.isLive() &&  mw.getConfig('isLiveBorhanHLS') ) {
                 //    originalSrc = originalSrc + "&playerType=flash";
                 //}
                 this.streamerType = 'hls';
@@ -875,7 +875,7 @@
 				return deferred.resolve(originalSrc);
 			}
 			var flavorIdParam = '';
-			var mediaProtocol = this.getKalturaAttributeConfig('mediaProtocol') || mw.getConfig('Kaltura.Protocol') || "http";
+			var mediaProtocol = this.getBorhanAttributeConfig('mediaProtocol') || mw.getConfig('Borhan.Protocol') || "http";
 			var format;
 			var fileExt = 'f4m';
 			if (this.streamerType === 'hdnetwork') {
@@ -892,7 +892,7 @@
 
 			//build playmanifest URL
 			var ksString = this.getFlashvars('ks') ? "/ks/" + this.getFlashvars('ks') : "";
-			var srcUrl = window.kWidgetSupport.getBaseFlavorUrl(this.kpartnerid) + "/entryId/" + this.kentryid + flavorIdParam
+			var srcUrl = window.bWidgetSupport.getBaseFlavorUrl(this.kpartnerid) + "/entryId/" + this.kentryid + flavorIdParam
 				+ this.getPlaymanifestArg("deliveryCode", "deliveryCode") + "/format/" + format
 				+ "/protocol/" + mediaProtocol + this.getPlaymanifestArg("cdnHost", "cdnHost") + this.getPlaymanifestArg("storageId", "storageId")
 				+ ksString + "/uiConfId/" + this.kuiconfid + this.getPlaymanifestArg("referrerSig", "referrerSig")
@@ -941,7 +941,7 @@
 		 */
 		getPlaymanifestArg: function (argName, argKey) {
 			var argString = "";
-			var argVal = this.getKalturaAttributeConfig(argKey);
+			var argVal = this.getBorhanAttributeConfig(argKey);
 			if (argVal !== undefined) {
 				argString = "/" + argName + "/" + argVal;
 			}
@@ -949,12 +949,12 @@
 		},
 		switchSrc: function (source) {
 			var _this = this;
-			//http requires source switching, all other switch will be handled by OSMF in KDP
-			if (this.streamerType == 'http' && !this.getKalturaAttributeConfig('forceDynamicStream')) {
+			//http requires source switching, all other switch will be handled by OSMF in BDP
+			if (this.streamerType == 'http' && !this.getBorhanAttributeConfig('forceDynamicStream')) {
 				//other streamerTypes will update the source upon "switchingChangeComplete"
 				this.mediaElement.setSource(source);
 				this.getEntryUrl().then(function (srcToPlay) {
-					_this.playerObject.setKDPAttribute('mediaProxy', 'entryUrl', srcToPlay);
+					_this.playerObject.setBDPAttribute('mediaProxy', 'entryUrl', srcToPlay);
 					_this.playerObject.sendNotification('doSwitch', { flavorIndex: _this.getSourceIndex(source) });
 				});
 				return;
@@ -990,7 +990,7 @@
 		},
 
 		setKPlayerAttribute: function (host, prop, val) {
-			this.playerObject.setKDPAttribute(host, prop, val);
+			this.playerObject.setBDPAttribute(host, prop, val);
 		},
 		clean: function () {
 			this.unbindHelper(  this.bindPostfix );
@@ -1003,7 +1003,7 @@
 			//set url with new storageId
 			if (this.playerObject) {
 				this.getEntryUrl().then(function (srcToPlay) {
-					_this.playerObject.setKDPAttribute('mediaProxy', 'entryUrl', srcToPlay);
+					_this.playerObject.setBDPAttribute('mediaProxy', 'entryUrl', srcToPlay);
 				});
 			}
 		},
@@ -1035,7 +1035,7 @@
 					}
 				});
 			} else {
-				this.playerObject.setKDPAttribute('mediaProxy', 'mediaPlayFrom', this.startTime);
+				this.playerObject.setBDPAttribute('mediaProxy', 'mediaPlayFrom', this.startTime);
 				if (endTime) {
 					this.pauseTime = endTime;
 				}

@@ -188,7 +188,7 @@
 		injectCssToPage: function(cssLink){
 			if (cssLink) {
 				try{
-					cssLink = cssLink.toLowerCase().indexOf("http") === 0 ? cssLink : kWidget.getPath() + cssLink; // support external CSS links
+					cssLink = cssLink.toLowerCase().indexOf("http") === 0 ? cssLink : bWidget.getPath() + cssLink; // support external CSS links
 					$('head', window.parent.document).append('<link type="text/css" rel="stylesheet" href="' + cssLink + '"/>');
 				}catch(e){
 					mw.log("failed to inject css " + cssLink + " to page. Exception: " + e);
@@ -425,7 +425,7 @@
 
 		getHTML : function(){
 			var templatePath = this.getConfig( 'templatePath' );
-			var rawHTML = window.kalturaIframePackageData.templates[ templatePath ];
+			var rawHTML = window.borhanIframePackageData.templates[ templatePath ];
 
 			return rawHTML;
 		},

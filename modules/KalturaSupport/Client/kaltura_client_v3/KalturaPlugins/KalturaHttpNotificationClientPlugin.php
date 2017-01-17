@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,19 +28,19 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
-require_once(dirname(__FILE__) . "/KalturaEventNotificationClientPlugin.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
+require_once(dirname(__FILE__) . "/BorhanEventNotificationClientPlugin.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationAuthenticationMethod
+class BorhanHttpNotificationAuthenticationMethod
 {
 	const ANYSAFE = -18;
 	const ANY = -17;
@@ -51,10 +51,10 @@ class KalturaHttpNotificationAuthenticationMethod
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationMethod
+class BorhanHttpNotificationMethod
 {
 	const GET = 1;
 	const POST = 2;
@@ -63,20 +63,20 @@ class KalturaHttpNotificationMethod
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationSslVersion
+class BorhanHttpNotificationSslVersion
 {
 	const V2 = 2;
 	const V3 = 3;
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationCertificateType
+class BorhanHttpNotificationCertificateType
 {
 	const DER = "DER";
 	const ENG = "ENG";
@@ -84,10 +84,10 @@ class KalturaHttpNotificationCertificateType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationSslKeyType
+class BorhanHttpNotificationSslKeyType
 {
 	const DER = "DER";
 	const ENG = "ENG";
@@ -95,10 +95,10 @@ class KalturaHttpNotificationSslKeyType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationTemplateOrderBy
+class BorhanHttpNotificationTemplateOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const ID_ASC = "+id";
@@ -109,16 +109,16 @@ class KalturaHttpNotificationTemplateOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotification extends KalturaObjectBase
+class BorhanHttpNotification extends BorhanObjectBase
 {
 	/**
 	 * Object that triggered the notification
 	 * 	 
 	 *
-	 * @var KalturaObjectBase
+	 * @var BorhanObjectBase
 	 */
 	public $object;
 
@@ -126,7 +126,7 @@ class KalturaHttpNotification extends KalturaObjectBase
 	 * Object type that triggered the notification
 	 * 	 
 	 *
-	 * @var KalturaEventNotificationEventObjectType
+	 * @var BorhanEventNotificationEventObjectType
 	 */
 	public $eventObjectType = null;
 
@@ -166,7 +166,7 @@ class KalturaHttpNotification extends KalturaObjectBase
 	 * Ecent type that triggered the notification
 	 * 	 
 	 *
-	 * @var KalturaEventNotificationEventType
+	 * @var BorhanEventNotificationEventType
 	 */
 	public $eventType = null;
 
@@ -174,33 +174,33 @@ class KalturaHttpNotification extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaHttpNotificationData extends KalturaObjectBase
+abstract class BorhanHttpNotificationData extends BorhanObjectBase
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationDataFields extends KalturaHttpNotificationData
+class BorhanHttpNotificationDataFields extends BorhanHttpNotificationData
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationDataText extends KalturaHttpNotificationData
+class BorhanHttpNotificationDataText extends BorhanHttpNotificationData
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaStringValue
+	 * @var BorhanStringValue
 	 */
 	public $content;
 
@@ -208,13 +208,13 @@ class KalturaHttpNotificationDataText extends KalturaHttpNotificationData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationObjectData extends KalturaHttpNotificationData
+class BorhanHttpNotificationObjectData extends BorhanHttpNotificationData
 {
 	/**
-	 * Kaltura API object type
+	 * Borhan API object type
 	 * 	 
 	 *
 	 * @var string
@@ -225,7 +225,7 @@ class KalturaHttpNotificationObjectData extends KalturaHttpNotificationData
 	 * Data format
 	 * 	 
 	 *
-	 * @var KalturaResponseType
+	 * @var BorhanResponseType
 	 */
 	public $format = null;
 
@@ -249,10 +249,10 @@ class KalturaHttpNotificationObjectData extends KalturaHttpNotificationData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationTemplate extends KalturaEventNotificationTemplate
+class BorhanHttpNotificationTemplate extends BorhanEventNotificationTemplate
 {
 	/**
 	 * Remote server URL
@@ -266,7 +266,7 @@ class KalturaHttpNotificationTemplate extends KalturaEventNotificationTemplate
 	 * Request method.
 	 * 	 
 	 *
-	 * @var KalturaHttpNotificationMethod
+	 * @var BorhanHttpNotificationMethod
 	 */
 	public $method = null;
 
@@ -274,7 +274,7 @@ class KalturaHttpNotificationTemplate extends KalturaEventNotificationTemplate
 	 * Data to send.
 	 * 	 
 	 *
-	 * @var KalturaHttpNotificationData
+	 * @var BorhanHttpNotificationData
 	 */
 	public $data;
 
@@ -315,7 +315,7 @@ class KalturaHttpNotificationTemplate extends KalturaEventNotificationTemplate
 	 * The HTTP authentication method to use.
 	 * 	 
 	 *
-	 * @var KalturaHttpNotificationAuthenticationMethod
+	 * @var BorhanHttpNotificationAuthenticationMethod
 	 */
 	public $authenticationMethod = null;
 
@@ -324,7 +324,7 @@ class KalturaHttpNotificationTemplate extends KalturaEventNotificationTemplate
 	 * 	 By default PHP will try to determine this itself, although in some cases this must be set manually.
 	 * 	 
 	 *
-	 * @var KalturaHttpNotificationSslVersion
+	 * @var BorhanHttpNotificationSslVersion
 	 */
 	public $sslVersion = null;
 
@@ -340,7 +340,7 @@ class KalturaHttpNotificationTemplate extends KalturaEventNotificationTemplate
 	 * The format of the certificate.
 	 * 	 
 	 *
-	 * @var KalturaHttpNotificationCertificateType
+	 * @var BorhanHttpNotificationCertificateType
 	 */
 	public $sslCertificateType = null;
 
@@ -372,7 +372,7 @@ class KalturaHttpNotificationTemplate extends KalturaEventNotificationTemplate
 	 * The key type of the private SSL key specified in ssl key - PEM / DER / ENG.
 	 * 	 
 	 *
-	 * @var KalturaHttpNotificationSslKeyType
+	 * @var BorhanHttpNotificationSslKeyType
 	 */
 	public $sslKeyType = null;
 
@@ -396,7 +396,7 @@ class KalturaHttpNotificationTemplate extends KalturaEventNotificationTemplate
 	 * Adds a e-mail custom header
 	 * 	 
 	 *
-	 * @var array of KalturaKeyValue
+	 * @var array of BorhanKeyValue
 	 */
 	public $customHeaders;
 
@@ -404,10 +404,10 @@ class KalturaHttpNotificationTemplate extends KalturaEventNotificationTemplate
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationDispatchJobData extends KalturaEventNotificationDispatchJobData
+class BorhanHttpNotificationDispatchJobData extends BorhanEventNotificationDispatchJobData
 {
 	/**
 	 * Remote server URL
@@ -421,7 +421,7 @@ class KalturaHttpNotificationDispatchJobData extends KalturaEventNotificationDis
 	 * Request method.
 	 * 	 
 	 *
-	 * @var KalturaHttpNotificationMethod
+	 * @var BorhanHttpNotificationMethod
 	 */
 	public $method = null;
 
@@ -470,7 +470,7 @@ class KalturaHttpNotificationDispatchJobData extends KalturaEventNotificationDis
 	 * The HTTP authentication method to use.
 	 * 	 
 	 *
-	 * @var KalturaHttpNotificationAuthenticationMethod
+	 * @var BorhanHttpNotificationAuthenticationMethod
 	 */
 	public $authenticationMethod = null;
 
@@ -479,7 +479,7 @@ class KalturaHttpNotificationDispatchJobData extends KalturaEventNotificationDis
 	 * 	 By default PHP will try to determine this itself, although in some cases this must be set manually.
 	 * 	 
 	 *
-	 * @var KalturaHttpNotificationSslVersion
+	 * @var BorhanHttpNotificationSslVersion
 	 */
 	public $sslVersion = null;
 
@@ -495,7 +495,7 @@ class KalturaHttpNotificationDispatchJobData extends KalturaEventNotificationDis
 	 * The format of the certificate.
 	 * 	 
 	 *
-	 * @var KalturaHttpNotificationCertificateType
+	 * @var BorhanHttpNotificationCertificateType
 	 */
 	public $sslCertificateType = null;
 
@@ -527,7 +527,7 @@ class KalturaHttpNotificationDispatchJobData extends KalturaEventNotificationDis
 	 * The key type of the private SSL key specified in ssl key - PEM / DER / ENG.
 	 * 	 
 	 *
-	 * @var KalturaHttpNotificationSslKeyType
+	 * @var BorhanHttpNotificationSslKeyType
 	 */
 	public $sslKeyType = null;
 
@@ -551,7 +551,7 @@ class KalturaHttpNotificationDispatchJobData extends KalturaEventNotificationDis
 	 * Adds a e-mail custom header
 	 * 	 
 	 *
-	 * @var array of KalturaKeyValue
+	 * @var array of BorhanKeyValue
 	 */
 	public $customHeaders;
 
@@ -567,44 +567,44 @@ class KalturaHttpNotificationDispatchJobData extends KalturaEventNotificationDis
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaHttpNotificationTemplateBaseFilter extends KalturaEventNotificationTemplateFilter
+abstract class BorhanHttpNotificationTemplateBaseFilter extends BorhanEventNotificationTemplateFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationTemplateFilter extends KalturaHttpNotificationTemplateBaseFilter
+class BorhanHttpNotificationTemplateFilter extends BorhanHttpNotificationTemplateBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaHttpNotificationClientPlugin extends KalturaClientPlugin
+class BorhanHttpNotificationClientPlugin extends BorhanClientPlugin
 {
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * @return KalturaHttpNotificationClientPlugin
+	 * @return BorhanHttpNotificationClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaHttpNotificationClientPlugin($client);
+		return new BorhanHttpNotificationClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

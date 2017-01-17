@@ -61,7 +61,7 @@
 		loadEntry: function() {
 			var embedPlayer = this.embedPlayer;
 			var presentationEntryId = this.embedPlayer.getFlashvars( 'videoPresentationEntryId' );
-			var client = mw.kApiGetPartnerClient( this.embedPlayer.kwidgetid );
+			var client = mw.kApiGetPartnerClient( this.embedPlayer.bwidgetid );
 			client.doRequest({
 					 'service' : 'baseentry',
 					 'action' : 'get',
@@ -77,11 +77,11 @@
 		},
 
 		getConfig: function( attr ) {
-			return this.embedPlayer.getKalturaConfig(this.pluginName, attr);
+			return this.embedPlayer.getBorhanConfig(this.pluginName, attr);
 		}
 	};
 
-	mw.addKalturaPlugin( 'pptWidgetAPI', function( embedPlayer, callback ){
+	mw.addBorhanPlugin( 'pptWidgetAPI', function( embedPlayer, callback ){
 		new pptWidgetPlugin( embedPlayer );
 		// Continue player build-out
 		callback();

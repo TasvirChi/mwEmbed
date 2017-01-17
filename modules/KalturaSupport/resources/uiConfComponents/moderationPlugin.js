@@ -113,10 +113,10 @@
 			var _this = this;
 			this.getPlayer().triggerHelper( 'moderationSubmit', flagObj.flagType );
 			this.getPlayer().addPlayerSpinner();
-			this.getKalturaClient().doRequest( {
+			this.getBorhanClient().doRequest( {
 				'service' : 'baseentry',
 				'action' : 'flag',
-				'moderationFlag:objectType' : 'KalturaModerationFlag',
+				'moderationFlag:objectType' : 'BorhanModerationFlag',
 				'moderationFlag:flaggedEntryId' : _this.getPlayer().kentryid,
 				'moderationFlag:flagType' : flagObj.flagType,
 				'moderationFlag:comments' : flagObj.flagComments

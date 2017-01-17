@@ -1,30 +1,30 @@
 /**
- * Based on the 'kdp3 javascript api'
- * Add full Kaltura mapping support to html5 based players
- * http://www.kaltura.org/demos/kdp3/docs.html#jsapi
+ * Based on the 'bdp3 javascript api'
+ * Add full Borhan mapping support to html5 based players
+ * http://www.borhan.org/demos/bdp3/docs.html#jsapi
  *
  * Compatibility is tracked here:
- * http://html5video.org/wiki/Kaltura_KDP_API_Compatibility
+ * http://html5video.org/wiki/Borhan_BDP_API_Compatibility
  *
  */
 ( function( mw, $ ) { "use strict";
-	mw.KDPMapping = function( embedPlayer ) {
+	mw.BDPMapping = function( embedPlayer ) {
 		return this.init( embedPlayer );
 	};
-	mw.KDPMapping.prototype = {
+	mw.BDPMapping.prototype = {
 
-		// global list of kdp listening callbacks
+		// global list of bdp listening callbacks
 		listenerList: {},
 		/**
-		* Add Player hooks for supporting Kaltura api stuff
+		* Add Player hooks for supporting Borhan api stuff
 		*/
 		init: function( embedPlayer ){
 			var _this = this;
 			this.registerDefaultFormaters();
 
 			// player api:
-			var kdpApiMethods = [ 'addJsListener', 'removeJsListener', 'sendNotification',
-								  'setKDPAttribute', 'evaluate' ];
+			var bdpApiMethods = [ 'addJsListener', 'removeJsListener', 'sendNotification',
+								  'setBDPAttribute', 'evaluate' ];
 
 			var parentProxyDiv = null;
 			if(  mw.getConfig('EmbedPlayer.IsFriendlyIframe') ){
@@ -35,8 +35,8 @@
 					// Do nothing
 				}
 			}
-			// Add kdp api methods to local embed object as well as parent iframe
-			$.each( kdpApiMethods, function( inx, methodName) {
+			// Add bdp api methods to local embed object as well as parent iframe
+			$.each( bdpApiMethods, function( inx, methodName) {
 				// Add to local embed object:
 				embedPlayer[ methodName ] = function(){
 					var args = $.makeArray( arguments ) ;
@@ -67,9 +67,9 @@
 			var runCallbackOnParent = false;
 			if(  mw.getConfig('EmbedPlayer.IsFriendlyIframe') ){
 				try {
-					if( window['parent'] && window['parent']['kWidget'] && parentProxyDiv ){
+					if( window['parent'] && window['parent']['bWidget'] && parentProxyDiv ){
 						runCallbackOnParent = true;
-						window['parent']['kWidget'].jsCallbackReady( embedPlayer.id );
+						window['parent']['bWidget'].jsCallbackReady( embedPlayer.id );
 					}
 				} catch( e ) {
 					runCallbackOnParent = false;
@@ -77,7 +77,7 @@
 			}
 			// Run jsCallbackReady inside the iframe ( support for onPage Iframe plugins )
 			if( !runCallbackOnParent ) {
-				window.kWidget.jsCallbackReady( embedPlayer.id );
+				window.bWidget.jsCallbackReady( embedPlayer.id );
 			}
 		},
 
@@ -97,13 +97,13 @@
 		},
 
 		/**
-		 * Emulates Kaltura setAttribute function
+		 * Emulates Borhan setAttribute function
 		 * @param {Object} embedPlayer Base embedPlayer to be affected
 		 * @param {String} componentName Name of component to be updated
 		 * @param {String} property The value to give the named attribute
 		 */
-		setKDPAttribute: function( embedPlayer, componentName, property, value ) {
-			mw.log("KDPMapping::setKDPAttribute " + componentName + " p:" + property + " v:" + value  + ' for: ' + embedPlayer.id );
+		setBDPAttribute: function( embedPlayer, componentName, property, value ) {
+			mw.log("BDPMapping::setBDPAttribute " + componentName + " p:" + property + " v:" + value  + ' for: ' + embedPlayer.id );
 
 			var pluginNameToSet = componentName;
 			var propertyNameToSet = property;
@@ -126,38 +126,38 @@
 						valueToSet[ property ] = value;
 					}
 					// Save configuration
-					embedPlayer.setKalturaConfig( pluginNameToSet, propertyNameToSet, valueToSet );
+					embedPlayer.setBorhanConfig( pluginNameToSet, propertyNameToSet, valueToSet );
 				break;
 			}
 			// TODO move to a "ServicesProxy" plugin
 			if( pluginNameToSet == 'servicesProxy'
-				&& propertyNameToSet && propertyNameToSet == 'kalturaClient'
+				&& propertyNameToSet && propertyNameToSet == 'borhanClient'
 				&& property == 'ks'
 			){
 				this.updateKS( embedPlayer, value );
 			}
-			// Give kdp plugins a chance to take attribute actions
-			$( embedPlayer ).trigger( 'Kaltura_SetKDPAttribute', [ componentName, property, value ] );
+			// Give bdp plugins a chance to take attribute actions
+			$( embedPlayer ).trigger( 'Borhan_SetBDPAttribute', [ componentName, property, value ] );
 		},
 		updateKS: function ( embedPlayer, ks){
-			var client = mw.kApiGetPartnerClient( embedPlayer.kwidgetid );
+			var client = mw.kApiGetPartnerClient( embedPlayer.bwidgetid );
 			// update the new ks:
 			client.setKs( ks );
 			// Update KS flashvar
 			embedPlayer.setFlashvars( 'ks', ks );
-			// TODO confirm flash KDP issues a changeMedia internally for ks updates
+			// TODO confirm flash BDP issues a changeMedia internally for ks updates
 			embedPlayer.sendNotification( 'changeMedia', {'entryId': embedPlayer.kentryid });
 
 			// add a loading spinner:
 			//embedPlayer.addPlayerSpinner();
 			// reload the player:
-			//kWidgetSupport.loadAndUpdatePlayerData( embedPlayer, function(){
+			//bWidgetSupport.loadAndUpdatePlayerData( embedPlayer, function(){
 				// ks should now be updated
 			//	embedPlayer.hideSpinner();
 			//});
 		},
 		/**
-		 * Emulates kaltura evaluate function
+		 * Emulates borhan evaluate function
 		 *
 		 * @@TODO move this into a separate uiConfValue parser script,
 		 * I predict ( unfortunately ) it will expand a lot.
@@ -176,7 +176,7 @@
 			// Limit recursive calls to 5
 			limit = limit || 0;
 			if( limit > 4 ) {
-				mw.log('KDPMapping::evaluate: recursive calls are limited to 5');
+				mw.log('BDPMapping::evaluate: recursive calls are limited to 5');
 				return objectString;
 			}
 
@@ -237,7 +237,7 @@
 
 			// Split the uiConf expression into parts separated by '.'
 			var objectPath = expression.split('.');
-			// Check the exported kaltura object ( for manual overrides of any mapping )
+			// Check the exported borhan object ( for manual overrides of any mapping )
 			if( embedPlayer.playerConfig
 					&&
 				embedPlayer.playerConfig.plugins
@@ -272,7 +272,7 @@
 					return true;
 					break;
 				case 'flashVersion':
-					return kWidget.getFlashVersion();
+					return bWidget.getFlashVersion();
 					break;
 				case 'playerVersion': 
 					return window['MWEMBED_VERSION'];
@@ -332,7 +332,7 @@
 						case 'player':
 							switch( objectPath[2] ){
 								case 'currentTime':
-									// check for kPreSeekTime ( kaltura seek delay update property )
+									// check for kPreSeekTime ( borhan seek delay update property )
 									if( embedPlayer.seeking && embedPlayer.kPreSeekTime !== null ){
 										return embedPlayer.kPreSeekTime;
 									}
@@ -370,35 +370,35 @@
 							if( ! embedPlayer.rawCuePoints ){
 								return null;
 							}
-							var kdpCuePointFormat = {};
+							var bdpCuePointFormat = {};
 							$.each( embedPlayer.rawCuePoints, function(inx, cuePoint ){
 								var startTime = parseInt( cuePoint.startTime );
-								if( kdpCuePointFormat[ startTime ] ){
-									kdpCuePointFormat[ startTime ].push( cuePoint )
+								if( bdpCuePointFormat[ startTime ] ){
+									bdpCuePointFormat[ startTime ].push( cuePoint )
 								} else {
-									kdpCuePointFormat[ startTime ] = [ cuePoint ];
+									bdpCuePointFormat[ startTime ] = [ cuePoint ];
 								}
 							});
-							return kdpCuePointFormat;
+							return bdpCuePointFormat;
 						break;
 						case 'entryMetadata':
-							if( ! embedPlayer.kalturaEntryMetaData ){
+							if( ! embedPlayer.borhanEntryMetaData ){
 								return null;
 							}
 							if( objectPath[2] ) {
-								return embedPlayer.kalturaEntryMetaData[ objectPath[2] ];
+								return embedPlayer.borhanEntryMetaData[ objectPath[2] ];
 							} else {
-								return embedPlayer.kalturaEntryMetaData;
+								return embedPlayer.borhanEntryMetaData;
 							}
 						break;
 						case 'entry':
-							if( ! embedPlayer.kalturaPlayerMetaData ){
+							if( ! embedPlayer.borhanPlayerMetaData ){
 								return null;
 							}
 							if( objectPath[2] ) {
-								return embedPlayer.kalturaPlayerMetaData[ objectPath[2] ];
+								return embedPlayer.borhanPlayerMetaData[ objectPath[2] ];
 							} else {
-								return embedPlayer.kalturaPlayerMetaData;
+								return embedPlayer.borhanPlayerMetaData;
 							}
 						break;
 						case 'sources': 
@@ -421,11 +421,11 @@
 							}
 							return true;
 						break;	
-						case 'kalturaMediaFlavorArray':
-							if( ! embedPlayer.kalturaFlavors ){
+						case 'borhanMediaFlavorArray':
+							if( ! embedPlayer.borhanFlavors ){
 								return null;
 							}
-							return embedPlayer.kalturaFlavors;
+							return embedPlayer.borhanFlavors;
 						break;
 					}
 				break;
@@ -456,11 +456,11 @@
 								return fv;
 							}
 						break;
-						// kaltura widget mapping: 
+						// borhan widget mapping: 
 						case 'kw': 
 							var kw = {
-								'objectType': "KalturaWidget",
-								'id' : embedPlayer.kwidgetid,
+								'objectType': "BorhanWidget",
+								'id' : embedPlayer.bwidgetid,
 								'partnerId': embedPlayer.kpartnerid,
 								'uiConfId' : embedPlayer.kuiconfid
 							}
@@ -476,20 +476,20 @@
 							return embedPlayer.id;
 						break;
 						case 'sessionId':
-							return window.kWidgetSupport.getGUID();
+							return window.bWidgetSupport.getGUID();
 						break;
 					}
 					// No objectPath[1] match return the full configProx object:
-					// TODO I don't think this is supported in KDP ( we might want to return null instead )
+					// TODO I don't think this is supported in BDP ( we might want to return null instead )
 					return {
 							'flashvars' : fv,
-							'sessionId' : window.kWidgetSupport.getGUID()
+							'sessionId' : window.bWidgetSupport.getGUID()
 						};
 				break;
 				case 'playerStatusProxy':
 					switch( objectPath[1] ){
-						case 'kdpStatus':
-							if( embedPlayer.kdpEmptyFlag ){
+						case 'bdpStatus':
+							if( embedPlayer.bdpEmptyFlag ){
 								return "empty";
 							}
 							if( embedPlayer.playerReadyFlag ){
@@ -499,16 +499,16 @@
 						break;
 					}
 				break;
-				// TODO We should move playlistAPI into the Kaltura playlist handler code
+				// TODO We should move playlistAPI into the Borhan playlist handler code
 				// ( but tricky to do because of cross iframe communication issue )
 				case 'playlistAPI':
 					switch( objectPath[1] ) {
 						case 'dataProvider':
 							// Get the current data provider:
-							if( !embedPlayer.kalturaPlaylistData ){
+							if( !embedPlayer.borhanPlaylistData ){
 								return null;
 							}
-							var plData = embedPlayer.kalturaPlaylistData;
+							var plData = embedPlayer.borhanPlaylistData;
 							var plId =null;
 							if( plData['currentPlaylistId'] ){
 								plId = plData['currentPlaylistId'];
@@ -574,7 +574,7 @@
 					}
 					break;
 				case 'embedServices':
-					var proxyData = embedPlayer.getKalturaConfig( 'proxyData' );
+					var proxyData = embedPlayer.getBorhanConfig( 'proxyData' );
 					var filedName = expression.replace('embedServices.', '');
 					return this.getProperty(filedName, proxyData);
 					break;
@@ -583,11 +583,11 @@
 			// Look for a plugin based config: typeof
 			var pluginConfigValue = null;
 			// See if we are looking for a top level property
-			if( !objectPath[1] && $.isEmptyObject( embedPlayer.getKalturaConfig( objectPath[0] ) ) ){
+			if( !objectPath[1] && $.isEmptyObject( embedPlayer.getBorhanConfig( objectPath[0] ) ) ){
 				// Return the top level property directly ( {loop} {autoPlay} etc. )
-				pluginConfigValue = embedPlayer.getKalturaConfig( '', objectPath[0] );
+				pluginConfigValue = embedPlayer.getBorhanConfig( '', objectPath[0] );
 			} else {
-				pluginConfigValue = embedPlayer.getKalturaConfig( objectPath[0], objectPath[1]);
+				pluginConfigValue = embedPlayer.getBorhanConfig( objectPath[0], objectPath[1]);
 				if( $.isEmptyObject( pluginConfigValue ) ){
 					return ;
 				}
@@ -595,7 +595,7 @@
 			return pluginConfigValue;
 		},
 		/**
-		 * Maps a kdp expression to embedPlayer property.
+		 * Maps a bdp expression to embedPlayer property.
 		 *
 		 * NOTE: embedPlayer can be a playerProxy when on the other side of the iframe
 		 * so anything not exported over the iframe will not be available
@@ -651,10 +651,10 @@
 			return property;
 		},
 		/**
-		 * Emulates Kaltura removeJsListener function
+		 * Emulates Borhan removeJsListener function
 		 */
 		removeJsListener: function( embedPlayer, eventName, callbackName ){
-			mw.log( "KDPMapping:: removeJsListener:: " + eventName );
+			mw.log( "BDPMapping:: removeJsListener:: " + eventName );
 			if( typeof eventName == 'string' ) {
 				var eventData = eventName.split('.', 2);
 				var eventNamespace = eventData[1];
@@ -663,7 +663,7 @@
 					$( embedPlayer ).unbind('.' + eventNamespace);
 				}
 				else if ( !eventNamespace ) {
-					eventNamespace = 'kdpMapping';
+					eventNamespace = 'bdpMapping';
 				}
 				eventName = eventData[0];
 				if ( !callbackName ) {
@@ -704,12 +704,12 @@
 		 */
 		addJsListener: function( embedPlayer, eventName, callbackName ){
 			var _this = this;
-			// mw.log("KDPMapping::addJsListener: " + eventName + ' cb:' + callbackName );
+			// mw.log("BDPMapping::addJsListener: " + eventName + ' cb:' + callbackName );
 
 			// We can pass [eventName.namespace] as event name, we need it in order to remove listeners with their namespace
 			if( typeof eventName == 'string' ) {
 				var eventData = eventName.split('.', 2);
-				var eventNamespace = ( eventData[1] ) ? eventData[1] : 'kdpMapping';
+				var eventNamespace = ( eventData[1] ) ? eventData[1] : 'bdpMapping';
 				eventName = eventData[0];
 			}
 
@@ -719,10 +719,10 @@
 				var callback = function(){
 					var callbackName = _this.listenerList[ listenerId ];
 					// Check for valid local listeners:
-					var callbackToRun = kWidgetSupport.getFunctionByName( callbackName, window );
+					var callbackToRun = bWidgetSupport.getFunctionByName( callbackName, window );
 					if( ! $.isFunction( callbackToRun ) ){
 						// Check for valid parent page listeners:
-						callbackToRun = kWidgetSupport.getFunctionByName( callbackName, window['parent'] );
+						callbackToRun = bWidgetSupport.getFunctionByName( callbackName, window['parent'] );
 					}
 
 					if( $.isFunction( callbackToRun ) ) {
@@ -732,7 +732,7 @@
 							mw.log("Error when trying to run callbackToRun (probably JavaScript error in callbackToRun code)")
 						};
 					} else {
-						mw.log('kdpMapping::addJsListener: callback name: ' + callbackName + ' not found');
+						mw.log('bdpMapping::addJsListener: callback name: ' + callbackName + ' not found');
 					}
 					
 				};
@@ -747,7 +747,7 @@
 					}
 				}
 			} else {
-				mw.log( "Error: KDPMapping : bad callback type: " + callbackName );
+				mw.log( "Error: BDPMapping : bad callback type: " + callbackName );
 				return ;
 			}
 
@@ -760,14 +760,14 @@
 				}
 				// Add a postfix string
 				bindName += '.' + eventNamespace;
-				// bind with .kdpMapping postfix::
+				// bind with .bdpMapping postfix::
 				embedPlayer.bindHelper( bindName, function(){
 					bindCallback.apply( embedPlayer, $.makeArray( arguments ) );
 				});
 			};
 			switch( eventName ){
 				case 'layoutReady':
-					b( 'KalturaSupport_DoneWithUiConf' );
+					b( 'BorhanSupport_DoneWithUiConf' );
 				break;
 				case 'mediaLoadError':
 					b( 'mediaLoadError' );
@@ -775,21 +775,21 @@
 				case 'mediaError':
 					b( 'mediaError' );
 					break;
-				case 'kdpEmpty':
+				case 'bdpEmpty':
 				case 'readyToLoad':
 					if( embedPlayer.playerReadyFlag ){
 						// player is already ready when listener is added
-						if( ! embedPlayer.kalturaPlayerMetaData ){
-							embedPlayer.kdpEmptyFlag = true;
+						if( ! embedPlayer.borhanPlayerMetaData ){
+							embedPlayer.bdpEmptyFlag = true;
 							callback( embedPlayer.id );
 						}
 					} else {
 						// TODO: When we have video tag without an entry
 						b( 'playerReady', function(){
-							// only trigger kdpEmpty when the player is empty
+							// only trigger bdpEmpty when the player is empty
 							// TODO support 'real' player empty state, ie not via "error handler"
-							if( ! embedPlayer.kalturaPlayerMetaData ){
-								embedPlayer.kdpEmptyFlag = true;
+							if( ! embedPlayer.borhanPlayerMetaData ){
+								embedPlayer.bdpEmptyFlag = true;
 								// run after all other playerReady events: 
 								setTimeout(function(){
 									callback( embedPlayer.id );
@@ -798,12 +798,12 @@
 						});
 					}
 					break;
-				case 'kdpReady':
+				case 'bdpReady':
 					// TODO: When player is ready with entry, only happens once
 					// why not use widgetLoaded event ? 
 					b( 'playerReady', function() {
 						if( !embedPlayer.getError() ){
-							embedPlayer.kdpEmptyFlag = false;
+							embedPlayer.bdpEmptyFlag = false;
 						}
 						callback( embedPlayer.id );
 					});
@@ -917,15 +917,15 @@
 					});
 					break;
 				case 'entryReady':
-					b( 'KalturaSupport_EntryDataReady', function( event, entryData ){
+					b( 'BorhanSupport_EntryDataReady', function( event, entryData ){
 						callback( entryData, embedPlayer.id );
 					});
 					break;
 				case 'entryFailed':
-					b( 'KalturaSupport_EntryFailed' );
+					b( 'BorhanSupport_EntryFailed' );
 					break;
 				case 'mediaReady':
-					// Check for "media ready" ( namespace to kdpMapping )
+					// Check for "media ready" ( namespace to bdpMapping )
 					b( 'playerReady',function( event ){
 						// Only issue the media ready callback if entry is actually ready.
 						if( embedPlayer.kentryid ){
@@ -937,7 +937,7 @@
 					});
 					break;
 				case 'metadataReceived':
-					b('KalturaSupport_MetadataReceived');
+					b('BorhanSupport_MetadataReceived');
 					break;
 
 				/**
@@ -959,7 +959,7 @@
 					})
 					break;
 				case 'bytesDownloadedChange':
-					// KDP sends an initial bytes loaded zero at player ready:
+					// BDP sends an initial bytes loaded zero at player ready:
 					var prevBufferBytes = 0;
 					b( 'monitorEvent', function(){
 						if( typeof embedPlayer.bufferedPercent != 'undefined' && embedPlayer.mediaElement.selectedSource ){
@@ -1066,23 +1066,23 @@
 				 * Cue point listeners TODO ( move to mw.kCuepoints.js )
 				 */
 				case 'cuePointsReceived':
-					b( 'KalturaSupport_CuePointsReady', function( event, cuePoints ) {
+					b( 'BorhanSupport_CuePointsReady', function( event, cuePoints ) {
 						callback( embedPlayer.rawCuePoints, embedPlayer.id );
 					});
 					break;
 				case 'cuePointReached':
-					b( 'KalturaSupport_CuePointReached', function( event, cuePointWrapper ) {
+					b( 'BorhanSupport_CuePointReached', function( event, cuePointWrapper ) {
 						callback( cuePointWrapper, embedPlayer.id );
 					});
 					break;
 				case 'adOpportunity':
-					b( 'KalturaSupport_AdOpportunity', function( event, cuePointWrapper ) {
+					b( 'BorhanSupport_AdOpportunity', function( event, cuePointWrapper ) {
 						callback( cuePointWrapper, embedPlayer.id );
 					});
 					break;
 
 				/**
-				 * Mostly for analytics ( rather than strict kdp compatibility )
+				 * Mostly for analytics ( rather than strict bdp compatibility )
 				 */
 				case 'videoView':
 					b('firstPlay' );
@@ -1103,11 +1103,11 @@
 				case 'save':
 				case 'gotoContributorWindow':
 				case 'gotoEditorWindow':
-					mw.log( "Warning: kdp event: " + eventName + " does not have an html5 mapping" );
+					mw.log( "Warning: bdp event: " + eventName + " does not have an html5 mapping" );
 					break;
 
 				case 'freePreviewEnd':
-					b('KalturaSupport_FreePreviewEnd');
+					b('BorhanSupport_FreePreviewEnd');
 					break;
 				case 'switchingChangeStarted':
 					b( 'sourceSwitchingStarted', function( event, data ) {
@@ -1139,7 +1139,7 @@
 		 * Master send action list:
 		 */
 		sendNotification: function( embedPlayer, notificationName, notificationData ){
-			mw.log('KDPMapping:: sendNotification > '+ notificationName,  notificationData );
+			mw.log('BDPMapping:: sendNotification > '+ notificationName,  notificationData );
 			switch( notificationName ){
 				case 'showSpinner': 
 					embedPlayer.addPlayerSpinner();
@@ -1157,7 +1157,7 @@
 						break;
 					}
 					if( embedPlayer.playerReadyFlag == false ){
-						mw.log('Warning:: KDPMapping, Calling doPlay before player ready');
+						mw.log('Warning:: BDPMapping, Calling doPlay before player ready');
 						$( embedPlayer ).bind( 'playerReady.sendNotificationDoPlay', function(){
 							$( embedPlayer ).unbind( '.sendNotificationDoPlay' );
 							embedPlayer.play();
@@ -1193,12 +1193,12 @@
 					embedPlayer.replay();
 					break;
 				case 'doSeek':
-					// Kaltura doSeek is in seconds rather than percentage:
+					// Borhan doSeek is in seconds rather than percentage:
 					var seekTime = ( parseFloat( notificationData ) - embedPlayer.startOffset );
 					// Update local kPreSeekTime
 					embedPlayer.kPreSeekTime =  embedPlayer.currentTime;
 					// Once the seek is complete null kPreSeekTime
-					embedPlayer.bindHelper( 'seeked.kdpMapOnce', function(){
+					embedPlayer.bindHelper( 'seeked.bdpMapOnce', function(){
 						embedPlayer.kPreSeekTime = null;
 					});
 					embedPlayer.seek( seekTime );
@@ -1222,7 +1222,7 @@
 						// check for mediaProxy based override: 
 						&& !notificationData.mediaProxy
 					){
-						mw.log( "KDPMapping:: ChangeMedia missing entryId or refrenceid, empty sources.")
+						mw.log( "BDPMapping:: ChangeMedia missing entryId or refrenceid, empty sources.")
 						embedPlayer.emptySources();
 						break;
 					}
@@ -1255,14 +1255,14 @@
 						}
 
 						// Update the proxy data
-						embedPlayer.setKalturaConfig("proxyData", notificationData.proxyData);
-						embedPlayer.setKalturaConfig("proxyData", "data", notificationData.proxyData);
+						embedPlayer.setBorhanConfig("proxyData", notificationData.proxyData);
+						embedPlayer.setBorhanConfig("proxyData", "data", notificationData.proxyData);
 						//Needed for changeMedia to keep base proxyData before server response is mixed into the object
-						embedPlayer.setKalturaConfig('originalProxyData', notificationData.proxyData);
+						embedPlayer.setBorhanConfig('originalProxyData', notificationData.proxyData);
 
 						// Clear player & entry meta
-						embedPlayer.kalturaPlayerMetaData = null;
-						embedPlayer.kalturaEntryMetaData = null;
+						embedPlayer.borhanPlayerMetaData = null;
+						embedPlayer.borhanEntryMetaData = null;
 
 						// clear cuepoint data:
 						embedPlayer.rawCuePoints = null;
@@ -1276,7 +1276,7 @@
 
 						// if data is injected via changeMedia, re-load into iframe inject location:
 						if( notificationData.mediaProxy ){
-							window.kalturaIframePackageData.entryResult = notificationData.mediaProxy;
+							window.borhanIframePackageData.entryResult = notificationData.mediaProxy;
 							// update plugin possition. Future refactor should treat mediaProxy as plugin  
 							embedPlayer.playerConfig.plugins['mediaProxy'] = notificationData.mediaProxy;
 							embedPlayer.playerConfig.plugins['mediaProxy'].manualProvider = true;
@@ -1310,8 +1310,8 @@
 					$( embedPlayer ).trigger( notificationName, [notificationData] );
 					break;
 			}
-			// Give kdp plugins a chance to take attribute actions
-			$( embedPlayer ).trigger( 'Kaltura_SendNotification', [ notificationName, notificationData ] );
+			// Give bdp plugins a chance to take attribute actions
+			$( embedPlayer ).trigger( 'Borhan_SendNotification', [ notificationName, notificationData ] );
 		}
 	};
 

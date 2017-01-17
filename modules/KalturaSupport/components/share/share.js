@@ -75,7 +75,7 @@
 					"barColor": '#394F8F'
 				}
 			},
-			embedCodeTemplate: '<iframe src="' + mw.getConfig("Kaltura.ServiceUrl") + '/p/{mediaProxy.entry.partnerId}/sp/{mediaProxy.entry.partnerId}00/embedIframeJs/uiconf_id/{configProxy.kw.uiConfId}/partner_id/{mediaProxy.entry.partnerId}?iframeembed=true&playerId={configProxy.targetId}&entry_id={mediaProxy.entry.id}&flashvars[streamerType]=auto" width="560" height="395" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>',
+			embedCodeTemplate: '<iframe src="' + mw.getConfig("Borhan.ServiceUrl") + '/p/{mediaProxy.entry.partnerId}/sp/{mediaProxy.entry.partnerId}00/embedIframeJs/uiconf_id/{configProxy.kw.uiConfId}/partner_id/{mediaProxy.entry.partnerId}?iframeembed=true&playerId={configProxy.targetId}&entry_id={mediaProxy.entry.id}&flashvars[streamerType]=auto" width="560" height="395" allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder="0"></iframe>',
 			embedOptions: {
 				"streamerType": "auto",
 				"uiconfID": null,
@@ -324,17 +324,17 @@
 			});
 
 			// handle secured embed
-			if ( mw.getConfig("Kaltura.ServiceUrl").indexOf(".kaltura.com") !== -1 ){
+			if ( mw.getConfig("Borhan.ServiceUrl").indexOf(".borhan.com") !== -1 ){
 				$(".share-secured").on("click", function(){
 					var embedCode = $(".embed-input").val();
 					if ($(this).is(':checked')){
-						embedCode = embedCode.split("http://cdnapi.kaltura.com").join("https://cdnapisec.kaltura.com");
+						embedCode = embedCode.split("http://cdnapi.borhan.com").join("https://cdnapisec.borhan.com");
 					}else{
-						embedCode = embedCode.split("https://cdnapisec.kaltura.com").join("http://cdnapi.kaltura.com");
+						embedCode = embedCode.split("https://cdnapisec.borhan.com").join("http://cdnapi.borhan.com");
 					}
 					$(".embed-input").val(embedCode);
 				});
-				$('.share-secured').prop('checked', mw.getConfig("Kaltura.ServiceUrl").indexOf("https") === 0); // initial check state according to ServiceUrl
+				$('.share-secured').prop('checked', mw.getConfig("Borhan.ServiceUrl").indexOf("https") === 0); // initial check state according to ServiceUrl
 			}else{
 				// on prem - hide the security checkbox as the security settings are derived from the ServiceUrl
 				$(".share-secured, .share-secure-lbl").hide();
@@ -496,7 +496,7 @@
 			}
 		},
 		getThumbnailURL: function () {
-			return kWidgetSupport.getKalturaThumbnailUrl({
+			return bWidgetSupport.getBorhanThumbnailUrl({
 				url: this.getPlayer().evaluate('{mediaProxy.entry.thumbnailUrl}'),
 				width: this.getPlayer().getWidth(),
 				height: this.getPlayer().getHeight()
@@ -547,7 +547,7 @@
 			}
 		},
 		getSmartURL: function () {
-			var shareURL = this.getKalturaShareURL();
+			var shareURL = this.getBorhanShareURL();
 			if (mw.getConfig('EmbedPlayer.IsFriendlyIframe')) {
 				try {
 					var $parentDoc = $(window['parent'].document);
@@ -561,9 +561,9 @@
 			}
 			return shareURL;
 		},
-		getKalturaShareURL: function () {
+		getBorhanShareURL: function () {
 			var uiConfId = this.getConfig("shareUiconfID") ? this.getConfig("shareUiconfID") : this.getPlayer().kuiconfid;
-			return mw.getConfig('Kaltura.ServiceUrl') + '/index.php/extwidget/preview' +
+			return mw.getConfig('Borhan.ServiceUrl') + '/index.php/extwidget/preview' +
 				'/partner_id/' + this.getPlayer().kpartnerid +
 				'/uiconf_id/' + uiConfId +
 				'/entry_id/' + this.getPlayer().kentryid + '/embed/dynamic';

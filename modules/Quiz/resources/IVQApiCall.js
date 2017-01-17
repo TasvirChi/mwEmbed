@@ -19,7 +19,7 @@
                     var getQuizuserEntryIdAndQuizParams = [{
                         'service': 'userEntry',
                         'action': 'list',
-                        'filter:objectType': 'KalturaQuizUserEntryFilter',
+                        'filter:objectType': 'BorhanQuizUserEntryFilter',
                         'filter:entryIdEqual': _this.embedPlayer.kentryid,
                         'filter:userIdEqualCurrent':'1',
                         'filter:orderBy': '-createdAt'
@@ -40,13 +40,13 @@
                         'service': 'cuepoint_cuepoint',
                         'action': 'list',
                         'filter:entryIdEqual': _this.embedPlayer.kentryid,
-                        'filter:objectType': 'KalturaQuestionCuePointFilter',
+                        'filter:objectType': 'BorhanQuestionCuePointFilter',
                         'filter:cuePointTypeEqual': 'quiz.QUIZ_QUESTION',
                         'filter:orderBy': '+startTime'
                     },{
                         'service': 'cuepoint_cuepoint',
                         'action': 'list',
-                        'filter:objectType': 'KalturaAnswerCuePointFilter',
+                        'filter:objectType': 'BorhanAnswerCuePointFilter',
                         'filter:entryIdEqual':_this.embedPlayer.kentryid,
                         'filter:quizUserEntryIdEqual':kQuizUserEntryId,
                         'filter:cuePointTypeEqual': 'quiz.QUIZ_ANSWER'
@@ -63,7 +63,7 @@
                     var createQuizuserEntryId = {
                         'service': 'userEntry',
                         'action': 'add',
-                        'userEntry:objectType': 'KalturaQuizUserEntry',
+                        'userEntry:objectType': 'BorhanQuizUserEntry',
                         'userEntry:entryId': _this.embedPlayer.kentryid
                     };
 
@@ -77,7 +77,7 @@
                     var _this = this,answerParams = {};
                     var quizSetAnswer = {
                         'service': 'cuepoint_cuepoint',
-                        'cuePoint:objectType': "KalturaAnswerCuePoint",
+                        'cuePoint:objectType': "BorhanAnswerCuePoint",
                         'cuePoint:answerKey': selectedAnswer,
                         'cuePoint:quizUserEntryId': kQuizUserEntryId
                     };
@@ -137,7 +137,7 @@
             getKClient: function () {
                 var _this = this;
                 if (!this.kClient) {
-                    this.kClient = mw.kApiGetPartnerClient(_this.embedPlayer.kwidgetid);
+                    this.kClient = mw.kApiGetPartnerClient(_this.embedPlayer.bwidgetid);
                 }
                 return this.kClient;
             }

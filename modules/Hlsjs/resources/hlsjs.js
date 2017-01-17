@@ -389,7 +389,7 @@
 			},
 			isProtocolMismatch: function(data) {
 				var protocolMismatch = false;
-				var hostPageProtocol = this.getProtocol(kWidgetSupport.getHostPageUrl());
+				var hostPageProtocol = this.getProtocol(bWidgetSupport.getHostPageUrl());
 				var currentUrl = null;
 
 				switch (data.details) {
@@ -446,8 +446,8 @@
 				mw.EmbedTypes.mediaPlayers.setMIMETypePlayers('application/vnd.apple.mpegurl', 'Kplayer');
 				mw.EmbedTypes.addFlashPlayer();
 				var embedPlayer = this.getPlayer();
-				embedPlayer.setKalturaConfig("", "LeadWithHLSOnJs", false);
-				embedPlayer.setKalturaConfig("", "LeadWithHLSOnFlash", true);
+				embedPlayer.setBorhanConfig("", "LeadWithHLSOnJs", false);
+				embedPlayer.setBorhanConfig("", "LeadWithHLSOnFlash", true);
 				embedPlayer.stop();
 				embedPlayer.autoplay = true;
 				embedPlayer.setupSourcePlayer();
@@ -471,7 +471,7 @@
 							'data-assetid': index
 						};
 					});
-					this.getPlayer().setKDPAttribute('sourceSelector', 'visible', true);
+					this.getPlayer().setBDPAttribute('sourceSelector', 'visible', true);
 					this.getPlayer().onFlavorsListChanged(flavors);
 				}
 			},

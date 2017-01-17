@@ -152,10 +152,10 @@
 						var cssLink = this.getConfig('cssFileName');
 						if (cssLink) {
 							//Scroller CSS
-							kWidget.appendCssUrl( kWidget.getPath() + this.getConfig("scrollerCssPath"), window.parent.document );
+							bWidget.appendCssUrl( bWidget.getPath() + this.getConfig("scrollerCssPath"), window.parent.document );
 							//Plugin CSS
-							cssLink = cssLink.toLowerCase().indexOf("http") === 0 ? cssLink : kWidget.getPath() + cssLink; // support external CSS links
-							kWidget.appendCssUrl( cssLink, window.parent.document );
+							cssLink = cssLink.toLowerCase().indexOf("http") === 0 ? cssLink : bWidget.getPath() + cssLink; // support external CSS links
+							bWidget.appendCssUrl( cssLink, window.parent.document );
 						} else {
 							mw.log( "Error: "+ this.pluginName +" could not find CSS link" );
 						}
@@ -403,7 +403,7 @@
 		},
 		getThumbUrl: function(item) {
 			var time = item.thumbOffset || item.startTime;
-			var thumbUrl = kWidget.getKalturaThumbUrl(
+			var thumbUrl = bWidget.getBorhanThumbUrl(
 				$.extend( {}, this.baseThumbSettings, {
 					'vid_sec': parseInt( time / 1000 )
 				} )
@@ -418,7 +418,7 @@
 		},
 		getThumRotatorUrl: function(){
 			var _this = this;
-			var imageSlicesUrl = kWidget.getKalturaThumbUrl(
+			var imageSlicesUrl = bWidget.getBorhanThumbUrl(
 				$.extend( {}, this.baseThumbSettings, {
 					'vid_slices': _this.getSliceCount()
 				})
@@ -513,7 +513,7 @@
 								'height': item.thumbnail.height,
 								'background-image': 'url(\'' + item.thumbnail.rotatorUrl + '\')',
 								'background-position': _this.getThumbSpriteOffset( item.thumbnail.width, ( item.startTime ) ),
-								// fix aspect ratio on bad Kaltura API returns
+								// fix aspect ratio on bad Borhan API returns
 								'background-size': ( item.thumbnail.width * _this.getSliceCount() ) + 'px 100%'
 							} );
 
@@ -565,7 +565,7 @@
 		},
 		updateActiveItemDuration: function(duration){
 			this.getActiveItem().find('.k-duration #mediaItemDuration').text(
-				kWidget.seconds2npt( duration )
+				bWidget.seconds2npt( duration )
 			);
 		},
 		getThumbSpriteOffset: function( thumbWidth, time ){

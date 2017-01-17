@@ -7,7 +7,7 @@ mw.PluginManager.add( 'debugInfo', mw.KBaseComponent.extend({
         cssFileName: 'modules/debugInfo/resources/DebugInfo.css',
         isVisible:false,
         emailButton:true,
-        emailAddress:"kalturasupport@kaltura.com"
+        emailAddress:"borhansupport@borhan.com"
 	},
     getBaseConfig: function() {
         var parentConfig = this._super();
@@ -219,7 +219,7 @@ mw.PluginManager.add( 'debugInfo', mw.KBaseComponent.extend({
 	},
     getHTML : function(data){
         var templatePath = this.getConfig( 'templatePath' );
-        var rawHTML = window.kalturaIframePackageData.templates[ templatePath ];
+        var rawHTML = window.borhanIframePackageData.templates[ templatePath ];
 
         return rawHTML;
     },

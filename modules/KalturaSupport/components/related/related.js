@@ -263,7 +263,7 @@
 				return this.getEntriesFromList( this.getConfig( 'entryList' ), callback );
 			}
 			// if no playlist is defined used the magic related video playlistd id:
-			return this.getEntriesFromPlaylistId( '_KDP_CTXPL', callback, true);
+			return this.getEntriesFromPlaylistId( '_BDP_CTXPL', callback, true);
 		},
 		isValidResult: function( data ){
 			// Check if we got error
@@ -280,7 +280,7 @@
 		},
 		getEntriesFromList: function( entryList, callback){
 			var _this =this;
-			this.getKalturaClient().doRequest( {
+			this.getBorhanClient().doRequest( {
 				'service': 'baseEntry',
 				'action': 'getbyids',
 				'entryIds': entryList
@@ -321,15 +321,15 @@
 				'service' : 'playlist',
 				'action' : 'execute',
 				'id' : playlistId,
-				'filter:objectType': 'KalturaMediaEntryFilterForPlaylist',
+				'filter:objectType': 'BorhanMediaEntryFilterForPlaylist',
 				'filter:idNotIn': this.getPlayer().kentryid,
 				'filter:limit': this.getConfig('itemsLimit')
 			}
 			if ( sendContext ) {
-				requestObject['playlistContext:objectType'] = 'KalturaEntryContext';
+				requestObject['playlistContext:objectType'] = 'BorhanEntryContext';
 				requestObject['playlistContext:entryId'] = this.getPlayer().kentryid;
 			}
-			this.getKalturaClient().doRequest( requestObject, function( data ) {
+			this.getBorhanClient().doRequest( requestObject, function( data ) {
 				// Validate result, don't issue callback if not valid.
 				if ( !_this.isValidResult( data ) ) {
 					return;
@@ -458,8 +458,8 @@
 					'service' : 'baseEntry',
 					'action' : 'getContextData',
 					'contextDataParams':{
-						'referrer' : window.kWidgetSupport.getHostPageUrl(),
-						'objectType' : 'KalturaEntryContextDataParams',
+						'referrer' : window.bWidgetSupport.getHostPageUrl(),
+						'objectType' : 'BorhanEntryContextDataParams',
 						'flavorTags': "all"},
 					'streamerType': "http",
 					"entryId": acList[i]
@@ -467,7 +467,7 @@
 				requestArray.push( requestObject );
 			}
 			if ( requestArray.length ) {
-				this.getKalturaClient().doRequest( requestArray, function( EntryContextDataArray ) {
+				this.getBorhanClient().doRequest( requestArray, function( EntryContextDataArray ) {
 					$.each( EntryContextDataArray , function( index , EntryContextData ) {
 						var isRestricted = false;
 						var checkFalse = ['isCountryRestricted','isIpAddressRestricted','isSessionRestricted','isSiteRestricted','isUserAgentRestricted'];

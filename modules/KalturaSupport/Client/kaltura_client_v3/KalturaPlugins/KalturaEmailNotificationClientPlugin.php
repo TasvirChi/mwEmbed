@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,19 +28,19 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
-require_once(dirname(__FILE__) . "/KalturaEventNotificationClientPlugin.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
+require_once(dirname(__FILE__) . "/BorhanEventNotificationClientPlugin.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationTemplatePriority
+class BorhanEmailNotificationTemplatePriority
 {
 	const HIGH = 1;
 	const NORMAL = 3;
@@ -48,20 +48,20 @@ class KalturaEmailNotificationTemplatePriority
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationFormat
+class BorhanEmailNotificationFormat
 {
 	const HTML = "1";
 	const TEXT = "2";
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationRecipientProviderType
+class BorhanEmailNotificationRecipientProviderType
 {
 	const STATIC_LIST = "1";
 	const CATEGORY = "2";
@@ -69,10 +69,10 @@ class KalturaEmailNotificationRecipientProviderType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationTemplateOrderBy
+class BorhanEmailNotificationTemplateOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const ID_ASC = "+id";
@@ -83,16 +83,16 @@ class KalturaEmailNotificationTemplateOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationRecipient extends KalturaObjectBase
+class BorhanEmailNotificationRecipient extends BorhanObjectBase
 {
 	/**
 	 * Recipient e-mail address
 	 * 	 
 	 *
-	 * @var KalturaStringValue
+	 * @var BorhanStringValue
 	 */
 	public $email;
 
@@ -100,7 +100,7 @@ class KalturaEmailNotificationRecipient extends KalturaObjectBase
 	 * Recipient name
 	 * 	 
 	 *
-	 * @var KalturaStringValue
+	 * @var BorhanStringValue
 	 */
 	public $name;
 
@@ -108,16 +108,16 @@ class KalturaEmailNotificationRecipient extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaEmailNotificationRecipientJobData extends KalturaObjectBase
+abstract class BorhanEmailNotificationRecipientJobData extends BorhanObjectBase
 {
 	/**
 	 * Provider type of the job data.
 	 * 	  
 	 *
-	 * @var KalturaEmailNotificationRecipientProviderType
+	 * @var BorhanEmailNotificationRecipientProviderType
 	 * @readonly
 	 */
 	public $providerType = null;
@@ -126,19 +126,19 @@ abstract class KalturaEmailNotificationRecipientJobData extends KalturaObjectBas
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaEmailNotificationRecipientProvider extends KalturaObjectBase
+abstract class BorhanEmailNotificationRecipientProvider extends BorhanObjectBase
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCategoryUserProviderFilter extends KalturaFilter
+class BorhanCategoryUserProviderFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -157,7 +157,7 @@ class KalturaCategoryUserProviderFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaCategoryUserStatus
+	 * @var BorhanCategoryUserStatus
 	 */
 	public $statusEqual = null;
 
@@ -199,7 +199,7 @@ class KalturaCategoryUserProviderFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaUpdateMethodType
+	 * @var BorhanUpdateMethodType
 	 */
 	public $updateMethodEqual = null;
 
@@ -228,15 +228,15 @@ class KalturaCategoryUserProviderFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationCategoryRecipientJobData extends KalturaEmailNotificationRecipientJobData
+class BorhanEmailNotificationCategoryRecipientJobData extends BorhanEmailNotificationRecipientJobData
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaCategoryUserFilter
+	 * @var BorhanCategoryUserFilter
 	 */
 	public $categoryUserFilter;
 
@@ -244,23 +244,23 @@ class KalturaEmailNotificationCategoryRecipientJobData extends KalturaEmailNotif
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationCategoryRecipientProvider extends KalturaEmailNotificationRecipientProvider
+class BorhanEmailNotificationCategoryRecipientProvider extends BorhanEmailNotificationRecipientProvider
 {
 	/**
 	 * The ID of the category whose subscribers should receive the email notification.
 	 * 	 
 	 *
-	 * @var KalturaStringValue
+	 * @var BorhanStringValue
 	 */
 	public $categoryId;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaCategoryUserProviderFilter
+	 * @var BorhanCategoryUserProviderFilter
 	 */
 	public $categoryUserFilter;
 
@@ -268,25 +268,25 @@ class KalturaEmailNotificationCategoryRecipientProvider extends KalturaEmailNoti
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationParameter extends KalturaEventNotificationParameter
+class BorhanEmailNotificationParameter extends BorhanEventNotificationParameter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationStaticRecipientJobData extends KalturaEmailNotificationRecipientJobData
+class BorhanEmailNotificationStaticRecipientJobData extends BorhanEmailNotificationRecipientJobData
 {
 	/**
 	 * Email to emails and names
 	 * 	 
 	 *
-	 * @var array of KalturaKeyValue
+	 * @var array of BorhanKeyValue
 	 */
 	public $emailRecipients;
 
@@ -294,16 +294,16 @@ class KalturaEmailNotificationStaticRecipientJobData extends KalturaEmailNotific
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationStaticRecipientProvider extends KalturaEmailNotificationRecipientProvider
+class BorhanEmailNotificationStaticRecipientProvider extends BorhanEmailNotificationRecipientProvider
 {
 	/**
 	 * Email to emails and names
 	 * 	 
 	 *
-	 * @var array of KalturaEmailNotificationRecipient
+	 * @var array of BorhanEmailNotificationRecipient
 	 */
 	public $emailRecipients;
 
@@ -311,16 +311,16 @@ class KalturaEmailNotificationStaticRecipientProvider extends KalturaEmailNotifi
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationTemplate extends KalturaEventNotificationTemplate
+class BorhanEmailNotificationTemplate extends BorhanEventNotificationTemplate
 {
 	/**
 	 * Define the email body format
 	 * 	 
 	 *
-	 * @var KalturaEmailNotificationFormat
+	 * @var BorhanEmailNotificationFormat
 	 */
 	public $format = null;
 
@@ -360,7 +360,7 @@ class KalturaEmailNotificationTemplate extends KalturaEventNotificationTemplate
 	 * Email recipient emails and names
 	 * 	 
 	 *
-	 * @var KalturaEmailNotificationRecipientProvider
+	 * @var BorhanEmailNotificationRecipientProvider
 	 */
 	public $to;
 
@@ -368,7 +368,7 @@ class KalturaEmailNotificationTemplate extends KalturaEventNotificationTemplate
 	 * Email recipient emails and names
 	 * 	 
 	 *
-	 * @var KalturaEmailNotificationRecipientProvider
+	 * @var BorhanEmailNotificationRecipientProvider
 	 */
 	public $cc;
 
@@ -376,7 +376,7 @@ class KalturaEmailNotificationTemplate extends KalturaEventNotificationTemplate
 	 * Email recipient emails and names
 	 * 	 
 	 *
-	 * @var KalturaEmailNotificationRecipientProvider
+	 * @var BorhanEmailNotificationRecipientProvider
 	 */
 	public $bcc;
 
@@ -384,7 +384,7 @@ class KalturaEmailNotificationTemplate extends KalturaEventNotificationTemplate
 	 * Default email addresses to whom the reply should be sent. 
 	 * 	 
 	 *
-	 * @var KalturaEmailNotificationRecipientProvider
+	 * @var BorhanEmailNotificationRecipientProvider
 	 */
 	public $replyTo;
 
@@ -392,7 +392,7 @@ class KalturaEmailNotificationTemplate extends KalturaEventNotificationTemplate
 	 * Define the email priority
 	 * 	 
 	 *
-	 * @var KalturaEmailNotificationTemplatePriority
+	 * @var BorhanEmailNotificationTemplatePriority
 	 */
 	public $priority = null;
 
@@ -426,7 +426,7 @@ class KalturaEmailNotificationTemplate extends KalturaEventNotificationTemplate
 	 * Adds a e-mail custom header
 	 * 	 
 	 *
-	 * @var array of KalturaKeyValue
+	 * @var array of BorhanKeyValue
 	 */
 	public $customHeaders;
 
@@ -434,15 +434,15 @@ class KalturaEmailNotificationTemplate extends KalturaEventNotificationTemplate
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationUserRecipientJobData extends KalturaEmailNotificationRecipientJobData
+class BorhanEmailNotificationUserRecipientJobData extends BorhanEmailNotificationRecipientJobData
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaUserFilter
+	 * @var BorhanUserFilter
 	 */
 	public $filter;
 
@@ -450,15 +450,15 @@ class KalturaEmailNotificationUserRecipientJobData extends KalturaEmailNotificat
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationUserRecipientProvider extends KalturaEmailNotificationRecipientProvider
+class BorhanEmailNotificationUserRecipientProvider extends BorhanEmailNotificationRecipientProvider
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaUserFilter
+	 * @var BorhanUserFilter
 	 */
 	public $filter;
 
@@ -466,10 +466,10 @@ class KalturaEmailNotificationUserRecipientProvider extends KalturaEmailNotifica
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationDispatchJobData extends KalturaEventNotificationDispatchJobData
+class BorhanEmailNotificationDispatchJobData extends BorhanEventNotificationDispatchJobData
 {
 	/**
 	 * Define the email sender email
@@ -491,7 +491,7 @@ class KalturaEmailNotificationDispatchJobData extends KalturaEventNotificationDi
 	 * Email recipient emails and names, key is mail address and value is the name
 	 * 	 
 	 *
-	 * @var KalturaEmailNotificationRecipientJobData
+	 * @var BorhanEmailNotificationRecipientJobData
 	 */
 	public $to;
 
@@ -499,7 +499,7 @@ class KalturaEmailNotificationDispatchJobData extends KalturaEventNotificationDi
 	 * Email cc emails and names, key is mail address and value is the name
 	 * 	 
 	 *
-	 * @var KalturaEmailNotificationRecipientJobData
+	 * @var BorhanEmailNotificationRecipientJobData
 	 */
 	public $cc;
 
@@ -507,7 +507,7 @@ class KalturaEmailNotificationDispatchJobData extends KalturaEventNotificationDi
 	 * Email bcc emails and names, key is mail address and value is the name
 	 * 	 
 	 *
-	 * @var KalturaEmailNotificationRecipientJobData
+	 * @var BorhanEmailNotificationRecipientJobData
 	 */
 	public $bcc;
 
@@ -515,7 +515,7 @@ class KalturaEmailNotificationDispatchJobData extends KalturaEventNotificationDi
 	 * Email addresses that a replies should be sent to, key is mail address and value is the name
 	 * 	 
 	 *
-	 * @var KalturaEmailNotificationRecipientJobData
+	 * @var BorhanEmailNotificationRecipientJobData
 	 */
 	public $replyTo;
 
@@ -523,7 +523,7 @@ class KalturaEmailNotificationDispatchJobData extends KalturaEventNotificationDi
 	 * Define the email priority
 	 * 	 
 	 *
-	 * @var KalturaEmailNotificationTemplatePriority
+	 * @var BorhanEmailNotificationTemplatePriority
 	 */
 	public $priority = null;
 
@@ -557,7 +557,7 @@ class KalturaEmailNotificationDispatchJobData extends KalturaEventNotificationDi
 	 * Adds a e-mail custom header
 	 * 	 
 	 *
-	 * @var array of KalturaKeyValue
+	 * @var array of BorhanKeyValue
 	 */
 	public $customHeaders;
 
@@ -565,44 +565,44 @@ class KalturaEmailNotificationDispatchJobData extends KalturaEventNotificationDi
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaEmailNotificationTemplateBaseFilter extends KalturaEventNotificationTemplateFilter
+abstract class BorhanEmailNotificationTemplateBaseFilter extends BorhanEventNotificationTemplateFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationTemplateFilter extends KalturaEmailNotificationTemplateBaseFilter
+class BorhanEmailNotificationTemplateFilter extends BorhanEmailNotificationTemplateBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaEmailNotificationClientPlugin extends KalturaClientPlugin
+class BorhanEmailNotificationClientPlugin extends BorhanClientPlugin
 {
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * @return KalturaEmailNotificationClientPlugin
+	 * @return BorhanEmailNotificationClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaEmailNotificationClientPlugin($client);
+		return new BorhanEmailNotificationClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

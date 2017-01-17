@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,29 +28,29 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataProfileCreateMode
+class BorhanMetadataProfileCreateMode
 {
 	const API = 1;
-	const KMC = 2;
+	const BMC = 2;
 	const APP = 3;
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataProfileStatus
+class BorhanMetadataProfileStatus
 {
 	const ACTIVE = 1;
 	const DEPRECATED = 2;
@@ -58,10 +58,10 @@ class KalturaMetadataProfileStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataStatus
+class BorhanMetadataStatus
 {
 	const VALID = 1;
 	const INVALID = 2;
@@ -69,10 +69,10 @@ class KalturaMetadataStatus
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFileAssetOrderBy
+class BorhanFileAssetOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const UPDATED_AT_ASC = "+updatedAt";
@@ -81,10 +81,10 @@ class KalturaFileAssetOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataObjectType
+class BorhanMetadataObjectType
 {
 	const AD_CUE_POINT = "adCuePointMetadata.AdCuePoint";
 	const ANNOTATION = "annotationMetadata.Annotation";
@@ -96,10 +96,10 @@ class KalturaMetadataObjectType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataOrderBy
+class BorhanMetadataOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const METADATA_PROFILE_VERSION_ASC = "+metadataProfileVersion";
@@ -112,10 +112,10 @@ class KalturaMetadataOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataProfileOrderBy
+class BorhanMetadataProfileOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const UPDATED_AT_ASC = "+updatedAt";
@@ -124,10 +124,10 @@ class KalturaMetadataProfileOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadata extends KalturaObjectBase
+class BorhanMetadata extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -164,7 +164,7 @@ class KalturaMetadata extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaMetadataObjectType
+	 * @var BorhanMetadataObjectType
 	 * @readonly
 	 */
 	public $metadataObjectType = null;
@@ -204,7 +204,7 @@ class KalturaMetadata extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaMetadataStatus
+	 * @var BorhanMetadataStatus
 	 * @readonly
 	 */
 	public $status = null;
@@ -221,15 +221,15 @@ class KalturaMetadata extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataListResponse extends KalturaObjectBase
+class BorhanMetadataListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaMetadata
+	 * @var array of BorhanMetadata
 	 * @readonly
 	 */
 	public $objects;
@@ -246,10 +246,10 @@ class KalturaMetadataListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataProfile extends KalturaObjectBase
+class BorhanMetadataProfile extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -270,7 +270,7 @@ class KalturaMetadataProfile extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaMetadataObjectType
+	 * @var BorhanMetadataObjectType
 	 */
 	public $metadataObjectType = null;
 
@@ -322,7 +322,7 @@ class KalturaMetadataProfile extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaMetadataProfileStatus
+	 * @var BorhanMetadataProfileStatus
 	 * @readonly
 	 */
 	public $status = null;
@@ -354,7 +354,7 @@ class KalturaMetadataProfile extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaMetadataProfileCreateMode
+	 * @var BorhanMetadataProfileCreateMode
 	 */
 	public $createMode = null;
 
@@ -362,10 +362,10 @@ class KalturaMetadataProfile extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataProfileField extends KalturaObjectBase
+class BorhanMetadataProfileField extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -403,15 +403,15 @@ class KalturaMetadataProfileField extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataProfileFieldListResponse extends KalturaObjectBase
+class BorhanMetadataProfileFieldListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaMetadataProfileField
+	 * @var array of BorhanMetadataProfileField
 	 * @readonly
 	 */
 	public $objects;
@@ -428,15 +428,15 @@ class KalturaMetadataProfileFieldListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataProfileListResponse extends KalturaObjectBase
+class BorhanMetadataProfileListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaMetadataProfile
+	 * @var array of BorhanMetadataProfile
 	 * @readonly
 	 */
 	public $objects;
@@ -453,10 +453,10 @@ class KalturaMetadataProfileListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaFileAssetBaseFilter extends KalturaFilter
+abstract class BorhanFileAssetBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -482,7 +482,7 @@ abstract class KalturaFileAssetBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaFileAssetObjectType
+	 * @var BorhanFileAssetObjectType
 	 */
 	public $fileAssetObjectTypeEqual = null;
 
@@ -531,7 +531,7 @@ abstract class KalturaFileAssetBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaFileAssetStatus
+	 * @var BorhanFileAssetStatus
 	 */
 	public $statusEqual = null;
 
@@ -546,10 +546,10 @@ abstract class KalturaFileAssetBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaImportMetadataJobData extends KalturaJobData
+class BorhanImportMetadataJobData extends BorhanJobData
 {
 	/**
 	 * 
@@ -576,10 +576,10 @@ class KalturaImportMetadataJobData extends KalturaJobData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaMetadataBaseFilter extends KalturaFilter
+abstract class BorhanMetadataBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -619,7 +619,7 @@ abstract class KalturaMetadataBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaMetadataObjectType
+	 * @var BorhanMetadataObjectType
 	 */
 	public $metadataObjectTypeEqual = null;
 
@@ -689,7 +689,7 @@ abstract class KalturaMetadataBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaMetadataStatus
+	 * @var BorhanMetadataStatus
 	 */
 	public $statusEqual = null;
 
@@ -704,10 +704,10 @@ abstract class KalturaMetadataBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaMetadataProfileBaseFilter extends KalturaFilter
+abstract class BorhanMetadataProfileBaseFilter extends BorhanFilter
 {
 	/**
 	 * 
@@ -726,7 +726,7 @@ abstract class KalturaMetadataProfileBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaMetadataObjectType
+	 * @var BorhanMetadataObjectType
 	 */
 	public $metadataObjectTypeEqual = null;
 
@@ -796,7 +796,7 @@ abstract class KalturaMetadataProfileBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaMetadataProfileStatus
+	 * @var BorhanMetadataProfileStatus
 	 */
 	public $statusEqual = null;
 
@@ -810,14 +810,14 @@ abstract class KalturaMetadataProfileBaseFilter extends KalturaFilter
 	/**
 	 * 
 	 *
-	 * @var KalturaMetadataProfileCreateMode
+	 * @var BorhanMetadataProfileCreateMode
 	 */
 	public $createModeEqual = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaMetadataProfileCreateMode
+	 * @var BorhanMetadataProfileCreateMode
 	 */
 	public $createModeNotEqual = null;
 
@@ -839,10 +839,10 @@ abstract class KalturaMetadataProfileBaseFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaTransformMetadataJobData extends KalturaJobData
+class BorhanTransformMetadataJobData extends BorhanJobData
 {
 	/**
 	 * 
@@ -883,10 +883,10 @@ class KalturaTransformMetadataJobData extends KalturaJobData
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaCompareMetadataCondition extends KalturaCompareCondition
+class BorhanCompareMetadataCondition extends BorhanCompareCondition
 {
 	/**
 	 * May contain the full xpath to the field in three formats
@@ -919,19 +919,19 @@ class KalturaCompareMetadataCondition extends KalturaCompareCondition
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaFileAssetFilter extends KalturaFileAssetBaseFilter
+class BorhanFileAssetFilter extends BorhanFileAssetBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMatchMetadataCondition extends KalturaMatchCondition
+class BorhanMatchMetadataCondition extends BorhanMatchCondition
 {
 	/**
 	 * May contain the full xpath to the field in three formats
@@ -964,10 +964,10 @@ class KalturaMatchMetadataCondition extends KalturaMatchCondition
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataFieldChangedCondition extends KalturaMatchCondition
+class BorhanMetadataFieldChangedCondition extends BorhanMatchCondition
 {
 	/**
 	 * May contain the full xpath to the field in three formats
@@ -1014,28 +1014,28 @@ class KalturaMetadataFieldChangedCondition extends KalturaMatchCondition
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataFilter extends KalturaMetadataBaseFilter
+class BorhanMetadataFilter extends BorhanMetadataBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataProfileFilter extends KalturaMetadataProfileBaseFilter
+class BorhanMetadataProfileFilter extends BorhanMetadataProfileBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataSearchItem extends KalturaSearchOperator
+class BorhanMetadataSearchItem extends BorhanSearchOperator
 {
 	/**
 	 * 
@@ -1056,24 +1056,24 @@ class KalturaMetadataSearchItem extends KalturaSearchOperator
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataService extends KalturaServiceBase
+class BorhanMetadataService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * Allows you to add a metadata object and metadata content associated with Kaltura object
+	 * Allows you to add a metadata object and metadata content associated with Borhan object
 	 * 
 	 * @param int $metadataProfileId 
 	 * @param string $objectType 
 	 * @param string $objectId 
 	 * @param string $xmlData XML metadata
-	 * @return KalturaMetadata
+	 * @return BorhanMetadata
 	 */
 	function add($metadataProfileId, $objectType, $objectId, $xmlData)
 	{
@@ -1087,18 +1087,18 @@ class KalturaMetadataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadata");
+		$this->client->validateObjectType($resultObject, "BorhanMetadata");
 		return $resultObject;
 	}
 
 	/**
-	 * Allows you to add a metadata object and metadata file associated with Kaltura object
+	 * Allows you to add a metadata object and metadata file associated with Borhan object
 	 * 
 	 * @param int $metadataProfileId 
 	 * @param string $objectType 
 	 * @param string $objectId 
 	 * @param file $xmlFile XML metadata
-	 * @return KalturaMetadata
+	 * @return BorhanMetadata
 	 */
 	function addFromFile($metadataProfileId, $objectType, $objectId, $xmlFile)
 	{
@@ -1113,7 +1113,7 @@ class KalturaMetadataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadata");
+		$this->client->validateObjectType($resultObject, "BorhanMetadata");
 		return $resultObject;
 	}
 
@@ -1124,7 +1124,7 @@ class KalturaMetadataService extends KalturaServiceBase
 	 * @param string $objectType 
 	 * @param string $objectId 
 	 * @param string $url XML metadata remote url
-	 * @return KalturaMetadata
+	 * @return BorhanMetadata
 	 */
 	function addFromUrl($metadataProfileId, $objectType, $objectId, $url)
 	{
@@ -1138,7 +1138,7 @@ class KalturaMetadataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadata");
+		$this->client->validateObjectType($resultObject, "BorhanMetadata");
 		return $resultObject;
 	}
 
@@ -1150,7 +1150,7 @@ class KalturaMetadataService extends KalturaServiceBase
 	 * @param string $objectType 
 	 * @param string $objectId 
 	 * @param string $url XML metadata remote url
-	 * @return KalturaMetadata
+	 * @return BorhanMetadata
 	 */
 	function addFromBulk($metadataProfileId, $objectType, $objectId, $url)
 	{
@@ -1164,7 +1164,7 @@ class KalturaMetadataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadata");
+		$this->client->validateObjectType($resultObject, "BorhanMetadata");
 		return $resultObject;
 	}
 
@@ -1172,7 +1172,7 @@ class KalturaMetadataService extends KalturaServiceBase
 	 * Retrieve a metadata object by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaMetadata
+	 * @return BorhanMetadata
 	 */
 	function get($id)
 	{
@@ -1183,7 +1183,7 @@ class KalturaMetadataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadata");
+		$this->client->validateObjectType($resultObject, "BorhanMetadata");
 		return $resultObject;
 	}
 
@@ -1193,7 +1193,7 @@ class KalturaMetadataService extends KalturaServiceBase
 	 * @param int $id 
 	 * @param string $xmlData XML metadata
 	 * @param int $version Enable update only if the metadata object version did not change by other process
-	 * @return KalturaMetadata
+	 * @return BorhanMetadata
 	 */
 	function update($id, $xmlData = null, $version = null)
 	{
@@ -1206,7 +1206,7 @@ class KalturaMetadataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadata");
+		$this->client->validateObjectType($resultObject, "BorhanMetadata");
 		return $resultObject;
 	}
 
@@ -1215,7 +1215,7 @@ class KalturaMetadataService extends KalturaServiceBase
 	 * 
 	 * @param int $id 
 	 * @param file $xmlFile XML metadata
-	 * @return KalturaMetadata
+	 * @return BorhanMetadata
 	 */
 	function updateFromFile($id, $xmlFile = null)
 	{
@@ -1228,18 +1228,18 @@ class KalturaMetadataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadata");
+		$this->client->validateObjectType($resultObject, "BorhanMetadata");
 		return $resultObject;
 	}
 
 	/**
 	 * List metadata objects by filter and pager
 	 * 
-	 * @param KalturaMetadataFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaMetadataListResponse
+	 * @param BorhanMetadataFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanMetadataListResponse
 	 */
-	function listAction(KalturaMetadataFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanMetadataFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -1251,7 +1251,7 @@ class KalturaMetadataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadataListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanMetadataListResponse");
 		return $resultObject;
 	}
 
@@ -1317,7 +1317,7 @@ class KalturaMetadataService extends KalturaServiceBase
 	 * 
 	 * @param int $id 
 	 * @param file $xslFile 
-	 * @return KalturaMetadata
+	 * @return BorhanMetadata
 	 */
 	function updateFromXSL($id, $xslFile)
 	{
@@ -1330,31 +1330,31 @@ class KalturaMetadataService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadata");
+		$this->client->validateObjectType($resultObject, "BorhanMetadata");
 		return $resultObject;
 	}
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataProfileService extends KalturaServiceBase
+class BorhanMetadataProfileService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * Allows you to add a metadata profile object and metadata profile content associated with Kaltura object type
+	 * Allows you to add a metadata profile object and metadata profile content associated with Borhan object type
 	 * 
-	 * @param KalturaMetadataProfile $metadataProfile 
+	 * @param BorhanMetadataProfile $metadataProfile 
 	 * @param string $xsdData XSD metadata definition
 	 * @param string $viewsData UI views definition
-	 * @return KalturaMetadataProfile
+	 * @return BorhanMetadataProfile
 	 */
-	function add(KalturaMetadataProfile $metadataProfile, $xsdData, $viewsData = null)
+	function add(BorhanMetadataProfile $metadataProfile, $xsdData, $viewsData = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "metadataProfile", $metadataProfile->toParams());
@@ -1365,19 +1365,19 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadataProfile");
+		$this->client->validateObjectType($resultObject, "BorhanMetadataProfile");
 		return $resultObject;
 	}
 
 	/**
-	 * Allows you to add a metadata profile object and metadata profile file associated with Kaltura object type
+	 * Allows you to add a metadata profile object and metadata profile file associated with Borhan object type
 	 * 
-	 * @param KalturaMetadataProfile $metadataProfile 
+	 * @param BorhanMetadataProfile $metadataProfile 
 	 * @param file $xsdFile XSD metadata definition
 	 * @param file $viewsFile UI views definition
-	 * @return KalturaMetadataProfile
+	 * @return BorhanMetadataProfile
 	 */
-	function addFromFile(KalturaMetadataProfile $metadataProfile, $xsdFile, $viewsFile = null)
+	function addFromFile(BorhanMetadataProfile $metadataProfile, $xsdFile, $viewsFile = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "metadataProfile", $metadataProfile->toParams());
@@ -1389,7 +1389,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadataProfile");
+		$this->client->validateObjectType($resultObject, "BorhanMetadataProfile");
 		return $resultObject;
 	}
 
@@ -1397,7 +1397,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 	 * Retrieve a metadata profile object by id
 	 * 
 	 * @param int $id 
-	 * @return KalturaMetadataProfile
+	 * @return BorhanMetadataProfile
 	 */
 	function get($id)
 	{
@@ -1408,7 +1408,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadataProfile");
+		$this->client->validateObjectType($resultObject, "BorhanMetadataProfile");
 		return $resultObject;
 	}
 
@@ -1416,12 +1416,12 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 	 * Update an existing metadata object
 	 * 
 	 * @param int $id 
-	 * @param KalturaMetadataProfile $metadataProfile 
+	 * @param BorhanMetadataProfile $metadataProfile 
 	 * @param string $xsdData XSD metadata definition
 	 * @param string $viewsData UI views definition
-	 * @return KalturaMetadataProfile
+	 * @return BorhanMetadataProfile
 	 */
-	function update($id, KalturaMetadataProfile $metadataProfile, $xsdData = null, $viewsData = null)
+	function update($id, BorhanMetadataProfile $metadataProfile, $xsdData = null, $viewsData = null)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "id", $id);
@@ -1433,18 +1433,18 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadataProfile");
+		$this->client->validateObjectType($resultObject, "BorhanMetadataProfile");
 		return $resultObject;
 	}
 
 	/**
 	 * List metadata profile objects by filter and pager
 	 * 
-	 * @param KalturaMetadataProfileFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaMetadataProfileListResponse
+	 * @param BorhanMetadataProfileFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanMetadataProfileListResponse
 	 */
-	function listAction(KalturaMetadataProfileFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanMetadataProfileFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -1456,7 +1456,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadataProfileListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanMetadataProfileListResponse");
 		return $resultObject;
 	}
 
@@ -1464,7 +1464,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 	 * List metadata profile fields by metadata profile id
 	 * 
 	 * @param int $metadataProfileId 
-	 * @return KalturaMetadataProfileFieldListResponse
+	 * @return BorhanMetadataProfileFieldListResponse
 	 */
 	function listFields($metadataProfileId)
 	{
@@ -1475,7 +1475,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadataProfileFieldListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanMetadataProfileFieldListResponse");
 		return $resultObject;
 	}
 
@@ -1503,7 +1503,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 	 * 
 	 * @param int $id 
 	 * @param int $toVersion 
-	 * @return KalturaMetadataProfile
+	 * @return BorhanMetadataProfile
 	 */
 	function revert($id, $toVersion)
 	{
@@ -1515,7 +1515,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadataProfile");
+		$this->client->validateObjectType($resultObject, "BorhanMetadataProfile");
 		return $resultObject;
 	}
 
@@ -1524,7 +1524,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 	 * 
 	 * @param int $id 
 	 * @param file $xsdFile XSD metadata definition
-	 * @return KalturaMetadataProfile
+	 * @return BorhanMetadataProfile
 	 */
 	function updateDefinitionFromFile($id, $xsdFile)
 	{
@@ -1537,7 +1537,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadataProfile");
+		$this->client->validateObjectType($resultObject, "BorhanMetadataProfile");
 		return $resultObject;
 	}
 
@@ -1546,7 +1546,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 	 * 
 	 * @param int $id 
 	 * @param file $viewsFile UI views file
-	 * @return KalturaMetadataProfile
+	 * @return BorhanMetadataProfile
 	 */
 	function updateViewsFromFile($id, $viewsFile)
 	{
@@ -1559,7 +1559,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadataProfile");
+		$this->client->validateObjectType($resultObject, "BorhanMetadataProfile");
 		return $resultObject;
 	}
 
@@ -1568,7 +1568,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 	 * 
 	 * @param int $id 
 	 * @param file $xsltFile XSLT file, will be executed on every metadata add/update
-	 * @return KalturaMetadataProfile
+	 * @return BorhanMetadataProfile
 	 */
 	function updateTransformationFromFile($id, $xsltFile)
 	{
@@ -1581,7 +1581,7 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaMetadataProfile");
+		$this->client->validateObjectType($resultObject, "BorhanMetadataProfile");
 		return $resultObject;
 	}
 
@@ -1618,38 +1618,38 @@ class KalturaMetadataProfileService extends KalturaServiceBase
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaMetadataClientPlugin extends KalturaClientPlugin
+class BorhanMetadataClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaMetadataService
+	 * @var BorhanMetadataService
 	 */
 	public $metadata = null;
 
 	/**
-	 * @var KalturaMetadataProfileService
+	 * @var BorhanMetadataProfileService
 	 */
 	public $metadataProfile = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->metadata = new KalturaMetadataService($client);
-		$this->metadataProfile = new KalturaMetadataProfileService($client);
+		$this->metadata = new BorhanMetadataService($client);
+		$this->metadataProfile = new BorhanMetadataProfileService($client);
 	}
 
 	/**
-	 * @return KalturaMetadataClientPlugin
+	 * @return BorhanMetadataClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaMetadataClientPlugin($client);
+		return new BorhanMetadataClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

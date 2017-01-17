@@ -1,4 +1,4 @@
-(function(kWidget){
+(function(bWidget){
 
 	var DomReady = window.DomReady = {};
 
@@ -141,7 +141,7 @@
 	};
 	bindReady();
 
-	// Export to the kWidget object:
-	kWidget.domReady = DomReady.ready;
+	// Export to the bWidget object:
+	bWidget.domReady = DomReady.ready;
 
-})(window.kWidget);
+})(window.bWidget);

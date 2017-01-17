@@ -13,8 +13,8 @@ header("Access-Control-Allow-Origin: *");
 require(  dirname( __FILE__ ) . '/includes/DefaultSettings.php' );
 
 // Check for custom resource ps config file:
-if( isset( $wgKalturaPSHtml5SettingsPath ) && is_file( $wgKalturaPSHtml5SettingsPath ) ){
-	require_once( $wgKalturaPSHtml5SettingsPath );
+if( isset( $wgBorhanPSHtml5SettingsPath ) && is_file( $wgBorhanPSHtml5SettingsPath ) ){
+	require_once( $wgBorhanPSHtml5SettingsPath );
 }
 
 $mwEmbedApi = new mwEmbedApi();

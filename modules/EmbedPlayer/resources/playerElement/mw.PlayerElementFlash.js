@@ -12,7 +12,7 @@
 		id: null,
 		readyState: 0,
 		disabled: false,
-		//counter for listneres function names, in case we want to subscribe more than one func to the same kdp notification
+		//counter for listneres function names, in case we want to subscribe more than one func to the same bdp notification
 		listenerCounter: 0,
 		targetObj: null,
 		initialized: false,
@@ -54,11 +54,11 @@
                 mwEmbedPath = window.location.protocol + mwEmbedPath.substring( mwEmbedPath.indexOf(":") + 1);
             }
 
-            var kdpPath = mwEmbedPath + 'modules/EmbedPlayer/binPlayers/kaltura-player/kdp3.swf';
-            //var kdpPath = "http://localhost/chromeless-kdp/KDP3/bin-debug/kdp3.swf";
+            var bdpPath = mwEmbedPath + 'modules/EmbedPlayer/binPlayers/borhan-player/bdp3.swf';
+            //var bdpPath = "http://localhost/chromeless-bdp/BDP3/bin-debug/bdp3.swf";
 
-            if (mw.getConfig('forceNoKdpCache')) {
-                kdpPath += '?' + new Date().getTime();
+            if (mw.getConfig('forceNoBdpCache')) {
+                bdpPath += '?' + new Date().getTime();
             }
 
             // check for ForceFlashOnDesktopSafari and if so set interval in order to try to detect flash player (run 3 times)
@@ -123,7 +123,7 @@
             flashembed( containerId,
                 {
                     id :				playerId,
-                    src : 				kdpPath,
+                    src : 				bdpPath,
                     bgcolor :			"#000000",
                     allowNetworking : 	"all",
                     version :			[10,0],
@@ -181,9 +181,9 @@
                 });
             }
         },
-		setKDPAttribute: function( obj, property, value ) {
+		setBDPAttribute: function( obj, property, value ) {
 			if ( this.playerElement && !this.disabled ) {
-				this.playerElement.setKDPAttribute( obj, property, value );
+				this.playerElement.setBDPAttribute( obj, property, value );
 			}
 		},
 		addJsListener: function( eventName, methodName ) {
@@ -194,10 +194,10 @@
 		removeJsListener: function( eventName, methodName ) {
 			if ( this.playerElement ) {
 				mw.log( 'PlayerElementFlash:: unbindPlayerFunction:' + eventName );
-				// The kaltura kdp can only call a global function by given name
-				var gKdpCallbackName = 'kdp_' + methodName + '_cb_' + this.id.replace(/[^a-zA-Z 0-9]+/g,'');
+				// The borhan bdp can only call a global function by given name
+				var gBdpCallbackName = 'bdp_' + methodName + '_cb_' + this.id.replace(/[^a-zA-Z 0-9]+/g,'');
 				// Remove the listener ( if it exists already )
-				this.playerElement.removeJsListener( eventName, gKdpCallbackName );
+				this.playerElement.removeJsListener( eventName, gBdpCallbackName );
 			}
 		},
 		getCurrentTime: function() {
@@ -243,8 +243,8 @@
 		bindPlayerFunction : function(bindName, methodName, target) {
 			var _this = this;
 			mw.log( 'PlayerElementFlash:: bindPlayerFunction:' + bindName );
-			// The kaltura kdp can only call a global function by given name
-			var gKdpCallbackName = 'kdp_' + methodName + '_cb_' + this.id.replace(/[^a-zA-Z 0-9]+/g,'');
+			// The borhan bdp can only call a global function by given name
+			var gBdpCallbackName = 'bdp_' + methodName + '_cb_' + this.id.replace(/[^a-zA-Z 0-9]+/g,'');
 
 			// Create an anonymous function with local player scope
 			var createGlobalCB = function(cName) {
@@ -255,11 +255,11 @@
 					}
 					_this.targetObj[methodName](data);
 				};
-			}(gKdpCallbackName, this);
+			}(gBdpCallbackName, this);
 			// Remove the listener ( if it exists already )
-			this.playerElement.removeJsListener( bindName, gKdpCallbackName );
-			// Add the listener to the KDP flash player:
-			this.playerElement.addJsListener( bindName, gKdpCallbackName);
+			this.playerElement.removeJsListener( bindName, gBdpCallbackName );
+			// Add the listener to the BDP flash player:
+			this.playerElement.addJsListener( bindName, gBdpCallbackName);
 		},
 		onUpdatePlayhead : function ( playheadVal ) {
 			this.currentTime = playheadVal;

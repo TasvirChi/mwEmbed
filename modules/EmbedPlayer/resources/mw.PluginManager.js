@@ -19,7 +19,7 @@ mw.PluginManager = {
 
 		this.registerdPlugins[ pluginName ] = pluginClass;
 		//Only add total count for plugins which are not explicitly set to false
-		var playerConfig = window.kalturaIframePackageData.playerConfig;//mw.getConfig("KalturaSupport.PlayerConfig");
+		var playerConfig = window.borhanIframePackageData.playerConfig;//mw.getConfig("BorhanSupport.PlayerConfig");
 		if (playerConfig.plugins &&
 			playerConfig.plugins[ pluginName ] &&
 			playerConfig.plugins[ pluginName ].plugin === false){
@@ -45,7 +45,7 @@ mw.PluginManager = {
 			return;
 		}
 		var _this = this;
-		mw.addKalturaPlugin( pluginName, function( embedPlayer, callback ){
+		mw.addBorhanPlugin( pluginName, function( embedPlayer, callback ){
 			// Check if plugin initialise
 			if( embedPlayer.plugins[ pluginName ] ) {
 				//mw.log('PluginManager::init: Plugin "' + pluginName + '" already initialised.');

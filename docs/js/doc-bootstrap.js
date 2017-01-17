@@ -16,10 +16,10 @@ if( !window.QUnit ){
 	// output any blocking scripts that need to be ready before dom ready: 
 	document.write( '<script src="' + kDocPath + 'bootstrap/js/bootstrap-tab.js"></script>' );
 	document.write( '<script src="' + kDocPath + 'bootstrap/js/bootstrap-dropdown.js"></script>' );
-	document.write( '<script src="' + kDocPath + 'js/jquery.prettyKalturaConfig.js"></script>' );
-	document.write( '<script src="' + kDocPath + 'js/kWidget.featureConfig.js"></script>' );
-	// kwidget auth: 
-	document.write( '<script src="' + kDocPath + '../kWidget/kWidget.auth.js"></script>' );
+	document.write( '<script src="' + kDocPath + 'js/jquery.prettyBorhanConfig.js"></script>' );
+	document.write( '<script src="' + kDocPath + 'js/bWidget.featureConfig.js"></script>' );
+	// bwidget auth: 
+	document.write( '<script src="' + kDocPath + '../bWidget/bWidget.auth.js"></script>' );
 	
 	// inject all the twitter bootstrap css and js ( ok to be injected after page is rendering )
 	$( 'head' ).append(
@@ -39,9 +39,9 @@ if( !window.QUnit ){
 	);
 	// check if we should enable google analytics: 
 	// TODO remove dependency on mw
-	if( typeof mw != 'undefined' && mw.getConfig( 'Kaltura.PageGoogleAnalytics' ) ) {
+	if( typeof mw != 'undefined' && mw.getConfig( 'Borhan.PageGoogleAnalytics' ) ) {
 		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', mw.getConfig( 'Kaltura.PageGoogleAnalytics' )]);
+		_gaq.push(['_setAccount', mw.getConfig( 'Borhan.PageGoogleAnalytics' )]);
 		_gaq.push(['_trackPageview']);
 
 		(function() {
@@ -51,25 +51,25 @@ if( !window.QUnit ){
 		})();
 	}
 } else{
-	// provide a stub for prettyKalturaConfig so that tests don't have javascript errors:
-	$.fn.prettyKalturaConfig = function( pluginName, flashVars, flashvarCallback ){
+	// provide a stub for prettyBorhanConfig so that tests don't have javascript errors:
+	$.fn.prettyBorhanConfig = function( pluginName, flashVars, flashvarCallback ){
 		$(this).text( 'running qunit test');
 	};
-	// provide a stub for featureConfig for running tests ( just directly map to kWidget.embed )
-	kWidget.featureConfig = function( embedOptions ){
-		kWidget.embed( embedOptions );
+	// provide a stub for featureConfig for running tests ( just directly map to bWidget.embed )
+	bWidget.featureConfig = function( embedOptions ){
+		bWidget.embed( embedOptions );
 	}
 	// hide all prettyconfig: 
 	$(function(){
 		$('pre.prettyprint').hide();
 	});
 }
-window.isKalturaDocsIframe = false;
+window.isBorhanDocsIframe = false;
 // Detect if in an doc iframe:
 try{
 	if( document.URL.indexOf( 'noparent=') === -1 &&
 		window.parent && window.parent['mw'] && window.parent.mw.getConfig('KalutraDocContext')){
-		window.isKalturaDocsIframe = true;
+		window.isBorhanDocsIframe = true;
 		// call parent loaded if set: 
 		if(  window.parent['handleLoadedIframe'] ){
 			window.parent['handleLoadedIframe']();
@@ -85,9 +85,9 @@ try{
 }
 // clock player render time
 var kdocPlayerStartTime = new Date().getTime();
-if( typeof kWidget != 'undefined' && kWidget.addReadyCallback ){
+if( typeof bWidget != 'undefined' && bWidget.addReadyCallback ){
 	var kdocTimePerPlayer = {};
-	kWidget.addReadyCallback( function( pId ){
+	bWidget.addReadyCallback( function( pId ){
 		if( ! $( '#' + pId ).length ){
 			return ;
 		}
@@ -131,16 +131,16 @@ if( ! localStorage.kdocEmbedPlayer ){
 if( !window['disablePlaybackModeSelector'] ){
 	// don't set flag if any special properties are set: 
 	if( localStorage.kdocEmbedPlayer == 'html5' && window['mw'] && 
-			mw.getConfig( 'Kaltura.LeadWithHTML5') == null &&
+			mw.getConfig( 'Borhan.LeadWithHTML5') == null &&
 			mw.getConfig( 'disableForceMobileHTML5') == null && 
-			mw.getConfig( 'Kaltura.ForceFlashOnDesktop' ) !== true  
+			mw.getConfig( 'Borhan.ForceFlashOnDesktop' ) !== true  
 	){
-		mw.setConfig('Kaltura.LeadWithHTML5', true);
+		mw.setConfig('Borhan.LeadWithHTML5', true);
 	}
 }
-// support forceKDPFlashPlayer flag: 
-if( document.URL.indexOf('forceKDPFlashPlayer') !== -1 ){
-	mw.setConfig( 'Kaltura.LeadWithHTML5', false);
+// support forceBDPFlashPlayer flag: 
+if( document.URL.indexOf('forceBDPFlashPlayer') !== -1 ){
+	mw.setConfig( 'Borhan.LeadWithHTML5', false);
 	mw.setConfig( 'EmbedPlayer.DisableVideoTagSupport', true );
 }
 

@@ -3,9 +3,9 @@
 # repsitory to a specified email address.  
 # based on Ben Dowling's svn monitor http://www.coderholic.com/svn-change-monitoring-script/
 
-svnUrl="http://www.kaltura.org/kalorg/html5video/trunk"
+svnUrl="http://www.borhan.org/kalorg/html5video/trunk"
 lastRevisionFile="./.last-revision"
-mailto="andrew.davis@kaltura.com"
+mailto="andrew.davis@borhan.com"
 echo "0" > .failure
 
 function getCurrentRevision {

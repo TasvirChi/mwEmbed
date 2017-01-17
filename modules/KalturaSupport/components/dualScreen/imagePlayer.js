@@ -255,7 +255,7 @@
 
 				var _this = this;
 				// do the api request
-				this.getKalturaClient().doRequest( {
+				this.getBorhanClient().doRequest( {
 					'service': 'thumbAsset',
 					'action': 'getUrl',
 					'id': assetId

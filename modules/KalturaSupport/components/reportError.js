@@ -7,7 +7,7 @@
 		setup: function() {
 			var _this = this;
 			var embedPlayer = this.getPlayer();
-			this.kClient = mw.kApiGetPartnerClient( embedPlayer.kwidgetid );
+			this.kClient = mw.kApiGetPartnerClient( embedPlayer.bwidgetid );
 
 			this.bind( 'playerReady', function() {
 				_this.didSeek = false;
@@ -29,7 +29,7 @@
 				var msgParams = [];
 				msgParams[ 'pid' ] = embedPlayer.kpartnerid;
 				msgParams[ 'uiconfId' ] = embedPlayer.kuiconfid;
-				msgParams[ 'referrer' ] = window.kWidgetSupport.getHostPageUrl();
+				msgParams[ 'referrer' ] = window.bWidgetSupport.getHostPageUrl();
 				msgParams[ 'didSeek' ] = _this.didSeek;
 				msgParams[ 'resourceUrl' ] = resourceUrl;
 				msgParams[ 'userAgent' ] = navigator.userAgent;

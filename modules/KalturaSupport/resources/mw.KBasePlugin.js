@@ -66,12 +66,12 @@ mw.KBasePlugin = Class.extend({
 	},
 	getConfig: function( attr, raw ) {
 		if( raw ){
-			return this.embedPlayer.getRawKalturaConfig( this.pluginName, attr );
+			return this.embedPlayer.getRawBorhanConfig( this.pluginName, attr );
 		}
-		return this.embedPlayer.getKalturaConfig( this.pluginName, attr );
+		return this.embedPlayer.getBorhanConfig( this.pluginName, attr );
 	},
 	setConfig: function( attr, value, quiet ) {
-		this.embedPlayer.setKalturaConfig( this.pluginName, attr, value, quiet );
+		this.embedPlayer.setBorhanConfig( this.pluginName, attr, value, quiet );
 	},
 	getTemplateHTML: function( data ){
 		var _this = this;
@@ -80,8 +80,8 @@ mw.KBasePlugin = Class.extend({
 		// Add out plugin instance
 		data.self = this;
 		data.player = this.embedPlayer;
-		data.entry = this.embedPlayer.kalturaPlayerMetaData;
-		data.entryMetadata = this.embedPlayer.kalturaEntryMetaData;
+		data.entry = this.embedPlayer.borhanPlayerMetaData;
+		data.entryMetadata = this.embedPlayer.borhanEntryMetaData;
 		data.formaters = mw.util.formaters().getAll();
 
 		var defer = $.Deferred();
@@ -114,13 +114,13 @@ mw.KBasePlugin = Class.extend({
 		var rawHTML = this.getConfig( 'template', true );
 		if( !rawHTML ){
 			var templatePath = this.getConfig( 'templatePath' );
-			if( !window.kalturaIframePackageData.templates[ templatePath ]) {
+			if( !window.borhanIframePackageData.templates[ templatePath ]) {
 				this.log('getTemplateHTML:: Template not found in payload - trying async loading');
 				if ( templatePath && templatePath.indexOf("http") === 0 ){
 					$.ajax({
 						url: templatePath
 					}).done(function(data) {
-							window.kalturaIframePackageData.templates[ templatePath ] = rawHTML = data;
+							window.borhanIframePackageData.templates[ templatePath ] = rawHTML = data;
 							parseTemplate(rawHTML);
 						}).fail(function(data) {
 							defer.reject("mw.KBasePlugin::Error occur when trying to load external template from: " + templatePath);
@@ -129,7 +129,7 @@ mw.KBasePlugin = Class.extend({
 					defer.reject("mw.KBasePlugin::Could not load external template: " + templatePath + ". Must be a full url starting with http.");
 				}
 			}else{
-				rawHTML = window.kalturaIframePackageData.templates[ templatePath ];
+				rawHTML = window.borhanIframePackageData.templates[ templatePath ];
 				parseTemplate(rawHTML);
 			}
 		}else{
@@ -141,11 +141,11 @@ mw.KBasePlugin = Class.extend({
 		// First get template from 'template' config
 		var rawHTML = this.getConfig( 'template', true );
 		if( !rawHTML ){
-			if( !partialName || !window.kalturaIframePackageData.templates[ partialName ]) {
+			if( !partialName || !window.borhanIframePackageData.templates[ partialName ]) {
 				this.log('getTemplateHTML:: Template not found');
 				return '';
 			}
-			rawHTML = window.kalturaIframePackageData.templates[ partialName ];
+			rawHTML = window.borhanIframePackageData.templates[ partialName ];
 		}
 		var transformedHTML = mw.util.tmpl( rawHTML, settings );
 
@@ -202,15 +202,15 @@ mw.KBasePlugin = Class.extend({
 		if( typeof this.onConfigChange !== 'function' ){
 			return ;
 		}
-		this.bind('Kaltura_ConfigChanged', function(event, pluginName, property, value){
+		this.bind('Borhan_ConfigChanged', function(event, pluginName, property, value){
 			if( pluginName === _this.pluginName ){
 				_this.onConfigChange( property, value );
 			}
 		});
 	},
-	getKalturaClient: function() {
+	getBorhanClient: function() {
 		if( ! this.kClient ) {
-			this.kClient = mw.kApiGetPartnerClient( this.embedPlayer.kwidgetid );
+			this.kClient = mw.kApiGetPartnerClient( this.embedPlayer.bwidgetid );
 		}
 		return this.kClient;
 	},

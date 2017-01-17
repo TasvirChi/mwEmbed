@@ -4,19 +4,19 @@
 mw.KApiPartnerCache = [];
 mw.kApiGetPartnerClient = function( widgetId ){
 	if( !mw.KApiPartnerCache[ widgetId ] ){
-		mw.KApiPartnerCache[ widgetId ] = new kWidget.api( {'wid':widgetId} );
+		mw.KApiPartnerCache[ widgetId ] = new bWidget.api( {'wid':widgetId} );
 	}
 	return mw.KApiPartnerCache[ widgetId ];
 };
 
 /* Base Widget support*/
-mw.KWidgetSupport = function( options ) {
-	// Create KWidgetSupport instance
+mw.BWidgetSupport = function( options ) {
+	// Create BWidgetSupport instance
 	return this.init( options );
 };
-mw.KWidgetSupport.prototype = {
+mw.BWidgetSupport.prototype = {
 
-	// The Kaltura client local reference
+	// The Borhan client local reference
 	kClient : null,
 	kSessionId: null, // Used for Analytics events
 	originalStreamerType: null,
@@ -34,8 +34,8 @@ mw.KWidgetSupport.prototype = {
 		window.getStringByKey = function(key){
 
 
-			var playerConfig = window.kalturaIframePackageData.playerConfig;
-			var localizationCode = window.kalturaIframePackageData.enviornmentConfig["localizationCode"] || false;
+			var playerConfig = window.borhanIframePackageData.playerConfig;
+			var localizationCode = window.borhanIframePackageData.enviornmentConfig["localizationCode"] || false;
 			if (playerConfig && playerConfig.plugins && playerConfig.plugins.strings ){
 				if (localizationCode && playerConfig.plugins.strings[localizationCode + "." + key]){ // handle flat localized keys
 					return playerConfig.plugins.strings[localizationCode + "." + key];
@@ -58,26 +58,26 @@ mw.KWidgetSupport.prototype = {
 				mw.getConfig( 'EmbedPlayer.IframeParentUrl' ) );
 	},
 	/**
-	* Add Player hooks for supporting Kaltura api
+	* Add Player hooks for supporting Borhan api
 	*/
 	addPlayerHooks: function( ){
 		var _this = this;
-		// Add the hooks to the player manager ( added to KalturaSupportNewPlayer to
+		// Add the hooks to the player manager ( added to BorhanSupportNewPlayer to
 		// avoid out of order execution before uiConf is ready )
-		$( mw ).bind( 'KalturaSupportNewPlayer', function( event, embedPlayer ) {
+		$( mw ).bind( 'BorhanSupportNewPlayer', function( event, embedPlayer ) {
 
 			// Check if we should add binding: ( we need a widget id )
-			if( ! embedPlayer.kwidgetid ){
-				mw.log("Error:: KalturaSupportNewPlayer without kwidgetid");
+			if( ! embedPlayer.bwidgetid ){
+				mw.log("Error:: BorhanSupportNewPlayer without bwidgetid");
 				return ;
 			}
 
 			_this.bindPlayer( embedPlayer );
-			// Add KDP API mapping ( will trigger playerReady for adding jsListeners )
-			new mw.KDPMapping( embedPlayer );
+			// Add BDP API mapping ( will trigger playerReady for adding jsListeners )
+			new mw.BDPMapping( embedPlayer );
 
-			if ( kWidget.isIE8() && !kWidget.supportsFlash() ) {
-				embedPlayer.setError( embedPlayer.getKalturaMsg( 'ks-FLASH-REQUIRED' ) );
+			if ( bWidget.isIE8() && !bWidget.supportsFlash() ) {
+				embedPlayer.setError( embedPlayer.getBorhanMsg( 'ks-FLASH-REQUIRED' ) );
 			}
 		});
 	},
@@ -93,15 +93,15 @@ mw.KWidgetSupport.prototype = {
 
 		// Check for playerConfig
 		if( !embedPlayer.playerConfig ) {
-			mw.log('Error: KWidgetSupport::bindPlayer error playerConfig not found');
+			mw.log('Error: BWidgetSupport::bindPlayer error playerConfig not found');
 			return ;
 		}
 		mw.setConfig("nativeVersion", embedPlayer.getFlashvars("nativeVersion"));
-		// Overrides the direct download link to kaltura specific download.php tool for
+		// Overrides the direct download link to borhan specific download.php tool for
 		// selecting a download / playback flavor based on user agent.
 		embedPlayer.bindHelper( 'directDownloadLink', function( event, downloadUrlCallback ) {
 			var baseUrl = mw.getConfig('wgLoadScript').replace( 'load.php', '' );
-			var downloadUrl = baseUrl + 'modules/KalturaSupport/download.php/wid/' + embedPlayer.kwidgetid;
+			var downloadUrl = baseUrl + 'modules/BorhanSupport/download.php/wid/' + embedPlayer.bwidgetid;
 
 			// Also add the uiconf id to the url:
 			if( embedPlayer.kuiconfid ){
@@ -113,9 +113,9 @@ mw.KWidgetSupport.prototype = {
 			}
 
 			// Get KS and append to download url ( should be sync call )
-			var client = mw.kApiGetPartnerClient( embedPlayer.kwidgetid );
+			var client = mw.kApiGetPartnerClient( embedPlayer.bwidgetid );
 			// Append ks & referrer for access control
-			downloadUrl += '/referrer/' +  base64_encode( kWidgetSupport.getHostPageUrl() );
+			downloadUrl += '/referrer/' +  base64_encode( bWidgetSupport.getHostPageUrl() );
 			var ks = client.getKs();
 			if( ks ){
 				downloadUrl += '/ks/' + ks;
@@ -127,17 +127,17 @@ mw.KWidgetSupport.prototype = {
 		
 		// Add hook for check player sources to use local kEntry ID source check:
 		embedPlayer.bindHelper( 'checkPlayerSourcesEvent', function( event, callback ) {
-			_this.originalStreamerType = embedPlayer.getKalturaConfig( null, 'streamerType' ) ? embedPlayer.getKalturaConfig( null, 'streamerType' ) : 'http';
+			_this.originalStreamerType = embedPlayer.getBorhanConfig( null, 'streamerType' ) ? embedPlayer.getBorhanConfig( null, 'streamerType' ) : 'http';
 			_this.loadAndUpdatePlayerData( embedPlayer, callback );
 		});
 
 		// Update poster when we get entry meta data
-		embedPlayer.bindHelper( 'KalturaSupport_EntryDataReady', function() {
+		embedPlayer.bindHelper( 'BorhanSupport_EntryDataReady', function() {
 			// Set duration
-			embedPlayer.setDuration( embedPlayer.kalturaPlayerMetaData.duration );
+			embedPlayer.setDuration( embedPlayer.borhanPlayerMetaData.duration );
 			
 			// Update thumbnail
-			var thumbUrl = _this.getKalturaThumbnailUrl({
+			var thumbUrl = _this.getBorhanThumbnailUrl({
 				url: embedPlayer.evaluate('{mediaProxy.entry.thumbnailUrl}'),
 				width: embedPlayer.getWidth(),
 				height: embedPlayer.getHeight()
@@ -150,31 +150,31 @@ mw.KWidgetSupport.prototype = {
 			}
 			var alt = gM('mwe-embedplayer-video-thumbnail-for', embedPlayer.evaluate('{mediaProxy.entry.name}'));
 			embedPlayer.updatePoster( thumbUrl, alt );
-			embedPlayer.isAudioPlayer = ( embedPlayer.kalturaPlayerMetaData.mediaType === 5 );
+			embedPlayer.isAudioPlayer = ( embedPlayer.borhanPlayerMetaData.mediaType === 5 );
 		});
 
 		// Add black sources:
 		embedPlayer.bindHelper( 'AddEmptyBlackSources', function( event, vid ){
 			$(vid).empty();
-			$.each( mw.getConfig( 'Kaltura.BlackVideoSources' ), function(inx, sourceAttr ){
+			$.each( mw.getConfig( 'Borhan.BlackVideoSources' ), function(inx, sourceAttr ){
 				$(vid).append(
 					$( '<source />' ).attr( sourceAttr )
 				);
 			});
 		});
-		// Add Kaltura iframe share support:
+		// Add Borhan iframe share support:
 		embedPlayer.bindHelper( 'getShareIframeSrc', function( event, callback ){
 			var uiconf_id = (embedPlayer.kuiconfid) ? '/uiconf_id/' + embedPlayer.kuiconfid : '';
 			var iframeUrl = mw.getMwEmbedPath() + 'mwEmbedFrame.php';
-			iframeUrl +='/wid/' + embedPlayer.kwidgetid + uiconf_id + 
+			iframeUrl +='/wid/' + embedPlayer.bwidgetid + uiconf_id + 
 				'/entry_id/' + embedPlayer.kentryid + '/' +
-				'?' + kWidget.flashVarsToUrl( embedPlayer.getFlashvars() );
+				'?' + bWidget.flashVarsToUrl( embedPlayer.getFlashvars() );
 			// return the iframeUrl via the callback:
 			callback( iframeUrl );
 		});
 
 		// Example how to override embedPlayerError handler
-		if (!this.isEmbedServicesEnabled(kalturaIframePackageData.entryResult)){
+		if (!this.isEmbedServicesEnabled(borhanIframePackageData.entryResult)){
 			embedPlayer.shouldHandlePlayerError = false;
 			embedPlayer.bindHelper( 'embedPlayerError' , function ( event , data , doneCallback ) {
 				var displayedAcError = false;
@@ -203,7 +203,7 @@ mw.KWidgetSupport.prototype = {
 		}
 
 		// Support mediaPlayFrom, mediaPlayTo properties
-		embedPlayer.bindHelper( 'Kaltura_SetKDPAttribute', function(e, componentName, property, value){
+		embedPlayer.bindHelper( 'Borhan_SetBDPAttribute', function(e, componentName, property, value){
 			if (!value && value !== 0) {
 				return;
 			}
@@ -230,17 +230,17 @@ mw.KWidgetSupport.prototype = {
 		});
 	},
 	/**
-	 * Load and bind embedPlayer from kaltura api entry request
+	 * Load and bind embedPlayer from borhan api entry request
 	 * @param embedPlayer
 	 * @param callback
 	 */
 	loadAndUpdatePlayerData: function( embedPlayer, callback ){
 		var _this = this;
-		mw.log( "KWidgetSupport::loadAndUpdatePlayerData" );
-		// Load all the player configuration from kaltura:
+		mw.log( "BWidgetSupport::loadAndUpdatePlayerData" );
+		// Load all the player configuration from borhan:
 		_this.loadPlayerData( embedPlayer, function( playerData ){
 			if( !playerData ){
-				mw.log("KWidgetSupport::loadAndUpdatePlayerData> error no player data!");
+				mw.log("BWidgetSupport::loadAndUpdatePlayerData> error no player data!");
 				callback();
 				return ;
 			}
@@ -282,22 +282,22 @@ mw.KWidgetSupport.prototype = {
 	updatePlayerContextData: function(embedPlayer, playerData){
 		if( playerData.contextData ){
 			if ( playerData.contextData.msDuration) {
-				embedPlayer.kalturaPlayerMetaData.duration = Math.floor(playerData.contextData.msDuration / 1000);
+				embedPlayer.borhanPlayerMetaData.duration = Math.floor(playerData.contextData.msDuration / 1000);
 			}
-			embedPlayer.kalturaContextData = playerData.contextData;
+			embedPlayer.borhanContextData = playerData.contextData;
 			if (playerData.contextData &&
 				$.isArray(playerData.contextData.accessControlActions)) {
 
-				var kalturaAccessControlModifyRequestHostRegexActions= $.grep(playerData.contextData.accessControlActions,function(action) {
-					return action.type===7;////KalturaAccessControlModifyRequestHostRegexAction
+				var borhanAccessControlModifyRequestHostRegexActions= $.grep(playerData.contextData.accessControlActions,function(action) {
+					return action.type===7;////BorhanAccessControlModifyRequestHostRegexAction
 				});
 
-				if (kalturaAccessControlModifyRequestHostRegexActions.length>0) {
-					var action=kalturaAccessControlModifyRequestHostRegexActions[0];
+				if (borhanAccessControlModifyRequestHostRegexActions.length>0) {
+					var action=borhanAccessControlModifyRequestHostRegexActions[0];
 
 					if (action.pattern && action.replacement) {
 						var regExp=new RegExp(action.pattern, "i");
-						var urlsToModify = ['Kaltura.ServiceUrl','Kaltura.StatsServiceUrl','Kaltura.ServiceBase','Kaltura.LiveStatsServiceUrl','Kaltura.AnalyticsUrl'];
+						var urlsToModify = ['Borhan.ServiceUrl','Borhan.StatsServiceUrl','Borhan.ServiceBase','Borhan.LiveStatsServiceUrl','Borhan.AnalyticsUrl'];
 						urlsToModify.forEach(function (key) {
 							var serviceUrl = mw.config.get(key);
 							var match = serviceUrl.match( regExp );
@@ -329,7 +329,7 @@ mw.KWidgetSupport.prototype = {
             !mw.getConfig('forceHDS') ){
 
 			mw.setConfig("LeadWithHLSOnFlash",true);
-            mw.setConfig("isLiveKalturaHLS",true);
+            mw.setConfig("isLiveBorhanHLS",true);
 
 		}
 
@@ -372,7 +372,7 @@ mw.KWidgetSupport.prototype = {
 			// Set live property to true
 			embedPlayer.setLive( true );
 		} else if ( !isStreamSupported ) {
-			embedPlayer.setError( embedPlayer.getKalturaMsg('LIVE-STREAM-NOT-SUPPORTED') );
+			embedPlayer.setError( embedPlayer.getBorhanMsg('LIVE-STREAM-NOT-SUPPORTED') );
 		}
 	},
 	hasLivestreamConfig: function ( playerData, protocol ) {
@@ -445,7 +445,7 @@ mw.KWidgetSupport.prototype = {
 	},
 	resolveFlashStreamerType: function(embedPlayer, playerData){
 		var streamerType;
-		var streamerTypeFV = embedPlayer.getKalturaConfig( null, 'streamerType' );
+		var streamerTypeFV = embedPlayer.getBorhanConfig( null, 'streamerType' );
 		if ( streamerTypeFV && this.hasLivestreamConfig( playerData, streamerTypeFV ) ) {
 			streamerType = streamerTypeFV;
 		}
@@ -505,9 +505,9 @@ mw.KWidgetSupport.prototype = {
 			playerData.meta.partnerData["isLive"] == "true" ) {
 			embedPlayer.setLive( true );
 		}
-		embedPlayer.setKalturaConfig('originalProxyData', embedPlayer.getKalturaConfig('proxyData'));
+		embedPlayer.setBorhanConfig('originalProxyData', embedPlayer.getBorhanConfig('proxyData'));
 		//Set proxyData response data
-		embedPlayer.setKalturaConfig( 'proxyData', playerData.meta.partnerData);
+		embedPlayer.setBorhanConfig( 'proxyData', playerData.meta.partnerData);
 	},
 
 	addSessionIdToSrc: function(srcURL){
@@ -542,11 +542,11 @@ mw.KWidgetSupport.prototype = {
 	updateImagePlayerData: function(embedPlayer, playerData){
 		// Check for "image" mediaType ( 2 )
 		if( playerData.meta && playerData.meta.mediaType == 2 ){
-			mw.log( 'KWidgetSupport::updatePlayerData: Add Entry Image' );
+			mw.log( 'BWidgetSupport::updatePlayerData: Add Entry Image' );
 			embedPlayer.mediaElement.tryAddSource(
 				$('<source />')
 					.attr( {
-						'src' : this.getKalturaThumbnailUrl({
+						'src' : this.getBorhanThumbnailUrl({
 							url: playerData.meta.thumbnailUrl,
 							width: embedPlayer.getWidth(),
 							height: embedPlayer.getHeight()
@@ -560,18 +560,18 @@ mw.KWidgetSupport.prototype = {
 	updateExternalPlayerData: function(embedPlayer, playerData){
 		// Check for external media:
 		if( playerData.meta && playerData.meta.type == "externalMedia.externalMedia" ){
-			$( embedPlayer ).trigger( 'KalturaSupport_AddExternalMedia', playerData.meta );
+			$( embedPlayer ).trigger( 'BorhanSupport_AddExternalMedia', playerData.meta );
 		}
 	},
 	isNoEntryId: function(playerData){
 		return playerData.meta && playerData.meta.code == 'ENTRY_ID_NOT_FOUND';
 	},
 	handleNoEntryId: function(embedPlayer){
-		$( embedPlayer ).trigger( 'KalturaSupport_EntryFailed' );
+		$( embedPlayer ).trigger( 'BorhanSupport_EntryFailed' );
 	},
 	updatePlayerEntryData: function(embedPlayer, playerData){
 		// Look for custom metadata in playerData.entryMeta and entryMetadata ( mediaProxy override name )
-		embedPlayer.kalturaEntryMetaData = ( playerData.entryMeta ) ? playerData.entryMeta : playerData.entryMetadata;
+		embedPlayer.borhanEntryMetaData = ( playerData.entryMeta ) ? playerData.entryMeta : playerData.entryMetadata;
 	},
 	updatePlayerMetaData: function(embedPlayer, playerData){
 		// Lock for "entry" in 'meta' and 'entry' ( mediaProxy override name )
@@ -579,20 +579,20 @@ mw.KWidgetSupport.prototype = {
 		// Apply player entry metadata
 		if( meta ) {
 			// We have to assign embedPlayer metadata as an attribute to bridge the iframe
-			embedPlayer.kalturaPlayerMetaData = meta;
+			embedPlayer.borhanPlayerMetaData = meta;
 
 			if ( meta.moderationStatus && (!playerData.contextData || !playerData.contextData.isAdmin) ) {
 				if ( meta.moderationStatus == 1 ) {
-					embedPlayer.setError( embedPlayer.getKalturaMsgObject('ks-ENTRY_MODERATE') );
+					embedPlayer.setError( embedPlayer.getBorhanMsgObject('ks-ENTRY_MODERATE') );
 				} else if ( meta.moderationStatus == 3 ) {
-					embedPlayer.setError( embedPlayer.getKalturaMsgObject('ks-ENTRY_REJECTED') );
+					embedPlayer.setError( embedPlayer.getBorhanMsgObject('ks-ENTRY_REJECTED') );
 				}
 			}
 		}
 	},
 	initCuePointsService: function(embedPlayer, playerData){
 		// check for Cuepoint data and load cuePoints,
-		// TODO optimize cuePoints as hard or soft dependency on kWidgetSupport
+		// TODO optimize cuePoints as hard or soft dependency on bWidgetSupport
 		if( (playerData.entryCuePoints && playerData.entryCuePoints.length > 0) ||
 			( embedPlayer.isLive() && mw.getConfig("EmbedPlayer.LiveCuepoints") ) ) {
 			embedPlayer.rawCuePoints = playerData.entryCuePoints || [];
@@ -603,7 +603,7 @@ mw.KWidgetSupport.prototype = {
 	addPlayerMethods: function( embedPlayer ){
 		var _this = this;
 
-		embedPlayer.getRawKalturaConfig = function( confPrefix, attr ){
+		embedPlayer.getRawBorhanConfig = function( confPrefix, attr ){
 			var rawConfigArray = _this.getRawPluginConfig( embedPlayer, confPrefix, attr );
 			if( $.isPlainObject(rawConfigArray) && attr ){
 				return rawConfigArray[ attr ];
@@ -611,13 +611,13 @@ mw.KWidgetSupport.prototype = {
 			return rawConfigArray;
 		};
 
-		// Add getKalturaConfig to embed player:
-		embedPlayer.getKalturaConfig = function( confPrefix, attr ){
+		// Add getBorhanConfig to embed player:
+		embedPlayer.getBorhanConfig = function( confPrefix, attr ){
 			return _this.getPluginConfig( embedPlayer, confPrefix, attr );
 		};
 
 		// Extend plugin configuration
-		embedPlayer.setKalturaConfig = function( pluginName, key, value, quiet ) {
+		embedPlayer.setBorhanConfig = function( pluginName, key, value, quiet ) {
 
 			// no key - exit
 			if ( ! key ) {
@@ -667,17 +667,17 @@ mw.KWidgetSupport.prototype = {
 				}
 			}
 			if( !quiet ) {
-				embedPlayer.triggerHelper( 'Kaltura_ConfigChanged', [ pluginName, key, value ]);
+				embedPlayer.triggerHelper( 'Borhan_ConfigChanged', [ pluginName, key, value ]);
 			}
 		};
 
 		// Add an exported plugin value:
 		embedPlayer.addExportedObject = function( pluginName, objectSet ){
 			// TODO we should support log levels in 1.7
-			// https://github.com/kaltura/mwEmbed/issues/80
-			mw.log( "KwidgetSupport:: addExportedObject is deprecated, please use standard setKalturaConfig" );
+			// https://github.com/borhan/mwEmbed/issues/80
+			mw.log( "BwidgetSupport:: addExportedObject is deprecated, please use standard setBorhanConfig" );
 			for( var key in objectSet ){
-				embedPlayer.setKalturaConfig( pluginName, key, objectSet[key] );
+				embedPlayer.setBorhanConfig( pluginName, key, objectSet[key] );
 			}
 		};
 
@@ -726,7 +726,7 @@ mw.KWidgetSupport.prototype = {
 		}
 
 		// Adds support for custom message strings
-		embedPlayer.getKalturaMsg = function ( msgKey ){
+		embedPlayer.getBorhanMsg = function ( msgKey ){
 			// check for message locale:
 			var localeMsgKey = msgKey;
 			if ( embedPlayer.currentLocale ){
@@ -750,14 +750,14 @@ mw.KWidgetSupport.prototype = {
 			return gM( 'ks-GENERIC_ERROR_TITLE' );
 		};
 
-		embedPlayer.getKalturaMsgTitle = function ( msgKey ) {
-			return embedPlayer.getKalturaMsg( msgKey + '_TITLE' );
+		embedPlayer.getBorhanMsgTitle = function ( msgKey ) {
+			return embedPlayer.getBorhanMsg( msgKey + '_TITLE' );
 		};
 
-		embedPlayer.getKalturaMsgObject = function( msgKey ) {
+		embedPlayer.getBorhanMsgObject = function( msgKey ) {
 			return {
-				'title': embedPlayer.getKalturaMsgTitle( msgKey ),
-				'message': embedPlayer.getKalturaMsg( msgKey )
+				'title': embedPlayer.getBorhanMsgTitle( msgKey ),
+				'message': embedPlayer.getBorhanMsg( msgKey )
 			}
 		};
 
@@ -816,29 +816,29 @@ mw.KWidgetSupport.prototype = {
 	handleUiConf: function( embedPlayer, callback ){
 		var _this = this;
 		// Local function to defer the trigger of loaded cuePoints so that plugins have time to load
-		// and setup their binding to KalturaSupport_CuePointsReady
+		// and setup their binding to BorhanSupport_CuePointsReady
 		var doneWithUiConf = function(){
 
 			if( embedPlayer.rawCuePoints || ( embedPlayer.isLive() && mw.getConfig("EmbedPlayer.LiveCuepoints") ) ){
-				mw.log("KWidgetSupport:: trigger KalturaSupport_CuePointsReady", embedPlayer.rawCuePoints);
+				mw.log("BWidgetSupport:: trigger BorhanSupport_CuePointsReady", embedPlayer.rawCuePoints);
 				// Allow other plugins to subscribe to cuePoint ready event:
-				$( embedPlayer ).trigger( 'KalturaSupport_CuePointsReady', [embedPlayer.rawCuePoints] );
+				$( embedPlayer ).trigger( 'BorhanSupport_CuePointsReady', [embedPlayer.rawCuePoints] );
 			}
 
 			// Trigger the early player events ( after uiConf handling has a chance to setup bindings
-			if( embedPlayer.kalturaPlayerMetaData ){
-				$( embedPlayer ).trigger( 'KalturaSupport_EntryDataReady', embedPlayer.kalturaPlayerMetaData );
+			if( embedPlayer.borhanPlayerMetaData ){
+				$( embedPlayer ).trigger( 'BorhanSupport_EntryDataReady', embedPlayer.borhanPlayerMetaData );
 			}
-			if( embedPlayer.kalturaEntryMetaData ){
-				$( embedPlayer ).trigger( 'KalturaSupport_MetadataReceived', embedPlayer.kalturaEntryMetaData );
+			if( embedPlayer.borhanEntryMetaData ){
+				$( embedPlayer ).trigger( 'BorhanSupport_MetadataReceived', embedPlayer.borhanEntryMetaData );
 			}
 
 			// Run the DoneWithUiConf trigger
 			// Allows modules that depend on other modules initialization to do what they need to do.
-			mw.log("KWidgetSupport:: trigger KalturaSupport_DoneWithUiConf");
+			mw.log("BWidgetSupport:: trigger BorhanSupport_DoneWithUiConf");
 			// Don't stack
 			setTimeout( function(){
-				$( embedPlayer ).trigger( 'KalturaSupport_DoneWithUiConf' );
+				$( embedPlayer ).trigger( 'BorhanSupport_DoneWithUiConf' );
 				callback();
 			}, 0 );
 		};
@@ -846,9 +846,9 @@ mw.KWidgetSupport.prototype = {
 			_this.baseUiConfChecks( embedPlayer );
 			// TODO: remove this completly once all plugins revised
 			embedPlayer.$uiConf = $({});
-			// Trigger the check kaltura uiConf event
-			mw.log( "KWidgetSupport:: trigger Kaltura_CheckConfig" );
-			$( embedPlayer ).triggerQueueCallback( 'Kaltura_CheckConfig', embedPlayer, function(){
+			// Trigger the check borhan uiConf event
+			mw.log( "BWidgetSupport:: trigger Borhan_CheckConfig" );
+			$( embedPlayer ).triggerQueueCallback( 'Borhan_CheckConfig', embedPlayer, function(){
 				doneWithUiConf();
 			});
 		} else {
@@ -883,7 +883,7 @@ mw.KWidgetSupport.prototype = {
 				embedPlayer.toggleMute( true );
 			},300);
 			// autoMute should only happen once per session:
-			embedPlayer.setKalturaConfig( '', 'autoMute', null );
+			embedPlayer.setBorhanConfig( '', 'autoMute', null );
 		}
 		// Check for loop:
 		var loop = getAttr( 'loop' );
@@ -896,7 +896,7 @@ mw.KWidgetSupport.prototype = {
 			mw.setConfig('EmbedPlayer.ShowPlayerAlerts', false );
 		}
 
-		var mediaProxy = embedPlayer.getKalturaConfig('mediaProxy');
+		var mediaProxy = embedPlayer.getBorhanConfig('mediaProxy');
 		// handle mediaProxy properties
 		if ( mediaProxy ){
 			// check for preferedFlavorBR
@@ -912,9 +912,9 @@ mw.KWidgetSupport.prototype = {
 
 			// Check for mediaPlayFrom
 			// first check in hash
-			var mediaPlayFrom = kWidget.getHashParam("t");
+			var mediaPlayFrom = bWidget.getHashParam("t");
 			if ( mediaPlayFrom ){
-				mediaPlayFrom = kWidget.npt2seconds(mediaPlayFrom);
+				mediaPlayFrom = bWidget.npt2seconds(mediaPlayFrom);
 			}
 			// now cheeck in Flashvars - will override hash params
 			if (mediaProxy.mediaPlayFrom){
@@ -922,7 +922,7 @@ mw.KWidgetSupport.prototype = {
 			}
 			if (mediaPlayFrom && !embedPlayer.startTime) {
 				embedPlayer.startTime = parseFloat( mediaPlayFrom );
-				mw.setConfig( "Kaltura.UseAppleAdaptive" , true) ;
+				mw.setConfig( "Borhan.UseAppleAdaptive" , true) ;
 			}
 			// Check for mediaPlayTo
 			var mediaPlayTo = mediaProxy.mediaPlayTo;
@@ -953,9 +953,9 @@ mw.KWidgetSupport.prototype = {
 		if( getAttr( 'disablePlayerSpinner' ) ) {
 			mw.setConfig('LoadingSpinner.Disabled', true );
 		}
-		var streamerType = embedPlayer.getKalturaConfig( null, 'streamerType' );
-		if ( embedPlayer.kalturaContextData && streamerType == 'auto' ) {
-			embedPlayer.streamerType = embedPlayer.kalturaContextData.streamerType;
+		var streamerType = embedPlayer.getBorhanConfig( null, 'streamerType' );
+		if ( embedPlayer.borhanContextData && streamerType == 'auto' ) {
+			embedPlayer.streamerType = embedPlayer.borhanContextData.streamerType;
 		} else if ( streamerType ) {
 			embedPlayer.streamerType = streamerType;
 		}
@@ -990,9 +990,9 @@ mw.KWidgetSupport.prototype = {
 		var _this = this;
 		if( ! embedPlayer.playerConfig ){
 			// Some IE out of order issue? has us re-checking player config here
-			if( window.kalturaIframePackageData.playerConfig ){
-				embedPlayer.playerConfig =  window.kalturaIframePackageData.playerConfig;
-				delete( window.kalturaIframePackageData.playerConfig );
+			if( window.borhanIframePackageData.playerConfig ){
+				embedPlayer.playerConfig =  window.borhanIframePackageData.playerConfig;
+				delete( window.borhanIframePackageData.playerConfig );
 			}
 		}
 
@@ -1054,9 +1054,9 @@ mw.KWidgetSupport.prototype = {
 	getEntryIdSourcesFromApi:  function( embedPlayer, entryId, callback ){
 		var _this = this;
 		var sources;
-		mw.log( "KWidgetSupport:: getEntryIdSourcesFromApi: w:" + embedPlayer.kwidgetid + ' entry:' + embedPlayer.kentryid );
+		mw.log( "BWidgetSupport:: getEntryIdSourcesFromApi: w:" + embedPlayer.bwidgetid + ' entry:' + embedPlayer.kentryid );
 		this.kClient = mw.kApiEntryLoader({
-			'widget_id': embedPlayer.kwidgetid,
+			'widget_id': embedPlayer.bwidgetid,
 			'entry_id': entryId
 		}, function( playerData ){
 			// Check access control
@@ -1070,7 +1070,7 @@ mw.KWidgetSupport.prototype = {
 			// see if we are dealing with an image asset ( no flavor sources )
 			if( playerData.meta && playerData.meta.mediaType == 2 ){
 				sources = [{
-						'src' : _this.getKalturaThumbnailUrl({
+						'src' : _this.getBorhanThumbnailUrl({
 							url: playerData.meta.thumbnailUrl,
 							width:  embedPlayer.getWidth(),
 							height: embedPlayer.getHeight()
@@ -1092,12 +1092,12 @@ mw.KWidgetSupport.prototype = {
 		var _this = this;
 		var playerRequest = {};
 		// Check for widget id
-		if( ! embedPlayer.kwidgetid ){
-			mw.log( "Error: missing required widget paramater ( kwidgetid ) ");
+		if( ! embedPlayer.bwidgetid ){
+			mw.log( "Error: missing required widget paramater ( bwidgetid ) ");
 			callback( false );
 			return ;
 		} else {
-			playerRequest.widget_id = embedPlayer.kwidgetid;
+			playerRequest.widget_id = embedPlayer.bwidgetid;
 		}
 
 		// Check if the entryId is of type url:
@@ -1106,7 +1106,7 @@ mw.KWidgetSupport.prototype = {
 			playerRequest.entry_id =  embedPlayer.kentryid;
 		}
 
-		var proxyData = embedPlayer.getKalturaConfig('proxyData', 'data');
+		var proxyData = embedPlayer.getBorhanConfig('proxyData', 'data');
 		if(proxyData){
 			playerRequest.proxyData = proxyData;
 		}
@@ -1115,15 +1115,15 @@ mw.KWidgetSupport.prototype = {
 		playerRequest.flashvars = embedPlayer.getFlashvars();
 
 		// Add features
-		playerRequest.features = kalturaIframePackageData.apiFeatures;
+		playerRequest.features = borhanIframePackageData.apiFeatures;
 
 		// Set KS from flashVar
 		this.kClient = mw.kApiGetPartnerClient( playerRequest.widget_id );
 		this.kClient.setKs( embedPlayer.getFlashvars( 'ks' ) );
 
 			// Check for playlist cache based
-			if( window.kalturaIframePackageData && window.kalturaIframePackageData.playlistResult ){
-				var pl = window.kalturaIframePackageData.playlistResult;
+			if( window.borhanIframePackageData && window.borhanIframePackageData.playlistResult ){
+				var pl = window.borhanIframePackageData.playlistResult;
 				for( var plId in pl ) break;
 				if( pl[plId].content.indexOf('<?xml') === 0 ){
 					// convert to comma seperated entries
@@ -1133,13 +1133,13 @@ mw.KWidgetSupport.prototype = {
 					}
 					pl[plId].content = entryList.join(',');
 				}
-				embedPlayer.kalturaPlaylistData = pl;
-				delete( window.kalturaIframePackageData.playlistResult );
+				embedPlayer.borhanPlaylistData = pl;
+				delete( window.borhanIframePackageData.playlistResult );
 			}
 
 			// Check for entry cache:
-			if( window.kalturaIframePackageData && window.kalturaIframePackageData.entryResult ){
-				var entryResult =  window.kalturaIframePackageData.entryResult;
+			if( window.borhanIframePackageData && window.borhanIframePackageData.entryResult ){
+				var entryResult =  window.borhanIframePackageData.entryResult;
 				_this.handlePlayerData( embedPlayer, entryResult );
 				//if we dont have special widgetID or the KS is defined continue as usual
 				var kpartnerid = embedPlayer.kpartnerid ? embedPlayer.kpartnerid : "";
@@ -1160,7 +1160,7 @@ mw.KWidgetSupport.prototype = {
 					});
 				}
 				// remove the entryResult from the payload
-				delete( window.kalturaIframePackageData.entryResult );
+				delete( window.borhanIframePackageData.entryResult );
 				return ;
 			}
 			// Run the request:
@@ -1174,16 +1174,16 @@ mw.KWidgetSupport.prototype = {
 	handlePlayerError: function(embedPlayer, data){
 		var errObj = null;
 		if( data.meta &&  data.meta.code == "INVALID_KS" ){
-			errObj = embedPlayer.getKalturaMsgObject( "NO_KS" );
+			errObj = embedPlayer.getBorhanMsgObject( "NO_KS" );
 		}
 		if( data.meta && (data.meta.status == 1 || data.meta.status == 0) ){
-			errObj = embedPlayer.getKalturaMsgObject( "ks-ENTRY_CONVERTING" );
+			errObj = embedPlayer.getBorhanMsgObject( "ks-ENTRY_CONVERTING" );
 		}
 		if( data.error ) {
-			errObj = embedPlayer.getKalturaMsgObject( 'GENERIC_ERROR' );
+			errObj = embedPlayer.getBorhanMsgObject( 'GENERIC_ERROR' );
 			errObj.message = data.error;
 			if( data.contextData &&  data.contextData.isScheduledNow === false ){
-				errObj = embedPlayer.getKalturaMsgObject( "OUT_OF_SCHEDULING" );
+				errObj = embedPlayer.getBorhanMsgObject( "OUT_OF_SCHEDULING" );
 			}
 		}
 
@@ -1222,27 +1222,27 @@ mw.KWidgetSupport.prototype = {
 	 */
 	getAccessControlStatus: function( ac, embedPlayer ){
 		if( ac.isCountryRestricted ){
-			return embedPlayer.getKalturaMsgObject( 'UNAUTHORIZED_COUNTRY' );
+			return embedPlayer.getBorhanMsgObject( 'UNAUTHORIZED_COUNTRY' );
 		}
 		if( ac.isScheduledNow === 0 ){
-			return embedPlayer.getKalturaMsgObject( 'OUT_OF_SCHEDULING' );
+			return embedPlayer.getBorhanMsgObject( 'OUT_OF_SCHEDULING' );
 		}
 		if( ac.isIpAddressRestricted ) {
-			return embedPlayer.getKalturaMsgObject( 'UNAUTHORIZED_IP_ADDRESS' );
+			return embedPlayer.getBorhanMsgObject( 'UNAUTHORIZED_IP_ADDRESS' );
 		}
 		if( ac.isSessionRestricted && ac.previewLength === -1 ){
-			return embedPlayer.getKalturaMsgObject( 'NO_KS' );
+			return embedPlayer.getBorhanMsgObject( 'NO_KS' );
 		}
 		if( ac.isSiteRestricted ){
-			return embedPlayer.getKalturaMsgObject( 'UNAUTHORIZED_DOMAIN' );
+			return embedPlayer.getBorhanMsgObject( 'UNAUTHORIZED_DOMAIN' );
 		}
 		// This is normally handled at the iframe level, but check is included here for completeness
 		if( ac.isUserAgentRestricted ){
-			return embedPlayer.getKalturaMsgObject( 'USER_AGENT_RESTRICTED' );
+			return embedPlayer.getBorhanMsgObject( 'USER_AGENT_RESTRICTED' );
 		}
 		// New AC API
 		if( ac.accessControlActions && ac.accessControlActions.length ) {
-			var msgObj = embedPlayer.getKalturaMsgObject( 'GENERIC_ERROR' );
+			var msgObj = embedPlayer.getBorhanMsgObject( 'GENERIC_ERROR' );
 			var err = false;
 			$.each( ac.accessControlActions, function() {
 				if( this.type == 1 ) {
@@ -1253,7 +1253,7 @@ mw.KWidgetSupport.prototype = {
 							err = true;
 						});
 					} else {
-						msgObj = embedPlayer.getKalturaMsgObject( 'NO_KS' );
+						msgObj = embedPlayer.getBorhanMsgObject( 'NO_KS' );
 						err = true;
 					}
 				}
@@ -1309,7 +1309,7 @@ mw.KWidgetSupport.prototype = {
 	*/
 	addFlavorSources: function( embedPlayer, playerData ) {
 		var _this = this;
-		//mw.log( 'KWidgetSupport::addEntryIdSources:');
+		//mw.log( 'BWidgetSupport::addEntryIdSources:');
 		// Check if we already have sources with flavorid info
 		var sources = embedPlayer.mediaElement.getSources();
 		if( sources[0] && sources[0]['data-flavorid'] ){
@@ -1317,7 +1317,7 @@ mw.KWidgetSupport.prototype = {
 		}
 		// Else get sources from flavor data :
 		var flavorSources = _this.getEntryIdSourcesFromPlayerData( embedPlayer.kpartnerid, playerData );
-		embedPlayer.kalturaFlavors = flavorSources;
+		embedPlayer.borhanFlavors = flavorSources;
 		// Check for prefered bitrate info
 		var preferedBitRate = embedPlayer.evaluate('{mediaProxy.preferedFlavorBR}' );
 
@@ -1345,7 +1345,7 @@ mw.KWidgetSupport.prototype = {
 				source.src = source.src +  qp + flashvarsPlayMainfestParams;
 			}
 
-			mw.log( 'KWidgetSupport:: addSource::' + embedPlayer.id + ' : ' +  source.src + ' type: ' +  source.type);
+			mw.log( 'BWidgetSupport:: addSource::' + embedPlayer.id + ' : ' +  source.src + ' type: ' +  source.type);
 			var sourceElm = $('<source />')
 				.attr( source )
 				.get( 0 );
@@ -1373,7 +1373,7 @@ mw.KWidgetSupport.prototype = {
 		return p;
 	},
 	/**
-	 * Get the host page url used passing referrer to kaltura api
+	 * Get the host page url used passing referrer to borhan api
 	 */
 	getHostPageUrl: function(){
 		// The referring  url ( can be from the iframe if in iframe mode )
@@ -1391,11 +1391,11 @@ mw.KWidgetSupport.prototype = {
 		return hostUrl;
 	},
 	getBaseFlavorUrl: function(partnerId) {
-		if( mw.getConfig( 'Kaltura.UseManifestUrls' ) ){
-			return mw.getConfig('Kaltura.ServiceUrl') + '/p/' + partnerId +
+		if( mw.getConfig( 'Borhan.UseManifestUrls' ) ){
+			return mw.getConfig('Borhan.ServiceUrl') + '/p/' + partnerId +
 					'/sp/' +  partnerId + '00/playManifest';
 		} else {
-			return mw.getConfig('Kaltura.CdnUrl') + '/p/' + partnerId +
+			return mw.getConfig('Borhan.CdnUrl') + '/p/' + partnerId +
 					'/sp/' +  partnerId + '00/flvclipper';
 		}
 	},
@@ -1408,13 +1408,13 @@ mw.KWidgetSupport.prototype = {
 		var _this = this;
 
 		if( !playerData.contextData || ( playerData.contextData && !playerData.contextData.flavorAssets )){
-			mw.log("Error: KWidgetSupport: contextData.flavorAssets is not defined ");
+			mw.log("Error: BWidgetSupport: contextData.flavorAssets is not defined ");
 			return ;
 		}
 		var flavorData = playerData.contextData.flavorAssets;
 		var flavorDrmData = this.getFlavorAssetsDrmData(playerData);
 
-		var protocol = mw.getConfig('Kaltura.Protocol');
+		var protocol = mw.getConfig('Borhan.Protocol');
 		if( !protocol ){
 			protocol = window.location.protocol.replace(':','');
 		}
@@ -1458,7 +1458,7 @@ mw.KWidgetSupport.prototype = {
 				// if an asset is transcoding and no other source is found bind an error callback:
 				if( asset.status == 4 ){
 					source.error = 'not-ready-transcoding';
-					mw.log("KWidgetSupport:: Skip sources that are not ready: " +  asset.id + ' ' +  asset.tags );
+					mw.log("BWidgetSupport:: Skip sources that are not ready: " +  asset.id + ' ' +  asset.tags );
 
 					// don't add sources that are not ready ( for now )
 					// deviceSources.push( source );
@@ -1467,10 +1467,10 @@ mw.KWidgetSupport.prototype = {
 			}
 
 			// Check playManifest conditional
-			if( mw.getConfig( 'Kaltura.UseManifestUrls' ) ){
+			if( mw.getConfig( 'Borhan.UseManifestUrls' ) ){
 				var src  = flavorUrl + '/entryId/' + asset.entryId;
 				// Check if Apple http streaming is enabled and the tags include applembr
-				if( mw.getConfig('Kaltura.UseAppleAdaptive') && $.inArray( 'applembr', tags ) != -1 ) {
+				if( mw.getConfig('Borhan.UseAppleAdaptive') && $.inArray( 'applembr', tags ) != -1 ) {
 					src += '/format/applehttp/protocol/' + protocol + '/a.m3u8';
 
 					deviceSources.push({
@@ -1485,7 +1485,7 @@ mw.KWidgetSupport.prototype = {
 					src += '/flavorId/' + asset.id + '/format/url/protocol/' + protocol;
 				}
 			} else {
-				mw.log( "Error: KWidgetSupport: non-manifest urls are deprecated" );
+				mw.log( "Error: BWidgetSupport: non-manifest urls are deprecated" );
 				var src  = flavorUrl + '/entry_id/' + asset.entryId + '/flavor/' + asset.id ;
 			}
 
@@ -1643,11 +1643,11 @@ mw.KWidgetSupport.prototype = {
 			if( ! this.isValidAspect( source['data-aspect'] ) ){
 				source['data-aspect'] = this.getValidAspect( deviceSources );
 			}
-			//mw.log( "KWidgetSupport:: set aspect for: " + source['data-flavorid'] + ' = ' + source['data-aspect'] );
+			//mw.log( "BWidgetSupport:: set aspect for: " + source['data-flavorid'] + ' = ' + source['data-aspect'] );
 		}
 
-		// Only add flavor sources if no appleMBR flavor exists and Kaltura.UseFlavorIdsUrls
-		if( mw.getConfig('Kaltura.UseFlavorIdsUrls') && mw.getConfig('Kaltura.UseAppleAdaptive')
+		// Only add flavor sources if no appleMBR flavor exists and Borhan.UseFlavorIdsUrls
+		if( mw.getConfig('Borhan.UseFlavorIdsUrls') && mw.getConfig('Borhan.UseAppleAdaptive')
 			&& $.grep(deviceSources, function( a ){
 				if( a['data-flavorid'] == 'AppleMBR' ){
 					return true;
@@ -1661,10 +1661,10 @@ mw.KWidgetSupport.prototype = {
 				var validClipAspect = this.getValidAspect(deviceSources);
 				var lowResolutionDevice = (mw.isMobileDevice() && mw.isDeviceLessThan480P() && iphoneAdaptiveFlavors.length);
 				var targetFlavors;
-				if (mw.getConfig('Kaltura.ForceHighResFlavors')){
-					mw.log( 'KWidgetSupport::Forcing High resolution flavours');
+				if (mw.getConfig('Borhan.ForceHighResFlavors')){
+					mw.log( 'BWidgetSupport::Forcing High resolution flavours');
 					if (ipadAdaptiveFlavors.length || dashAdaptiveFlavors.length) {
-						mw.log( 'KWidgetSupport::High resolution flavours found');
+						mw.log( 'BWidgetSupport::High resolution flavours found');
 						targetFlavors = ipadAdaptiveFlavors;
 						if (dashAdaptiveFlavors.length) {
 							//Concat the dash and ipadNew tags and filter duplicates
@@ -1677,7 +1677,7 @@ mw.KWidgetSupport.prototype = {
 							}
 						}
 					} else {
-						mw.log( 'KWidgetSupport::High resolution flavours not found - will use low resolution flavours');
+						mw.log( 'BWidgetSupport::High resolution flavours not found - will use low resolution flavours');
 						targetFlavors = iphoneAdaptiveFlavors;
 					}
 				} else {
@@ -1716,7 +1716,7 @@ mw.KWidgetSupport.prototype = {
 
 		}
 
-		if( mw.getConfig('Kaltura.UseFlavorIdsUrls') ) {
+		if( mw.getConfig('Borhan.UseFlavorIdsUrls') ) {
 			var validClipAspect = this.getValidAspect(deviceSources);
 			//Only add mpeg dash CENC on the fly if dash sources exist
 			if (dashAdaptiveFlavors.length) {
@@ -1773,7 +1773,7 @@ mw.KWidgetSupport.prototype = {
 		if( !this.removedAdaptiveFlavors &&
 				(mw.isAndroid() && !mw.isNativeApp()) &&
 				hasH264Flavor &&
-				!mw.getConfig( 'Kaltura.LeadHLSOnAndroid' ) ) {
+				!mw.getConfig( 'Borhan.LeadHLSOnAndroid' ) ) {
 			deviceSources = this.removeHlsFlavor( deviceSources );
 		}
 
@@ -1850,18 +1850,18 @@ mw.KWidgetSupport.prototype = {
 	getFairplayCert: function(playerData){
 		var publicCertificate = null;
 		if (playerData && playerData.contextData && playerData.contextData.pluginData &&
-			playerData.contextData.pluginData.KalturaFairplayEntryContextPluginData &&
-			playerData.contextData.pluginData.KalturaFairplayEntryContextPluginData.publicCertificate){
-			publicCertificate = playerData.contextData.pluginData.KalturaFairplayEntryContextPluginData.publicCertificate;
+			playerData.contextData.pluginData.BorhanFairplayEntryContextPluginData &&
+			playerData.contextData.pluginData.BorhanFairplayEntryContextPluginData.publicCertificate){
+			publicCertificate = playerData.contextData.pluginData.BorhanFairplayEntryContextPluginData.publicCertificate;
 		}
 		return publicCertificate;
 	},
 	getFlavorAssetsDrmData: function(playerData){
 		var flavorDrmData = {};
 		if (playerData.contextData.pluginData &&
-			playerData.contextData.pluginData.KalturaDrmEntryContextPluginData &&
-			playerData.contextData.pluginData.KalturaDrmEntryContextPluginData.flavorData){
-			flavorDrmData = playerData.contextData.pluginData.KalturaDrmEntryContextPluginData.flavorData;
+			playerData.contextData.pluginData.BorhanDrmEntryContextPluginData &&
+			playerData.contextData.pluginData.BorhanDrmEntryContextPluginData.flavorData){
+			flavorDrmData = playerData.contextData.pluginData.BorhanDrmEntryContextPluginData.flavorData;
 		}
 		return flavorDrmData;
 	},
@@ -1952,8 +1952,8 @@ mw.KWidgetSupport.prototype = {
 			extension = 'f4m';
 			embedPlayer.setFlashvars( 'streamerType', streamerType );
 			protocol = 'rtmp';
-			if ( embedPlayer.kalturaContextData ) {
-				protocol = embedPlayer.kalturaContextData.mediaProtocol;
+			if ( embedPlayer.borhanContextData ) {
+				protocol = embedPlayer.borhanContextData.mediaProtocol;
 			}
 			mimeType = 'video/live';
 		} else if ( isSilverlight ) {
@@ -1964,7 +1964,7 @@ mw.KWidgetSupport.prototype = {
 		} else {
 			embedPlayer.setFlashvars( 'streamerType', 'http' );
 			extension = 'm3u8';
-			protocol = mw.getConfig('Kaltura.Protocol');
+			protocol = mw.getConfig('Borhan.Protocol');
 			if( !protocol ){
 				protocol = window.location.protocol.replace(':','');
 			}
@@ -1981,7 +1981,7 @@ mw.KWidgetSupport.prototype = {
 		}
 
 		//add source
-		mw.log( 'KWidgetSupport::addLiveEntrySource: Add Live Entry Source - ' + srcUrl );
+		mw.log( 'BWidgetSupport::addLiveEntrySource: Add Live Entry Source - ' + srcUrl );
 		embedPlayer.mediaElement.tryAddSource(
 			$('<source />')
 				.attr({
@@ -2005,12 +2005,12 @@ mw.KWidgetSupport.prototype = {
 		}
 		return this.kSessionId;
 	},
-	getKalturaThumbnailUrl: function( thumb ) {
+	getBorhanThumbnailUrl: function( thumb ) {
 		if( ! thumb.url ){
 			return mw.getConfig( 'EmbedPlayer.BlackPixel' );
 		}
 		var thumbUrl = thumb.url;
-		// Only append width/height params if thumbnail from kaltura service ( could be external thumbnail )
+		// Only append width/height params if thumbnail from borhan service ( could be external thumbnail )
 		if( thumbUrl.indexOf( "thumbnail/entry_id" ) != -1 ){
 
 			if( mw.getConfig('EmbedPlayer.ShowOriginalPoster') ){
@@ -2031,22 +2031,22 @@ mw.KWidgetSupport.prototype = {
 			}
 			return context[func];
 		} catch( e ){
-			mw.log("kWidgetSupport::executeFunctionByName: Error could not find function: " + functionName + ' error: ' + e);
+			mw.log("bWidgetSupport::executeFunctionByName: Error could not find function: " + functionName + ' error: ' + e);
 			return false;
 		}
 	}
 };
 
-//Setup the kWidgetSupport global if not already set
-if( !window.kWidgetSupport ){
-	window.kWidgetSupport = new mw.KWidgetSupport();
+//Setup the bWidgetSupport global if not already set
+if( !window.bWidgetSupport ){
+	window.bWidgetSupport = new mw.BWidgetSupport();
 }
 
 /**
- * Register a global shortcuts for the Kaltura sources query
+ * Register a global shortcuts for the Borhan sources query
  */
 mw.getEntryIdSourcesFromApi = function( embedPlayer, entryId, callback ){
-	kWidgetSupport.getEntryIdSourcesFromApi( embedPlayer, entryId, callback);
+	bWidgetSupport.getEntryIdSourcesFromApi( embedPlayer, entryId, callback);
 };
 
 })( window.mw, jQuery );

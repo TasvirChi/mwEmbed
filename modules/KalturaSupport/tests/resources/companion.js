@@ -1,10 +1,10 @@
-		var kdp;
+		var bdp;
 			var adContainers;
 			var originalContent;
 			function jsCallbackReady (id)
 			{
-				kdp = document.getElementById(id);
-				kdp.addJsListener("sequenceItemPlayEnd","onAdEnd" );
+				bdp = document.getElementById(id);
+				bdp.addJsListener("sequenceItemPlayEnd","onAdEnd" );
 
 			}
 			function showCompanions(param){
@@ -77,7 +77,7 @@
 					}
 
 				}
-				kdp.addJsListener("sequenceItemPlayEnd", "onAdEnd");
+				bdp.addJsListener("sequenceItemPlayEnd", "onAdEnd");
 
 			}
 			function onAdEnd (){
@@ -86,5 +86,5 @@
 						document.getElementById(adContainers[index]).innerHTML = originalContent[adContainers[index]];
 					}
 
-					kdp.removeJsListener("sequenceItemPlayEnd","onAdEnd" );
+					bdp.removeJsListener("sequenceItemPlayEnd","onAdEnd" );
 			}

@@ -193,11 +193,11 @@
          */
         getLicenseUri: function () {
             var licenseUri;
-            var overrideDrmServerURL = mw.getConfig('Kaltura.overrideDrmServerURL');
+            var overrideDrmServerURL = mw.getConfig('Borhan.overrideDrmServerURL');
             if (overrideDrmServerURL) {
                 licenseUri = overrideDrmServerURL;
             } else {
-                var licenseBaseUrl = mw.getConfig('Kaltura.UdrmServerURL');
+                var licenseBaseUrl = mw.getConfig('Borhan.UdrmServerURL');
                 if (!licenseBaseUrl) {
                     this.log('Error:: failed to retrieve UDRM license URL ');
                 }

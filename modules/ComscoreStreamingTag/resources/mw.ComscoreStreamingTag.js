@@ -12,7 +12,7 @@
     mw.ComscoreStreamingTag.prototype = {
 
         pluginVersion: "1.1.4",
-        reportingPluginName: "kaltura",
+        reportingPluginName: "borhan",
         playerVersion: mw.getConfig('version'),
 
         bindPostfix: '.ComScoreStreamingTag',
@@ -93,7 +93,7 @@
             if (_this.isSecure())
                 comScoreSettings.secure = true;
 
-            // The configuration naming used in Kaltura are different from the settings in the StreamSense plugin
+            // The configuration naming used in Borhan are different from the settings in the StreamSense plugin
             for (var key in _this.configOptions) {
                 if (this.getConfig(key)) {
                     comScoreSettings[_this.configOptions[key]] = this.getConfig(key)
@@ -357,7 +357,7 @@
         },
 
         getConfig: function (attr) {
-            return this.embedPlayer.getKalturaConfig(this.moduleName, attr);
+            return this.embedPlayer.getBorhanConfig(this.moduleName, attr);
         },
 
         callStreamSensePlugin: function () {
@@ -588,7 +588,7 @@
                 labels.ns_st_ct = this.getMediaType(false, this.isVideoContent(), this.isLiveStream());
 
                 // TODO: The following code will be commented out until a more suitable solution for determining ad
-                // types is found or until Kaltura normalizes the behaviour of the related API accross different
+                // types is found or until Borhan normalizes the behaviour of the related API accross different
                 // player environment (e.g. ad types are not correctly collected in live stream environments).
                 //// Update the Advertisement flag to reflect pre-roll, mid-roll, post-roll, where possible.
                 //if (this.currentAd.type) { //this is a pre-roll add
@@ -635,7 +635,7 @@
 
         parserRawConfig: function (configName) {
             var _this = this;
-            var rawConfig = this.embedPlayer.getRawKalturaConfig(this.moduleName, configName);
+            var rawConfig = this.embedPlayer.getRawBorhanConfig(this.moduleName, configName);
             if (!rawConfig) return [];
             var result = {};
             // Split and trim the spaces
@@ -709,7 +709,7 @@
                     if (isLive) return "va21";
 
                     // TODO: The following code will be commented out until a more suitable solution for determining ad
-                    // types is found or until Kaltura normalizes the behaviour of the related API accross different
+                    // types is found or until Borhan normalizes the behaviour of the related API accross different
                     // player environment (e.g. ad types are not correctly collected in live stream environments).
                     //// Sub classification for non-live streams.
                     //switch (this.currentAd.type) {
@@ -827,7 +827,7 @@
         },
 
         isSecure: function () {
-            return mw.getConfig('Kaltura.Protocol') == 'https';
+            return mw.getConfig('Borhan.Protocol') == 'https';
         }
     };
 

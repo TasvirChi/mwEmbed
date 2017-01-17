@@ -6,7 +6,7 @@
 	mw.PluginManager.add( 'restrictUserAgent', mw.KBasePlugin.extend({
 		setup: function(){
 			var _this = this;
-			this.bind('KalturaSupport_EntryDataReady', function(){
+			this.bind('BorhanSupport_EntryDataReady', function(){
 				if( _this.isRestricted() ) {
 					_this.getPlayer().setError( _this.getMsgObject() );
 				}
@@ -36,7 +36,7 @@
 					'title': this.getConfig( 'restrictedUserAgentTitle' )
 				}
 			} else {
-				return this.embedPlayer.getKalturaMsgObject( 'USER_AGENT_RESTRICTED' );
+				return this.embedPlayer.getBorhanMsgObject( 'USER_AGENT_RESTRICTED' );
 			}
 		}
 	}));

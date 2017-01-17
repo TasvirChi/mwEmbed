@@ -7,7 +7,7 @@
 // Include configuration: ( will include LocalSettings.php )
 chdir( dirname( __FILE__ ) . '/../../' );
 require_once( 'includes/DefaultSettings.php' );
-require_once( dirname( __FILE__ ) . '/KalturaCommon.php' );
+require_once( dirname( __FILE__ ) . '/BorhanCommon.php' );
 
 $download = new downloadEntry();
 $download->redirectDownload();
@@ -41,11 +41,11 @@ class downloadEntry {
 		}
 		return $this->resultObject;
 	}
-	// Errors set special X-Kaltura and X-Kaltura-App: header and then deliver the no sources video
+	// Errors set special X-Borhan and X-Borhan-App: header and then deliver the no sources video
 	private function fatalError( $errorMsg ) {
-		header( "X-Kaltura: error-6" );
-		header( "X-Kaltura-App: exiting on error 6 - requested flavor was not found" );
-		header( "X-Kaltura-Error: " . htmlspecialchars( $errorMsg ) );
+		header( "X-Borhan: error-6" );
+		header( "X-Borhan-App: exiting on error 6 - requested flavor was not found" );
+		header( "X-Borhan-Error: " . htmlspecialchars( $errorMsg ) );
 		// Then redirect to no-sources video: 
 		$this->sources = $this->getErrorVideoSources();
 		$flavorUrl = $this->getSourceForUserAgent();
@@ -75,7 +75,7 @@ class downloadEntry {
 			}
 
 			if( $mediaType !== 2 ){
-				$options = new KalturaFlavorAssetUrlOptions();
+				$options = new BorhanFlavorAssetUrlOptions();
 				$options->fileName = $filename;
 
 				$requestConfig = $client->getConfig();
@@ -95,9 +95,9 @@ class downloadEntry {
 		}
 	}
 	
-	// Load the Kaltura library and grab the most compatible flavor
+	// Load the Borhan library and grab the most compatible flavor
 	public function getSources(){
-		global $wgKalturaServiceUrl, $wgKalturaUseAppleAdaptive, $wgHTTPProtocol;
+		global $wgBorhanServiceUrl, $wgBorhanUseAppleAdaptive, $wgHTTPProtocol;
 		// Check if we already have sources loaded:
 		if( $this->sources !== null ){
 			return $this->sources;
@@ -139,23 +139,23 @@ class downloadEntry {
 			$flavorUrl = $kResultObject->request->getServiceConfig( 'CdnUrl' ) .'/p/' . $kResultObject->getPartnerId() . '/sp/' .
 			$kResultObject->getPartnerId() . '00/flvclipper/entry_id/' . $kResultObject->request->getEntryId();
 		}
-		foreach( $resultObject['contextData']->flavorAssets as $KalturaFlavorAsset ){
+		foreach( $resultObject['contextData']->flavorAssets as $BorhanFlavorAsset ){
 			$source = array(
-				'data-bandwidth' => $KalturaFlavorAsset->bitrate * 8,
-				'data-width' =>  $KalturaFlavorAsset->width,
-				'data-height' =>  $KalturaFlavorAsset->height
+				'data-bandwidth' => $BorhanFlavorAsset->bitrate * 8,
+				'data-width' =>  $BorhanFlavorAsset->width,
+				'data-height' =>  $BorhanFlavorAsset->height
 			);
 
 			// If flavor status is not ready - continute to the next flavor
-			if( $KalturaFlavorAsset->status != 2 ) {
-				if( $KalturaFlavorAsset->status == 4 ){
+			if( $BorhanFlavorAsset->status != 2 ) {
+				if( $BorhanFlavorAsset->status == 4 ){
 					$source['data-error'] = "not-ready-transcoding" ;
 				}
 				continue;
 			}
 
 			// If we have apple http steaming then use it for ipad & iphone instead of regular flavors
-			if( strpos( $KalturaFlavorAsset->tags, 'applembr' ) !== false ) {
+			if( strpos( $BorhanFlavorAsset->tags, 'applembr' ) !== false ) {
 				$assetUrl = $flavorUrl . '/format/applehttp/protocol/' . $wgHTTPProtocol . '/a.m3u8';
 
 				$this->sources[] = array_merge( $source, array(
@@ -167,8 +167,8 @@ class downloadEntry {
 			}
 
 			// Check for rtsp as well:
-			if( strpos( $KalturaFlavorAsset->tags, 'hinted' ) !== false ){
-				$assetUrl = $flavorUrl . '/flavorId/' . $KalturaFlavorAsset->id .  '/format/rtsp/name/a.3gp';
+			if( strpos( $BorhanFlavorAsset->tags, 'hinted' ) !== false ){
+				$assetUrl = $flavorUrl . '/flavorId/' . $BorhanFlavorAsset->id .  '/format/rtsp/name/a.3gp';
 				$this->sources[] = array_merge( $source, array(
 					'src' => $assetUrl,
 					'type' => 'application/rtsl',
@@ -178,28 +178,28 @@ class downloadEntry {
 			}
 
 			// Else use normal
-			$assetUrl = $flavorUrl . '/flavorId/' . $KalturaFlavorAsset->id . '/format/url/protocol/' . $wgHTTPProtocol;
+			$assetUrl = $flavorUrl . '/flavorId/' . $BorhanFlavorAsset->id . '/format/url/protocol/' . $wgHTTPProtocol;
 
 			// Add iPad Akamai flavor to iPad flavor Ids list
-			if( strpos( $KalturaFlavorAsset->tags, 'ipadnew' ) !== false ) {
-				$ipadFlavors .= $KalturaFlavorAsset->id . ",";
+			if( strpos( $BorhanFlavorAsset->tags, 'ipadnew' ) !== false ) {
+				$ipadFlavors .= $BorhanFlavorAsset->id . ",";
 			}
 
 			// Add iPhone Akamai flavor to iPad&iPhone flavor Ids list
-			if( strpos( $KalturaFlavorAsset->tags, 'iphonenew' ) !== false )
+			if( strpos( $BorhanFlavorAsset->tags, 'iphonenew' ) !== false )
 			{
-				$ipadFlavors .= $KalturaFlavorAsset->id . ",";
-				$iphoneFlavors .= $KalturaFlavorAsset->id . ",";
+				$ipadFlavors .= $BorhanFlavorAsset->id . ",";
+				$iphoneFlavors .= $BorhanFlavorAsset->id . ",";
 			}
 
-			if( strpos( $KalturaFlavorAsset->tags, 'iphone' ) !== false ){
+			if( strpos( $BorhanFlavorAsset->tags, 'iphone' ) !== false ){
 				$this->sources[] = array_merge( $source, array(
 					'src' => $assetUrl . '/a.mp4',
 					'type' => 'video/h264',
 					'data-flavorid' => 'iPhone',
 				) );
 			};
-			if( strpos( $KalturaFlavorAsset->tags, 'ipad' ) !== false ){
+			if( strpos( $BorhanFlavorAsset->tags, 'ipad' ) !== false ){
 				$this->sources[] = array_merge( $source, array(
 					'src' => $assetUrl  . '/a.mp4',
 					'type' => 'video/h264',
@@ -207,11 +207,11 @@ class downloadEntry {
 				) );
 			};
 
-			if( $KalturaFlavorAsset->fileExt == 'webm'
-				|| // Kaltura transcodes give: 'matroska'
-				strtolower($KalturaFlavorAsset->containerFormat) == 'matroska'
+			if( $BorhanFlavorAsset->fileExt == 'webm'
+				|| // Borhan transcodes give: 'matroska'
+				strtolower($BorhanFlavorAsset->containerFormat) == 'matroska'
 				|| // Some ingestion systems give "webm"
-				strtolower($KalturaFlavorAsset->containerFormat) == 'webm'
+				strtolower($BorhanFlavorAsset->containerFormat) == 'webm'
 			){
 				$this->sources[] = array_merge( $source, array(
 					'src' => $assetUrl . '/a.webm',
@@ -220,11 +220,11 @@ class downloadEntry {
 				) );
 			}
 
-			if( $KalturaFlavorAsset->fileExt == 'ogg'
+			if( $BorhanFlavorAsset->fileExt == 'ogg'
 				||
-				$KalturaFlavorAsset->fileExt == 'ogv'
+				$BorhanFlavorAsset->fileExt == 'ogv'
 				||
-				$KalturaFlavorAsset->containerFormat == 'ogg'
+				$BorhanFlavorAsset->containerFormat == 'ogg'
 			){
 				$this->sources[] = array_merge( $source, array(
 					'src' => $assetUrl . '/a.ogg',
@@ -234,7 +234,7 @@ class downloadEntry {
 			};
 
 			// Check for ogg audio:
-			if( $KalturaFlavorAsset->fileExt == 'oga' ){
+			if( $BorhanFlavorAsset->fileExt == 'oga' ){
 				$this->sources[] = array_merge( $source, array(
 					'src' => $assetUrl . '/a.oga',
 					'type' => 'audio/ogg',
@@ -243,7 +243,7 @@ class downloadEntry {
 			}
 
 
-			if( $KalturaFlavorAsset->fileExt == '3gp' ){
+			if( $BorhanFlavorAsset->fileExt == '3gp' ){
 				$this->sources[] = array_merge( $source, array(
 					'src' => $assetUrl . '/a.3gp',
 					'type' => 'video/3gp',
@@ -258,11 +258,11 @@ class downloadEntry {
 		// Apple adaptive streaming is sometimes broken for short videos
 		// If video duration is less then 10 seconds, we should disable it
 		if( $resultObject['meta']->duration < 10 ) {
-			$wgKalturaUseAppleAdaptive = false;
+			$wgBorhanUseAppleAdaptive = false;
 		}
 
 		// Create iPad flavor for Akamai HTTP
-		if ( $ipadFlavors && $wgKalturaUseAppleAdaptive ){
+		if ( $ipadFlavors && $wgBorhanUseAppleAdaptive ){
 			$assetUrl = $flavorUrl . '/flavorIds/' . $ipadFlavors . '/format/applehttp/protocol/' . $wgHTTPProtocol;
 			// Adaptive flavors have no inheret bitrate or size:
 			$this->sources[] = array(
@@ -273,7 +273,7 @@ class downloadEntry {
 		}
 
 		// Create iPhone flavor for Akamai HTTP
-		if ( $iphoneFlavors && $wgKalturaUseAppleAdaptive )
+		if ( $iphoneFlavors && $wgBorhanUseAppleAdaptive )
 		{
 			$assetUrl = $flavorUrl . '/flavorIds/' . $iphoneFlavors . '/format/applehttp/protocol/' . $wgHTTPProtocol;
 			// Adaptive flavors have no inheret bitrate or size:
@@ -448,7 +448,7 @@ class downloadEntry {
 			// Note we are assuming other assets have flavors, and only image gets direct mapping: 
 			// this is probably not a safe assumption, public source only assets may fall into this category 
 			// and should be supproted. 
-			// ENUM mapping here: https://www.kaltura.com/api_v3/testmeDoc/index.php?object=KalturaMediaType
+			// ENUM mapping here: https://www.borhan.com/api_v3/testmeDoc/index.php?object=BorhanMediaType
 			return $resultObject['meta']->downloadUrl . '/a.jpg' . '?ks=' . $kResultObject->client->getKS() . '&referrer=' . $this->getReferer();
 		}
 		
@@ -531,29 +531,29 @@ class downloadEntry {
 	}
 
 	/**
-	 * Kaltura object provides sources, sometimes no sources are found or an error occurs in a video
+	 * Borhan object provides sources, sometimes no sources are found or an error occurs in a video
 	 * delivery context we don't want ~nothing~ to happen instead we send a special error video.
 	 */
 	public static function getErrorVideoSources(){
-		// @@TODO pull this from config: 'Kaltura.BlackVideoSources'
+		// @@TODO pull this from config: 'Borhan.BlackVideoSources'
 		return array(
 			'iphone' => array(
-				'src' => 'http://www.kaltura.com/p/243342/sp/24334200/playManifest/entryId/1_g18we0u3/flavorId/1_ktavj42z/format/url/protocol/http/a.mp4',
+				'src' => 'http://www.borhan.com/p/243342/sp/24334200/playManifest/entryId/1_g18we0u3/flavorId/1_ktavj42z/format/url/protocol/http/a.mp4',
 				'type' =>'video/h264',
 				'data-flavorid' => 'iPhone'
 			),
 			'ogg' => array(
-				'src' => 'http://www.kaltura.com/p/243342/sp/24334200/playManifest/entryId/1_g18we0u3/flavorId/1_gtm9gzz2/format/url/protocol/http/a.ogg',
+				'src' => 'http://www.borhan.com/p/243342/sp/24334200/playManifest/entryId/1_g18we0u3/flavorId/1_gtm9gzz2/format/url/protocol/http/a.ogg',
 				'type' => 'video/ogg',
 				'data-flavorid' => 'ogg'
 			),
 			'webm' => array(
-				'src' => 'http://www.kaltura.com/p/243342/sp/24334200/playManifest/entryId/1_g18we0u3/flavorId/1_bqsosjph/format/url/protocol/http/a.webm',
+				'src' => 'http://www.borhan.com/p/243342/sp/24334200/playManifest/entryId/1_g18we0u3/flavorId/1_bqsosjph/format/url/protocol/http/a.webm',
 				'type' => 'video/webm',
 				'data-flavorid' => 'webm'
 			),
 			'3gp' => array(
-				'src' => 'http://www.kaltura.com/p/243342/sp/24334200/playManifest/entryId/1_g18we0u3/flavorId/1_mfqemmyg/format/url/protocol/http/a.mp4',
+				'src' => 'http://www.borhan.com/p/243342/sp/24334200/playManifest/entryId/1_g18we0u3/flavorId/1_mfqemmyg/format/url/protocol/http/a.mp4',
 				'type' => 'video/3gp',
 				'data-flavorid' => '3gp'
 			)

@@ -1,9 +1,9 @@
-( function( mw, $, kWidget ) {"use strict";
+( function( mw, $, bWidget ) {"use strict";
 
 	mw.PluginManager.add( 'adBlockDetector', mw.KBasePlugin.extend({
 
 		defaultConfig: {
-			scriptPath: "modules/KalturaSupport/components/adBlockDetector/advertisement.js",
+			scriptPath: "modules/BorhanSupport/components/adBlockDetector/advertisement.js",
 			enableResumePlayback: false,
 			title: gM( 'ks-adBlockDetector-title' ),
 			message: gM( 'ks-adBlockDetector-message' ),
@@ -30,7 +30,7 @@
 		},
 		addBindings: function(){
 			var _this = this;
-			this.bind("KalturaSupport_DoneWithUiConf", function(){
+			this.bind("BorhanSupport_DoneWithUiConf", function(){
 				_this.tryAndDownload();
 			});
 			this.bind("onChangeMedia", function(){
@@ -51,7 +51,7 @@
 			};
 
 			//Issue call to dummy advertisment.js script
-			kWidget.appendScriptUrl(fullScriptPath, successHandler, document, errorHandler);
+			bWidget.appendScriptUrl(fullScriptPath, successHandler, document, errorHandler);
 
 			//Fallback check for cross-domain blocking issues
 			setTimeout(function(){
@@ -103,4 +103,4 @@
 		}
 	}));
 
-} )( window.mw, window.jQuery, window.kWidget );
+} )( window.mw, window.jQuery, window.bWidget );

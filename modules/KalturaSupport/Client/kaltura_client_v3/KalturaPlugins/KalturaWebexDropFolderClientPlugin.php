@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,20 +28,20 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
-require_once(dirname(__FILE__) . "/KalturaDropFolderClientPlugin.php");
-require_once(dirname(__FILE__) . "/KalturaMetadataClientPlugin.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
+require_once(dirname(__FILE__) . "/BorhanDropFolderClientPlugin.php");
+require_once(dirname(__FILE__) . "/BorhanMetadataClientPlugin.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWebexDropFolderFileOrderBy
+class BorhanWebexDropFolderFileOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const FILE_NAME_ASC = "+fileName";
@@ -62,10 +62,10 @@ class KalturaWebexDropFolderFileOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWebexDropFolderOrderBy
+class BorhanWebexDropFolderOrderBy
 {
 	const CREATED_AT_ASC = "+createdAt";
 	const ID_ASC = "+id";
@@ -78,10 +78,10 @@ class KalturaWebexDropFolderOrderBy
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWebexDropFolder extends KalturaDropFolder
+class BorhanWebexDropFolder extends BorhanDropFolder
 {
 	/**
 	 * 
@@ -143,10 +143,10 @@ class KalturaWebexDropFolder extends KalturaDropFolder
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWebexDropFolderFile extends KalturaDropFolderFile
+class BorhanWebexDropFolderFile extends BorhanDropFolderFile
 {
 	/**
 	 * 
@@ -187,10 +187,10 @@ class KalturaWebexDropFolderFile extends KalturaDropFolderFile
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWebexDropFolderContentProcessorJobData extends KalturaDropFolderContentProcessorJobData
+class BorhanWebexDropFolderContentProcessorJobData extends BorhanDropFolderContentProcessorJobData
 {
 	/**
 	 * 
@@ -217,62 +217,62 @@ class KalturaWebexDropFolderContentProcessorJobData extends KalturaDropFolderCon
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaWebexDropFolderBaseFilter extends KalturaDropFolderFilter
+abstract class BorhanWebexDropFolderBaseFilter extends BorhanDropFolderFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-abstract class KalturaWebexDropFolderFileBaseFilter extends KalturaDropFolderFileFilter
+abstract class BorhanWebexDropFolderFileBaseFilter extends BorhanDropFolderFileFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWebexDropFolderFileFilter extends KalturaWebexDropFolderFileBaseFilter
+class BorhanWebexDropFolderFileFilter extends BorhanWebexDropFolderFileBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWebexDropFolderFilter extends KalturaWebexDropFolderBaseFilter
+class BorhanWebexDropFolderFilter extends BorhanWebexDropFolderBaseFilter
 {
 
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaWebexDropFolderClientPlugin extends KalturaClientPlugin
+class BorhanWebexDropFolderClientPlugin extends BorhanClientPlugin
 {
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
 	}
 
 	/**
-	 * @return KalturaWebexDropFolderClientPlugin
+	 * @return BorhanWebexDropFolderClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaWebexDropFolderClientPlugin($client);
+		return new BorhanWebexDropFolderClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

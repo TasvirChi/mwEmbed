@@ -161,7 +161,7 @@
                     'service': 'cuepoint_cuepoint',
                     'action': 'list',
                     'filter:entryIdEqual': entryId,
-                    'filter:objectType': 'KalturaCuePointFilter',
+                    'filter:objectType': 'BorhanCuePointFilter',
                     'filter:statusIn': '1,3', //1=READY, 3=HANDLED  (3 is after copying to VOD)
                     'filter:cuePointTypeIn': 'codeCuePoint.Code',
                     'filter:tagsLike' : _this._monitoredCuepoints.tagsLike,
@@ -174,7 +174,7 @@
 
 
                 var requestedEntryId = entryId;
-                _this.getKalturaClient().doRequest(request,
+                _this.getBorhanClient().doRequest(request,
                     function (data) {
                         if (_this.embedPlayer.kentryid === requestedEntryId && _this._monitoredCuepoints.enabled)
                         {
@@ -317,7 +317,7 @@
                     {
                         callbackList = _this._monitoredCuepoints.typesMapping[cuepointType] = [];
 
-                        // this type was not registered yet, update the tagsLike condition to be used against Kaltura API
+                        // this type was not registered yet, update the tagsLike condition to be used against Borhan API
                         _this._monitoredCuepoints.tagsLike += _this._monitoredCuepoints.tagsLike ? ',' : '';
                         _this._monitoredCuepoints.tagsLike +=  cuepointType;
                     }
@@ -492,9 +492,9 @@
         {
             // do nothing - will be override by creator
         },
-        getKalturaClient: function () {
+        getBorhanClient: function () {
             if (!this.kClient) {
-                this.kClient = mw.kApiGetPartnerClient(this.embedPlayer.kwidgetid);
+                this.kClient = mw.kApiGetPartnerClient(this.embedPlayer.bwidgetid);
             }
             return this.kClient;
         },

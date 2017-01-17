@@ -14,8 +14,8 @@ class mweLanguageSupport {
 		$messages = json_decode( file_get_contents(dirname( __FILE__ ) .'/../../EmbedPlayer/EmbedPlayer.i18n.json'), TRUE );
 		$embedPlayerMessages = $messages;
 		
-		// get all the messages supported in KalturaSupport:
-		$messages = json_decode( file_get_contents(dirname( __FILE__ ) .'/../KalturaSupport.i18n.json'), TRUE );
+		// get all the messages supported in BorhanSupport:
+		$messages = json_decode( file_get_contents(dirname( __FILE__ ) .'/../BorhanSupport.i18n.json'), TRUE );
 		$kMessages = $messages;
 
 		// sort language keys A-Z: 
@@ -44,8 +44,8 @@ class mweLanguageKeys {
 		// get all the message supported in embedPlayer
 		$messages = json_decode( file_get_contents(dirname( __FILE__ ) .'/../../EmbedPlayer/EmbedPlayer.i18n.json'), TRUE );
 		$embedPlayerMessages = $messages['en'];
-		// get all the messages supported in KalturaSupport:
-		$messages = json_decode( file_get_contents(dirname( __FILE__ ) .'/../KalturaSupport.i18n.json'), TRUE );
+		// get all the messages supported in BorhanSupport:
+		$messages = json_decode( file_get_contents(dirname( __FILE__ ) .'/../BorhanSupport.i18n.json'), TRUE );
         $kMessages = $messages['en'];
         echo json_encode(array_merge($embedPlayerMessages, $kMessages));
 	}

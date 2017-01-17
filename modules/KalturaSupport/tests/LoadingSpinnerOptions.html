@@ -11,25 +11,25 @@
 	<h1>Loading Spinner</h1>
 	<a href="#" id="show">Show spinner</a> | <a href="#" id="hide">Hide Spinner</a>
 	<br />
-	<div id="kaltura_player" style="width: 585px; height: 330px;float: left;"></div>
+	<div id="borhan_player" style="width: 585px; height: 330px;float: left;"></div>
 	<br style="clear: both;" /><br />
 <script>
-	var kdp;
-	kWidget.featureConfig({
-		'targetId': 'kaltura_player',
+	var bdp;
+	bWidget.featureConfig({
+		'targetId': 'borhan_player',
 		'wid': '_243342',
 		'uiconf_id' : '21099702',
 		'readyCallback': function(playerId){
-			kdp = $('#' + playerId)[0];
+			bdp = $('#' + playerId)[0];
 			$("#show").click( function(){
-				kdp.setKDPAttribute('largePlayBtn', 'visible', false);
-				kdp.sendNotification('showSpinner');
+				bdp.setBDPAttribute('largePlayBtn', 'visible', false);
+				bdp.sendNotification('showSpinner');
 				return false;
 			})
 			$("#hide").click(function(){
-				kdp.sendNotification('doPause');
-				kdp.sendNotification('hideSpinner');
-				kdp.setKDPAttribute('largePlayBtn', 'visible', true);
+				bdp.sendNotification('doPause');
+				bdp.sendNotification('hideSpinner');
+				bdp.setBDPAttribute('largePlayBtn', 'visible', true);
 				return false;
 			})
 		},

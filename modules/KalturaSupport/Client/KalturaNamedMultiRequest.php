@@ -1,9 +1,9 @@
 <?php 
 /**
-* Kaltura named multi request, enables simple names for parts of mulitrequest and returns an
+* Borhan named multi request, enables simple names for parts of mulitrequest and returns an
 * associative array with named result values.
 */
-class KalturaNamedMultiRequest { 
+class BorhanNamedMultiRequest { 
 	var $requestInx;
 	function __construct( $client, $defaultParams = array() ) {	
 		$this->client = $client;

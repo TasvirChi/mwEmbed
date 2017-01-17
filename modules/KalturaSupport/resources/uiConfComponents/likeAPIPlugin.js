@@ -63,7 +63,7 @@
 					'w': 28,
 					'o': function( ctrlObj ) {
 						var $textButton = $( '<div />' )
-							.attr( 'title', embedPlayer.getKalturaConfig( 'likeButton', 'tooltip' ) )
+							.attr( 'title', embedPlayer.getBorhanConfig( 'likeButton', 'tooltip' ) )
 							.addClass( "ui-state-default ui-corner-all ui-icon_link rButton like-btn" )
 							.append( $( '<span />' ).addClass( "ui-icon ui-icon-like-on" ) )
 							.buttonHover()
@@ -83,7 +83,7 @@
 			var _this = this;
 			var embedPlayer = this.embedPlayer;
 
-			_this.getKalturaClient().doRequest( {
+			_this.getBorhanClient().doRequest( {
 				'service' : 'like_like',
 				'action' : 'checkLikeExists',
 				'entryId' : embedPlayer.kentryid
@@ -109,11 +109,11 @@
 				$likeButton.removeClass( "ui-icon-like-on ui-icon-like-off" );
 				if ( like ) {
 					$likeButton.addClass( "ui-icon-like-off" );
-					$likeButton.parent().attr( 'title', embedPlayer.getKalturaConfig( 'likeButton', 'selectedTooltip' ) );
+					$likeButton.parent().attr( 'title', embedPlayer.getBorhanConfig( 'likeButton', 'selectedTooltip' ) );
 				}
 				else {
 					$likeButton.addClass( "ui-icon-like-on" );
-					$likeButton.parent().attr( 'title', embedPlayer.getKalturaConfig( 'likeButton', 'tooltip' ) );
+					$likeButton.parent().attr( 'title', embedPlayer.getBorhanConfig( 'likeButton', 'tooltip' ) );
 				}
 				$likeButton.unbind( 'click' );
 				$likeButton.click( function() {
@@ -133,7 +133,7 @@
 			if ( !like ) {
 				action = 'unlike';
 			}
-			this.getKalturaClient().doRequest( {
+			this.getBorhanClient().doRequest( {
 				'service' : 'like_like',
 				'action' : action,
 				'entryId' : embedPlayer.kentryid
@@ -147,16 +147,16 @@
 			} );
 
 		},
-		getKalturaClient: function() {
+		getBorhanClient: function() {
 			if( ! this.kClient ) {
-				this.kClient = mw.kApiGetPartnerClient( this.embedPlayer.kwidgetid );
+				this.kClient = mw.kApiGetPartnerClient( this.embedPlayer.bwidgetid );
 			}
 			return this.kClient;
 		}
 	 };
 
 	// Check if the like plugin is enabled:
-	mw.addKalturaPlugin( 'likeAPI', function( embedPlayer, callback ){
+	mw.addBorhanPlugin( 'likeAPI', function( embedPlayer, callback ){
 		likeAPI.init( embedPlayer );
 		// Continue player build-out
 		callback();

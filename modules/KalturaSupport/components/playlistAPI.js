@@ -26,7 +26,7 @@
 			'hideClipPoster': true,
 			'loop': false,
 			'overflow': false,
-			'cssFileName': 'modules/KalturaSupport/components/playlist/playList.css',
+			'cssFileName': 'modules/BorhanSupport/components/playlist/playList.css',
 			'showControls': true,
 			'MinClips': 2,
 			'MaxClips': 25,
@@ -125,8 +125,8 @@
 			});
 
 			// API support + backward compatibility
-			$(this.embedPlayer).bind('Kaltura_SetKDPAttribute' + this.bindPostFix, function (event, componentName, property, value) {
-				mw.log("PlaylistAPI::Kaltura_SetKDPAttribute:" + property + ' value:' + value);
+			$(this.embedPlayer).bind('Borhan_SetBDPAttribute' + this.bindPostFix, function (event, componentName, property, value) {
+				mw.log("PlaylistAPI::Borhan_SetBDPAttribute:" + property + ' value:' + value);
 				switch (componentName) {
 					case "playlistAPI.dataProvider":
 					case "playlistAPI":
@@ -143,7 +143,7 @@
 				}
 			});
 
-			$(this.embedPlayer).bind('Kaltura_SendNotification' + this.bindPostFix, function (event, notificationName, notificationData) {
+			$(this.embedPlayer).bind('Borhan_SendNotification' + this.bindPostFix, function (event, notificationName, notificationData) {
 				switch (notificationName) {
 					case 'playlistPlayNext':
 						_this.playNext();
@@ -185,7 +185,7 @@
 					if (_this.playlistSet[_this.currentPlaylistIndex].playlistParams) {
 						// use saved params and extend them with paging params
 						playlistRequest = $.extend(_this.playlistSet[_this.currentPlaylistIndex].playlistParams, {
-							'pager:objectType': 'KalturaFilterPager',
+							'pager:objectType': 'BorhanFilterPager',
 							'pager:pageIndex': _this.page,
 							'pager:pageSize': _this.getConfig('pageSize')
 						});
@@ -194,7 +194,7 @@
 						playlistRequest = {
 							'service': 'playlist',
 							'action': 'execute',
-							'pager:objectType': 'KalturaFilterPager',
+							'pager:objectType': 'BorhanFilterPager',
 							'pager:pageIndex': _this.page,
 							'pager:pageSize': _this.getConfig('pageSize'),
 							'id': _this.playlistSet[_this.currentPlaylistIndex].id
@@ -369,10 +369,10 @@
 
 		loadPlaylists: function () {
 			var embedPlayer = this.embedPlayer;
-			// Populate playlist set with kalturaPlaylistData
-			for (var playlistId in embedPlayer.kalturaPlaylistData) {
-				if (embedPlayer.kalturaPlaylistData.hasOwnProperty(playlistId)) {
-					this.playlistSet.push(embedPlayer.kalturaPlaylistData[ playlistId ]);
+			// Populate playlist set with borhanPlaylistData
+			for (var playlistId in embedPlayer.borhanPlaylistData) {
+				if (embedPlayer.borhanPlaylistData.hasOwnProperty(playlistId)) {
+					this.playlistSet.push(embedPlayer.borhanPlaylistData[ playlistId ]);
 				}
 			}
 			// update playlist names if set in Flashvars
@@ -392,8 +392,8 @@
 				var description = item.description || customData.desc;
 
 				// sanitize
-				title = kWidget.sanitize( title );
-				description = kWidget.sanitize( description );
+				title = bWidget.sanitize( title );
+				description = bWidget.sanitize( description );
 
 				var thumbnailUrl = item.thumbnailUrl || customData.thumbUrl || this.getThumbUrl(item);
 				var thumbnailRotatorUrl = this.getConfig('thumbnailRotator') ? this.getThumRotatorUrl() : '';
@@ -409,7 +409,7 @@
 					width: this.getThumbWidth(),
 					height: this.getThumbHeight()
 				};
-				item.durationDisplay = kWidget.seconds2npt(item.duration);
+				item.durationDisplay = bWidget.seconds2npt(item.duration);
 				item.chapterNumber = this.getItemNumber(i);
 				this.mediaList.push(item);
 			}
@@ -436,7 +436,7 @@
 				}
 			}
 			this.setConfig("selectedIndex", clipIndex);    // save it to the config so it can be retrieved using the API
-			this.embedPlayer.setKalturaConfig('playlistAPI', 'dataProvider', {'content': this.playlistSet, 'selectedIndex': this.getConfig('selectedIndex')}); // for API backward compatibility
+			this.embedPlayer.setBorhanConfig('playlistAPI', 'dataProvider', {'content': this.playlistSet, 'selectedIndex': this.getConfig('selectedIndex')}); // for API backward compatibility
 			this.currentClipIndex = clipIndex; // save clip index for next / previous calls
 			var embedPlayer = this.embedPlayer;
 
@@ -638,7 +638,7 @@
 					'id': this.playlistSet[_this.currentPlaylistIndex].id
 				};
 				if (this.getConfig('paging')){
-					playlistRequest['pager:objectType'] = 'KalturaFilterPager';
+					playlistRequest['pager:objectType'] = 'BorhanFilterPager';
 					playlistRequest['pager:pageIndex'] = this.page;
 					playlistRequest['pager:pageSize'] = this.getConfig('pageSize');
 				}
@@ -651,7 +651,7 @@
 
 		getKClient: function () {
 			if (!this.kClient) {
-				this.kClient = mw.kApiGetPartnerClient(this.embedPlayer.kwidgetid);
+				this.kClient = mw.kApiGetPartnerClient(this.embedPlayer.bwidgetid);
 			}
 			return this.kClient;
 		},
@@ -659,7 +659,7 @@
 		// select playlist
 		selectPlaylist: function (playlistIndex) {
 			var _this = this;
-			this.embedPlayer.setKalturaConfig('playlistAPI', 'dataProvider', {'content': this.playlistSet, 'selectedIndex': this.getConfig('selectedIndex')}); // for API backward compatibility
+			this.embedPlayer.setBorhanConfig('playlistAPI', 'dataProvider', {'content': this.playlistSet, 'selectedIndex': this.getConfig('selectedIndex')}); // for API backward compatibility
 			this.mediaList = [];
 			var items = this.playlistSet[playlistIndex].items;
 			items = items.length > parseInt( this.getConfig( 'MaxClips' ) ) ? items.slice( 0, parseInt( this.getConfig( 'MaxClips' ) ) ) : items; // support MaxClips Flashvar
@@ -735,7 +735,7 @@
 		},
 		showEmptyPlaylistError: function () {
 			var $this = $(this);
-			var errorObj = this.embedPlayer.getKalturaMsgObject('mwe-embedplayer-empty_playlist');
+			var errorObj = this.embedPlayer.getBorhanMsgObject('mwe-embedplayer-empty_playlist');
 			this.emptyPlaylistSelected = true;
 			this.getPlayer()['data-blockPlayerDisplay'] = false;
 			// Support no sources custom error msg:

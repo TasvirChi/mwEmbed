@@ -50,7 +50,7 @@ mw.MediaElement.prototype = {
 			var src = $( videoElement ).attr( "src" );
 			var found = false;
 			if (src){
-				$.each( mw.getConfig( 'Kaltura.BlackVideoSources' ), function(inx, sourceAttr ) {
+				$.each( mw.getConfig( 'Borhan.BlackVideoSources' ), function(inx, sourceAttr ) {
 					if (src.indexOf(sourceAttr.src) !== -1){
 						found = true;
 						return false;
@@ -275,7 +275,7 @@ mw.MediaElement.prototype = {
 			// Check for device flags:
 			var desktopVdn, mobileVdn;
 			$.each( vndSources, function( inx, source) {
-				// Kaltura tags vdn sources with iphonenew
+				// Borhan tags vdn sources with iphonenew
 				if( source.getFlavorId() && source.getFlavorId().toLowerCase() == 'iphonenew' ){
 					mobileVdn = source;
 				} else {
@@ -283,7 +283,7 @@ mw.MediaElement.prototype = {
 				}
 			});
 			// NOTE: We really should not have two VDN sources the point of vdn is to be a set of adaptive streams.
-			// This work around is a result of Kaltura HLS stream tagging
+			// This work around is a result of Borhan HLS stream tagging
 			if( ( mw.isNativeApp() || mw.isIphone() || mw.isAndroid4andUp() ) && mobileVdn ){
 				_this.setSource( mobileVdn );
 			} else if( desktopVdn ){

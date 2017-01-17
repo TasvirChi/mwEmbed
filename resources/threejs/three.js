@@ -843,7 +843,7 @@ THREE.ColorKeywords = { 'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua':
 // File:src/math/Quaternion.js
 
 /**
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  * @author WestLangley / http://github.com/WestLangley
  * @author bhouston / http://clara.io
@@ -1809,7 +1809,7 @@ THREE.Vector2.prototype = {
  * @author mrdoob / http://mrdoob.com/
  * @author *kile / http://kile.stravaganza.org/
  * @author philogb / http://blog.thejit.org/
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author egraether / http://egraether.com/
  * @author WestLangley / http://github.com/WestLangley
  */
@@ -2612,7 +2612,7 @@ THREE.Vector3.prototype = {
 /**
  * @author supereggbert / http://www.paulbrunt.co.uk/
  * @author philogb / http://blog.thejit.org/
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author egraether / http://egraether.com/
  * @author WestLangley / http://github.com/WestLangley
  */
@@ -4586,7 +4586,7 @@ THREE.Matrix3.prototype = {
  * @author jordi_ros / http://plattsoft.com
  * @author D1plo1d / http://github.com/D1plo1d
  * @author alteredq / http://alteredqualia.com/
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author timknip / http://www.floorplanner.com/
  * @author bhouston / http://clara.io
  * @author WestLangley / http://github.com/WestLangley
@@ -7633,7 +7633,7 @@ THREE.EventDispatcher.prototype = {
 
 /**
  * @author mrdoob / http://mrdoob.com/
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  * @author WestLangley / http://github.com/WestLangley
  * @author elephantatwork / www.elephantatwork.ch
@@ -9136,7 +9136,7 @@ THREE.InterleavedBufferAttribute.prototype = {
  * @author mrdoob / http://mrdoob.com/
  * @author kile / http://kile.stravaganza.org/
  * @author alteredq / http://alteredqualia.com/
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author zz85 / http://www.lab4games.net/zz85/blog
  * @author bhouston / http://clara.io
  */
@@ -13567,7 +13567,7 @@ THREE.NumberKeyframeTrack.parse = function( json ) {
 
 /**
  * @author mrdoob / http://mrdoob.com/
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author WestLangley / http://github.com/WestLangley
 */
 
@@ -18720,7 +18720,7 @@ THREE.LineSegments.prototype.constructor = THREE.LineSegments;
 /**
  * @author mrdoob / http://mrdoob.com/
  * @author alteredq / http://alteredqualia.com/
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author jonobr1 / http://jonobr1.com/
  */
 
@@ -19052,7 +19052,7 @@ THREE.Mesh.prototype.clone = function () {
 // File:src/objects/Bone.js
 
 /**
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  * @author ikerr / http://verold.com
  */
@@ -19083,7 +19083,7 @@ THREE.Bone.prototype.copy = function ( source ) {
 // File:src/objects/Skeleton.js
 
 /**
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  * @author michael guerrero / http://realitymeltdown.com
  * @author ikerr / http://verold.com
@@ -19262,7 +19262,7 @@ THREE.Skeleton.prototype.clone = function () {
 // File:src/objects/SkinnedMesh.js
 
 /**
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  * @author ikerr / http://verold.com
  */
@@ -19415,7 +19415,7 @@ THREE.SkinnedMesh.prototype.clone = function() {
 // File:src/objects/LOD.js
 
 /**
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  * @author mrdoob / http://mrdoob.com/
  */
@@ -19594,7 +19594,7 @@ THREE.LOD.prototype.toJSON = function ( meta ) {
 // File:src/objects/Sprite.js
 
 /**
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  */
 
@@ -19668,7 +19668,7 @@ THREE.Particle = THREE.Sprite;
 // File:src/objects/LensFlare.js
 
 /**
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  */
 
@@ -20320,7 +20320,7 @@ THREE.UniformsLib = {
  *
  * @author alteredq / http://alteredqualia.com/
  * @author mrdoob / http://mrdoob.com/
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  */
 
 
@@ -27497,7 +27497,7 @@ THREE.WebGLState = function ( gl, extensions, paramThreeToGL ) {
 // File:src/renderers/webgl/plugins/LensFlarePlugin.js
 
 /**
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  */
 
@@ -27974,7 +27974,7 @@ THREE.LensFlarePlugin = function ( renderer, flares ) {
 // File:src/renderers/webgl/plugins/SpritePlugin.js
 
 /**
- * @author mikael emtinger / http://gomo.se/
+ * @author mibael emtinger / http://gomo.se/
  * @author alteredq / http://alteredqualia.com/
  */
 

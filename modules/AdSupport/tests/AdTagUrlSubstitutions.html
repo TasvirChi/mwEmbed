@@ -12,31 +12,31 @@
 	</h1>
 	This page demonstrate ad tag URL substitutions. 
 	<br>
-<div id="kaltura_player" style="width:400px;height:330px;"></div>
+<div id="borhan_player" style="width:400px;height:330px;"></div>
 <a href="#" id="changeMedia">Change Entry</a>
 <script>
 var entries = ['0_swup5zao', '1_sf5ovm7u'];
-kWidget.addReadyCallback(function(playerId){
-	var kdp = $('#' + playerId)[0];
+bWidget.addReadyCallback(function(playerId){
+	var bdp = $('#' + playerId)[0];
 	$('#changeMedia').click(function(){
-		if( kdp.evaluate('{mediaProxy.entry.id}') == entries[0] ){
-			kdp.sendNotification('changeMedia', {'entryId' : entries[1] } );
+		if( bdp.evaluate('{mediaProxy.entry.id}') == entries[0] ){
+			bdp.sendNotification('changeMedia', {'entryId' : entries[1] } );
 		} else {
-			kdp.sendNotification('changeMedia', {'entryId' : entries[0] } );
+			bdp.sendNotification('changeMedia', {'entryId' : entries[0] } );
 		}
 	});
 });
 </script>
 <h3>Raw Ad Tag Url:</h3>
-This URL represents a sample ad tag URL that is used to configure a Kaltura player. 
-Evaluation properties are documented in the <a href="http://player.kaltura.com/docs/api#evaluate-desc">kaltura player API documentation</a> page. <br><br>
+This URL represents a sample ad tag URL that is used to configure a Borhan player. 
+Evaluation properties are documented in the <a href="http://player.borhan.com/docs/api#evaluate-desc">borhan player API documentation</a> page. <br><br>
 <pre id="rawurl"></pre>
 <h3>Evaluated Ad Tag URL:</h3>
 This represent the evaluated ad tag URL that the player will send to the ad server:<br><br>
 <pre id="evaluated"></pre>
 <script>
-	var adTagUrl ='http://projects.kaltura.com/mdale/hotelVastAd.xml?' +
-			'&displayMgr=kaltura_player' + 
+	var adTagUrl ='http://projects.borhan.com/mdale/hotelVastAd.xml?' +
+			'&displayMgr=borhan_player' + 
 			'&displayMgrVer={playerVersion}' +
 			'&playerWidth={video.player.width}' +
 			'&playerHeight={video.player.height}' + 
@@ -60,8 +60,8 @@ This represent the evaluated ad tag URL that the player will send to the ad serv
 			/*'&videoQuality=' + 
 			'&srcRelationship=';*/
 	
-	kWidget.embed({
-		'targetId': 'kaltura_player',
+	bWidget.embed({
+		'targetId': 'borhan_player',
 		'wid': '_243342',
 		'uiconf_id' : '13306622',
 		'entry_id' : '1_sf5ovm7u',
@@ -77,12 +77,12 @@ This represent the evaluated ad tag URL that the player will send to the ad serv
 			'adsOnReplay':true
 		},
 		'readyCallback': function( playerId ){
-			var kdp = $('#' + playerId )[0];
+			var bdp = $('#' + playerId )[0];
 			
-			kdp.kBind('mediaReady', function(){
+			bdp.kBind('mediaReady', function(){
 				$("#rawurl").html( adTagUrl.replace(/&/g, '<br>&amp;' ) );
 				$("#evaluated").html( 
-					kdp.evaluate( kdp.evaluate('{vast.prerollUrl}') ).replace( /&/g, '<br>&amp;' ) 
+					bdp.evaluate( bdp.evaluate('{vast.prerollUrl}') ).replace( /&/g, '<br>&amp;' ) 
 				);
 			});
 		}

@@ -27,7 +27,7 @@
 			"title": gM( 'mwe-embedplayer-timed_text'),
 			"smartContainer": "qualitySettings",
 			'smartContainerCloseEvent': 'changedClosedCaptions',
-			"forceWebVTT": false, // force using webvtt on-the-fly. only for kalturaAPI captions
+			"forceWebVTT": false, // force using webvtt on-the-fly. only for borhanAPI captions
 			"enableOptionsMenu": false,
 			"sortCaptionsAlphabetically": false
 		},
@@ -400,10 +400,10 @@
 
 			}
 			var _this = this;
-			this.getKalturaClient().doRequest( {
+			this.getBorhanClient().doRequest( {
 				'service' : 'caption_captionasset',
 				'action' : 'list',
-				'filter:objectType' : 'KalturaAssetFilter',
+				'filter:objectType' : 'BorhanAssetFilter',
 				'filter:entryIdEqual' : this.getPlayer().kentryid,
 				'filter:statusEqual' : 2,
 				'pager:pageSize': 50
@@ -450,7 +450,7 @@
 				captionIds.push( caption.id );
 			});
 			if ( multiRequest.length ) {
-				this.getKalturaClient().doRequest( multiRequest, function( result ) {
+				this.getBorhanClient().doRequest( multiRequest, function( result ) {
 					var captionsURLs = {};
 					if( typeof result == 'string'){
 						captionsURLs[ captionIds[ 0 ] ] = result;
@@ -501,7 +501,7 @@
 			if( mw.isIphone() && !mw.getConfig('disableTrackElement') && !this.getConfig('forceLoadLanguage') || this.getConfig("forceWebVTT") ) {
 				// getting generated vtt file from dfxp/srt
 				var ks = _this.getFlashvars('ks');
-				captionsSrc = mw.getConfig('Kaltura.ServiceUrl') +
+				captionsSrc = mw.getConfig('Borhan.ServiceUrl') +
 							"/api_v3/index.php/service/caption_captionasset/action/serveWebVTT/captionAssetId/" +
 							dbTextSource.id +
 							"/segmentIndex/-1/version/2/captions.vtt";
@@ -582,8 +582,8 @@
                 }
             }
 			// Get from $_SERVER['HTTP_ACCEPT_LANGUAGE']
-			if( !this.selectedSource && mw.getConfig('Kaltura.UserLanguage') ){
-				$.each(mw.getConfig('Kaltura.UserLanguage'), function(lang, priority){
+			if( !this.selectedSource && mw.getConfig('Borhan.UserLanguage') ){
+				$.each(mw.getConfig('Borhan.UserLanguage'), function(lang, priority){
 					source = _this.selectSourceByLangKey( lang );
 					if( source ){
 						_this.log('autoSelectSource: select by browser language: ' + lang);

@@ -48,14 +48,14 @@
                                                                 return file.FileID == source.assetid;
                                                             });
                     request = {
-                        "objectType": "KalturaLicensedUrlRecordingRequest",
+                        "objectType": "BorhanLicensedUrlRecordingRequest",
                         "assetId": config.ItemID,
                         "fileType": mediaSelectedFile[0].Format
                     }
                     break;
                   case "Media":
                     request = {
-                        "objectType": "KalturaLicensedUrlMediaRequest",
+                        "objectType": "BorhanLicensedUrlMediaRequest",
                         "assetId": config.ItemID,
                         "contentId": config.Params.contentId,
                         "baseUrl": config.Params.baseUrl
@@ -63,7 +63,7 @@
                     break;
                   case "EPG":
                     request = {
-                        "objectType": "KalturaLicensedUrlEpgRequest",
+                        "objectType": "BorhanLicensedUrlEpgRequest",
                         "assetId": config.ItemID,
                         "contentId": config.Params.contentId,
                         "baseUrl": config.Params.baseUrl,

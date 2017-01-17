@@ -8,24 +8,24 @@
 			'useSupportedDeviceTitle': 'Notification',
 			'intallFlashMsg': "This video requires Adobe Flash Player, which is currently not available on your browser. Please <a href='http://www.adobe.com/support/flashplayer/downloads.html' target='_blank'> install Adobe Flash Player </a> to view this video.",
 			'installFlashTitle': 'Notification',
-			'useKdpMsg': 'This video requires Adobe Flash enabled player.',
-			'useKdpTitle': 'Notification',
+			'useBdpMsg': 'This video requires Adobe Flash enabled player.',
+			'useBdpTitle': 'Notification',
 			'promptText': 'Widevine Video Optimizer plugin is needed for enabling video playback in this page. ',
 			'promptLinkText': 'Get Video Optimizer',
 			'PromptRestartChromeAfterInstall' : 'Download of the plugin installer will start immediately. Note that you must restart your Chrome browser after running the installer',
 			'promptTitle' : 'Notification',
 			'signon_url': 'https://staging.shibboleth.tv/widevine/cypherpc/cgi-bin/SignOn.cgi',
 			'log_url': 'https://staging.shibboleth.tv/widevine/cypherpc/cgi-bin/LogEncEvent.cgi',
-			'emm_url': 'http://www.kaltura.com/api_v3/index.php?service=widevine_widevinedrm&action=getLicense'
+			'emm_url': 'http://www.borhan.com/api_v3/index.php?service=widevine_widevinedrm&action=getLicense'
 		},
 		kClient: null,
 		setup: function(){
 			var _this = this;
 
-			this.kClient = mw.kApiGetPartnerClient( this.getPlayer().kwidgetid );
+			this.kClient = mw.kApiGetPartnerClient( this.getPlayer().bwidgetid );
 			//generate KS if missing
 			if( !this.kClient.getKs() ){
-				this.kClient.doRequest( { 'service' : 'session', 'action' : 'startWidgetSession', 'widgetId': this.getPlayer().kwidgetid }, function( data ) {
+				this.kClient.doRequest( { 'service' : 'session', 'action' : 'startWidgetSession', 'widgetId': this.getPlayer().bwidgetid }, function( data ) {
 					if ( data.code ) {
 						mw.log("Widevine:: Error:: startWidgetSession failed");
 					} else if ( data.ks ) {
@@ -37,7 +37,7 @@
 			var msg;
 			var title;
 
-			this.getPlayer().setKalturaConfig('kdpVars', 'widevine',
+			this.getPlayer().setBorhanConfig('bdpVars', 'widevine',
 				{ plugin: 'true', loadingPolicy: 'preInitialize', asyncInit: 'true', isWv: true});
 
 			this.bind( 'playerReady', function() {
@@ -45,7 +45,7 @@
 				var allFlavors = _this.getPlayer().mediaElement.getPlayableSources();
 				if (allFlavors && allFlavors.length) {
 					//if we received wv flavors we can play them. so set native component WV server
-					if ( wvmFlavors && wvmFlavors.length && wvmFlavors[0].objectType == "KalturaWidevineFlavorAsset" || wvmFlavors[0].getFlavorId() == "wvm" ) {
+					if ( wvmFlavors && wvmFlavors.length && wvmFlavors[0].objectType == "BorhanWidevineFlavorAsset" || wvmFlavors[0].getFlavorId() == "wvm" ) {
 						if ( _this.getPlayer().selectedPlayer.library == "NativeComponent" ) {
 							_this.getPlayer().getPlayerElement().attr( 'wvServerKey', _this.widevineObj().getEmmUrl()
 								+ "&format=widevine&flavorAssetId=" + wvmFlavors[0].getAssetId() + "&ks=" + _this.kClient.getKs() );
@@ -54,10 +54,10 @@
 					// If we don't have widevine flavors, but other flavors then let player handle them
 				} else {
 					//hide default "no source found" alert
-					_this.getPlayer().setKalturaConfig(null, 'disableAlerts', true);
+					_this.getPlayer().setBorhanConfig(null, 'disableAlerts', true);
 
 					//if mobile device
-					if (kWidget.isMobileDevice()) {
+					if (bWidget.isMobileDevice()) {
 						msg = _this.getConfig('useSupportedDeviceMsg');
 						title = _this.getConfig('useSupportedDeviceTitle');
 					} else if (mw.isDesktopSafari()) {
@@ -68,9 +68,9 @@
 						if (navigator.mimeTypes ['application/x-shockwave-flash'] == undefined) {
 							msg = _this.getConfig('intallFlashMsg');
 							title = _this.getConfig('installFlashTitle');
-						} else { //else prompt to use kdp
-							msg = _this.getConfig('useKdpMsg');
-							title = _this.getConfig('useKdpTitle');
+						} else { //else prompt to use bdp
+							msg = _this.getConfig('useBdpMsg');
+							title = _this.getConfig('useBdpTitle');
 						}
 					}
 
@@ -116,7 +116,7 @@
 			};
 			// Set the portal
 
-			var portal = "kaltura";
+			var portal = "borhan";
 
 
 			function doDetect( type, value  ) {
@@ -304,7 +304,7 @@
 				}
 				if (platform)
 				{
-					 return kWidget.getPath() + 'modules/Widevine/resources/' + widevineSrcPath[platform];
+					 return bWidget.getPath() + 'modules/Widevine/resources/' + widevineSrcPath[platform];
 				}
 				return null;
 			}

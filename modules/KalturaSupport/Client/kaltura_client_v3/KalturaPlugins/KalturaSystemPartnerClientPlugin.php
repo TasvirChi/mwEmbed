@@ -5,11 +5,11 @@
 //                          | ' </ _` | |  _| || | '_/ _` |
 //                          |_|\_\__,_|_|\__|\_,_|_| \__,_|
 //
-// This file is part of the Kaltura Collaborative Media Suite which allows users
+// This file is part of the Borhan Collaborative Media Suite which allows users
 // to do with audio, video, and animation what Wiki platfroms allow them to do with
 // text.
 //
-// Copyright (C) 2006-2011  Kaltura Inc.
+// Copyright (C) 2006-2011  Borhan Inc.
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License as
@@ -28,18 +28,18 @@
 // ===================================================================================================
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-require_once(dirname(__FILE__) . "/../KalturaClientBase.php");
-require_once(dirname(__FILE__) . "/../KalturaEnums.php");
-require_once(dirname(__FILE__) . "/../KalturaTypes.php");
+require_once(dirname(__FILE__) . "/../BorhanClientBase.php");
+require_once(dirname(__FILE__) . "/../BorhanEnums.php");
+require_once(dirname(__FILE__) . "/../BorhanTypes.php");
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSystemPartnerLimitType
+class BorhanSystemPartnerLimitType
 {
 	const ACCESS_CONTROLS = "ACCESS_CONTROLS";
 	const ADMIN_LOGIN_USERS = "ADMIN_LOGIN_USERS";
@@ -58,15 +58,15 @@ class KalturaSystemPartnerLimitType
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSystemPartnerLimit extends KalturaObjectBase
+class BorhanSystemPartnerLimit extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var KalturaSystemPartnerLimitType
+	 * @var BorhanSystemPartnerLimitType
 	 */
 	public $type = null;
 
@@ -81,10 +81,10 @@ class KalturaSystemPartnerLimit extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSystemPartnerConfiguration extends KalturaObjectBase
+class BorhanSystemPartnerConfiguration extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -176,12 +176,12 @@ class KalturaSystemPartnerConfiguration extends KalturaObjectBase
 	 *
 	 * @var bool
 	 */
-	public $storageDeleteFromKaltura = null;
+	public $storageDeleteFromBorhan = null;
 
 	/**
 	 * 
 	 *
-	 * @var KalturaStorageServePriority
+	 * @var BorhanStorageServePriority
 	 */
 	public $storageServePriority = null;
 
@@ -190,7 +190,7 @@ class KalturaSystemPartnerConfiguration extends KalturaObjectBase
 	 *
 	 * @var int
 	 */
-	public $kmcVersion = null;
+	public $bmcVersion = null;
 
 	/**
 	 * 
@@ -251,7 +251,7 @@ class KalturaSystemPartnerConfiguration extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var array of KalturaPermission
+	 * @var array of BorhanPermission
 	 */
 	public $permissions;
 
@@ -300,7 +300,7 @@ class KalturaSystemPartnerConfiguration extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaPartnerGroupType
+	 * @var BorhanPartnerGroupType
 	 */
 	public $partnerGroupType = null;
 
@@ -314,7 +314,7 @@ class KalturaSystemPartnerConfiguration extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var array of KalturaSystemPartnerLimit
+	 * @var array of BorhanSystemPartnerLimit
 	 */
 	public $limits;
 
@@ -415,7 +415,7 @@ class KalturaSystemPartnerConfiguration extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaSourceType
+	 * @var BorhanSourceType
 	 */
 	public $defaultLiveStreamEntrySourceType = null;
 
@@ -429,7 +429,7 @@ class KalturaSystemPartnerConfiguration extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaBaseEntryFilter
+	 * @var BorhanBaseEntryFilter
 	 */
 	public $autoModerateEntryFilter;
 
@@ -478,7 +478,7 @@ class KalturaSystemPartnerConfiguration extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var array of KalturaString
+	 * @var array of BorhanString
 	 */
 	public $disabledDeliveryTypes;
 
@@ -492,7 +492,7 @@ class KalturaSystemPartnerConfiguration extends KalturaObjectBase
 	/**
 	 * 
 	 *
-	 * @var KalturaLanguageCode
+	 * @var BorhanLanguageCode
 	 */
 	public $language = null;
 
@@ -500,10 +500,10 @@ class KalturaSystemPartnerConfiguration extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSystemPartnerPackage extends KalturaObjectBase
+class BorhanSystemPartnerPackage extends BorhanObjectBase
 {
 	/**
 	 * 
@@ -523,10 +523,10 @@ class KalturaSystemPartnerPackage extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSystemPartnerUsageItem extends KalturaObjectBase
+class BorhanSystemPartnerUsageItem extends BorhanObjectBase
 {
 	/**
 	 * Partner ID
@@ -548,7 +548,7 @@ class KalturaSystemPartnerUsageItem extends KalturaObjectBase
 	 * Partner status
 	 * 	 
 	 *
-	 * @var KalturaPartnerStatus
+	 * @var BorhanPartnerStatus
 	 */
 	public $partnerStatus = null;
 
@@ -700,15 +700,15 @@ class KalturaSystemPartnerUsageItem extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSystemPartnerUsageListResponse extends KalturaObjectBase
+class BorhanSystemPartnerUsageListResponse extends BorhanObjectBase
 {
 	/**
 	 * 
 	 *
-	 * @var array of KalturaSystemPartnerUsageItem
+	 * @var array of BorhanSystemPartnerUsageItem
 	 */
 	public $objects;
 
@@ -723,10 +723,10 @@ class KalturaSystemPartnerUsageListResponse extends KalturaObjectBase
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSystemPartnerOveragedLimit extends KalturaSystemPartnerLimit
+class BorhanSystemPartnerOveragedLimit extends BorhanSystemPartnerLimit
 {
 	/**
 	 * 
@@ -746,10 +746,10 @@ class KalturaSystemPartnerOveragedLimit extends KalturaSystemPartnerLimit
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSystemPartnerUsageFilter extends KalturaFilter
+class BorhanSystemPartnerUsageFilter extends BorhanFilter
 {
 	/**
 	 * Date range from
@@ -779,10 +779,10 @@ class KalturaSystemPartnerUsageFilter extends KalturaFilter
 }
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSystemPartnerFilter extends KalturaPartnerFilter
+class BorhanSystemPartnerFilter extends BorhanPartnerFilter
 {
 	/**
 	 * 
@@ -803,12 +803,12 @@ class KalturaSystemPartnerFilter extends KalturaPartnerFilter
 
 
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSystemPartnerService extends KalturaServiceBase
+class BorhanSystemPartnerService extends BorhanServiceBase
 {
-	function __construct(KalturaClient $client = null)
+	function __construct(BorhanClient $client = null)
 	{
 		parent::__construct($client);
 	}
@@ -818,7 +818,7 @@ class KalturaSystemPartnerService extends KalturaServiceBase
 	 This service gets partner id as parameter and accessable to the admin console partner only
 	 * 
 	 * @param int $partnerId X
-	 * @return KalturaPartner
+	 * @return BorhanPartner
 	 */
 	function get($partnerId)
 	{
@@ -829,19 +829,19 @@ class KalturaSystemPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPartner");
+		$this->client->validateObjectType($resultObject, "BorhanPartner");
 		return $resultObject;
 	}
 
 	/**
 	 * 
 	 * 
-	 * @param KalturaPartnerFilter $partnerFilter 
-	 * @param KalturaSystemPartnerUsageFilter $usageFilter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaSystemPartnerUsageListResponse
+	 * @param BorhanPartnerFilter $partnerFilter 
+	 * @param BorhanSystemPartnerUsageFilter $usageFilter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanSystemPartnerUsageListResponse
 	 */
-	function getUsage(KalturaPartnerFilter $partnerFilter = null, KalturaSystemPartnerUsageFilter $usageFilter = null, KalturaFilterPager $pager = null)
+	function getUsage(BorhanPartnerFilter $partnerFilter = null, BorhanSystemPartnerUsageFilter $usageFilter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($partnerFilter !== null)
@@ -855,18 +855,18 @@ class KalturaSystemPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaSystemPartnerUsageListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanSystemPartnerUsageListResponse");
 		return $resultObject;
 	}
 
 	/**
 	 * 
 	 * 
-	 * @param KalturaPartnerFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaPartnerListResponse
+	 * @param BorhanPartnerFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanPartnerListResponse
 	 */
-	function listAction(KalturaPartnerFilter $filter = null, KalturaFilterPager $pager = null)
+	function listAction(BorhanPartnerFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -878,7 +878,7 @@ class KalturaSystemPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaPartnerListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanPartnerListResponse");
 		return $resultObject;
 	}
 
@@ -930,10 +930,10 @@ class KalturaSystemPartnerService extends KalturaServiceBase
 	 * 
 	 * 
 	 * @param int $partnerId 
-	 * @param KalturaSystemPartnerConfiguration $configuration 
+	 * @param BorhanSystemPartnerConfiguration $configuration 
 	 * @return 
 	 */
-	function updateConfiguration($partnerId, KalturaSystemPartnerConfiguration $configuration)
+	function updateConfiguration($partnerId, BorhanSystemPartnerConfiguration $configuration)
 	{
 		$kparams = array();
 		$this->client->addParam($kparams, "partnerId", $partnerId);
@@ -951,7 +951,7 @@ class KalturaSystemPartnerService extends KalturaServiceBase
 	 * 
 	 * 
 	 * @param int $partnerId 
-	 * @return KalturaSystemPartnerConfiguration
+	 * @return BorhanSystemPartnerConfiguration
 	 */
 	function getConfiguration($partnerId)
 	{
@@ -962,7 +962,7 @@ class KalturaSystemPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaSystemPartnerConfiguration");
+		$this->client->validateObjectType($resultObject, "BorhanSystemPartnerConfiguration");
 		return $resultObject;
 	}
 
@@ -1077,11 +1077,11 @@ class KalturaSystemPartnerService extends KalturaServiceBase
 	/**
 	 * 
 	 * 
-	 * @param KalturaUserLoginDataFilter $filter 
-	 * @param KalturaFilterPager $pager 
-	 * @return KalturaUserLoginDataListResponse
+	 * @param BorhanUserLoginDataFilter $filter 
+	 * @param BorhanFilterPager $pager 
+	 * @return BorhanUserLoginDataListResponse
 	 */
-	function listUserLoginData(KalturaUserLoginDataFilter $filter = null, KalturaFilterPager $pager = null)
+	function listUserLoginData(BorhanUserLoginDataFilter $filter = null, BorhanFilterPager $pager = null)
 	{
 		$kparams = array();
 		if ($filter !== null)
@@ -1093,37 +1093,37 @@ class KalturaSystemPartnerService extends KalturaServiceBase
 			return $this->client->getMultiRequestResult();
 		$resultObject = $this->client->doQueue();
 		$this->client->throwExceptionIfError($resultObject);
-		$this->client->validateObjectType($resultObject, "KalturaUserLoginDataListResponse");
+		$this->client->validateObjectType($resultObject, "BorhanUserLoginDataListResponse");
 		return $resultObject;
 	}
 }
 /**
- * @package Kaltura
+ * @package Borhan
  * @subpackage Client
  */
-class KalturaSystemPartnerClientPlugin extends KalturaClientPlugin
+class BorhanSystemPartnerClientPlugin extends BorhanClientPlugin
 {
 	/**
-	 * @var KalturaSystemPartnerService
+	 * @var BorhanSystemPartnerService
 	 */
 	public $systemPartner = null;
 
-	protected function __construct(KalturaClient $client)
+	protected function __construct(BorhanClient $client)
 	{
 		parent::__construct($client);
-		$this->systemPartner = new KalturaSystemPartnerService($client);
+		$this->systemPartner = new BorhanSystemPartnerService($client);
 	}
 
 	/**
-	 * @return KalturaSystemPartnerClientPlugin
+	 * @return BorhanSystemPartnerClientPlugin
 	 */
-	public static function get(KalturaClient $client)
+	public static function get(BorhanClient $client)
 	{
-		return new KalturaSystemPartnerClientPlugin($client);
+		return new BorhanSystemPartnerClientPlugin($client);
 	}
 
 	/**
-	 * @return array<KalturaServiceBase>
+	 * @return array<BorhanServiceBase>
 	 */
 	public function getServices()
 	{

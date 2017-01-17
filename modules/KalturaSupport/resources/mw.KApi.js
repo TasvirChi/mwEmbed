@@ -1,9 +1,9 @@
 /**
- * Simple kaltura javascript api
+ * Simple borhan javascript api
  *
- * uses configuration Kaltura.ServiceUrl and Kaltura.ServiceBase for api entry point
+ * uses configuration Borhan.ServiceUrl and Borhan.ServiceBase for api entry point
  * 
- * Should extend new kWidget.api() api.request() base
+ * Should extend new bWidget.api() api.request() base
  */
 
 /**
@@ -31,7 +31,7 @@ mw.KApi.prototype = {
 		'ignoreNull' : 1
 	},
 	playerLoaderCache: [],
-	// The local kaltura session key ( so it does not have to be re-grabbed with every request
+	// The local borhan session key ( so it does not have to be re-grabbed with every request
 	ks : null,
 	init: function( widgetId ){
 		this.widgetId = widgetId;
@@ -57,8 +57,8 @@ mw.KApi.prototype = {
 			requestObject = [ requestObject ];
 		}
 
-		// If we have Kaltura.NoApiCache flag, pass 'nocache' param to the client
-		if( mw.getConfig('Kaltura.NoApiCache') === true ) {
+		// If we have Borhan.NoApiCache flag, pass 'nocache' param to the client
+		if( mw.getConfig('Borhan.NoApiCache') === true ) {
 			param['nocache'] = 'true';
 		}
 
@@ -67,7 +67,7 @@ mw.KApi.prototype = {
 			param['service'] = 'multirequest';
 			param['action'] = 'null';
 
-			// Kaltura api starts with index 1 for some strange reason.
+			// Borhan api starts with index 1 for some strange reason.
 			var mulitRequestIndex = 1;
 
 			for( var i = 0 ; i < requestObject.length; i++ ){
@@ -75,7 +75,7 @@ mw.KApi.prototype = {
 				// MultiRequest pre-process each param with inx:param
 				for( var paramKey in requestObject[i] ){
 					// support multi dimension array request:
-					// NOTE kaltura api only has sub arrays ( would be more feature complete to
+					// NOTE borhan api only has sub arrays ( would be more feature complete to
 					// recursively define key appends )
 					if( typeof requestObject[i][paramKey] == 'object' ){
 						for( var subParamKey in requestObject[i][paramKey] ){
@@ -98,7 +98,7 @@ mw.KApi.prototype = {
 			}
 		};
 
-		// Make sure we have the kaltura session
+		// Make sure we have the borhan session
 		// ideally this could be part of the multi-request but could not get it to work
 		// see commented out code above.
         if (skipKS) {
@@ -121,7 +121,7 @@ mw.KApi.prototype = {
 			return true;
 		}
 		var _this = this;
-		// Add the Kaltura session ( if not already set )
+		// Add the Borhan session ( if not already set )
 		var ksParam = {
 				'action' : 'startwidgetsession',
 				'widgetId': this.widgetId
@@ -173,27 +173,27 @@ mw.KApi.prototype = {
 				errorCallback();
 			}
 			mw.log("Timeout occur in doApiRequest:" + requestURL);
-		},mw.getConfig("Kaltura.APITimeout"));
+		},mw.getConfig("Borhan.APITimeout"));
 		requestURL+= '&callback=' + globalCBName;
 		mw.log("kAPI:: doApiRequest: " + requestURL);
 		$.ajax( {
 			url: requestURL,
-			cache: mw.getConfig("Kaltura.CacheApiCalls") || true,
+			cache: mw.getConfig("Borhan.CacheApiCalls") || true,
 			dataType: "script"
 		});
 	},
 	getApiUrl : function( serviceType ){
-		var serviceUrl = mw.getConfig( 'Kaltura.ServiceUrl' );
-		if( serviceType && serviceType == 'stats' &&  mw.getConfig( 'Kaltura.StatsServiceUrl' ) ) {
-			serviceUrl = mw.getConfig( 'Kaltura.StatsServiceUrl' );
+		var serviceUrl = mw.getConfig( 'Borhan.ServiceUrl' );
+		if( serviceType && serviceType == 'stats' &&  mw.getConfig( 'Borhan.StatsServiceUrl' ) ) {
+			serviceUrl = mw.getConfig( 'Borhan.StatsServiceUrl' );
 		}
-		if( serviceType && serviceType == 'liveStats' &&  mw.getConfig( 'Kaltura.LiveStatsServiceUrl' ) ) {
-			serviceUrl = mw.getConfig( 'Kaltura.LiveStatsServiceUrl' );
+		if( serviceType && serviceType == 'liveStats' &&  mw.getConfig( 'Borhan.LiveStatsServiceUrl' ) ) {
+			serviceUrl = mw.getConfig( 'Borhan.LiveStatsServiceUrl' );
 		}
-		if( serviceType && serviceType == 'analytics' &&  mw.getConfig( 'Kaltura.AnalyticsUrl' ) ) {
-			serviceUrl = mw.getConfig( 'Kaltura.AnalyticsUrl' );
+		if( serviceType && serviceType == 'analytics' &&  mw.getConfig( 'Borhan.AnalyticsUrl' ) ) {
+			serviceUrl = mw.getConfig( 'Borhan.AnalyticsUrl' );
 		}
-		return serviceUrl + mw.getConfig( 'Kaltura.ServiceBase' ) + serviceType;
+		return serviceUrl + mw.getConfig( 'Borhan.ServiceBase' ) + serviceType;
 	},
 	getSignature: function( params ){
 		params = this.ksort(params);
@@ -267,7 +267,7 @@ mw.KApi.prototype = {
 		var baseEntryRequestObj = {
 			'service' : 'baseentry',
 			'action' : 'list',
-			'filter:objectType' : 'KalturaBaseEntryFilter'
+			'filter:objectType' : 'BorhanBaseEntryFilter'
 		};
 		// Filter by reference Id
 		if( !kProperties.entry_id && kProperties.flashvars.referenceId ){
@@ -288,8 +288,8 @@ mw.KApi.prototype = {
 		// Add Context Data request
 		requestObject.push({
 			'contextDataParams' : {
-				'referrer' : window.kWidgetSupport.getHostPageUrl(),
-				'objectType' : 'KalturaEntryContextDataParams',
+				'referrer' : window.bWidgetSupport.getHostPageUrl(),
+				'objectType' : 'BorhanEntryContextDataParams',
 				'flavorTags': flavorTags,
 				'streamerType': streamerType
 			},
@@ -304,7 +304,7 @@ mw.KApi.prototype = {
 			'action' : 'list',
 			'version' : '-1',
 			// metaDataFilter
-			'filter:metadataObjectTypeEqual' :1, /* KalturaMetadataObjectType::ENTRY */
+			'filter:metadataObjectTypeEqual' :1, /* BorhanMetadataObjectType::ENTRY */
 			'filter:orderBy' : '+createdAt',
 			'filter:objectIdEqual' : entryIdValue,
 			'pager:pageSize' : 1
@@ -314,7 +314,7 @@ mw.KApi.prototype = {
 			requestObject.push({
 				'service' : 'cuepoint_cuepoint',
 				'action' : 'list',
-				'filter:objectType' : 'KalturaCuePointFilter',
+				'filter:objectType' : 'BorhanCuePointFilter',
 				'filter:orderBy' : '+startTime',
 				'filter:statusEqual' : 1,
 				'filter:entryIdEqual' : entryIdValue
@@ -337,7 +337,7 @@ mw.KApi.prototype = {
 
 			// Check if we have an error
 			if( data[0].code ) {
-				mw.log('Error in kaltura api response: ' + data[0].message);
+				mw.log('Error in borhan api response: ' + data[0].message);
 				callback( { 'error' :  data[0].message } );
 				return ;
 			}

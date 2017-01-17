@@ -5,6 +5,6 @@
           "resources/hlsjs.js"
         ],
         "dependencies": "mw.KBasePlugin",
-        "kalturaPluginName": "hlsjs"
+        "borhanPluginName": "hlsjs"
     }
 }
