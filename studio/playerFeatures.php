@@ -98,31 +98,22 @@ $basePluginConfig = array(
 );
 
 $configRegister = array();
-global $wgMwEmbedEnabledModules, $wgKalturaPSHtml5SettingsPath, $wgBaseMwEmbedPath;
+global $wgMwEmbedEnabledModules, $wgBorhanPSHtml5SettingsPath, $wgBaseMwEmbedPath;
 foreach ($wgMwEmbedEnabledModules as $moduleName) {
-    $manifestPath =  $wgBaseMwEmbedPath . "/modules/$moduleName/{$moduleName}.manifest.";
-    if( is_file( $manifestPath . "json" ) ){
-        $plugins = json_decode( file_get_contents($manifestPath . "json"), TRUE );
-    } elseif( is_file( $manifestPath . "php" ) ){
-        $plugins = include($manifestPath . "php");
-    }
-    if (isset($plugins)){
+    $manifestPath = $wgBaseMwEmbedPath . "/modules/$moduleName/{$moduleName}.manifest.php";
+    if (is_file($manifestPath)) {
+        $plugins = include($manifestPath);
         foreach ($plugins as $key => $value) {
             $configRegister[$key] = $value;
         }
     }
 }
 # Register all the onPage scripts:
-$onPageManifestPath =  realpath(dirname(__FILE__)) . '/../kWidget/onPagePlugins/onPagePlugins.manifest.';
-if( is_file( $onPageManifestPath . "json" ) ){
-    $onPagePlugins = json_decode( file_get_contents($onPageManifestPath . "json"), TRUE );
-} elseif( is_file( $onPageManifestPath . "php" ) ){
-    $onPagePlugins = include($onPageManifestPath . "php");
-}
-$configRegister = array_merge($configRegister, $onPagePlugins);
-
-# Register all kwidget-ps based scripts: ( if setup )
-$html5ManifestFile = realpath(dirname($wgKalturaPSHtml5SettingsPath) . '/ps/kwidget-ps.manifest.json');
+$configRegister = array_merge($configRegister,
+    include(realpath(dirname(__FILE__)) . '/../bWidget/onPagePlugins/onPagePlugins.manifest.php')
+);
+# Register all bwidget-ps based scripts: ( if setup )
+$html5ManifestFile = realpath(dirname($wgBorhanPSHtml5SettingsPath) . '/ps/bwidget-ps.manifest.json');
 if (is_file($html5ManifestFile)) {
     $json = json_decode(file_get_contents($html5ManifestFile), true);
     if ($json == null) {
@@ -232,11 +223,7 @@ Class menuMaker
             $obj->label = ucfirst($this->from_camel_case($controlModel));
         }
         $obj->model = (isset($control['model'])) ? $control['model'] : 'config.plugins.' . $pluginId . '.' . $controlModel;
-        if (isset($control['doc'])) {
-            $obj->helpnote = $control['doc'];
-        }else{
-            $obj->helpnote = $obj->label;
-        }
+        $obj->helpnote = $control['doc'];
         foreach ($control as $attr => $atrVal) {
             if (!in_array($attr, array('type', 'model', 'options', 'enum', 'label', 'doc'))) {
                 $obj->$attr = $atrVal;

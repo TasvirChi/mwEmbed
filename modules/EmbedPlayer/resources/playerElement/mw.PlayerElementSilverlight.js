@@ -10,8 +10,7 @@
 			this.id = playerId;
 			this.targetObj = target;
 			var xapPath = mw.getMwEmbedPath() + 'modules/EmbedPlayer/binPlayers/silverlight-player/Player.xap';
-
-			//var xapPath = 'http://192.168.162.72/lightKdp/Player.xap';
+			//var xapPath = 'http://192.168.193.144//lightBdp/BDP3/bin-debug/Player.xap';
 			window["onError" + playerId]=function(sender, args){
 				var appSource = "";
 				if (sender != null && sender != 0) {
@@ -67,8 +66,7 @@
 							'alert': 'onAlert',
 							'mute': 'onMute',
 							'unmute': 'onUnMute',
-							'volumeChanged': 'onVolumeChanged',
-							'error': 'onError'
+							'volumeChanged': 'onVolumeChanged'
 						};
 
 						$.each( bindEventMap, function( bindName, localMethod ) {
@@ -101,14 +99,10 @@
 					width:"100%",height:"100%",
 					background:"transparent",
 					windowless:"true",
-					version: "4.0.60310.0",
-					 EnableGPUAcceleration:"true",
-					 debug:mw.getConfig('debug') ? "true" : ""
-				 },
+					version: "4.0.60310.0" },
 				{
 					onError: "onError" + playerId,
-					enableHtmlAccess: "true"
-				},
+					enableHtmlAccess: "true" },
 				params
 			//	context: "row4"
 			);
@@ -117,10 +111,6 @@
 		},
 		onUpdatePlayhead : function ( playheadVal ) {
 			this.currentTime = playheadVal;
-
-		},
-		getMulticastBitrate : function(){
-			this.bitRate = this.playerProxy.MulticastAverageBitRate;
 		},
 		onPause : function() {
 			this.paused = true;
@@ -149,9 +139,6 @@
 		onUnMute: function () {
 			this.muted = false;
 		},
-		onError: function () {
-			$( this ).trigger( 'error' );
-		},
 		onVolumeChanged: function ( data ) {
 			this.volume = data.newVolume;
 			$( this).trigger( 'volumechange' );
@@ -159,21 +146,6 @@
 		addJsListener: function( eventName, methodName ) {
 			if ( this.playerElement ) {
 				this.bindPlayerFunction( eventName, methodName );
-			}
-		},
-		changeMulticastParams: function( multicastGroup, sourceAddress,multicastPolicyOverMulticastEnabled ) {
-			if ( this.playerElement ) {
-				this.playerElement.changeMulticastParams( multicastGroup, sourceAddress, multicastPolicyOverMulticastEnabled);
-			}
-		},
-
-		removeJsListener: function( eventName, methodName ) {
-			if ( this.playerElement ) {
-				mw.log( 'PlayerElementSilverlight:: unbindPlayerFunction:' + eventName );
-				// The kaltura kdp can only call a global function by given name
-				var gKdpCallbackName = 'silverlight_' + methodName + '_cb_' + this.id.replace(/[^a-zA-Z 0-9]+/g,'');
-				// Remove the listener ( if it exists already )
-				this.playerElement.removeJsListener( eventName, gKdpCallbackName );
 			}
 		},
 		play: function(){
@@ -192,19 +164,16 @@
 			$( this ).trigger( 'seeking' );
 		},
 		load: function(){
-			this.playerProxy.loadMedia();
+			if ( this.src ) {
+				this.playerProxy.setSrc(this.src);
+				this.playerProxy.loadMedia();
+			}
 		},
 		changeVolume: function( volume ){
 			this.playerProxy.setVolume(  volume );
 		},
 		selectTrack: function( index ) {
 			this.playerProxy.selectTrack( index );
-		},
-		selectAudioTrack: function( index ) {
-			this.playerProxy.selectAudioTrack( index );
-		},
-		selectTextTrack: function( index ) {
-			this.playerProxy.selectTextTrack( index );
 		},
 		reloadMedia: function() {
 			this.playerProxy.reloadMedia();
@@ -213,13 +182,7 @@
 		stretchFill: function() {
 			this.playerProxy.stretchFill();
 		},
-		getMulticastDiagnostics: function(){
-			if (this.playerProxy) {
-				return this.playerProxy.getDiagnostics();
-			} else {
-				return {}
-			}
-		},
+
 		/**
 		 * Bind a Player Function,
 		 *
@@ -236,8 +199,8 @@
 		bindPlayerFunction : function(bindName, methodName, target) {
 			var _this = this;
 			mw.log( 'PlayerElementSilverlight:: bindPlayerFunction:' + bindName );
-			// The kaltura kdp can only call a global function by given name
-			var gKdpCallbackName = 'silverlight_' + methodName + '_cb_' + this.id.replace(/[^a-zA-Z 0-9]+/g,'');
+			// The borhan bdp can only call a global function by given name
+			var gBdpCallbackName = 'silverlight_' + methodName + '_cb_' + this.id.replace(/[^a-zA-Z 0-9]+/g,'');
 
 			// Create an anonymous function with local player scope
 			var createGlobalCB = function(cName) {
@@ -248,11 +211,11 @@
 					}
 					_this.targetObj[methodName](data);
 				};
-			}(gKdpCallbackName, this);
+			}(gBdpCallbackName, this);
 			// Remove the listener ( if it exists already )
-			this.playerElement.removeJsListener( bindName, gKdpCallbackName );
+			this.playerElement.removeJsListener( bindName, gBdpCallbackName );
 			// Add the listener to the Silvrtliht player:
-			this.playerElement.addJsListener( bindName, gKdpCallbackName);
+			this.playerElement.addJsListener( bindName, gBdpCallbackName);
 		}
 	});
 } )( window.mw, jQuery );

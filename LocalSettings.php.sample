@@ -5,9 +5,10 @@
  * See includes/DefaultSettings.php for a configuration options
  * 
  */
+ 
 // For development you should always set $wgEnableScriptDebug to true
 $wgEnableScriptDebug = false;
 
 // Auth testing sets
-$wgKalturaAuthHTTPS = false; 
-$wgKalturaAuthDomains = array( 'localhost', 'kgit.html5video.org', 'html5video.org', 'player.kaltura.com' );
+$wgBorhanAuthHTTPS = false; 
+$wgBorhanAuthDomains = array( 'localhost', 'kgit.html5video.org', 'html5video.org', 'player.borhan.com' );

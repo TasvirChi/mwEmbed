@@ -9,12 +9,25 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			 </a>
-			 <a href="http://player.kaltura.com" class="brand"><img src="<?php echo $pathPrefix ?>images/logo-145.png" alt="Kaltura" width="149" height="79"></a>
+			 <a href="http://player.borhan.com" class="brand"><img src="<?php echo $pathPrefix ?>images/logo-145.png" alt="Borhan" width="149" height="79"></a>
 			<div class="search-container pull-right">
 				 <form class="navbar-search pull-right">
-					<input id="kdoc-search" type="text" class="search-query" placeholder="Search Features" autocomplete="off">
+					<input id="kdoc-search" type="text" class="search-query" placeholder="Search" data-provide="typeahead" data-items="4" autocomplete="off"
+						data-source='[<?php 
+							$featureList = include( 'featureList.php' );
+							$coma = '';
+							foreach( $featureList as $featureCategoryKey => $featureCateogry ){
+								foreach( $featureCateogry['featureSets'] as $featureSetKey => $featureSet ){
+									foreach( $featureSet['testfiles'] as $testFile ){
+										echo $coma . '"' . $testFile['title'] . '"';
+										$coma = ',';
+									}
+								}
+							}
+						?>]'
+					>
 					<i class="icon-search" style="position:relative;left:-24px;top:-1px;"></i>
-					<a href="http://corp.kaltura.com/free-trial" target="_new">
+					<a href="http://corp.borhan.com/free-trial" target="_new">
 						<img alt="free trial" style="width:120px;position:relative;top:-5px;" src="images/free-trial.png">
 					</a>
 				</form>
@@ -29,23 +42,6 @@
 				  <li class="contact"><a href="index.php?path=contact">Contact Us</a></li>
 				</ul>
 				<script>
-					// implment custom type-ahead
-					$('#kdoc-search').typeahead({
-						'source':[<?php 
-							$featureList = include( 'featureList.php' );
-							$coma = '';
-							foreach( $featureList as $featureCategoryKey => $featureCateogry ){
-								foreach( $featureCateogry['featureSets'] as $featureSetKey => $featureSet ){
-									foreach( $featureSet['testfiles'] as $testFile ){
-										echo $coma . '"' . $testFile['title'] . '"';
-										$coma = ',';
-									}
-								}
-							}
-						?>],
-						'items':"4"
-					});
-				
 					$('#kdoc-search').change( function(){
 						var tval = $(this).val();
 						$('#kdoc-navbarcontainer a').each(function(){

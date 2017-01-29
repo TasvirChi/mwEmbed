@@ -1,36 +1,19 @@
 ( function( mw, $ ) {"use strict";
+
 	var kplayer = null;
 	var isKontiki = false;
-	var kontikiClientTimeout = null;
 
 	var kontikiPlugin =  mw.KBasePlugin.extend({
-		asyncInit: true,
-
-		defaultConfig: {
-			'clientTimeout': 2000
-		},
-
-		setup: function() {
+		setup: function(){
 			mw.setConfig( 'EmbedPlayer.ForceKPlayer' , true );
 			kplayer = this.getPlayer();
-			this.bind( 'updateComponentsVisibilityStart', function() {
+			setKontikiFlavorTags();
+			this.bind( 'layoutBuildDone', function(){
 				//hide source selector since it has no meaning in kontiki case
 				if ( isKontiki ) {
-					if ( kplayer.plugins && kplayer.plugins.sourceSelector )
-						kplayer.plugins.sourceSelector.hide();
+					kplayer.setBDPAttribute( 'sourceSelector' , 'visible', false);
 				}
 			});
-			var that = this;
-			var timeout = this.getConfig('clientTimeout');
-			// we set our own timeout so we don't have to rely on kontiki's swf proxy in case the player is loaded over https
-			kontikiClientTimeout = setTimeout( function() {
-				mw.log('No response from Kontiki client for ' + timeout + ' milliseconds. Continuing player load.');
-				if (gKontikiTimeout)
-					clearTimeout(gKontikiTimeout);
-				that.initCompleteCallback();
-			}, timeout);
-
-			initKontikiAgent();
 		}
 	});
 
@@ -49,7 +32,7 @@
 	if(!kontiki.kui) kontiki.kui = {};
 
 	//URLs to the various assets we'll need.	
-	var AGENT_FLASH_LOADER_URL = kWidget.getPath() +'kWidget/onPagePlugins/kontiki/kontikiagentflashloader.swf';
+	var AGENT_FLASH_LOADER_URL = bWidget.getPath() +'bWidget/onPagePlugins/kontiki/kontikiagentflashloader.swf';
 
 	// global callback and agent reference needed for flash loader
 	var gKontikiCallback;
@@ -141,15 +124,13 @@
 			    if( document.body ){  
 			      	document.body.appendChild( flashDiv );
 					var flashvars = { url: clientUrl };
-				    // pass the current document as the context to make sure that the swf will be written to the current
-				    // page and not to the page where kWidget lives on
-					kWidget.outputFlashObject( "kontikiAgent", { src: AGENT_FLASH_LOADER_URL, flashvars: flashvars }, document);
+					bWidget.outputFlashObject( "kontikiAgent", { src: AGENT_FLASH_LOADER_URL, flashvars: flashvars });
 			    } 
 			    //wait until body is loaded  
 			    else{  
 			     	setTimeout( function(){ onBodyLoaded(); }, 100);  
 			    }  
-			  };
+			  }
 
 			onBodyLoaded();  
 
@@ -176,14 +157,14 @@
 					// callback is the entry point for 3rd party caller			
 					callback( that );
 				}
-	        };
+	        }
 
 			js.onload = function() {
 				// this event fires on FF and Chrome only when agent data file is retrieved
 				clearTimeout( gKontikiTimeout );
 				// callback is the entry point for 3rd party caller
 				callback( that );
-			};
+			}
 
 			return false;
 		}
@@ -215,7 +196,7 @@
 			} else {
 				return false;
 			}
-		};
+		}
 
 		this.getVersion = function() {
 			if ( typeof( gKontikiAgentData ) !== 'undefined' ) {
@@ -223,7 +204,7 @@
 			} else {
 				return notInstalled;
 			}
-		};
+		}
 
 		this.getMachineName = function() {
 			if ( typeof( gKontikiAgentData ) !== 'undefined' ) {
@@ -231,7 +212,7 @@
 			} else {
 				return notInstalled;
 			}
-		};
+		}
 
 		this.getNodeId = function() {
 			if ( typeof( gKontikiAgentData ) !== 'undefined' ) {
@@ -239,7 +220,7 @@
 			} else {
 				return notInstalled;
 			}
-		};
+		}
 
 		this.getHttpUrlForFile = function( urn, file,  args ) {
 			if ( this.isInstalled() ) {
@@ -247,7 +228,7 @@
 			} else {
 				return notInstalled;
 			}
-		};
+		}
 
 		this.getHttpUrl = function( urn, args ) {
 			if ( this.isInstalled() ) {
@@ -255,7 +236,7 @@
 			} else {
 				return notInstalled;
 			}
-		};
+		}
 
 		this.getHttpDsUrl = function( urn, args ) {
 			if ( this.isInstalled() ) {
@@ -263,7 +244,7 @@
 			} else {
 				return notInstalled;
 			}
-		};
+		}
 
 		this.getHttpLsUrl = function( urn, args ) {
 			if ( this.isInstalled() ) {
@@ -271,7 +252,7 @@
 			} else {
 				return notInstalled;
 			}
-		};
+		}
 
 		this.getRtmpHost = function() {
 			if ( this.isInstalled() ) {
@@ -279,7 +260,7 @@
 			} else {
 				return notInstalled;
 			}
-		};
+		}
 
 		this.getRtmpStream = function( urn, args ) {
 			if ( this.isInstalled() ) {
@@ -287,7 +268,7 @@
 			} else {
 				return notInstalled;
 			}
-		};
+		}
 
 		this.getRtmpUrl = function( urn, args ) {
 			if ( this.isInstalled() ) {
@@ -295,7 +276,7 @@
 			} else {
 				return notInstalled;
 			}
-		};
+		}
 
 		this.checkMinVersion = function( minVersion ) {
 			if ( typeof( gKontikiAgentData ) !== 'undefined' ) {
@@ -383,46 +364,34 @@
 
 			return utftext;
 		}
-	};
+	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// end of kontiki code
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	function onKaReady() {
-		clearTimeout(kontikiClientTimeout);
-		mw.log('Kontiki callback. Kontiki client is ' + ((gKontikiAgentData !== undefined) ? 'available' : 'not available'));
-		kplayer.plugins.kontiki.initCompleteCallback();
+	function onKaReady() {	
 		setKontikiFlavorTags();
 	}
-
+	
 	function setKontikiFlavorTags() {
 		if ( kplayer && gKontikiAgentData !== undefined ) {
 			var sources = kplayer.getSourcesByTags ( 'kontiki' );
 			//if kontiki flavors are available, select them
 			if ( sources && sources.length ) {
-				mw.log('Kontiki source was found, setting flavorTags to "kontiki"');
 				isKontiki = true;
 				kplayer.setFlashvars( 'flavorTags', 'kontiki' );
-				kplayer.setKalturaConfig( 'kdpVars', 'kontiki', { plugin: 'true' });
-
+				kplayer.setBorhanConfig( 'bdpVars', 'kontiki', { plugin: 'true' });
 			}
-			else {
-				mw.log('No Kontiki sources were found');
-			}
-
 
 		}
 	}
-
-	function initKontikiAgent() {
-		var loadFlash = false;
-		//to avoid "secure content" alerts load kontikiagentflashloader.swf
-		if (location.protocol === "https:") {
-			loadFlash = true;
-		}
-		var params = {callback: onKaReady, flash_loader: loadFlash};
-		window.kontikiAgent = new KontikiAgent(params);
+	var loadFlash = false;
+	//to avoid "secure content" alerts load kontikiagentflashloader.swf
+	if ( location.protocol === "https:" ) {
+		loadFlash = true;
 	}
+	var params = { callback: onKaReady, flash_loader: loadFlash };
+	window.kontikiAgent = new KontikiAgent( params );
 
 
 

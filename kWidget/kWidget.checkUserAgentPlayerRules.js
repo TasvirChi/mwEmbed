@@ -1,45 +1,33 @@
 /**
- * Optional kWidget library
+ * Optional bWidget library
  * Get a user agent player rules
  * @param {Object} ruleSet Object containing the rule set and actions
  * @return {String} What player should the browser lead with:
  * 		 'flash' ( default, lead with flash) | leadWithHTML5 | forceFlash | forceMsg Raw html message string to be displayed ( instead of player )
  */
-kWidget.getUserAgentPlayerRulesMsg = function( ruleSet ){
-	return kWidget.checkUserAgentPlayerRules( ruleSet, true );
+bWidget.getUserAgentPlayerRulesMsg = function( ruleSet ){
+	return bWidget.checkUserAgentPlayerRules( ruleSet, true );
 };
-kWidget.addUserAgentRule = function( uiconfId, rule, action ){
+bWidget.addUserAgentRule = function( uiconfId, rule, action ){
 	var ruleInx = 0;
 	// if there are existing rules, get the last rule index:
-	if( kWidget.userAgentPlayerRules[ uiconfId ] ){
-		for (ruleInx in kWidget.userAgentPlayerRules[ uiconfId ]['rules']) ;
+	if( bWidget.userAgentPlayerRules[ uiconfId ] ){
+		for (ruleInx in bWidget.userAgentPlayerRules[ uiconfId ]['rules']) ;
 	} else {
-		kWidget.userAgentPlayerRules[ uiconfId ] = { 'rules':{}, 'actions': {} };
+		bWidget.userAgentPlayerRules[ uiconfId ] = { 'rules':{}, 'actions': {} };
 	}
 	var ruleIndex = parseInt( ruleInx) +1;
 	// add the rule
-	kWidget.userAgentPlayerRules[ uiconfId ]['rules'][ ruleIndex ] = { 'regMatch': rule };
-	kWidget.userAgentPlayerRules[ uiconfId ]['actions'][ ruleIndex ] = {'mode': action, 'val': 1 };
+	bWidget.userAgentPlayerRules[ uiconfId ]['rules'][ ruleIndex ] = { 'regMatch': rule };
+	bWidget.userAgentPlayerRules[ uiconfId ]['actions'][ ruleIndex ] = {'mode': action, 'val': 1 };
 };
-kWidget.checkUserAgentPlayerRules = function( ruleSet, getMsg ){
-	var ua = ( mw.getConfig( 'KalturaSupport_ForceUserAgent' ) )?
-			mw.getConfig( 'KalturaSupport_ForceUserAgent' ) : navigator.userAgent;
+bWidget.checkUserAgentPlayerRules = function( ruleSet, getMsg ){
+	var ua = ( mw.getConfig( 'BorhanSupport_ForceUserAgent' ) )?
+			mw.getConfig( 'BorhanSupport_ForceUserAgent' ) : navigator.userAgent;
 	var flashMode = {
 		mode: 'flash',
 		val: true
 	};
-
-    var noFlashMessage = ( mw.getConfig( 'strings.ks-no-flash-installed' ) )?
-        mw.getConfig( 'strings.ks-no-flash-installed' ) : "Flash does not appear to be installed or active. Please install or activate Flash.";
-
-    var msgMode = {
-        mode: 'forceMsg',
-        val: noFlashMessage
-    };
-    //check if we run on IE8 and flash is not supported
-    if ( kWidget.isIE8() && !kWidget.supportsFlash() ){
-        return msgMode;
-    }
 	// Check for current user agent rules
 	if( !ruleSet.rules ){
 		// No rules, lead with flash

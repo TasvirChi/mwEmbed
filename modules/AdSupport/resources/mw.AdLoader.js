@@ -1,21 +1,10 @@
 ( function( mw, $ ) { "use strict";
 
-mw.AdLoader = function( embedPlayer ) {
-	// Create an AdLoader
-	return this.init( embedPlayer );
-};
-
-mw.AdLoader.prototype = {
-
+mw.AdLoader = {
 	// Vast response can return Wrapper that points to another vast
 	// this varible holds the max number of redirects to follow
 	maxRedirects: 5,
 	currentCounter: 0,
-
-	init: function( embedPlayer ){
-		this.embedPlayer = embedPlayer;
-	},
-
 	/**
 	 * Get ad display configuration object from a url
 	 *
@@ -25,27 +14,21 @@ mw.AdLoader.prototype = {
 	 * 		Function called with ad payload once ad content is loaded.
 	 * @param {boolean} wrapped
 	 * 		(optional) used to increase the internal counter
-	 * @param {array} wrapperData
-	 * 		(optional) in case this loader is being after loading a wrapper, preserve all previous wrapper data and pass it to the
-	 * 		inner ad so it can parse and send all events
-	 * @param {object} ajaxOptions
-	 * 		(optional) additional ajax options, e.g. withCredentials
+	 * @param {XML} wrapperData
+	 * 		(optional) in case this loader is being called from a wrapper, preserve the wrapper data and pass it to the
+     * 		inner ad so it can parse and send its events
 	 */
-	load: function( adUrl, callback, wrapped , wrapperData, ajaxOptions ){
+	load: function( adUrl, callback, wrapped , wrapperData ){
 		var _this = this;
-		if(wrapperData == null) {
-			wrapperData = [];
-		}
+        this.wrapperData = null;
 
 		adUrl = _this.replaceCacheBuster(adUrl);
-		
-		// trip whitespace in ad urls: 
-		adUrl = $.trim( adUrl );
 
 		mw.log('AdLoader :: load Ad: ', adUrl);
 
 		// Increase counter if the vast is wrapped, otherwise reset
 		if( wrapped ) {
+            this.wrapperData = wrapperData ;
 			this.currentCounter++;
 		} else {
 			this.currentCounter = 0;
@@ -61,9 +44,8 @@ mw.AdLoader.prototype = {
 		// Make ajax request with fallback to proxy service
 		new mw.ajaxProxy({
 			url: adUrl,
-			ajaxOptions: ajaxOptions,
 			success: function( resultXML ) {
-				_this.handleResult( resultXML, callback, wrapperData, ajaxOptions );
+				_this.handleResult( resultXML, callback );
 			},
 			error: function( error ) {
 				mw.log("Error: AdLoader failed to load:" + adUrl);
@@ -71,7 +53,7 @@ mw.AdLoader.prototype = {
 			}
 		});
 	},
-	handleResult: function(data, callback, wrapperData, ajaxOptions ){
+	handleResult: function(data, callback ){
 		var _this = this;
 		// If our data is a string we need to parse it as XML
 		if( typeof data === 'string' ) {
@@ -92,7 +74,7 @@ mw.AdLoader.prototype = {
 				// If we have lots of ad formats we could conditionally load them here:
 				// 'mw.VastAdParser' is a dependency of adLoader
 				mw.load( 'mw.VastAdParser', function(){
-					mw.VastAdParser.parse( data, callback , wrapperData, ajaxOptions, _this );
+					mw.VastAdParser.parse( data, callback , _this.wrapperData);
 				});
 				return ;
 			break;
@@ -109,42 +91,20 @@ mw.AdLoader.prototype = {
 	 * 		The type of string
 	 */
 	getAdFormat: function( xmlObject ){
-		if ( xmlObject && xmlObject.childNodes ) {
-			var childNodes = xmlObject.childNodes, node, nodeNameLC;
+		if(xmlObject &&  xmlObject.childNodes ){
+			var rootNodeName = xmlObject.childNodes[0].nodeName;
 
-			// Loop over all child nodes searching for the first element node
-			for ( var i = 0, iMax = childNodes.length; i < iMax; i++ ) {
-				node = xmlObject.childNodes[i];
-
-				// Check if the node is an element
-				if ( node.nodeType === 1 ) {
-
-					// Lower-case nodeName for string checking
-					nodeNameLC = node.nodeName.toLowerCase();
-
-					// Catch special case -
-					// If the node name is XML, assume it is the XML header,
-					// continue onto checking the next element
-					if ( nodeNameLC === "xml" && i < iMax-1 ) {
-						continue;
-					}
-
-					// Check if the node is the required vast type node
-					if ( nodeNameLC === 'vast' ||
-							nodeNameLC === 'videoadservingtemplate' ) {
-
-						// Success, the first element is a Vast element
-						return 'vast';
-					}
-					else {
-						// The First Element was not a Vast Element,
-						break;
-					}
-				}
+			//ie8 get the xml as node in the xml
+			if (rootNodeName && rootNodeName.toLowerCase() == "xml" && xmlObject.childNodes[1]){
+				rootNodeName =   xmlObject.childNodes[1].nodeName;
 			}
 		}
-
-		// Catch-all
+		if( rootNodeName && (
+				rootNodeName.toLowerCase() == 'vast' ||
+				rootNodeName.toLowerCase() == 'videoadservingtemplate' )
+		){
+			return 'vast';
+		}
 		return 'unknown';
 	},
 

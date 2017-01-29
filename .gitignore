@@ -6,6 +6,3 @@
 /.settings
 /.settings/org.eclipse.core.resources.prefs
 /.idea
-/build
-/node_modules
-/temp

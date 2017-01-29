@@ -222,13 +222,10 @@ function mwEmbedLoadMsgKeys( $langKey ){
 		if( !is_file( $msgFile ) ) {
 			throw new MWException( "Missing msgFile: " . htmlspecialchars( $msgFile ) . "\n" );
 		}
-		$ext = pathinfo($msgFile, PATHINFO_EXTENSION);
-
-
-        $messages = json_decode( file_get_contents($msgFile), TRUE );
+		require( $msgFile );
 		// First include the English fallback:
 		$wgMessageCache = array_merge( $wgMessageCache, $messages[ 'en' ] );
-
+		
 		// Then override with the current language:
 		if( isset( $messages[ $langKey ] ) ) {
 			$wgMessageCache = array_merge( $wgMessageCache, $messages[ $langKey ] );
@@ -292,10 +289,10 @@ function mweSaveFileToCache ( $key, $data){
 	return true;
 }
 function mweGetFilePathFromKey( $key ){
-	global $IP, $wgScriptPath;
+	global $IP;
 	$hash = sha1( $key );
 	// Pretty darn unlikely cache missmatch:
-	return "$IP/$wgScriptPath/cache/". substr( $hash, 0, 1) . '/' . substr( $hash, 1, 1) .
+	return "$IP/cache/". substr( $hash, 0, 1) . '/' . substr( $hash, 1, 1) .
 			 '/' . substr( $hash, 0, 48 );
 }
 

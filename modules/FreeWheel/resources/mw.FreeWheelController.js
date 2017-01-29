@@ -3,7 +3,7 @@
 // Set the FreeWheel config:
 mw.setDefaultConfig({
 	// The url for the ad Manager
-	// for debugging we use the following AdManager url: 'http://localhost/html5.kaltura/mwEmbed/modules/FreeWheel/AdManager.js'
+	// for debugging we use the following AdManager url: 'http://localhost/html5.borhan/mwEmbed/modules/FreeWheel/AdManager.js'
 	'FreeWheel.AdManagerUrl': 'http://adm.fwmrm.net/p/release/latest-JS/adm/prd/AdManager.js'
 });
 
@@ -53,9 +53,6 @@ mw.FreeWheelController.prototype = {
 	// bindPostfix enables namespacing the plugin binding
 	bindPostfix: '.freeWheel',
 
-	//Flag for indicating if load has been initiated on the player element
-	playerElementLoaded: false,
-
 	/**
 	 * Initialize the adMannager javascript and setup adds
 	 *
@@ -71,33 +68,12 @@ mw.FreeWheelController.prototype = {
 		// unbind any existing bindings:
 		_this.embedPlayer.unbindHelper( _this.bindPostfix );
 
-		if (mw.isIE8()) {
-			mw.log("FreeWheelController::init: Freewheel HTML5 version is not supported in IE8. Please use Flash KDP player.");
-			callback();
-			return;
-		}
-
 		// Load the freewheel ad manager then setup the ads
 		if( !window['tv'] || !tv.freewheel ){
-			var isLoaded = false;
-			var timeoutVal = _this.getConfig("adsManagerLoadedTimeout") || 5000;
-			mw.log("FreeWheelController::init: start timer for adsManager loading check: " + timeoutVal + "ms");
-			setTimeout(function () {
-				if (!isLoaded) {
-					mw.log("FreeWheelController::init: adsManager failed loading after " + timeoutVal + "ms");
-					callback();
-				}
-			}, timeoutVal);
-			$.getScript(_this.getAdManagerUrl())
-				.done(function (script, textStatus) {
-					isLoaded = true;
-					_this.setupAds();
-					callback();
-				})
-				.fail(function (jqxhr, settings, errorCode) {
-					isLoaded = true;
-					callback();
-				});
+			$.getScript( _this.getAdManagerUrl(), function(){
+				_this.setupAds();
+				callback();
+			});
 		} else{
 			_this.setupAds();
 			callback();
@@ -116,7 +92,7 @@ mw.FreeWheelController.prototype = {
 		var _this = this;
 		// Add support for getting videoAssetId from a notification:
 
-		_this.embedPlayer.bindHelper( 'Kaltura_SendNotification' + _this.bindPostfix, function( event, notificationName, notificationData ){
+		_this.embedPlayer.bindHelper( 'Borhan_SendNotification' + _this.bindPostfix, function( event, notificationName, notificationData ){
 			if( notificationName == 'updateVideoAssetId' && notificationData['videoAssetId'] ){
 				_this.videoAssetIdOverride = notificationData['videoAssetId'];
 			}
@@ -133,7 +109,7 @@ mw.FreeWheelController.prototype = {
 			_this.setContextTimeout();
 
 			// Add the temporal slots for this "player"
-			if( _this.getConfig( 'useKalturaTemporalSlots') === true ){
+			if( _this.getConfig( 'useBorhanTemporalSlots') === true ){
 				_this.addTemporalSlots();
 			}
 
@@ -145,13 +121,6 @@ mw.FreeWheelController.prototype = {
 			// set the inSequence flag while loading ads:
 			_this.embedPlayer.sequenceProxy.isInSequence = true;
 
-			if (mw.isMobileDevice()) {
-				if (!_this.playerElementLoaded) {
-					_this.playerElementLoaded = true;
-					var vid = _this.embedPlayer.getPlayerElement();
-					vid.load();
-				}
-			}
 			// Get Freewheel ads:
 			_this.getContext().submitRequest();
 			// set the callback
@@ -222,7 +191,7 @@ mw.FreeWheelController.prototype = {
 			'name': 'FreeWheel',
 			'title': asset.getName(),
 			'iabCategory': null, // not sure what's expected here.
-			'CampaignID': null // not available via SDK API now, what exactly do you need here?
+			'CampaignID': null, // not available via SDK API now, what exactly do you need here? 
 		}
 		//if( creative._parameters._fw_advertiser_name ){
 		//	metaData['advertiser'] = creative._parameters._fw_advertiser_name;
@@ -236,8 +205,8 @@ mw.FreeWheelController.prototype = {
 		$.each(_this.slots, function( slotType, slotSet){
 			if( slotType == 'midroll' || slotType == 'overlay' ){
 				// Add cue point binding:
-				_this.embedPlayer.bindHelper( 'KalturaSupport_AdOpportunity' + _this.bindPostfix, function( event, kalturaCuePoint ){
-					_this.playAdCuePoint( slotSet, kalturaCuePoint.cuePoint );
+				_this.embedPlayer.bindHelper( 'BorhanSupport_AdOpportunity' + _this.bindPostfix, function( event, borhanCuePoint ){
+					_this.playAdCuePoint( slotSet, borhanCuePoint.cuePoint );
 				});
 				return true;
 			}
@@ -255,7 +224,7 @@ mw.FreeWheelController.prototype = {
 					sequenceProxy[ _this.getSequenceIndex( slotType ) ] = function( callback ){
 						// Run the freewheel slot add, then run the callback once done
 						_this.displayFreeWheelSlots( slotType, 0, function(){
-							_this.restorePlayState(slotType);
+							_this.restorePlayState();
 							// Run the callback:
 							callback();
 						});
@@ -316,25 +285,17 @@ mw.FreeWheelController.prototype = {
 		slot.donePlaying = false;
 
 		mw.log( 'mw.FreeWheelController:: playSlot:' + this.getSlotType( slot ) + ' adInstances: ' +  slot.getAdCount() );
+		
 		// if no ad slots are available return
 		if( slot.getAdCount() == 0 ){
 			return false;
 		}
-
-		// remove poster to prevent black screen covering the ad
-		_this.embedPlayer.removePoster();
-
 		var vid = _this.embedPlayer.getPlayerElement();
 		// make sure we remove preload attr
 		$( vid ).removeAttr( 'preload' );
 		
-		var adMetaData = this.getFwAdMetaData( slot );
-
-        //send ad start event for analytics tracking
-        $(_this.embedPlayer).trigger("onAdPlay",[adMetaData.ID, adMetaData.name, adMetaData.type, 0, adMetaData.duration, null, null, adMetaData.title]);
-
-
-        // Update ad Meta data:
+		var adMetaData = this.getFwAdMetaData( slot ) ;
+		// Update ad Meta data:
 		_this.embedPlayer.adTimeline.updateSequenceProxy(
 			'activePluginMetadata',
 			adMetaData
@@ -389,7 +350,7 @@ mw.FreeWheelController.prototype = {
 
 		return true;
 	},
-	restorePlayState: function (slotType) {
+	restorePlayState: function(){
 		var _this = this;
 		mw.log("FreeWheelControl::restorePlayState" );
 		this.getContext().setVideoState( tv.freewheel.SDK.VIDEO_STATE_PLAYING );
@@ -407,9 +368,6 @@ mw.FreeWheelController.prototype = {
 		$( vid ).unbind( 'pause' + this.bindPostfix );
 		// trigger onplay now that we have restored the player:
 		setTimeout(function(){
-			if (slotType == "preroll") {
-				vid.load(); // refresh video object to cause native events to fire
-			}
 			$( _this.embedPlayer ).trigger('onplay');
 		},0);
 	},
@@ -473,10 +431,6 @@ mw.FreeWheelController.prototype = {
 		mw.log( "FreeWheelController::onSlotEnded> " + event.slot.getTimePositionClass() );
 		// Update slot event:
 		event.slot.donePlaying = true;
-
-        // trigger ad complete event for analytics tracking.
-        $(_this.embedPlayer).trigger('onAdComplete');
-
 		var slotType =_this.getSlotType( event.slot );
 		if( slotType == 'overlay'  ){
 			_this.overlaySlotActive = false;
@@ -540,7 +494,7 @@ mw.FreeWheelController.prototype = {
 			return this.embedPlayer.evaluate('{mediaProxy.entry.duration}');
 		}
 		// return the live attribute value
-		return this.embedPlayer.getKalturaConfig( 'freeWheel', propId );
+		return this.embedPlayer.getBorhanConfig( 'freeWheel', propId );
 	},
 	getAdManager: function(){
 		if( !this.adManager ){

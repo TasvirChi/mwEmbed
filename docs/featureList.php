@@ -2,27 +2,27 @@
 	return array(
 		'KeyFeatures'=> array(
 			'title' => "Key features",
-			'desc' => "Key features of the kaltura front end platform.",
+			'desc' => "Key features of the borhan front end platform.",
 			'featureSets' => array(
 				'Captions' => array(
 					'title' => 'Accessibility and Close Captions',
-					'desc' => 'The Kaltura captions player API, supports S and TTML formats.',
+					'desc' => 'The Borhan captions player API, supports S and TTML formats.',
 					'testfiles' => array(
 						'AccessibilityControls' => array(
 							'title' => 'Accessibility Controls',
-							'path' => 'KalturaSupport/tests/AccessibilityControls.html',
+							'path' => 'BorhanSupport/tests/AccessibilityControls.html',
 						),
 						'KeyboardShortcuts' => array(
 							'title' => 'Keyboard Shortcuts',
-							'path' => 'KalturaSupport/tests/KeyboardShortcuts.html'
+							'path' => 'BorhanSupport/tests/KeyboardShortcuts.html'
 						),
-						'CaptionsKalturaApi' => array(
+						'CaptionsBorhanApi' => array(
 							'title' => 'Captions API',
-							'path' => 'KalturaSupport/tests/ClosedCaptions.html',
+							'path' => 'BorhanSupport/tests/ClosedCaptions.html',
 						),
 						'Localization' => array(
 							'title' => 'Player Localization',
-							'path' => 'KalturaSupport/tests/Localization.il8n.html'
+							'path' => 'BorhanSupport/tests/Localization.il8n.html'
 						),
 						/*
 						'InVideo Search' => array(
@@ -31,22 +31,22 @@
 						),*/
 						'CaptionsCustomVarsTTML' => array(
 							'title' => 'Captions, TTML format',
-							'path' => 'KalturaSupport/tests/CaptionsCustomVarsTTML.qunit.html',
+							'path' => 'BorhanSupport/tests/CaptionsCustomVarsTTML.qunit.html',
 						),
 						// not working with player v2:
 						/*'CaptionsPlyMedia' => array(
 							'title' => 'PlyMedia Captions',
-							'path' => 'Plymedia/tests/Plymedia_Kaltura.html',
+							'path' => 'Plymedia/tests/Plymedia_Borhan.html',
 						)*/
 					)
 				),
 				'Live' => array(
 					'title' => 'Live',
-					'desc' => 'The Kaltura LIVE supports sending streams to both HLS (iOS / mobile) and HDS ( flahs ).',
+					'desc' => 'The Borhan LIVE supports sending streams to both HLS (iOS / mobile) and HDS ( flahs ).',
 					'testfiles' => array(
 						'LiveStream' => array(
 							'title' => 'Live Stream',
-							'path' => 'KalturaSupport/tests/LiveStream.html',
+							'path' => 'BorhanSupport/tests/LiveStream.html',
 						),
 					),
 				),
@@ -56,66 +56,54 @@
 					'testfiles' => array(
 						'CustomMessageAccessControlKS' => array(
 							'title' => 'Custom Control Message',
-							'path' => 'KalturaSupport/tests/AccessControlCustomMessage.html'
+							'path' => 'BorhanSupport/tests/AccessControlCustomMessage.html'
 						),
 						'AccessControlPreview' => array(
 							'title' => 'Access Control Preview',
-							'path' => 'KalturaSupport/tests/AccessControlPreview.qunit.html'
+							'path' => 'BorhanSupport/tests/AccessControlPreview.qunit.html'
 						),
 						'AccessControlPlaylistBlockMobileFirstEntry' => array(
 							'title' => 'Playlist Block Entry',
-							'path' => 'KalturaSupport/tests/AccessControlPlaylistBlockMobileFirstEntry.qunit.html'
+							'path' => 'BorhanSupport/tests/AccessControlPlaylistBlockMobileFirstEntry.qunit.html'
 						)
 					)
 				),
 				'Playlists'=> array(
 					'title' => "Playlists",
-					'desc' => 'Playlists support is built into the kaltura player',
+					'desc' => 'Playlists support is built into the borhan player',
 					'testfiles' => array(
 						'playlistApi' => array(
 							'title' => 'Playlist API',
-							'path' => 'KalturaSupport/tests/PlaylistKalturaApi.qunit.html'
+							'path' => 'BorhanSupport/tests/PlaylistBorhanApi.qunit.html'
+						),
+						'playlistOnPage' => array(
+							'title' => 'Playlist On Page',
+							'path' => '../bWidget/onPagePlugins/playlistOnPage/playlistOnPage.qunit.html'
 						),
 						'ServerSidePlaylist' => array(
 							'title' => "Server Side Playlist",
-							'path' => '../kWidget/onPagePlugins/serverSidePlaylist/ServerSidePlaylist.php'
+							'path' => '../bWidget/onPagePlugins/serverSidePlaylist/ServerSidePlaylist.php'
 						),
-						'PlaylistFeatures' => array(
-							'title' => "Playlist features",
-							'path' => 'KalturaSupport/tests/PlaylistFeatures.qunit.html'
+						'PlaylistVertical' => array(
+							'title' => "Vertical Layout",
+							'path' => 'BorhanSupport/tests/PlaylistVertical.html'
 						),
-						'PlaylistEvents' => array(
-							'title' => "Playlist events",
-							'path' => 'KalturaSupport/tests/PlaylistEvents.qunit.html'
-						),
-						'PlaylistOnPage' => array(
-							'title' => "Playlist on page",
-							'path' => 'KalturaSupport/tests/PlaylistOnPage.qunit.html'
+						'Carousel' => array(
+							'title' => "Carousel",
+							'path' => 'BorhanSupport/tests/Carousel.html'
 						),
 						'PlaylistNoClipList' => array(
 							'title' => "Playlist No Clip List",
-							'path' => 'KalturaSupport/tests/PlaylistNoClipList.qunit.html'
+							'path' => 'BorhanSupport/tests/PlaylistNoClipList.html'
 						),
-						'PlaylistKalturaMRSS' => array(
+						/*'PlaylistBorhanMRSS' => array(
 							'title' => "Media RSS source",
-							'path' => 'KalturaSupport/tests/PlaylistKalturaMRSS.qunit.html'
-						),
+							'path' => 'BorhanSupport/tests/PlaylistBorhanMRSS.html'
+						),*/
 						'PlaylistInitItemEntryId' => array(
 							'title' => "Initial EntryId",
-							'path' => 'KalturaSupport/tests/PlaylistInitItemEntryId.qunit.html'
-						),
-						'PlaylistVAST' => array(
-							'title' => "Playlist VAST ads",
-							'path' => 'KalturaSupport/tests/PlaylistVAST.qunit.html'
-						),
-						'PlaylistDoubleclick' => array(
-							'title' => "Playlist Doubleclick ads",
-							'path' => 'KalturaSupport/tests/PlaylistDoubleclick.qunit.html'
-						),
-                        'PlaylistSideBar' => array(
-                            'title' => "Playlist within side bar",
-                            'path' => 'KalturaSupport/tests/PlaylistSideBar.qunit.html'
-                        )
+							'path' => 'BorhanSupport/tests/PlaylistInitItemEntryId.html'
+						)
 					)
 				),
 			)
@@ -126,11 +114,11 @@
 			'featureSets' => array(
 				'Ads' => array(
 					'title' => "Monetization",
-					'desc' => 'The Kaltura player supports several systems for video monitization.',
+					'desc' => 'The Borhan player supports several systems for video monitization.',
 					'testfiles' => array(
 						'kvast' => array(
 							'title' => 'VAST Preroll & Companion',
-							'path' => 'KalturaSupport/tests/AdFlashvarVastDoubleClickCompanion.qunit.html'
+							'path' => 'BorhanSupport/tests/AdFlashvarVastDoubleClickCompanion.qunit.html'
 						),
 						'vpaid' => array(
 							'title' => 'VPAID',
@@ -138,19 +126,19 @@
 						),
 						'AdPatterns'=>array(
 							'title' => 'Ad Patterns Playlist',
-							'path' => 'KalturaSupport/tests/AdPatternPlaylist.qunit.html'
+							'path' => 'BorhanSupport/tests/AdPatternPlaylist.qunit.html'
 						),
 						'VastAdPods' => array(
 							'title' => 'VAST 3 Ad Pods',
-							'path' => 'KalturaSupport/tests/AdPodsVast3.html'
+							'path' => 'BorhanSupport/tests/AdPodsVast3.html'
 						),
 						'kbumper' => array(
 							'title' => 'Bumper video',
-							'path' => 'KalturaSupport/tests/BumperVideoNoAdd.qunit.html'
+							'path' => 'BorhanSupport/tests/BumperVideoNoAdd.qunit.html'
 						),
 						'kcuepoints' => array(
-							'title' => 'Kaltura Ad Cue Points',
-							'path' => 'KalturaSupport/tests/CuePointsMidrollVast.html'
+							'title' => 'Borhan Ad Cue Points',
+							'path' => 'BorhanSupport/tests/CuePointsMidrollVast.html'
 						),
 						'DoubleClick' => array(
 							'title' => "DoubleClick",
@@ -169,11 +157,11 @@
 				
 				'Analytics' => array(
 					'title' => 'Analytics',
-					'desc' => 'The Kaltura player supports several systems for tracking video playback',
+					'desc' => 'The Borhan player supports several systems for tracking video playback',
 					'testfiles' => array(
-						'KalturaAnalytics' => array( 
-							'title' => 'Kaltura Analytics',
-							'path' => 'KalturaSupport/tests/KalturaAnalytics.qunit.html',
+						'BorhanAnalytics' => array( 
+							'title' => 'Borhan Analytics',
+							'path' => 'BorhanSupport/tests/BorhanAnalytics.qunit.html',
 						),
 						'AkamaiAnalytics' => array( 
 							'title' => 'Akamai Analytics',
@@ -201,7 +189,7 @@
 						),
 						'OmnitureOnPage' => array(
 							'title' => 'Omniture sCode config',
-							'path' => '../kWidget/onPagePlugins/omnitureOnPage/OmnitureOnPage.qunit.html',
+							'path' => '../bWidget/onPagePlugins/omnitureOnPage/OmnitureOnPage.qunit.html',
 						),
 						/*'OmnitureSiteCatalyst15' => array(
 							'title' => 'Omniture manual config',
@@ -215,41 +203,23 @@
 					'testfiles' => array(
 						'chaptersView' => array(
 							'title' => 'Chapters',
-							'path' => '../kWidget/onPagePlugins/chapters/chaptersView.qunit.html'
+							'path' => '../bWidget/onPagePlugins/chapters/chaptersView.qunit.html'
 						),
 						'chaptersEdit' => array(
 							'title' => 'Chapters Editor',
-							'path' => '../kWidget/onPagePlugins/chapters/chaptersEdit.qunit.html'
+							'path' => '../bWidget/onPagePlugins/chapters/chaptersEdit.qunit.html'
 						),
-						/*'AttracTV' => array(
+						'AttracTV' => array(
 							'title' => 'AttracTV',
 							'path' => 'AttracTV/tests/AttracTV.qunit.html'
-						),*/
+						),
 						'LimeSurvey' => array(
 							'title' => 'LimeSurvey On Video',
-							'path' => '../kWidget/onPagePlugins/limeSurveyCuePointForms/limeSurveyCuePointForms.qunit.html'
+							'path' => '../bWidget/onPagePlugins/limeSurveyCuePointForms/limeSurveyCuePointForms.qunit.html'
 						),
 						'videoDetailsBlock' => array(
 							'title' => 'Video Details Block',
-							'path' => '../kWidget/onPagePlugins/videoDetailsBlock/videoDetailsBlock.qunit.html'
-						),
-					)
-				),
-				'CallToAction' => array(
-					'title' => 'Call To Action',
-					'desc' => 'Call to action plugins.',
-					'testfiles' => array(
-						'ActionButtons' => array(
-							'title' => 'Basic Buttons',
-							'path' => 'CallToAction/tests/ActionButtons.qunit.html'
-						),
-						'RelatedButtons' => array(
-							'title' => 'Related Buttons',
-							'path' => 'CallToAction/tests/ActionButtonsRelated.qunit.html'
-						),
-						'ActionForm' => array(
-							'title' => 'Submit Form',
-							'path' => 'CallToAction/tests/ActionForm.qunit.html'
+							'path' => '../bWidget/onPagePlugins/videoDetailsBlock/videoDetailsBlock.qunit.html'
 						),
 					)
 				),
@@ -271,23 +241,23 @@
 			'featureSets' => array(
 				'Custom_Players' => array(
 					'title' => "Player Appearance",
-					'desc' => 'The Kaltura supports loading external CSS and JS to customize players look and feel',
+					'desc' => 'The Borhan supports loading external CSS and JS to customize players look and feel',
 					'testfiles' => array(
 						'ExternalResources' => array(
 							'title' => 'External Resources',
-							'path' => 'KalturaSupport/tests/ExternalResources.qunit.html'
+							'path' => 'BorhanSupport/tests/ExternalResources.qunit.html'
 						),
 						'Chromeless' => array(
 							'title' => 'Chromeless No Controls',
-							'path' => 'KalturaSupport/tests/ChromelessPlayer.qunit.html'
+							'path' => 'BorhanSupport/tests/ChromelessPlayer.qunit.html'
 						),
-						'Strings' => array(
-							'title' => 'Custom Strings',
-							'path' => 'KalturaSupport/tests/Strings.html'
-						),/*
+						/*'CustomSkin' => array(
+							'title' => 'Custom Skin',
+							'path' => 'BorhanSupport/tests/CustomSkin.html'
+						),
 						'CustomSkinAudioPlayer' => array(
 							'title' => 'Custom Audio Player Skin',
-							'path' => 'KalturaSupport/tests/CustomSkinAudioPlayer.html'
+							'path' => 'BorhanSupport/tests/CustomSkinAudioPlayer.html'
 						)*/
 					)
 				),
@@ -298,35 +268,35 @@
 					'testfiles' => array(
 						'Watermark' => array(
 							'title' => 'Player Watermark',
-							'path' => 'KalturaSupport/tests/WatermarkTest.qunit.html'
+							'path' => 'BorhanSupport/tests/WatermarkTest.qunit.html'
 						),
 						'branding' => array(
 							'title' => 'Custom Branding',
-							'path' => 'KalturaSupport/tests/branding.html'
+							'path' => 'BorhanSupport/tests/branding.html'
 						),
 						'TitleLabel' => array(
 							'title' => 'Title Label',
-							'path' => 'KalturaSupport/tests/TitleLabel.qunit.html'
+							'path' => 'BorhanSupport/tests/TitleLabel.qunit.html'
 						),
 						'Share' => array(
 							'title' => 'Share',
-							'path' => 'KalturaSupport/components/share/Share.html'
+							'path' => 'BorhanSupport/components/share/Share.html'
 						),
 						'Info' => array(
 							'title' => 'Info',
-							'path' => 'KalturaSupport/components/info/Info.html'
+							'path' => 'BorhanSupport/components/info/Info.html'
 						),
 						'Related' => array(
 							'title' => 'Related',
-							'path' => 'KalturaSupport/components/related/Related.html'
+							'path' => 'BorhanSupport/components/related/Related.html'
 						),
 						'FlavorSelector' => array(
 							'title' => 'Flavor Selection',
-							'path' => 'KalturaSupport/tests/FlavorSelector.preferedFlavorBR.qunit.html'
+							'path' => 'BorhanSupport/tests/FlavorSelector.preferedFlavorBR.qunit.html'
 						),
 						'PlaybackRateSelector' => array(
 							'title' => "Playback Rate Selector",
-							'path' => 'KalturaSupport/tests/PlaybackRate.qunit.html'
+							'path' => 'BorhanSupport/tests/PlaybackRate.qunit.html'
 						)
 					)
 				),
@@ -338,52 +308,44 @@
 			'featureSets' => array(
 		
 				'Embedding'  => array(
-					'title' => 'Embedding the Kaltura player',
-					'desc' => 'These files cover basic embedding from <a href="#rewrite">legacy</a> object embed, to the dynamic <a href="#kwidget">kWidget</a> embed method', 
+					'title' => 'Embedding the Borhan player',
+					'desc' => 'These files cover basic embedding from <a href="#rewrite">legacy</a> object embed, to the dynamic <a href="#bwidget">bWidget</a> embed method', 
 					'testfiles' =>array(
-						'kwidget' => array(
+						'bwidget' => array(
 							'title' => 'Dynamic embed',
-							'path' => 'KalturaSupport/tests/kWidget.embed.qunit.html'
+							'path' => 'BorhanSupport/tests/bWidget.embed.qunit.html'
 						),
 						'autoEmbed' => array(
 							'title' => 'Auto embed',
-							'path' => 'KalturaSupport/tests/AutoEmbed.html'
+							'path' => 'BorhanSupport/tests/AutoEmbed.html'
 						),
 						'thumb' => array( 
 							'title' => 'Thumbnail embed',
-							'path' => 'KalturaSupport/tests/ThumbnailEmbedManyPlayers.qunit.html',
-						),
-						'responsive' => array(
-							'title' => "Responsive embed",
-							'path' => 'KalturaSupport/tests/RWDMinimal.html',
-						),
-						'NativeCallout'=> array(
-							'title' => 'Native callout',
-							'path' => 'KalturaSupport/tests/NativeCalloutComingSoon.html',
+							'path' => 'BorhanSupport/tests/ThumbnailEmbedManyPlayers.qunit.html',
 						),
 						'referenceId' => array(
 							'title' => 'Reference Id',
-							'path' => 'KalturaSupport/tests/ReferenceId.html'
+							'path' => 'BorhanSupport/tests/ReferenceId.html'
 						),
-						'kwidgetPlaylist' => array( 
-							'title' => 'kWidget playlist',
-							'path' => 'KalturaSupport/tests/kWidget.embed.playlist.qunit.html'
+						'bwidgetPlaylist' => array( 
+							'title' => 'bWidget playlist',
+							'path' => 'BorhanSupport/tests/bWidget.embed.playlist.qunit.html'
 		 				),
 						'rewrite' => array(
 							'title' => 'Object rewrite ( legacy )',
-							'path' => 'KalturaSupport/tests/BasicPlayer.qunit.html'
+							'path' => 'BorhanSupport/tests/BasicPlayer.qunit.html'
 						),
 		 				'swfObject' => array(
 		 					'title' => 'swfObject ( legacy )', 
-							'path' => 'KalturaSupport/tests/EmbedSWFObject.2.2.qunit.html'
+							'path' => 'BorhanSupport/tests/EmbedSWFObject.2.2.qunit.html'
 		 				),
 						'Flashembed' => array(
 		 					'title' => 'flashembed ( legacy )', 
-							'path' => 'KalturaSupport/tests/Flashembed.onPageLinks.qunit.html'
+							'path' => 'BorhanSupport/tests/Flashembed.onPageLinks.qunit.html'
 						),
 						'PlayerRules' => array(
 							'title' => 'Player Rules',
-							'path' => 'KalturaSupport/tests/UserAgentPlayerRules.html'
+							'path' => 'BorhanSupport/tests/UserAgentPlayerRules.html'
 						)
 		 			)
 				), // Embedding
@@ -391,39 +353,39 @@
 				
 				'Player_API' => array(
 					'title' => "Player API",
-					'desc' => 'The Kaltura player includes a robust API to build custom media experiences.',
+					'desc' => 'The Borhan player includes a robust API to build custom media experiences.',
 					'testfiles' => array(
 						'kbind' => array(
 							'title' => 'kBind and kUnbind',
-							'path' => 'KalturaSupport/tests/kBind_kUnbind.qunit.html'
+							'path' => 'BorhanSupport/tests/kBind_kUnbind.qunit.html'
 						),
 						'changeMedia' => array(
 							'title' => 'Change Media Entry',
-							'path' => 'KalturaSupport/tests/ChangeMediaEntry.qunit.html'
+							'path' => 'BorhanSupport/tests/ChangeMediaEntry.qunit.html'
 						),
 						'BufferEvents' => array(
 							'title' => 'Buffer Events',
-							'path' => 'KalturaSupport/tests/BufferEvents.qunit.html'
+							'path' => 'BorhanSupport/tests/BufferEvents.qunit.html'
 						),
 						'SeekApi' => array(
 							'title' => 'Seek Api', 
-							'path' => 'KalturaSupport/tests/SeekApi.qunit.html'
+							'path' => 'BorhanSupport/tests/SeekApi.qunit.html'
 						),
 						'StartEndPreview' => array(
 							'title' => "Start End Preview",
-							'path' => 'KalturaSupport/tests/PlayFromOffsetStartTimeToEndTime.html'
+							'path' => 'BorhanSupport/tests/PlayFromOffsetStartTimeToEndTime.html'
 						),
 						'CustomMetaData' => array( 
 							'title' => 'Access Custom Meta Data',
-							'path' => 'KalturaSupport/tests/CustomMetaData.html'
+							'path' => 'BorhanSupport/tests/CustomMetaData.html'
 						),
 						'showAlert' =>  array(
 							'title' => 'Show Alert',
-							'path' => 'KalturaSupport/tests/showAlert.html'
+							'path' => 'BorhanSupport/tests/showAlert.html'
 						),
 						'AutoPlay' => array(
 							'title' => 'Auto play',
-							'path' => 'KalturaSupport/tests/AutoPlay.qunit.html'
+							'path' => 'BorhanSupport/tests/AutoPlay.qunit.html'
 						)
 					)
 				),
@@ -434,7 +396,7 @@
 					'testfiles' => array(
 						'getSources' => array(
 							'title' => 'Get Flavor Urls',
-							'path' => '../kWidget/tests/kWidget.getSources.html',
+							'path' => '../bWidget/tests/bWidget.getSources.html',
 						),
 						'selfHostedSources' => array(
 							'title' => 'Self Hosted Player Sources',

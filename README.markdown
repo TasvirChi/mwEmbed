@@ -1,16 +1,16 @@
-## Library Overview 
+## Library Overview
 
-__Kaltura's HTML5 Media Library__ enables you leverage a unified configuration and development API for both HTML5 and Flash. It enables delivery of rich on page and in player experiences backed by robust metadata and per device asset delivery of the [kaltura platform](http://corp.kaltura.com/). It supports a [wide range of features](http://html5video.org/kaltura-player/docs/), an external and internal plugin model, advanced html5 player, and custom skins. 
+__Borhan's HTML5 Media Library__ enables you leverage a unified configuration and development API for both HTML5 and Flash. It enables delivery of rich on page and in player experiences backed by robust metadata and per device asset delivery of the [borhan platform](http://corp.borhan.com/). It supports a [wide range of features](http://html5video.org/borhan-player/docs/), an external and internal plugin model, advanced html5 player, and custom skins. 
 
 ## Documentation
 
-Your first stop for kaltura related integration questions should be the [Kaltura HTML5 Configuration](http://html5video.org/wiki/Kaltura_HTML5_Configuration)
+Your first stop for borhan related integration questions should be the [Borhan HTML5 Configuration](http://html5video.org/wiki/Borhan_HTML5_Configuration)
 
-Library documentation for installation, configuration, and usage is maintained on the [html5video.org wiki](http://html5video.org/wiki/Category:Kaltura_HTML5_Video_Library_Documentation)
+Library documentation for installation, configuration, and usage is maintained on the [html5video.org wiki](http://html5video.org/wiki/Category:Borhan_HTML5_Video_Library_Documentation)
 
-Also you can find us on #kaltura in irc.freeNode.net
+Also you can find us on #borhan in irc.freeNode.net
 
-Can't find what your looking for in the documentation, ran into an issue check the [Kaltura players official forums](http://forum.kaltura.org/categories/kaltura-players-and-player-plugins). 
+Can't find what your looking for in the documentation, ran into an issue check the [Borhan players official forums](http://forum.borhan.org/categories/borhan-players-and-player-plugins). 
 
 ## Quick start
 
@@ -20,44 +20,28 @@ Can't find what your looking for in the documentation, ran into an issue check t
 
 ## Hacking on mwEmbed
 
-* Pull requests can be sent to <a href="https://github.com/kaltura/mwEmbed/">our git hub repo</a>. Pull requests should be open against the master branch.
+* Pull requests can be sent to <a href="https://github.com/borhan/mwEmbed/">our git hub repo</a>. 
 * Our coding conventions <a href="http://www.mediawiki.org/wiki/Manual:Coding_conventions/JavaScript">follow mediaWiki js guidelines</a>. 
-* See [getting strated guide](http://knowledge.kaltura.com/kaltura-player-toolkit-theme-skin-and-plugins-guide)
-* Also see [Yeoman project](https://github.com/kaltura/generator-kalturaplayer-module) for auto generating skeleton kaltura player plugins.  
 
 ## Release Notes
 
-[Release Notes ](https://github.com/kaltura/mwEmbed/tags) documents every release and provides production, staging and zip downloads. 
-
-## Libraries and sub-projects
-
-### Kaltura developed
-
-* [Chromless flash kdp](https://github.com/kaltura/chromeless-kdp) 
-* [Chromeless sliverlight](https://github.com/kaltura/chromeless-silverlight)
-* [OSMF HLS for flash](https://github.com/kaltura/HLS-OSMF) -- repo not yet public
-* Android HLS player -- repo not yet public
-* [Player Studio](https://github.com/kaltura/player-studio) -- visual player config JSON editor 
-
-### External libraries 
-
-* [Resource Loader](https://www.mediawiki.org/wiki/ResourceLoader)
-* [jQuery](http://jquery.com/) 
-* [bootstrap](http://getbootstrap.com/) -- for documentation pages
-* [Shaka Player](https://github.com/google/shaka-player) -- for project page
-* [hls.js](https://github.com/dailymotion/hls.js) -- for project page
+[Release Notes ](http://html5video.org/wiki/Borhan_HTML5_Release_Notes) documents every release and provides production, staging and zip downloads. 
 
 ## Library Features
 
-The [kaltura player feature hub](http://player.kaltura.com/docs/) hosts most of the libraries features and associated test files.  
+The [borhan player feature hub](http://player.borhan.com/docs/) hosts most of the libraries features and associated test files.  
 
 ## Timed Media Handler
 
-Kaltura HTML5 library is the upstream library for the wikimedia video support in <a href="http://www.mediawiki.org/wiki/Extension:TimedMediaHandler">Timed Media Handler</a>
+Borhan HTML5 library is the upstream library for the wikimedia video support in <a href="http://www.mediawiki.org/wiki/Extension:TimedMediaHandler">Timed Media Handler</a>
 
 ## License and Copyright Information
 
 All mwEmbed code is released under the AGPLv3 unless a different license for a particular library is specified in the applicable library path
 
-Authors: See [GitHub contributors list](https://github.com/kaltura/mwEmbed/graphs/contributors).
+Copyright (C) 2007-2012 Borhan, Wikimedia Foundation
+
+Sub modules and libraries carry specific copyright.
+
+Author Michael Dale, Ran Yefet, Avi Vaisenberger, Itay Kinnrot, Michal Radwantzor and many others.
 

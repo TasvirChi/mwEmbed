@@ -2,18 +2,18 @@
  * Stand alone source grabber.
  */
 
-if( ! window.kWidget ){
-	window.kWidget = {};
+if( ! window.bWidget ){
+	window.bWidget = {};
 }
-( function( kWidget ) {
+( function( bWidget ) {
 	// Add master exported function:
-	kWidget.getSources = function( settings ){
-		var sourceApi = new kWidget.api( { 'wid' : '_' + settings.partnerId } );
+	bWidget.getSources = function( settings ){
+		var sourceApi = new bWidget.api( { 'wid' : '_' + settings.partnerId } );
 		sourceApi.doRequest([
 		{
 			'contextDataParams' : {
 				'referrer' : document.URL,
-				'objectType' : 'KalturaEntryContextDataParams',
+				'objectType' : 'BorhanEntryContextDataParams',
 				'flavorTags': 'all'
 			},
 			'service' : 'baseentry',
@@ -34,15 +34,15 @@ if( ! window.kWidget ){
 			// Set the service url based on protocol type
 			var serviceUrl;
 			if( protocol == 'https' ){
-				serviceUrl = 'https://www.kaltura.com';
+				serviceUrl = 'https://www.borhan.com';
 			} else {
-				serviceUrl = 'http://cdnbakmi.kaltura.com';
+				serviceUrl = 'http://cdnbakmi.borhan.com';
 			}
+	
 			var baseUrl = serviceUrl + '/p/' + settings.partnerId +
 					'/sp/' + settings.partnerId + '00/playManifest';
-
-			for( var i in result[0]['flavorAssets'] ){
-				var asset = result[0]['flavorAssets'][i];
+			for( var i in result[1]['flavorAssets'] ){
+				var asset = result[1]['flavorAssets'][i];
 				// Continue if clip is not ready (2)
 				if( asset.status != 2  ) {
 					continue;
@@ -56,7 +56,6 @@ if( ! window.kWidget ){
 	
 	
 				var src  = baseUrl + '/entryId/' + asset.entryId;
-				
 				// Check if Apple http streaming is enabled and the tags include applembr ( single stream HLS )
 				if( asset.tags.indexOf('applembr') != -1 ) {
 					src += '/format/applehttp/protocol/'+ protocol + '/a.m3u8';
@@ -71,12 +70,7 @@ if( ! window.kWidget ){
 				} else {
 					src += '/flavorId/' + asset.id + '/format/url/protocol/' + protocol;
 				}
-				// add source data if a web flavor: 
-				if( asset.tags.toLowerCase().indexOf('web') != -1 ){
-					source['data-flavorid'] = asset.videoCodecId + ' ' + asset.height + 'P';
-					source['src'] = src + '/a.' + asset.fileExt;
-					source['type'] = 'video/h264';
-				}
+	
 				// add the file extension:
 				if( asset.tags.toLowerCase().indexOf('ipad') != -1 ){
 					source['src'] = src + '/a.mp4';
@@ -109,7 +103,7 @@ if( ! window.kWidget ){
 				if( asset.fileExt == 'webm'
 					||
 					asset.tags.indexOf('webm') != -1
-					|| // Kaltura transcodes give: 'matroska'
+					|| // Borhan transcodes give: 'matroska'
 					( asset.containerFormat && asset.containerFormat.toLowerCase() == 'matroska' )
 					|| // some ingestion systems give "webm"
 					( asset.containerFormat && asset.containerFormat.toLowerCase() == 'webm' )
@@ -161,14 +155,14 @@ if( ! window.kWidget ){
 			// callback with device sources, poster
 			if( settings.callback ){
 				settings.callback({
-					'poster': result[1]['thumbnailUrl'],
-					'duration': result[1]['duration'],
-					'name': result[1]['name'],
-					'entryId' :  result[1]['id'],
-					'description': result[1]['description'],
+					'poster': result[2]['thumbnailUrl'],
+					'duration': result[2]['duration'],
+					'name': result[2]['name'],
+					'entryId' :  result[2]['id'],
+					'description': result[2]['description'],
 					'sources': deviceSources
 				});
 			}
 		});
 	};
-} )( window.kWidget );
+} )( window.bWidget );

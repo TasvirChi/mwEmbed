@@ -1,8 +1,32 @@
-<?php
+<?php 
 return array(
+	'playlistOnPage' => array( 
+		'description' => 'Adds a playlist to the page, per player defined playlist id. This enables custom on-page css to theme the playlist to the host page.',
+		'attributes' => array(
+			'plugin' => array(
+				'hideEdit' => true,
+			),
+			'path' => array(
+				'hideEdit' => true
+			),
+			'clipListTargetId' => array(
+				'doc' => 'Target div for ul list of clips, appended after player if null',
+				'type' => 'string'
+			),
+			'layoutMode' => array(
+				'doc' => "Layout mode of playlist ( vertical or horizontal ) ",
+				'type' => 'enum',
+				'enum' => array( 'vertical', 'horizontal' )
+			),
+			'thumbWidth' => array(
+				'doc' => "The width of the clip thumbnails in pixels ( default 110 )",
+				'type' => 'number',
+			)
+		)
+	),
 	'omnitureOnPage' => array(
 		'description' => 'The Omniture s_code config version of the plugin, allows you to connect the Omniture plugin to your existing s_code.js
-			configuration for easy integration of video analytics into an Omniture site.<br>For full implementation guide see <a target="_new" href="http://knowledge.kaltura.com/omniture-plugin-setup-and-information-guide">Omniture on page</a> in the Knowledge Center',
+			configuration for easy integration of video analytics into an Omniture site.',
 		'attributes' => array(
 			's_codeUrl' => array(
 				'doc' => "The URL to the Ominture generated sCode file that must be set in the uiConf (not via flashvars). This parameter is required for the plugin to work.",
@@ -12,12 +36,6 @@ return array(
 				'doc' => "The name of s_code entry point in the global window scope. ( \"s\" by default ).",
 				'label' => 'Entry code name',
 				'initvalue' => 's',
-				'type' => 'string'
-			),
-			'onPageJs1' => array(
-				'doc' => "The link to the omnitureOnPage plugin script.",
-				'label' => 'Plugin script URL',
-				'initvalue' => '{onPagePluginPath}/omnitureOnPage/resources/omnitureOnPage.js',
 				'type' => 'string'
 			),
 			'monitorEventInterval' => array(
@@ -37,8 +55,8 @@ return array(
 				'type'=> 'string'
 			),
 			'customEvents' => array(
-				'doc' => "A comma separated list of Kaltura player events you want to track.",
-				'label' => 'Kaltura player events',
+				'doc' => "A comma separated list of Borhan player events you want to track.",
+				'label' => 'Borhan player events',
 				'type'=> 'string'
 			),
 			'additionalEvarsAndProps' => array(
@@ -47,20 +65,10 @@ return array(
 				'type' => 'string'
 			),
 			'additionalEvarsAndPropsValues' => array(
-				'doc' => "A comma separated list of Kaltura values, you want to pass along with every media event.
+				'doc' => "A comma separated list of Borhan values, you want to pass along with every media event.
 				Values will correspond to the evars and props comma separated map defined in additionalEvarsAndProps.",
-				'label' => 'Kaltura values',
+				'label' => 'Borhan values',
 				'type' => 'string'
-			),
-			'autoTrack' => array(
-				'doc' => "Default true, Value passed to autoTrack Omniture media module property.",
-				'type' => 'boolean',
-				'initvalue' => true
-			), 
-			'trackWhilePlaying' => array(
-				'doc' => "Default true, Value passed to trackWhilePlaying Omniture media module property.",
-				'type' => 'boolean',
-				'initvalue' => true
 			)
 		)
 	),
@@ -191,19 +199,19 @@ return array(
 		)
 	),
 	'chaptersView' => array(
-	 	'description' => 'Display video chapter information. See <a target="_blank" href="http://player.kaltura.com/kWidget/onPagePlugins/chapters/ChapterSamples.html">chapter samples</a>, for highlighted sample chapter configuration',
+	 	'description' => 'Display video chapter information. See <a target="_blank" href="http://player.borhan.com/bWidget/onPagePlugins/chapters/ChapterSamples.html">chapter samples</a>, for highlighted sample chapter configuration',
 		'attributes' => array(
 			'containerId' => array(
 				'doc'=> "Default: null, The chapter container id, will override some layout settings and allow you to place the chapters in a target div.",
 				'type' => 'string'
 			),
 			'tags' => array(
-				'doc' => 'Default: "chaptering"ï¿½ Providing a tag name will grab only annotations which have that tag. 
+				'doc' => 'Default: "chaptering"â Providing a tag name will grab only annotations which have that tag. 
 									This allows multiple types of cuePoints to be stored on the same entry (e.g. chapters in different languages)',
 				'type' => 'string'
 			),
 			'parentName' => array(
-				'doc' => 'Default: "chaptering"ï¿½ Providing a parentName will force querying only annotations whose parent fits parentName. 
+				'doc' => 'Default: "chaptering"â Providing a parentName will force querying only annotations whose parent fits parentName. 
 									This allows multiple types of cuePoints to be stored on the same entry (e.g. chapters, references, ads).',
 				'type' => 'string'
 			),
@@ -220,7 +228,7 @@ return array(
 				'enum' => array( 'before', 'after', 'left', 'right' )
 			),
 			'overflow' => array(
-				'doc' => 'Defines what should happen in case list of chapters require more space than videos dimensions. Combined with theï¿½ layoutï¿½ and positionï¿½ parameters, this parameter will cause a prev/next UI to appear if overflow is set to false.',
+				'doc' => 'Defines what should happen in case list of chapters require more space than videos dimensions. Combined with theâ layoutâ and positionâ parameters, this parameter will cause a prev/next UI to appear if overflow is set to false.',
 				'type' => 'boolean',
 			),
 			'includeThumbnail' => array(
@@ -292,7 +300,7 @@ return array(
 			),
 			'path' => array(
 				'doc' => "",
-				'initvalue' => '/content/uiconf/ps/kaltura/kdp/v3.6.9/plugins/facadePlugin.swf',
+				'initvalue' => '/content/uiconf/ps/borhan/bdp/v3.6.9/plugins/facadePlugin.swf',
 				'type' => 'hidden'
 			),
 			'chapterRenderer' => array(

@@ -28,13 +28,13 @@ mw.MediaPlayers.prototype = {
 		this.loadPreferences();
 
 		// Set up default players order for each library type
-		this.defaultPlayers['video/wvm'] = ['NativeComponent'];
+		this.defaultPlayers['video/wvm'] = ['Kplayer'];
 		this.defaultPlayers['video/live'] = ['Kplayer'];
 		this.defaultPlayers['video/kontiki'] = ['Kplayer'];
 		this.defaultPlayers['video/x-flv'] = ['Kplayer', 'Vlc'];
-		this.defaultPlayers['video/h264'] = ['NativeComponent', 'Native', 'Kplayer', 'Silverlight', 'Vlc'];
-		this.defaultPlayers['video/mp4'] = ['NativeComponent', 'Native', 'Kplayer', 'Silverlight', 'Vlc'];
-		this.defaultPlayers['application/vnd.apple.mpegurl'] = ['Native'];
+		this.defaultPlayers['video/h264'] = ['NativeComponent', 'Native', 'Kplayer', 'Vlc'];
+		this.defaultPlayers['video/mp4'] = ['NativeComponent', 'Native', 'Kplayer', 'Vlc'];		
+		this.defaultPlayers['application/vnd.apple.mpegurl'] = ['NativeComponent', 'Native'];
 		this.defaultPlayers['application/x-shockwave-flash'] = ['Kplayer'];
 
 		this.defaultPlayers['video/ogg'] = ['Native', 'Vlc', 'Java', 'Generic'];
@@ -53,26 +53,11 @@ mw.MediaPlayers.prototype = {
 
 		this.defaultPlayers['image/jpeg'] = ['ImageOverlay'];
 		this.defaultPlayers['image/png'] = ['ImageOverlay'];
+
 		if ( mw.getConfig("LeadWithHLSOnFlash") ) {
 			this.defaultPlayers['application/vnd.apple.mpegurl'].push('Kplayer');
 		}
-		if ( mw.getConfig("chromecastReceiver") ) {
-			this.defaultPlayers['application/vnd.apple.mpegurl'].push('ChromecastReceiver');
-		}
-		// If nativeComponent can play dash, use it.
-        if ($.inArray('application/dash+xml',  window.kNativeSdk && window.kNativeSdk.allFormats) >= 0) {
-            this.defaultPlayers['application/dash+xml'] = ['NativeComponent'];
-        }
 
-		// If nativeComponent can play hls, use it.
-		if (window.kNativeSdk && window.kNativeSdk.allFormats) {
-			if ( $.inArray( 'application/vnd.apple.mpegurl' , window.kNativeSdk && window.kNativeSdk.allFormats ) >= 0 ) {
-				this.defaultPlayers['application/vnd.apple.mpegurl'] = ['NativeComponent'];
-			}
-		} else {
-			//backward compatibility for sdk that don't send the allFormats param
-			this.defaultPlayers['application/vnd.apple.mpegurl'].push('NativeComponent');
-		}
 	},
 
 	/**
@@ -103,14 +88,7 @@ mw.MediaPlayers.prototype = {
 		}
 		return false;
 	},
-	getPlayerById: function(playerId){
-		for( var i=0; i < this.players.length; i++ ){
-			if( this.players[i].id.toLowerCase() == playerId.toLowerCase() ){
-				return this.players[i];
-			}
-		}
-		return null;
-	},
+
 	/**
 	 * get players that support a given mimeType
 	 *
@@ -133,40 +111,7 @@ mw.MediaPlayers.prototype = {
 		}
 		return mimePlayers;
 	},
-	setMIMETypePlayers: function( mimeType, playerName ){
-		if (this.defaultPlayers[mimeType] && $.isArray(this.defaultPlayers[mimeType])) {
-			var contains = false;
-			$.each(this.defaultPlayers[mimeType], function(index, name){
-				if (name === playerName){
-					contains = true;
-					return false;
-				}
-			});
-			if (!contains) {
-				this.defaultPlayers[mimeType].push(playerName);
-			}
-		} else {
-			this.defaultPlayers[mimeType] = [playerName];
-		}
-	},
-	removeMIMETypePlayers: function( mimeType, playerName ){
-		if (this.defaultPlayers[mimeType] && $.isArray(this.defaultPlayers[mimeType])) {
-			var _this = this;
-			$.each(this.defaultPlayers[mimeType], function(index, name){
-				if (name === playerName){
-					_this.defaultPlayers[mimeType].splice(index, 1);
-					return false;
-				}
-			});
-		}
-	},
-	/**
-	 * Deprecated method call lacked get prefix for getter. 
-	 */
-	defaultPlayer: function( mimeType ){
-		mw.log( "MediaPlayer:: defaultPlayer has been deprecated, use getDefaultPlayer method instead" );
-		return getDefaultPlayer( mimeType );
-	},
+
 	/**
 	 * Default player for a given mime type
 	 *
@@ -174,75 +119,32 @@ mw.MediaPlayers.prototype = {
 	 *	  mimeType Mime type of the requested player
 	 * @return Player for mime type null if no player found
 	 */
-	getDefaultPlayer : function( mimeType ) {
+	defaultPlayer : function( mimeType ) {
 		// mw.log( "get defaultPlayer for " + mimeType );
-		var mimePlayers = this.getMIMETypePlayers( mimeType );
-		if (mw.getConfig( 'chromecastReceiver')) {
-			return this.getPlayerById('chromecastReceiver');
-		}
-		if ( mw.getConfig( 'EmbedPlayer.ForceNativeComponent' ) && this.isSupportedPlayer( 'nativeComponentPlayer' )) {
-			var nativeComponentPlayer = mw.EmbedTypes.getNativeComponentPlayerVideo();
-			var imageOverlayPlayer = mw.EmbedTypes.getNativeImageOverlayPlayer();
-			if (this.isPlayerSupportMimeType(mimePlayers, nativeComponentPlayer)) {
-				mimePlayers = [nativeComponentPlayer];
-			} else if(imageOverlayPlayer.supportsMIMEType(mimeType) ) {
-				mimePlayers = [imageOverlayPlayer];
-			} else {
-				mimePlayers = [];
-			}
-		}
-		if ( ( mw.getConfig( 'EmbedPlayer.ForceKPlayer' ) ||
-			( mw.getConfig( 'ForceFlashOnDesktopSafari') && mw.isDesktopSafari() ) ) &&
-			this.isSupportedPlayer( 'kplayer' ) && mimeType !== "video/youtube" ) {
-			var kplayer = mw.EmbedTypes.getKplayer();
-			if (this.isPlayerSupportMimeType(mimePlayers, kplayer)) {
-				mimePlayers = [kplayer];
-			} else {
-				mimePlayers = [];
-			}
-		}
-		if (mw.getConfig( 'EmbedPlayer.ForceSPlayer') && this.isSupportedPlayer('splayer')) {
-			var silverlightPlayer = mw.EmbedTypes.getSilverlightPlayer();
-			if (this.isPlayerSupportMimeType(mimePlayers, silverlightPlayer)) {
-				mimePlayers = [silverlightPlayer];
-			} else {
-				mimePlayers = [];
-			}
+		if ( mw.getConfig( 'EmbedPlayer.ForceNativeComponent' )) {
+			return mw.EmbedTypes.getNativeComponentPlayerVideo();
 		}
 
-		// Check for prior preference for this mime type
-		for ( var i = 0; i < mimePlayers.length; i++ ) {
-			if ( mimePlayers[i].id == this.preference[mimeType] ){
-				mimePlayers = [mimePlayers[i]];
-				break;
-			}
+		if ( mw.getConfig( 'EmbedPlayer.ForceKPlayer' ) && this.isSupportedPlayer( 'kplayer' ) ) {
+			return mw.EmbedTypes.getKplayer();
 		}
-		// Otherwise just return the first compatible player
-		// (it will be chosen according to the defaultPlayers list
-		if( mimePlayers[0] ){
+		if (mw.getConfig( 'EmbedPlayer.ForceSPlayer') && this.isSupportedPlayer('splayer')) {
+			return mw.EmbedTypes.getSilverlightPlayer();
+		}
+
+		var mimePlayers = this.getMIMETypePlayers( mimeType );
+
+		if ( mimePlayers.length > 0 ){
+			// Check for prior preference for this mime type
+			for ( var i = 0; i < mimePlayers.length; i++ ) {
+				if ( mimePlayers[i].id == this.preference[mimeType] )
+					return mimePlayers[i];
+			}
+			// Otherwise just return the first compatible player
+			// (it will be chosen according to the defaultPlayers list
 			return mimePlayers[0];
 		}
 		// mw.log( 'No default player found for ' + mimeType );
-		return null;
-	},
-	isPlayerSupportMimeType: function(mimePlayers, player){
-		var playerSupported = mimePlayers.filter(function(mimePlayer){
-			return mimePlayer.id === player.id;
-		});
-		return (playerSupported.length > 0);
-	},
-	/**
-	 * Returns only a native video tag player
-	 * @param {String}
-	 * 	mimeType for player selection criteria 
-	 */
-	getNativePlayer: function( mimeType ){
-		var mimePlayers = this.getMIMETypePlayers( mimeType );
-		for ( var i = 0; i < mimePlayers.length; i++ ) {
-			if( mimePlayers[i].library == 'Native' ){
-				return mimePlayers[i];
-			}
-		}
 		return null;
 	},
 

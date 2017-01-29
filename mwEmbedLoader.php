@@ -1,20 +1,19 @@
 <?php
-// Include configuration
+// Include configuration 
 require_once( realpath( dirname( __FILE__ ) ) . '/includes/DefaultSettings.php' );
-require_once( realpath( dirname( __FILE__ ) ) . '/modules/KalturaSupport/KalturaCommon.php' );
+require_once( realpath( dirname( __FILE__ ) ) . '/modules/BorhanSupport/BorhanCommon.php' );
 
 // only include the iframe if we need to: 
 // Include MwEmbedWebStartSetup.php for all of mediawiki support
 if( isset( $_GET['autoembed'] ) ){
-	$externalPlayersPath =  realpath( dirname( __FILE__ ) ) . '/modules/ExternalPlayers/ExternalPlayers.json';
-	$plugins = json_decode( file_get_contents($externalPlayersPath ), TRUE );
+	require_once( realpath( dirname( __FILE__ ) ) . '/modules/ExternalPlayers/ExternalPlayers.php' );
 	require ( dirname( __FILE__ ) . '/includes/MwEmbedWebStartSetup.php' );
-	require_once( realpath( dirname( __FILE__ ) ) . '/modules/KalturaSupport/kalturaIframeClass.php' );
+	require_once( realpath( dirname( __FILE__ ) ) . '/modules/BorhanSupport/borhanIframeClass.php' );
 }
 
 // Check for custom resource ps config file:
-if( isset( $wgKalturaPSHtml5SettingsPath ) && is_file( $wgKalturaPSHtml5SettingsPath ) ){
-	require_once( $wgKalturaPSHtml5SettingsPath );
+if( isset( $wgBorhanPSHtml5SettingsPath ) && is_file( $wgBorhanPSHtml5SettingsPath ) ){
+	require_once( $wgBorhanPSHtml5SettingsPath );
 }
 
 $mwEmbedLoader = new mwEmbedLoader();
@@ -33,24 +32,23 @@ class mwEmbedLoader {
 	
 	
 	var $loaderFileList = array(
-		// Get main kWidget resource:
-		'kWidget/kWidget.js', 
+		// Get main bWidget resource:
+		'bWidget/bWidget.js', 
 		// Include json2 for old browsers that don't have JSON.stringify
 		'resources/json/json2.js', 
 		// By default include deprecated globals ( will be deprecated in 1.8 )
-		'kWidget/kWidget.deprecatedGlobals.js', 
+		'bWidget/bWidget.deprecatedGlobals.js', 
 		// Get resource ( domReady.js )
-		'kWidget/kWidget.domReady.js', 
+		'bWidget/bWidget.domReady.js', 
 		// Get resource (  mwEmbedLoader.js )
-		'kWidget/mwEmbedLoader.js', 
+		'bWidget/mwEmbedLoader.js', 
 		// Include checkUserAgentPlayer code
-		'kWidget/kWidget.checkUserAgentPlayerRules.js',
-		// Get kWidget utilities:
-		'kWidget/kWidget.util.js',	
-		// kWidget basic api wrapper
-		'resources/crypto/MD5.js',
-		'kWidget/kWidget.storage.js',
-		'kWidget/kWidget.api.js'
+		'bWidget/bWidget.checkUserAgentPlayerRules.js',
+		// Get bWidget utilities:
+		'bWidget/bWidget.util.js',	
+		// bWidget basic api wrapper
+		//'resources/crypto/MD5.js', // currently commented out sig on api requests 
+		'bWidget/bWidget.api.js',
 	);
 
 	function request() {
@@ -113,7 +111,7 @@ class mwEmbedLoader {
 	private function getAutoEmbedCode(){
 		$o='';
 		
-		// Get the kWidget call ( pass along iframe payload path )
+		// Get the bWidget call ( pass along iframe payload path )
 		// Check required params: 
 		$wid = $this->request()->get('wid');
 		if( !$wid ){
@@ -140,7 +138,7 @@ class mwEmbedLoader {
 		$height = ( $this->request()->get('height') )? htmlspecialchars( $this->request()->get('height') ): 330;
 
 		// Get the iframe payload
-		$kIframe = new kalturaIframeClass();
+		$kIframe = new borhanIframeClass();
 
 		$this->iframeHeaders = $kIframe->getHeaders();
 		
@@ -148,10 +146,10 @@ class mwEmbedLoader {
 		$json = array(
 			'content' => $kIframe->getIFramePageOutput()
 		);
-		$o.="kWidget.iframeAutoEmbedCache[ '{$playerId}' ] = " . json_encode( $json ) . ";\n";
+		$o.="bWidget.iframeAutoEmbedCache[ '{$playerId}' ] = " . json_encode( $json ) . ";\n";
 		
 		$o.="if(!document.getElementById('{$playerId}')) { document.write( '<div id=\"{$playerId}\" style=\"width:{$width}px;height:{$height}px\"></div>' ); } \n";
-		$o.="kWidget.embed( '{$playerId}', { \n" .
+		$o.="bWidget.embed( '{$playerId}', { \n" .
 			"\t'wid': '{$wid}', \n" .
 			"\t'uiconf_id' : '{$uiconf_id}'";
 		// conditionally add in the entry id: ( no entry id in playlists )
@@ -199,8 +197,8 @@ class mwEmbedLoader {
 			$o.= $this->getMinPerUiConfJS();
 		}
 		
-		// After we load everything ( issue the kWidget.Setup call as the last line in the loader )
-		$o.="\nkWidget.setup();\n";
+		// After we load everything ( issue the bWidget.Setup call as the last line in the loader )
+		$o.="\nbWidget.setup();\n";
 		
 		return $o;
 	}
@@ -259,7 +257,7 @@ class mwEmbedLoader {
 			)
 		){
 			// directly issue the UiConfJs callback
-			return 'kWidget.inLoaderUiConfJsCallback();';
+			return 'bWidget.inLoaderUiConfJsCallback();';
 		}
 		// load the onPage js services
 		$mweUiConfJs = new mweApiUiConfJs();
@@ -269,23 +267,19 @@ class mwEmbedLoader {
 		$o.= $mweUiConfJs->getUserAgentPlayerRules();
 		
 		// support including special player rewrite flags if set in uiConf:
-		if( $this->getUiConfObject()->getPlayerConfig( null, 'Kaltura.LeadWithHTML5' ) === true
+		if( $this->getUiConfObject()->getPlayerConfig( null, 'Borhan.LeadWithHTML5' ) === true
 			||
-			$this->getUiConfObject()->getPlayerConfig( null, 'KalturaSupport.LeadWithHTML5' ) === true
+			$this->getUiConfObject()->getPlayerConfig( null, 'BorhanSupport.LeadWithHTML5' ) === true
 		){
-			$o.="\n"."kWidget.addUserAgentRule('{$this->request()->get('uiconf_id')}', '/.*/', 'leadWithHTML5');";
+			$o.="\n"."bWidget.addUserAgentRule('{$this->request()->get('uiconf_id')}', '/.*/', 'leadWithHTML5');";
 		
 		}
-		if( $this->getUiConfObject()->getPlayerConfig( null, 'Kaltura.ForceFlashOnIE10' ) === true ){
-			$o.="\n".'mw.setConfig(\'Kaltura.ForceFlashOnIE10\', true );' . "\n";
-		}
-
-		if( $this->getUiConfObject()->getPlayerConfig( null, 'Kaltura.SupressNonProductionUrlsWarning' ) === true ){
-			$o.="\n".'mw.setConfig(\'Kaltura.SupressNonProductionUrlsWarning\', true );' . "\n";
-		}
+		if( $this->getUiConfObject()->getPlayerConfig( null, 'Borhan.ForceFlashOnIE10' ) === true ){
+			$o.="\n".'mw.setConfig(\'Borhan.ForceFlashOnIE10\', true );' . "\n";
+		} 
 
 		if( $this->getUiConfObject()->isJson() ) {
-			$o.="\n"."kWidget.addUserAgentRule('{$this->request()->get('uiconf_id')}', '/.*/', 'leadWithHTML5');";
+			$o.="\n"."bWidget.addUserAgentRule('{$this->request()->get('uiconf_id')}', '/.*/', 'leadWithHTML5');";
 		}
 		
 		// If we have entry data
@@ -307,12 +301,12 @@ class mwEmbedLoader {
 		
 		// Only include on page plugins if not in iframe Server
 		if( !isset( $_REQUEST['iframeServer'] ) ){
-			$o.= $mweUiConfJs->getPluginPageJs( 'kWidget.inLoaderUiConfJsCallback' );
+			$o.= $mweUiConfJs->getPluginPageJs( 'bWidget.inLoaderUiConfJsCallback' );
 		} else{
-			$o.='kWidget.inLoaderUiConfJsCallback();';
+			$o.='bWidget.inLoaderUiConfJsCallback();';
 		}
 		// set the flag so that we don't have to request the services.php
-		$o.= "\n" . 'kWidget.uiConfScriptLoadList[\'' . 
+		$o.= "\n" . 'bWidget.uiConfScriptLoadList[\'' . 
 			$this->request()->get('uiconf_id') .
 			'\'] = 1; ';
 		return $o;
@@ -384,50 +378,34 @@ class mwEmbedLoader {
 		return $loaderJs;
 	}
 	private function getExportedConfig(){
-		global $wgEnableScriptDebug, $wgResourceLoaderUrl, $wgMwEmbedVersion, $wgMwEmbedProxyUrl, $wgKalturaUseManifestUrls,
-			$wgKalturaUseManifestUrls, $wgHTTPProtocol, $wgKalturaServiceUrl, $wgKalturaServiceBase,
-			$wgKalturaCDNUrl, $wgKalturaStatsServiceUrl,$wgKalturaLiveStatsServiceUrl, $wgKalturaAnalyticsServiceUrl, $wgKalturaIframeRewrite, $wgEnableIpadHTMLControls,
-			$wgKalturaAllowIframeRemoteService, $wgKalturaUseAppleAdaptive, $wgKalturaEnableEmbedUiConfJs,
-			$wgKalturaGoogleAnalyticsUA, $wgHTML5PsWebPath, $wgAllowedVars, $wgAllowedPluginVars, $wgAllowedPluginVarsValPartials, $wgAllowedVarsKeyPartials,
-			$wgCacheTTL, $wgMaxCacheEntries, $wgKalturaSupressNonProductionUrlsWarning;
+		global $wgEnableScriptDebug, $wgResourceLoaderUrl, $wgMwEmbedVersion, $wgMwEmbedProxyUrl, $wgBorhanUseManifestUrls,
+			$wgBorhanUseManifestUrls, $wgHTTPProtocol, $wgBorhanServiceUrl, $wgBorhanServiceBase,
+			$wgBorhanCDNUrl, $wgBorhanStatsServiceUrl, $wgBorhanIframeRewrite, $wgEnableIpadHTMLControls,
+			$wgBorhanAllowIframeRemoteService, $wgBorhanUseAppleAdaptive, $wgBorhanEnableEmbedUiConfJs,
+			$wgBorhanGoogleAnalyticsUA;
 		$exportedJS ='';
 		// Set up globals to be exported as mwEmbed config:
 		$exportedJsConfig= array(
 			'debug' => $wgEnableScriptDebug,
 			//  export the http url for the loader
 			'Mw.XmlProxyUrl' => $wgMwEmbedProxyUrl,
-			'Kaltura.UseManifestUrls' => $wgKalturaUseManifestUrls,
-			'Kaltura.Protocol'	=>	$wgHTTPProtocol,
-			'Kaltura.ServiceUrl' => $wgKalturaServiceUrl,
-			'Kaltura.ServiceBase' => $wgKalturaServiceBase,
-			'Kaltura.CdnUrl' => $wgKalturaCDNUrl,
-			'Kaltura.StatsServiceUrl' => $wgKalturaStatsServiceUrl,
-			'Kaltura.LiveStatsServiceUrl'=>$wgKalturaLiveStatsServiceUrl,
-			'Kaltura.AnalyticsUrl'=>$wgKalturaAnalyticsServiceUrl,
-			'Kaltura.IframeRewrite' => $wgKalturaIframeRewrite,
+			'Borhan.UseManifestUrls' => $wgBorhanUseManifestUrls,
+			'Borhan.Protocol'	=>	$wgHTTPProtocol,
+			'Borhan.ServiceUrl' => $wgBorhanServiceUrl,
+			'Borhan.ServiceBase' => $wgBorhanServiceBase,
+			'Borhan.CdnUrl' => $wgBorhanCDNUrl,
+			'Borhan.StatsServiceUrl' => $wgBorhanStatsServiceUrl,
+			'Borhan.IframeRewrite' => $wgBorhanIframeRewrite,
 			'EmbedPlayer.EnableIpadHTMLControls' => $wgEnableIpadHTMLControls,
 			'EmbedPlayer.UseFlashOnAndroid' => true,
-			'Kaltura.LoadScriptForVideoTags' => true,
-			'Kaltura.AllowIframeRemoteService' => $wgKalturaAllowIframeRemoteService,
-			'Kaltura.UseAppleAdaptive' => $wgKalturaUseAppleAdaptive,
-			'Kaltura.EnableEmbedUiConfJs' => $wgKalturaEnableEmbedUiConfJs,
-			'Kaltura.PageGoogleAnalytics' => $wgKalturaGoogleAnalyticsUA,
-			'Kaltura.SupressNonProductionUrlsWarning' => $wgKalturaSupressNonProductionUrlsWarning,
-			'Kaltura.APITimeout' => 10000,
-			'Kaltura.kWidgetPsUrl' => $wgHTML5PsWebPath,
-			'Kaltura.CacheTTL' => $wgCacheTTL,
-			'Kaltura.MaxCacheEntries' => $wgMaxCacheEntries,
-			'Kaltura.AllowedVars' => $wgAllowedVars,
-			'Kaltura.AllowedVarsKeyPartials' => $wgAllowedVarsKeyPartials,
-			'Kaltura.AllowedPluginVars' => $wgAllowedPluginVars,
-			'Kaltura.AllowedPluginVarsValPartials' => $wgAllowedPluginVarsValPartials
+			'Borhan.LoadScriptForVideoTags' => true,
+			'Borhan.AllowIframeRemoteService' => $wgBorhanAllowIframeRemoteService,
+			'Borhan.UseAppleAdaptive' => $wgBorhanUseAppleAdaptive,
+			'Borhan.EnableEmbedUiConfJs' => $wgBorhanEnableEmbedUiConfJs,
+			'Borhan.PageGoogleAalytics' => $wgBorhanGoogleAnalyticsUA,
 		);
-		if( isset( $_GET['pskwidgetpath'] ) ){
-			$exportedJsConfig[ 'Kaltura.KWidgetPsPath' ] = htmlspecialchars( $_GET['pskwidgetpath'] );
-		}
-		//For embed services pass "AllowIframeRemoteService" to client so it will be able to pass back the alternative service URL
-		if ($this->request()->isEmbedServicesEnabled()){
-		    $exportedJsConfig['Kaltura.AllowIframeRemoteService'] = true;
+		if( isset( $_GET['psbwidgetpath'] ) ){
+			$exportedJsConfig[ 'Borhan.BWidgetPsPath' ] = htmlspecialchars( $_GET['psbwidgetpath'] );
 		}
 		
 		// Append Custom config:
@@ -440,21 +418,21 @@ class mwEmbedLoader {
 		}
 		// Add user language
 		$language = json_encode($this->utility()->getUserLanguage());
-		$exportedJS .= "mw.setConfig('Kaltura.UserLanguage', $language );\n";
+		$exportedJS .= "mw.setConfig('Borhan.UserLanguage', $language );\n";
 
 		return $exportedJS;
 	}
-	// Kaltura Comment
+	// Borhan Comment
 	private function getLoaderHeader(){
 		global $wgMwEmbedVersion, $wgResourceLoaderUrl, $wgMwEmbedVersion;
 		$o = "/**
-* Kaltura HTML5 Library v$wgMwEmbedVersion  
-* http://html5video.org/kaltura-player/docs/
+* Borhan HTML5 Library v$wgMwEmbedVersion  
+* http://html5video.org/borhan-player/docs/
 * 
 * This is free software released under the GPL2 see README more info 
-* http://html5video.org/kaltura-player/docs/readme
+* http://html5video.org/borhan-player/docs/readme
 * 
-* Copyright " . date("Y") . " Kaltura Inc.
+* Copyright " . date("Y") . " Borhan Inc.
 */\n";
 		// Add the library version:
 		$o .= "window['MWEMBED_VERSION'] = '$wgMwEmbedVersion';\n";
@@ -474,7 +452,6 @@ class mwEmbedLoader {
 			header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 			header("Pragma: no-cache");
 			header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
-			header("Access-Control-Allow-Origin: *"); // allow 3rd party domains to access. 
 		} else if ( isset($_GET['autoembed']) && $this->iframeHeaders ){
 			// Grab iframe headers and pass them to our loader
 			foreach( $this->iframeHeaders as $header ) {
@@ -485,9 +462,8 @@ class mwEmbedLoader {
 				}
 			}
 		} else {
-			
-			// Default expire time for the loader to 10 min ( we support 304 not modified so no need for long expire )
-			$max_age = 60*10;
+			// Default expire time for the loader to 3 hours ( borhan version always have diffrent version tags; for new versions )
+			$max_age = 60*60*3;
 			// if the loader request includes uiConf set age to 10 min ( uiConf updates should propgate in ~10 min )
 			if( $this->request()->get('uiconf_id') ){
 				$max_age = 60*10;
@@ -497,8 +473,8 @@ class mwEmbedLoader {
 				$max_age = 60; 
 			}
 			header("Cache-Control: public, max-age=$max_age max-stale=0");
-			header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $max_age) . ' GMT');
-			header('Last-Modified: ' . gmdate('D, d M Y H:i:s', time()) . ' GMT');
+			header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $max_age) . 'GMT');
+			header('Last-Modified: ' . gmdate('D, d M Y H:i:s', time()) . 'GMT');
 		}
 	}
 }

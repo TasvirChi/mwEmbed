@@ -3,7 +3,7 @@
  * 
  * Keeps server, cuePoints in sync
  ****************************************************************/
-(function(kWidget){ "use strict"
+(function(bWidget){ "use strict"
 	/**
 	 * The cuePoint object, created with a raw db entry, supports edit views  
 	 * Only exposed via cuePointsDataController ( no global define )
@@ -36,10 +36,10 @@
 				'msg': 'Start Time',
 				'type': 'time',
 				'getHR': function( val ){
-					return kWidget.seconds2npt( val / 1000, true );
+					return bWidget.seconds2npt( val / 1000, true );
 				},
 				'getVal': function(){
-					return kWidget.npt2seconds( this.$input.val() ) * 1000;
+					return bWidget.npt2seconds( this.$input.val() ) * 1000;
 				}
 			},
 			'text':{
@@ -164,10 +164,10 @@
 	 * @param settings {object} Settings object includes wid, ks, entryId
 	 */
 	
-	kWidget.cuePointsDataController = function( settings ){
+	bWidget.cuePointsDataController = function( settings ){
 		return this.init( settings );
 	}
-	kWidget.cuePointsDataController.prototype = {
+	bWidget.cuePointsDataController.prototype = {
 		cuePoints: [],
 		init: function( settings ){
 			$.extend( this, settings);
@@ -176,7 +176,7 @@
 				cuePoint.prototype.customDataFields = this.customDataFields;
 			}
 			// setup api object
-			this.api = new kWidget.api( { 'wid' : this.wid, 'ks' : this.ks } );
+			this.api = new bWidget.api( { 'wid' : this.wid, 'ks' : this.ks } );
 		},
 		remove: function( removeCuePoint, callback ){
 			var _this = this;
@@ -222,7 +222,7 @@
 		getBaseRequest: function( cuePointData ){
 			var baseRequest = {
 				'service': 'cuepoint_cuepoint', 
-				'cuePoint:objectType':  'KalturaAnnotation',
+				'cuePoint:objectType':  'BorhanAnnotation',
 				'cuePoint:tags': this.tags
 			};
 			// List of cuePoint properties we don't send in api request:
@@ -295,7 +295,7 @@
 				'service': 'cuepoint_cuepoint',
 				'action': 'list',
 				'filter:entryIdEqual': this.entryId,
-				'filter:objectType':'KalturaCuePointFilter',
+				'filter:objectType':'BorhanCuePointFilter',
 				'filter:cuePointTypeEqual':	'annotation.Annotation',
 				'filter:tagsLike' : this.tags
 			}, function( data ){
@@ -311,4 +311,4 @@
 		}
 	}
 	
-})( window.kWidget );
+})( window.bWidget );

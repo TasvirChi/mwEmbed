@@ -1,8 +1,9 @@
 <?PHP
+
 // Script: Simple PHP Proxy: Get external HTML, JSON and more!
 //
 // *Version: 1.6, Last updated: 1/24/2009*
-// *Update by michael.dale@kaltura.com*
+// *Update by michael.dale@borhan.com*
 // * added validate xml and content type
 // * added X-Forwarded-For header for geoLookup services
 //
@@ -145,18 +146,12 @@
 // Include our configuration file
 require_once( realpath( dirname( __FILE__ ) ) . '/includes/DefaultSettings.php' );
 
-require_once( dirname( __FILE__ ) . '/modules/KalturaSupport/KalturaCommon.php' );
-$requestHelper = $container['request_helper'];
-
 function isValidHost( $url = null ){
 	global $kConf;
 	
 	if(!$url)
 		return false;
-    $scheme = parse_url($url, PHP_URL_SCHEME);
-    if ( $scheme != "http" && $scheme != "https"){
-        return false;
-    }
+
 	$host = parse_url($url, PHP_URL_HOST);
 	if( $host === null ){
 		return false;
@@ -191,8 +186,6 @@ $proxySession = false;
 // ############################################################################
 
 $url = isset($_GET['url']) ? urldecode( $_GET['url'] ) : false;
-//Replace white spaces with compliant %20
-$url = str_replace(" ","%20",$url);
 $header ='';
 if ( !$url ) {
 	
@@ -208,7 +201,7 @@ if ( !$url ) {
 	
 } else if( !isValidHost($url) ) {
 	// URL host is not whitelisted
-	$contents = 'ERROR: URL not in Kaltura domain whitelist [DENIED]';
+	$contents = 'ERROR: invalid url host [DENIED]';
 	$status = array( 'http_code' => 'ERROR' );
 } else {
 	$ch = curl_init( $url );
@@ -245,10 +238,9 @@ if ( !$url ) {
 	// Forward the client ip for GeoLookup: ( geo-lookup server hopefully is not dumb and uses X-Forwarded-For ) 
 	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 		'X-Forwarded-For: ' . $_SERVER['REMOTE_ADDR'],
-		// Add kaltura x-remote-address headers:
-		$requestHelper->getRemoteAddrHeader(),
 		'Expect:' // used to ignore "100 Continue Header" when using POST
 	));
+	
 	
 	// Forward the user agent:
 	curl_setopt( $ch, CURLOPT_USERAGENT, isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '' );
@@ -277,7 +269,7 @@ if( trim( $contents ) == '' ){
 if( mb_detect_encoding($contents, 'UTF-8', true) != "UTF-8" ) {
 	$contents = utf8_encode( $contents );
 }
-// remove leading ? in some kaltura cc xml responses :(
+// remove leading ? in some borhan cc xml responses :(
 if( is_string( $contents ) && isset($contents[0]) && $contents[0] == '?' ){
 	$contents = substr( $contents, 1 );
 }

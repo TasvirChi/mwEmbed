@@ -27,13 +27,13 @@ if( $featureCategoryKey && isset( $featureList[ $featureCategoryKey ] )
 				 	<!--  maintain 16/9 aspect ratio: -->
 				 	<div id="dummy" style="margin-top: 56.25%;"></div>
 				 	<div class="player-container-absolute">
-						<div id="kaltura_player" style="width:100%;height:100%"></div>
+						<div id="borhan_player" style="width:100%;height:100%"></div>
 					</div>
 				</div>
 			</div>
 			<script>
-				kWidget.embed({
-					'targetId' : 'kaltura_player',
+				bWidget.embed({
+					'targetId' : 'borhan_player',
 					'wid' : '_243342',
 					'uiconf_id' : '11930362',
 					'entry_id' : '1_zm1lgs13',
@@ -102,7 +102,7 @@ if( ! isset( $featureList[ $featureCategoryKey ] )
 }
 // Output the title: 
 ?>
-<span id="hps-<?php if( isset( $fullFeaturePath ) ){ echo $fullFeaturePath; }?>"></span>
+<span id="hps-<?php echo $fullFeaturePath; ?>"></span>
 <script>
 	var iframeLoadCount =0; 
 	window['handleLoadedIframe'] = function( id ){

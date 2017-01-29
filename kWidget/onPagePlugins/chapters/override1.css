@@ -1,4 +1,4 @@
-.k-player-kaltura_player_4 .k-title-container {
+.k-player-borhan_player_4 .k-title-container {
 	font-size: 21px;
 	line-height:25px;
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -11,30 +11,30 @@
 	padding-left: 3px;
 }
 
-.k-player-kaltura_player_4 .chapterNumber {
+.k-player-borhan_player_4 .chapterNumber {
 	color: #166599;
 }
 
-.k-player-kaltura_player_4 .k-title {
+.k-player-borhan_player_4 .k-title {
 	color: #ECF4FA;
 }
 
-.k-player-kaltura_player_4.k-chapters-container.k-horizontal .chapterBox{
+.k-player-borhan_player_4.k-chapters-container.k-horizontal .chapterBox{
 	height: 65px !important;
 	background-color: #85C6F1;
 	padding-left: 0px;
 	border-bottom: 1px solid #659ACA;
 }
 
-.k-player-kaltura_player_4.k-chapters-container .k-description {
+.k-player-borhan_player_4.k-chapters-container .k-description {
 	display:none;
 }
 
-.k-player-kaltura_player_4.k-chapters-container .k-duration {
+.k-player-borhan_player_4.k-chapters-container .k-duration {
 	right: 12px;
 	bottom: 21px;
 }
 
-.k-player-kaltura_player_4.k-chapters-container .k-duration span {
+.k-player-borhan_player_4.k-chapters-container .k-duration span {
 	font-size: 20px;
 }

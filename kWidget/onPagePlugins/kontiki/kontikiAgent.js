@@ -1,21 +1,21 @@
 ( function( ) { "use strict";
 	
-	var kdp;
+	var bdp;
 	var entryReady = false;
 
-	kWidget.addReadyCallback( function ( playerId ) {
-		kdp = document.getElementById ( playerId );
+	bWidget.addReadyCallback( function ( playerId ) {
+		bdp = document.getElementById ( playerId );
 		setKontikiFlavorTags();
 
-		kdp.kBind( "entryReady", function() {
+		bdp.kBind( "entryReady", function() {
 			entryReady = true;
 		});
 
 	});
 
 	function setKontikiFlavorTags () {
-		if ( kdp !== undefined && gKontikiAgentData !== undefined ) {
-			kdp.setKDPAttribute( "configProxy.flashvars", "flavorTags", "kontiki, mbr, web" );
+		if ( bdp !== undefined && gKontikiAgentData !== undefined ) {
+			bdp.setBDPAttribute( "configProxy.flashvars", "flavorTags", "kontiki, mbr, web" );
 		}
 	}
 
@@ -32,7 +32,7 @@
 	if(!kontiki.kui) kontiki.kui = {};
 
 	//URLs to the various assets we'll need.	
-	var AGENT_FLASH_LOADER_URL = kWidget.getPath() +'kWidget/onPagePlugins/kontiki/kontikiagentflashloader.swf';
+	var AGENT_FLASH_LOADER_URL = bWidget.getPath() +'bWidget/onPagePlugins/kontiki/kontikiagentflashloader.swf';
 
 	// global callback and agent reference needed for flash loader
 	var gKontikiCallback;
@@ -124,7 +124,7 @@
 			    if( document.body ){  
 			      	document.body.appendChild( flashDiv );
 					var flashvars = { url: clientUrl };
-					kWidget.outputFlashObject( "kontikiAgent", { src: AGENT_FLASH_LOADER_URL, flashvars: flashvars });
+					bWidget.outputFlashObject( "kontikiAgent", { src: AGENT_FLASH_LOADER_URL, flashvars: flashvars });
 			    } 
 			    //wait until body is loaded  
 			    else{  
@@ -373,7 +373,7 @@
 		setKontikiFlavorTags();
 		//if entryReady was already sent flavorTags won't affect.
 		if ( entryReady ) {
-			kWidget.log( "kontikiAgent :: KontikiAgent responded after entryReady, kontiki flavorTags weren't set" );
+			bWidget.log( "kontikiAgent :: KontikiAgent responded after entryReady, kontiki flavorTags weren't set" );
 		}
 	}
 	var loadFlash = false;

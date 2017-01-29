@@ -1,25 +1,25 @@
 // always disable adaptive for accurate seeks. 
-mw.setConfig('Kaltura.UseAppleAdaptive', false);
+mw.setConfig('Borhan.UseAppleAdaptive', false);
 
-kWidget.addReadyCallback( function( playerId ){
-	var kdp = document.getElementById( playerId );
+bWidget.addReadyCallback( function( playerId ){
+	var bdp = document.getElementById( playerId );
 	/**
 	 * The main chaptersView object:
 	 */
-	var chaptersView = function(kdp, configOverride){
-		return this.init(kdp, configOverride);
+	var chaptersView = function(bdp, configOverride){
+		return this.init(bdp, configOverride);
 	};
 	chaptersView.prototype = {
 		// a flag to skip pausing when pauseAfterChapter is enabled
 		skipPauseFlag: false,
-		init: function( kdp, configOverride ){
+		init: function( bdp, configOverride ){
 			if( configOverride ){
 				this.configOverride = configOverride;
 			}
-			this.kdp = kdp;
+			this.bdp = bdp;
 			var _this = this;
 			// setup api object
-			this.api = new kWidget.api( { 'wid' : this.getAttr( 'configProxy.kw.id' ) } );
+			this.api = new bWidget.api( { 'wid' : this.getAttr( 'configProxy.kw.id' ) } );
 			// Use KS from player ( in case admin ks was provided ) 
 			if(  this.getAttr('ks') ){
 				this.api.setKs( this.getAttr('ks')  )
@@ -49,7 +49,7 @@ kWidget.addReadyCallback( function( playerId ){
 		},
 		addBindings: function(){
 			var _this = this;
-			var postFix = '.chaptersView_' + this.kdp.id;
+			var postFix = '.chaptersView_' + this.bdp.id;
 			// remove any old bindings:
 			$(window).unbind( postFix )
 			.bind('resize' + postFix + ' ' + 'orientationchange' + postFix, function(){
@@ -59,7 +59,7 @@ kWidget.addReadyCallback( function( playerId ){
 			// check for resize or orientation change, and re-draw chapters. 
 			// monitor player 
 			// add playhead tracker
-			kdp.kBind('playerUpdatePlayhead', function( ct ){
+			bdp.kBind('playerUpdatePlayhead', function( ct ){
 				_this.updateActiveChapter( ct );
 			});
 		},
@@ -88,7 +88,7 @@ kWidget.addReadyCallback( function( playerId ){
 					var endTime = _this.getChapterEndTimeByInx( activeIndex );
 					var countDown =  Math.abs( time - endTime );
 					$activeChapter.find('.k-duration span').text(
-						kWidget.seconds2npt( countDown )
+						bWidget.seconds2npt( countDown )
 					);
 				}
 				// nothing to do, active chapter already set. 
@@ -96,7 +96,7 @@ kWidget.addReadyCallback( function( playerId ){
 			}
 			// Check if we should pause on chapter update: 
 			if( this.getConfig( 'pauseAfterChapter' ) && !this.skipPauseFlag ){
-				this.kdp.sendNotification( 'doPause');
+				this.bdp.sendNotification( 'doPause');
 			}
 			// restore skip pause flag: 
 			this.skipPauseFlag = false;
@@ -109,7 +109,7 @@ kWidget.addReadyCallback( function( playerId ){
 				$( chapterBox )
 				.removeClass( 'active' )
 				.find('.k-duration span').text(
-					kWidget.seconds2npt( endTime - startTime )	
+					bWidget.seconds2npt( endTime - startTime )	
 				)
 			});
 
@@ -153,7 +153,7 @@ kWidget.addReadyCallback( function( playerId ){
 					'service': 'cuepoint_cuepoint',
 					'action': 'list',
 					'filter:entryIdEqual': this.getAttr( 'mediaProxy.entry.id' ),
-					'filter:objectType':'KalturaCuePointFilter',
+					'filter:objectType':'BorhanCuePointFilter',
 					'filter:cuePointTypeEqual':	'annotation.Annotation',
 					'filter:tagsLike' : this.getConfig('tags') || 'chaptering'
 				},
@@ -263,14 +263,14 @@ kWidget.addReadyCallback( function( playerId ){
 				$chapterInner.append(
 					$('<span>').addClass('k-duration').append(
 						$('<div />').addClass('icon-time'),
-						$('<span>').text( kWidget.seconds2npt( endTime - startTime ) )
+						$('<span>').text( bWidget.seconds2npt( endTime - startTime ) )
 					)
 				)
 			}
 			// check if we should include chapter duration:
 			if( this.getConfig('includeChapterStartTime') ){
 				// Add 0 padding to start time min
-				var st = kWidget.seconds2npt( cuePoint.startTime / 1000 );
+				var st = bWidget.seconds2npt( cuePoint.startTime / 1000 );
 				var stParts = st.split(':');
 				if( stParts.length == 2 && stParts[0].length == 1 ){
 					st = '0' + st;
@@ -335,16 +335,16 @@ kWidget.addReadyCallback( function( playerId ){
 			// Add click binding:
 			$chapterBox.click( function(){
 				// Check if the media is ready:
-				if( _this.getAttr( 'playerStatusProxy.kdpStatus' ) != 'ready' ){
-					kWidget.log( "Error: chapterView:: click before chapter ready" );
+				if( _this.getAttr( 'playerStatusProxy.bdpStatus' ) != 'ready' ){
+					bWidget.log( "Error: chapterView:: click before chapter ready" );
 					return ;
 				}
 				// Check if the current chapter is already active, set skipPause flag accordingly. 
 				_this.skipPauseFlag = !$( this ).hasClass( 'active');
 				// start playback 
-				_this.kdp.sendNotification( 'doPlay' );
+				_this.bdp.sendNotification( 'doPlay' );
 				// see to start time and play ( +.1 to avoid highlight of prev chapter ) 
-				_this.kdp.sendNotification( 'doSeek', ( cuePoint.startTime / 1000 ) + .1 );
+				_this.bdp.sendNotification( 'doSeek', ( cuePoint.startTime / 1000 ) + .1 );
 			});
 			
 			// check for client side render function, can override or extend chapterBox
@@ -387,7 +387,7 @@ kWidget.addReadyCallback( function( playerId ){
 			// check for customData:
 			var thumbUrl = cuePoint.customData['thumbUrl'] ? 
 					cuePoint.customData['thumbUrl'] :
-					kWidget.getKalturaThumbUrl(
+					bWidget.getBorhanThumbUrl(
 						$.extend( {}, baseThumbSettings, {
 							'vid_sec': parseInt( cuePoint.startTime / 1000 )
 						})
@@ -403,7 +403,7 @@ kWidget.addReadyCallback( function( playerId ){
 			if( !this.getConfig( 'thumbnailRotator' ) ){
 				return $divImage;
 			}
-			var imageSlicesUrl = kWidget.getKalturaThumbUrl(
+			var imageSlicesUrl = bWidget.getBorhanThumbUrl(
 					$.extend( {}, baseThumbSettings, {
 						'vid_slices': _this.getSliceCount()
 					})
@@ -421,7 +421,7 @@ kWidget.addReadyCallback( function( playerId ){
 					'height': thumbHeight,
 					'background-image': 'url(\'' + imageSlicesUrl + '\')',
 					'background-position': _this.getThumbSpriteOffset( thumbWidth, ( cuePoint.startTime / 1000 ) ),
-					// fix aspect ratio on bad Kaltura API returns
+					// fix aspect ratio on bad Borhan API returns
 					'background-size': ( thumbWidth * _this.getSliceCount() ) + 'px 100%'
 				});
 				
@@ -454,7 +454,7 @@ kWidget.addReadyCallback( function( playerId ){
 			return $divImage;
 		},
 		/**
-		 * TODO abstract into kWidget rotator, so we can use the same code in scrubber. 
+		 * TODO abstract into bWidget rotator, so we can use the same code in scrubber. 
 		 */
 		getThumbSpriteOffset: function( thumbWidth, time ){
 			var sliceIndex = this.getSliceIndexForTime( time );
@@ -483,28 +483,28 @@ kWidget.addReadyCallback( function( playerId ){
 		// get the chapter container with respective layout
 		getChapterContainer: function(){
 			// remove any existing k-chapters-container for this player
-			$('.k-player-' + this.kdp.id + '.k-chapters-container').remove();
+			$('.k-player-' + this.bdp.id + '.k-chapters-container').remove();
 			// Build new chapters container
-			$chaptersContainer = $('<div>').addClass( 'k-player-' + this.kdp.id + ' k-chapters-container');
+			$chaptersContainer = $('<div>').addClass( 'k-player-' + this.bdp.id + ' k-chapters-container');
 			// check for where it should be appended:
 			switch( this.getConfig('containerPosition') ){
 				case 'before':
 					$chaptersContainer.css('clear', 'both');
-					$( this.kdp )
+					$( this.bdp )
 						.css( 'float', 'left')
 						.before( $chaptersContainer );
 				break;
 				case 'left':
-					$chaptersContainer.css('float', 'left').insertBefore( this.kdp );
-					$( this.kdp ).css('float', 'left');
+					$chaptersContainer.css('float', 'left').insertBefore( this.bdp );
+					$( this.bdp ).css('float', 'left');
 				break;
 				case 'right':
-					$chaptersContainer.css('float', 'left').insertAfter( this.kdp );
-					$( this.kdp ).css('float', 'left' );
+					$chaptersContainer.css('float', 'left').insertAfter( this.bdp );
+					$( this.bdp ).css('float', 'left' );
 				break;
 				case 'after':
 				default:
-					$( this.kdp )
+					$( this.bdp )
 						.css( 'float', 'none')
 						.after( $chaptersContainer );
 				break;
@@ -512,15 +512,15 @@ kWidget.addReadyCallback( function( playerId ){
 			// set size based on layout
 			// set sizes:
 			if( this.getConfig('overflow') != true ){
-				$chaptersContainer.css('width', $( this.kdp ).width() )
+				$chaptersContainer.css('width', $( this.bdp ).width() )
 				if( this.getLayout() == 'vertical' ){
-					$chaptersContainer.css( 'height', $( this.kdp ).height() )
+					$chaptersContainer.css( 'height', $( this.bdp ).height() )
 				}
 			} else {
 				if( this.getLayout() == 'horizontal' ){
 					$chaptersContainer.css('width', '100%' );
 				} else if( this.getLayout() == 'vertical' ){
-					$chaptersContainer.css( 'width', $( this.kdp ).width() );
+					$chaptersContainer.css( 'width', $( this.bdp ).width() );
 				}
 			}
 			// special conditional for vertical chapter width
@@ -586,8 +586,8 @@ kWidget.addReadyCallback( function( playerId ){
 			}
 			// Add scrolling carousel to clip list ( once dom sizes are up-to-date )
 			$cc.find('.k-carousel').jCarouselLite({
-				btnNext: '.k-player-' + this.kdp.id +' .k-next',
-				btnPrev: '.k-player-' + this.kdp.id +' .k-prev',
+				btnNext: '.k-player-' + this.bdp.id +' .k-next',
+				btnPrev: '.k-player-' + this.bdp.id +' .k-prev',
 				visible: chaptersVisible,
 				mouseWheel: true,
 				circular: false,
@@ -686,7 +686,7 @@ kWidget.addReadyCallback( function( playerId ){
 			}
 			switch( errorData.code ){
 				case "SERVICE_FORBIDDEN":
-					error.title = "Invalid Kaltura Secret";
+					error.title = "Invalid Borhan Secret";
 					error.msg = "please check player configuration";
 					break;
 				default:
@@ -719,7 +719,7 @@ kWidget.addReadyCallback( function( playerId ){
 			}
 		},
 		normalizeAttrValue: function( attrValue ){
-			// normalize flash kdp string values
+			// normalize flash bdp string values
 			switch( attrValue ){
 				case "null":
 					return null;
@@ -735,7 +735,7 @@ kWidget.addReadyCallback( function( playerId ){
 		},
 		getAttr: function( attr ){
 			return this.normalizeAttrValue(
-				this.kdp.evaluate( '{' + attr + '}' )
+				this.bdp.evaluate( '{' + attr + '}' )
 			);
 		},
 		getConfig : function( attr ){
@@ -743,7 +743,7 @@ kWidget.addReadyCallback( function( playerId ){
 				return this.configOverride[ attr ];
 			}
 			return this.normalizeAttrValue(
-				this.kdp.evaluate('{chaptersView.' + attr + '}' )
+				this.bdp.evaluate('{chaptersView.' + attr + '}' )
 			);
 		}
 	}
@@ -753,10 +753,10 @@ kWidget.addReadyCallback( function( playerId ){
 	// We start build out at chaneMedia time, will clear out old chapters 
 	// in cases for playlists with entries without chapters.
 	var instance;
-	kdp.kBind( 'changeMedia', function(){
-		instance = new chaptersView( kdp );
+	bdp.kBind( 'changeMedia', function(){
+		instance = new chaptersView( bdp );
 	});
-	kdp.kBind( 'mediaReady', function(){
+	bdp.kBind( 'mediaReady', function(){
 		if( instance.mediaReady ){
 			instance.mediaReady();
 		}

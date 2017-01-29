@@ -6,8 +6,7 @@
  */
 ( function( mw, $ ) { "use strict";
 
-	mw.TextSource = function( source, embedPlayer ) {
-		this.embedPlayer = embedPlayer;
+	mw.TextSource = function( source ) {
 		return this.init( source );
 	};
 	mw.TextSource.prototype = {
@@ -31,8 +30,6 @@
 
 			// The css style for captions ( some file formats specify display types )
 			this.styleCss = {};
-
-			this.bodyStyleId = '';
 
 			//	Inherits mediaSource
 			for( var i in source){
@@ -100,13 +97,19 @@
 		* @param {Number} time Time in seconds
 		*/
 		getCaptionForTime: function ( time ) {
+			var prevCaption = this.captions[ this.prevIndex ];
 			var captionSet = {};
-			var prevIndexUpdated = false;
-			if( time <  this.captions[this.prevIndex].start ) {
+
+			// Setup the startIndex:
+			if( prevCaption && time >= prevCaption.start ) {
+				var startIndex = this.prevIndex;
+			} else {
 				// If a backwards seek start searching at the start:
-				this.prevIndex = 0;
+				var startIndex = 0;
 			}
-			for( var i = this.prevIndex ; i < this.captions.length; i++ ) {
+			var firstCapIndex = 0;
+			// Start looking for the text via time, add all matches that are in range
+			for( var i = startIndex ; i < this.captions.length; i++ ) {
 				var caption = this.captions[ i ];
 				// Don't handle captions with 0 or -1 end time:
 				if( caption.end == 0 || caption.end == -1)
@@ -114,34 +117,21 @@
 
 				if( time >= caption.start &&
 					time <= caption.end ) {
+					// set the earliest valid time to the current start index:
+					if( !firstCapIndex ){
+						firstCapIndex = caption.start;
+					}
 
+					//mw.log("Start cap time: " + caption.start + ' End time: ' + caption.end );
 					captionSet[i] = caption ;
-
-					// Update the prevIndex:
-					if(!prevIndexUpdated){
-						this.prevIndex = i;
-						prevIndexUpdated = true;
-					}
+				}
+				// captions are stored in start order stop search if we get larger than time
+				if( caption.start > time ){
+					break;
 				}
 			}
-
-			if( this.mimeType === "text/vtt" ){
-				var getValues = function(obj){
-					// returns an array of object's values (as Object.Values() in ECMAScript 2017)
-					var values = [];
-					for( var i in obj ){
-						values.push(obj[i]);
-					}
-					return values;
-				};
-
-				WebVTT.processCues(window, getValues(captionSet), this.captionsArea);
-
-				for( var j in captionSet ){
-					captionSet[j]['content'] = captionSet[j].displayState;
-				}
-			}
-
+			// Update the prevIndex:
+			this.prevIndex = firstCapIndex;
 			//Return the set of captions in range:
 			return captionSet;
 		},
@@ -164,9 +154,6 @@
 					break;
 				case 'text/xml':
 					return this.getCaptionsFromTMML( data );
-					break;
-				case 'text/vtt':
-					return this.getCaptionsFromVTT( data );
 					break;
 			}
 			// check for other indicators ( where the caption is missing metadata )
@@ -199,14 +186,8 @@
 			var _this = this;
 			mw.log("TextSource::getCaptionsFromTMML", data);
 			// set up display information:
-
 			var captions = [];
-			var parsedData = data;
-			//check if TTML contains &
-			if( typeof(data) == "string" ) {
-				parsedData = data.replace(/&amp;/g, '&').replace(/&/g, '&amp;');
-			}
-			var xml = ( $( parsedData ).find("tt").length ) ? parsedData : $.parseXML( parsedData );
+			var xml = ( $( data ).find("tt").length ) ? data : $.parseXML( data );
 			// Check for parse error:
 			try {
 				if( !xml || $( xml ).find('parsererror').length ){
@@ -218,138 +199,95 @@
 				return captions;
 			}
 
-			this.parseStylesTTML( xml );
-			var captionLineToRemove = [];
-			$( xml ).find( 'p' ).each( function( inx, p ){
-				captions.push( _this.parseCaptionObjTTML( p ) );
-				if (captions.length>1){
-					if (captions[inx-1].start == captions[inx].start) {
-						captions[inx-1].content = (captions[inx-1].content).concat(captions[inx].content);
-						captionLineToRemove.push(inx);
-					}
-				}
-			});
-			for (var inx = captionLineToRemove.length-1; inx >= 0; inx--){
-				captions.splice(captionLineToRemove[inx],1)
-			}
-			return captions;
-		},
-		parseStylesTTML: function( xml ) {
-			var _this = this;
 			// Set the body Style
-			this.bodyStyleId = $( xml ).find('body').attr('style');
-			if ( !this.bodyStyleId ) {
-				this.bodyStyleId = $( xml ).find('body').attr('region');
-			}
+			var bodyStyleId = $( xml ).find('body').attr('style');
 
 			// Set style translate ttml to css
 			$( xml ).find( 'style').each( function( inx, style){
-				var styleId =  $(style).attr('id') || $(style).attr('xml:id')
-				if ( styleId ) {
-					var cssObject = {};
-					_this.buildStyleCss( style, cssObject );
-					_this.styleCss[ styleId ] = cssObject;
-				}
+				var cssObject = {};
+				// Map CamelCase css properties:
+				$( style.attributes ).each(function(inx, attr){
+					var attrName = attr.name;
+					if( attrName.substr(0, 4) !== 'tts:' ){
+						// skip
+						return true;
+					}
+					var cssName = '';
+					for( var c = 4; c < attrName.length; c++){
+						if( attrName[c].toLowerCase() != attrName[c] ){
+							cssName += '-' +  attrName[c].toLowerCase();
+						} else {
+							cssName+= attrName[c]
+						}
+					}
+					cssObject[ cssName ] = attr.nodeValue;
+				});
+				// for(var i =0; i< style.length )
+				_this.styleCss[ $(style).attr('id') ] = cssObject;
 			});
 
-			$( xml ).find( 'region' ).each( function( inx, region){
-				var cssObject = {};
-				if ( $(region).attr('style') ) {
-					cssObject = _this.styleCss[ $(region).attr('style') ]
-				}  else {
-					$( region ).find( 'style' ).each( function( inx, style){
-						_this.buildStyleCss( style, cssObject );
-					});
+			$( xml ).find( 'p' ).each( function( inx, p ){
+				// Get text content by converting ttml node to html
+				var content = '';
+				$.each( p.childNodes, function(inx, node){
+					content+= _this.convertTTML2HTML( node );
+				});
+				// Get the end time:
+				var end = null;
+				if( $( p ).attr( 'end' ) ){
+					end = mw.npt2seconds( $( p ).attr( 'end' ) );
 				}
-				var idVal =  $(region).attr('id') || $(region).attr('xml:id');
-				_this.styleCss[ idVal ] = cssObject;
-			});
-		},
-		buildStyleCss: function( style, cssObject ) {
-			// Map CamelCase css properties:
-			$( style.attributes ).each(function(inx, attr){
-				var attrName = attr.name;
-				if( attrName.substr(0, 4) !== 'tts:' ){
-					// skip
-					return true;
+				// Look for dur
+				if( !end && $( p ).attr( 'dur' )){
+					end = mw.npt2seconds( $( p ).attr( 'begin' ) ) +
+						mw.npt2seconds( $( p ).attr( 'dur' ) );
 				}
-				var cssName = '';
-				for( var c = 4; c < attrName.length; c++){
-					if( attrName[c].toLowerCase() != attrName[c] ){
-						cssName += '-' +  attrName[c].toLowerCase();
-					} else {
-						cssName+= attrName[c]
+
+				// Create the caption object :
+				var captionObj ={
+					'start': mw.npt2seconds( $( p ).attr( 'begin' ) ),
+					'end': end,
+					'content': content
+				};
+
+				// See if we have custom metadata for position of this caption object
+				// there are 35 columns across and 15 rows high
+				var $meta = $(p).find( 'metadata' );
+				if( $meta.length ){
+					captionObj['css'] = {
+						'position': 'absolute'
+					};
+					if( $meta.attr('cccol') ){
+						captionObj['css']['left'] = ( $meta.attr('cccol') / 35 ) * 100 +'%';
+						// also means the width has to be reduced:
+						//captionObj['css']['width'] =  100 - parseInt( captionObj['css']['left'] ) + '%';
+					}
+					if( $meta.attr('ccrow') ){
+						captionObj['css']['top'] = ( $meta.attr('ccrow') / 15 ) * 100 +'%';
 					}
 				}
-				cssObject[ cssName ] = attr.nodeValue;
-			});
-		},
-		parseCaptionObjTTML: function( p ) {
-			var _this = this;
-			// Get text content by converting ttml node to html
-			var content = '';
-			$.each( p.childNodes, function(inx, node){
-				content+= _this.convertTTML2HTML( node );
-			});
-			// Get the end time:
-			var end = null;
-			if( $( p ).attr( 'end' ) ){
-				end = mw.npt2seconds( $( p ).attr( 'end' ) );
-			}
-			// Look for dur
-			if( !end && $( p ).attr( 'dur' )){
-				end = mw.npt2seconds( $( p ).attr( 'begin' ) ) +
-					mw.npt2seconds( $( p ).attr( 'dur' ) );
-			}
+				if( $(p).attr('tts:textAlign') ){
+					if( !captionObj['css'] ){
+						captionObj['css'] = {};
+					}
+					captionObj['css']['text-align'] = $(p).attr('tts:textAlign');
 
-			// Create the caption object :
-			var captionObj ={
-				'start': mw.npt2seconds( $( p ).attr( 'begin' ) ),
-				'end': end,
-				'content': content
-			};
+					// Remove text align is "right" flip the css left:
+					if( captionObj['css']['text-align'] == 'right' && captionObj['css']['left'] ){
+						//captionObj['css']['width'] = captionObj['css']['left'];
+						captionObj['css']['left'] = null;
+					}
+				}
 
-			// See if we have custom metadata for position of this caption object
-			// there are 35 columns across and 15 rows high
-			var $meta = $(p).find( 'metadata' );
-			if( $meta.length ){
-				captionObj['css'] = {
-					'position': 'absolute'
-				};
-				if( $meta.attr('cccol') ){
-					captionObj['css']['left'] = ( $meta.attr('cccol') / 35 ) * 100 +'%';
-					// also means the width has to be reduced:
-					//captionObj['css']['width'] =  100 - parseInt( captionObj['css']['left'] ) + '%';
-				}
-				if( $meta.attr('ccrow') ){
-					captionObj['css']['top'] = ( $meta.attr('ccrow') / 15 ) * 100 +'%';
-				}
-			}
-			if( $(p).attr('tts:textAlign') ){
-				if( !captionObj['css'] ){
-					captionObj['css'] = {};
-				}
-				captionObj['css']['text-align'] = $(p).attr('tts:textAlign');
-
-				// Remove text align is "right" flip the css left:
-				if( captionObj['css']['text-align'] == 'right' && captionObj['css']['left'] ){
-					//captionObj['css']['width'] = captionObj['css']['left'];
-					captionObj['css']['left'] = null;
-				}
-			}
-
-			// check if this p has any style else use the body parent
-			if( $(p).attr('style') ){
-				captionObj['styleId'] = $(p).attr('style') ;
-			} else {
-				if( $(p).attr('region') ){
-					captionObj['styleId'] = $(p).attr('region') ;
+				// check if this p has any style else use the body parent
+				if( $(p).attr('style') ){
+					captionObj['styleId'] = $(p).attr('style') ;
 				} else {
-					captionObj['styleId'] = _this.bodyStyleId;
+					captionObj['styleId'] = bodyStyleId;
 				}
-			}
-
-			return captionObj;
+				captions.push( captionObj);
+			});
+			return captions;
 		},
 		convertTTML2HTML: function( node ){
 			var _this = this;
@@ -386,8 +324,6 @@
 				nodeString += '</' + node.nodeName + '>';
 				return nodeString;
 			}
-			// be sure to return an empty string where node.childNodes is empty
-			return '';
 		},
 		/**
 		 * srt timed text parse handle:
@@ -405,8 +341,8 @@
 			} catch ( e ){
 				// srt should not be xml
 			}
-			// Replace to UNIX-like newlines
-			var srt = data.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+			// Remove dos newlines
+			var srt = data.replace(/\r+/g, '');
 
 			// Trim white space start and end
 			srt = srt.replace(/^\s+|\s+$/g, '');
@@ -420,7 +356,7 @@
 			for (var i = 0; i < caplist.length; i++) {
 		 		var captionText = "";
 				var caption = false;
-				captionText = caplist[i].replace(/^\s+|\s+$/g, '');
+				captionText = caplist[i];
 				var s = captionText.split(/\n/);
 				if (s.length < 2) {
 					// file format error or comment lines
@@ -541,42 +477,6 @@
 			mw.log( "TimedText::getCaptiosnFromMediaWikiSrt found " + captions.length + ' captions');
 			return captions;
 		},
-
-		getCaptionsFromVTT: function( data ){
-			window.VTTCue = window.VttjsCue;
-			var parser = new WebVTT.Parser(window, WebVTT.StringDecoder());
-			var cues = [];
-			var regions = [];
-
-			parser.oncue = function(cue) {
-				cues.push(cue);
-			};
-			parser.onregion = function(region) {
-				regions.push(region);
-			};
-			parser.onparsingerror = function(error) {
-				mw.log( "TextSource::getCaptionsFromVTT ", error );
-			};
-
-			parser.parse(data);
-			parser.flush();
-			if(!this.embedPlayer.getInterface().find( '.captionsArea' )[0]){
-				this.embedPlayer.getVideoHolder().append($('<div />')
-					.addClass('captionsArea')
-					.css('visibility', 'hidden'));
-			}
-
-			this.captionsArea = this.embedPlayer.getInterface().find( '.captionsArea' )[0];
-
-			for(var i = 0; i < cues.length; i++){
-				cues[i]['start'] = cues[i].startTime;
-				cues[i]['end'] = cues[i].endTime;
-			}
-			mw.log( "TextSource::getCaptionsFromVTT captions: ", cues );
-			return cues;
-
-		},
-
 		/**
 		 * Takes a regular expresion match and converts it to a caption object
 		 */
@@ -605,8 +505,5 @@
 		}
 	};
 
-	// vtt.js override the VTTCue to wrong format for shaka, so store the vtt.js's VTTCue and set the original.
-	window.VttjsCue = window.VTTCue;
-	window.VTTCue = window.originalVTTCue;
 
 } )( window.mediaWiki, window.jQuery );

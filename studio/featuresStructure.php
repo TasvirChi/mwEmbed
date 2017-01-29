@@ -7,12 +7,6 @@ return array(
 		"model" => "basicDisplay",
 		"icon" => "TabBasicSettings",
 		"children"=> array(
-		array(
-                "label" => "Player's ID:",
-                "type" => "readonly",
-                "player-refresh"=> false,
-                "model" => "id"
-            ),
 			array(
 				"label" => "Player's Name",
 				"type" => "text",
@@ -31,12 +25,12 @@ return array(
 //				"source" => "getTags"
 //			),
 			array(
-				"label" => "Preview entry / playlist",
+				"label" => "Preview entry",
 				"type" => "select2data",
 				"allow-custom-values" => true,
 				"source" => "listEntries",
 				"query" => "queryEntries",
-				"helpnote" => "Select entry / playlist",
+				"helpnote" => "Select entry",
 				"player-refresh"=> true,
 				"endline" => "true",
 				"width" => "100%",
@@ -53,34 +47,14 @@ return array(
 					array(
 						"label" => "16/9",
 						"value" => "wide"
-					),
-                    array(
-                        "label" => "Custom",
-                        "value" => "custom"
-                    )
+					)
 				),
 				"showSearch"=> false,
-				"allowNegative"=> false,
-				"helpnote" => "Set Player Dimensions",
-				"helpnote2" => "Height will be automatically calculated according to the selected aspect ratio",
-				"type" => "dimensions",
-				"label" => "Player Dimensions",
+				"initvalue" => "wide",
+				"helpnote" => "Select aspect ratio",
+				"type" => "dropdown",
+				"label" => "Aspect Ratio",
 				"endline" => "true"
-			),
-            array(
-                "player-refresh"=> "false",
-                "label" => "Update Version Automatically",
-                "helpnote" => "Automatically update this player when a new player version is available",
-                "type" => "checkbox",
-                "endline" => "true",
-                "model" => "autoUpdate"
-            ),
-			array(
-				"label" => "Enable new mobile skin",
-				"helpnote" => "Caution: Turning on Mobile skin will override any existing custom CSS",
-				"type" => "checkbox",
-				"endline" => "true",
-				"model" => "config.uiVars.EmbedPlayer.EnableMobileSkin"
 			),
 			array(
 				"label" => "Automatically play video on page load",
@@ -100,13 +74,6 @@ return array(
                 "endline" => "true",
                 "model" => "config.plugins.controlBarContainer.hover"
             ),
-//            array(
-//               "label" => "Localization code:",
-//                "type" => "text",
-//                "size" => "small",
-//                "endline" => "true",
-//                "model" => "config.enviornmentConfig.localizationCode"
-//            ),
 			array(
 				"label" => "Last Update",
 				"type" => "readonly",
@@ -129,13 +96,6 @@ return array(
                 "endline" => "false",
                 "model" => "config.uiVars.enableTooltips"
             ),
-//            array(
-//                "label" => "Simulate Mobile",
-//                "type" => "checkbox",
-//                "initvalue" => false,
-//                "endline" => "false",
-//                "model" => "config.uiVars.EmbedPlayer.SimulateMobile"
-//            ),
 			"titleLabel" => "",
 			"logo" => "",
 			"loadingSpinner" => "",
@@ -145,17 +105,13 @@ return array(
 			"theme" => "",
 			"infoScreen" => "",
 			"share" => "",
-			"playersJsReceiver" => "",
-			"related" => "",
-			"dualScreen" => "",
-			"playlistAPI" => "",
-			"nextPrevBtn" => ""
+			"related" => ""
 		)
 	),
 	"analytics"=> array(
 		"label" => "Analytics",
 		"icon" => "TabAnalytics",
-		"description" => "Kaltura supports robust analytics via the Kaltura platform as well as via 3rd party analytics providers.",
+		"description" => "Borhan supports robust analytics via the Borhan platform as well as via 3rd party analytics providers.",
 		"type" => "menu",
 		"model" => "analytics",
 		"children"=> array(
@@ -165,13 +121,12 @@ return array(
 			"nielsenCombined" => "",
 			"omnitureOnPage" => "",
 			"statistics" => "",
-			"youbora" => ""
 		)
 	),
 	"monetization"=> array(
 		"label" => "Monetization",
 		"icon" => "TabMonetization",
-		"description" => "The Kaltura platform supports VAST 3.0 as well as 3rd party ad plugins to facilitate content monetization.",
+		"description" => "The Borhan platform supports VAST 3.0 as well as 3rd party ad plugins to facilitate content monetization.",
 		"type" => "menu",
 		"model" => "monitization",
 		"children"=> array(
@@ -185,10 +140,7 @@ return array(
 			"bumper" => "",
 			"vast" => "",
 			"doubleClick" => "",
-			"freeWheel" => "",
-			"skipBtn" => "",
-            "skipNotice" => "",
-            "noticeMessage" => ""
+			"freeWheel" => ""
 		)
 	),
 	"plugins"=> array(
@@ -203,11 +155,9 @@ return array(
 			"moderation" => "",
 			"playbackRateSelector" => "",
 			"restrictUserAgent" => "",
-			"multiDrm" => "",
+			"widevine" => "",
 			"sourceSelector" => "",
-			"audioSelector" => "",
 			"download" => "",
-			"strings" => "",
 			"uiVars" => ""
 		)
 	)

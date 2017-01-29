@@ -161,7 +161,6 @@ class ResourceLoader {
 						$wgResourceLoaderMinifierStatementsOnOwnLine,
 						$wgResourceLoaderMinifierMaxLineLength
 					);
-					
 					$result .= "\n\n/* cache key: $key */\n";
 					break;
 				case 'minify-css':

@@ -589,7 +589,7 @@
 					return false;
 				}
 			});
-			// If no default caption is set, start with captions turned off (Same as KDP)
+			// If no default caption is set, start with captions turned off (Same as BDP)
 			if ( setDefault ) {
 				this.setLayoutMode( this.defaultDisplayMode );
 				return true;
@@ -1124,7 +1124,7 @@
 							// http://stackoverflow.com/questions/9077887/avoid-overlapping-rows-in-inline-element-with-a-background-color-applied
 							.css( 'position', 'relative' )
 					.html( caption.content )
-			));
+			);
 
 			// Add/update the lang option
 			$textTarget.attr( 'lang', source.srclang.toLowerCase() );

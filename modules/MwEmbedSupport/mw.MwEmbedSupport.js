@@ -13,10 +13,10 @@ Date.now = Date.now || function(){ return +new Date; };
  * mwEmbed
  * Dual licensed under the MIT or GPL Version 2 licenses.
  *
- * @copyright (C) 2010 Kaltura
- * @author Michael Dale ( michael.dale at kaltura.com )
+ * @copyright (C) 2010 Borhan
+ * @author Michael Dale ( michael.dale at borhan.com )
  *
- * @url http://www.kaltura.org/project/HTML5_Video_Media_JavaScript_Library
+ * @url http://www.borhan.org/project/HTML5_Video_Media_JavaScript_Library
  *
  * Libraries used include code license in headers
  *
@@ -256,12 +256,9 @@ Date.now = Date.now || function(){ return +new Date; };
 	 * @param {String} Color code in hexadecimal notation
 	 */
 	mw.getHexColor = function( color ) {
-		if( typeof color == 'string' && color.toLowerCase().substr(0,3) == "rgb" ) {
-			return color;
-		}
-		if( typeof color == 'string' && color.substr(0,1) == "#" ) {
-			return color;
-		}
+        if( typeof color == 'string' && color.substr(0,1) == "#" ) {
+            return color;
+        }
 		if( typeof color == 'string' && color.substr(0,2) == "0x" ) {
 			return color.replace('0x', '#');
 		} else {

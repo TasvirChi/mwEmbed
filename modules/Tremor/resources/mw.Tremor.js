@@ -1,13 +1,13 @@
 ( function( mw, $ ) { "use strict";
 
-/* reference  players look like this:
- *
+/* reference  players look like this: 
+ * 
  * <video id="player" width="400" height="300" preload="none"
-					 src="http://demo.tremormedia.com/~agrant/html5test.mp4">
-		</video>
-
+					 src="http://demo.tremormedia.com/~agrant/html5test.mp4"> 
+		</video> 
+		
 		<div class="compBanner" id="content_300"></div>
-
+		
 		<script type="text/javascript">
 			ACUDEO.Player({player: "player",
 					banner: "content_300",
@@ -24,7 +24,7 @@
 // Set the Tremor config:
 mw.setDefaultConfig({
 	// The url for the ad Manager
-	// for debugging we use the following AdManager url: 'http://localhost/html5.kaltura/mwEmbed/modules/Tremor/AdManager.js'
+	// for debugging we use the following AdManager url: 'http://localhost/html5.borhan/mwEmbed/modules/Tremor/AdManager.js'
 	'Tremor.acudeoUrl': 'http://objects.tremormedia.com/embed/sjs/acudeo.html5.js'
 });
 
@@ -47,7 +47,7 @@ mw.Tremor.prototype = {
 		_this.embedPlayer.unbindHelper( _this.bindPostfix );
 		// Load the Tremor ad manager then setup the ads
 		if( !window['ACUDEO'] ){
-			kWidget.appendScriptUrl( _this.getAdManagerUrl(), function(){
+			bWidget.appendScriptUrl( _this.getAdManagerUrl(), function(){
 				_this.setupAds();
 				callback();
 			}, document, callback );
@@ -262,7 +262,7 @@ mw.Tremor.prototype = {
 	},
 	getConfig: function( propId ){
 		// return the attribute value
-		return this.embedPlayer.getKalturaConfig( 'tremor', propId );
+		return this.embedPlayer.getBorhanConfig( 'tremor', propId );
 	}
 }
 

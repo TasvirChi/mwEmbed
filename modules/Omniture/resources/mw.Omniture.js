@@ -7,8 +7,7 @@
 // set default Omniture sCode path:
 mw.setDefaultConfig({
 	'Omniture.ScodePath': mw.getMwEmbedPath() + '/modules/Omniture/s_code.js',
-	'Omniture.ScodeMediaPath': mw.getMwEmbedPath() + '/modules/Omniture/s_codeMedia.js',
-	'Omniture.cache_s_code': true
+	'Omniture.ScodeMediaPath': mw.getMwEmbedPath() + '/modules/Omniture/s_codeMedia.js'
 })
 
 mw.Omniture = function( embedPlayer, pluginName,  callback ){
@@ -45,31 +44,19 @@ mw.Omniture.prototype = {
  	},
  	getConfig: function( key ){
  		// Make sure all the config takes flash override values or what's in the uiconf
- 		return this.embedPlayer.getKalturaConfig( this.pluginName, key );
+ 		return this.embedPlayer.getBorhanConfig( this.pluginName, key );
  	},
  	loadSCode: function( callback ){
-	    var _this = this;
  		var sCodePath = this.getConfig ( 'sCodePath' ) || mw.getConfig('Omniture.ScodePath');
-	    var ajaxCallback = function(){
-		    if( !s.Media ){
-			    // issue warning and load from local resource
-			    mw.log( "Error: s.Media is not defined in scode ( loading local media module" );
-			    $.ajax( {
-				    url: mw.getConfig('Omniture.ScodeMediaPath'),
-				    cache: _this.getConfig('cache_s_code') || mw.getConfig('Omniture.cache_s_code'),
-				    dataType: "script",
-				    success: callback
-			    });
-			    return ;
-		    }
-		    callback();
-	    };
-	    $.ajax({
-		    url: sCodePath,
-		    success: ajaxCallback,
-		    dataType: "script",
-		    cache: this.getConfig('cache_s_code') || mw.getConfig('Omniture.cache_s_code')
-	    });
+ 		$.getScript(sCodePath, function(){
+ 			if( !s.Media ){
+ 				// issue warning and load from local resource
+ 				mw.log( "Error: s.Media is not defined in scode ( loading local media module" );
+ 				$.getScript( mw.getConfig('Omniture.ScodeMediaPath'), callback );
+ 				return ;
+ 			}
+ 			callback();
+ 		});
  	},
  	/**
  	 * Adds the omniture "page code"
@@ -155,7 +142,7 @@ mw.Omniture.prototype = {
 
  	},
  	getUiConfName: function(){
- 		// NOTE: the KDP version access cp.vo.kuiConf.name ... We don't have that in html5.
+ 		// NOTE: the BDP version access cp.vo.kuiConf.name ... We don't have that in html5.
  		return 'localPlayer'
  	},
  	getMediaMapping: function(){
@@ -251,7 +238,7 @@ mw.Omniture.prototype = {
  			);
  		});
  		embedPlayer.addJsListener( 'playerSeekEnd', function(){
- 			// kdp includes a "media.play" call on seek end.
+ 			// bdp includes a "media.play" call on seek end.
  			_this.runMediaCommand( 'play',
  				_this.getMediaName(),
 				_this.getCurrentTime()

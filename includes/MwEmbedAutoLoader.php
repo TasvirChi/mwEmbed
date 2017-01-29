@@ -75,10 +75,7 @@ class AutoLoader {
 
 		# Make an absolute path, this improves performance by avoiding some stat calls
 		if ( substr( $filename, 0, 1 ) != '/' && substr( $filename, 1, 1 ) != ':' ) {
-			$IP = getenv( 'MW_INSTALL_PATH' );
-            if ( $IP === false ) {
-            	$IP = realpath( dirname( __FILE__ ) . '/../');
-            }
+			global $IP;
 			$filename = "$IP/$filename";
 		}
 

@@ -1,9 +1,0 @@
-{
-    "mw.FreeWheel": {
-        "scripts": "resources/mw.FreeWheelController.js",
-        "dependencies": [
-            "mw.AdTimeline"
-        ],
-        "kalturaPluginName": "FreeWheel"
-    }
-}

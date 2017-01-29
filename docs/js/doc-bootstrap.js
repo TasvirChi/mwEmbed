@@ -16,10 +16,10 @@ if( !window.QUnit ){
 	// output any blocking scripts that need to be ready before dom ready: 
 	document.write( '<script src="' + kDocPath + 'bootstrap/js/bootstrap-tab.js"></script>' );
 	document.write( '<script src="' + kDocPath + 'bootstrap/js/bootstrap-dropdown.js"></script>' );
-	document.write( '<script src="' + kDocPath + 'js/jquery.prettyKalturaConfig.js"></script>' );
-	document.write( '<script src="' + kDocPath + 'js/kWidget.featureConfig.js"></script>' );
-	// kwidget auth: 
-	document.write( '<script src="' + kDocPath + '../kWidget/kWidget.auth.js"></script>' );
+	document.write( '<script src="' + kDocPath + 'js/jquery.prettyBorhanConfig.js"></script>' );
+	document.write( '<script src="' + kDocPath + 'js/bWidget.featureConfig.js"></script>' );
+	// bwidget auth: 
+	document.write( '<script src="' + kDocPath + '../bWidget/bWidget.auth.js"></script>' );
 	
 	// inject all the twitter bootstrap css and js ( ok to be injected after page is rendering )
 	$( 'head' ).append(
@@ -39,11 +39,10 @@ if( !window.QUnit ){
 	);
 	// check if we should enable google analytics: 
 	// TODO remove dependency on mw
-	if( typeof mw != 'undefined' && mw.getConfig( 'Kaltura.PageGoogleAnalytics' ) ) {
+	if( typeof mw != 'undefined' && mw.getConfig( 'Borhan.PageGoogleAalytics' ) ) {
 		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', mw.getConfig( 'Kaltura.PageGoogleAnalytics' )]);
+		_gaq.push(['_setAccount', mw.getConfig( 'Borhan.PageGoogleAalytics' ) ]);
 		_gaq.push(['_trackPageview']);
-
 		(function() {
 			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
 			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
@@ -51,25 +50,25 @@ if( !window.QUnit ){
 		})();
 	}
 } else{
-	// provide a stub for prettyKalturaConfig so that tests don't have javascript errors:
-	$.fn.prettyKalturaConfig = function( pluginName, flashVars, flashvarCallback ){
+	// provide a stub for prettyBorhanConfig so that tests don't have javascript errors:
+	$.fn.prettyBorhanConfig = function( pluginName, flashVars, flashvarCallback ){
 		$(this).text( 'running qunit test');
 	};
-	// provide a stub for featureConfig for running tests ( just directly map to kWidget.embed )
-	kWidget.featureConfig = function( embedOptions ){
-		kWidget.embed( embedOptions );
+	// provide a stub for featureConfig for running tests ( just directly map to bWidget.embed )
+	bWidget.featureConfig = function( embedOptions ){
+		bWidget.embed( embedOptions );
 	}
 	// hide all prettyconfig: 
 	$(function(){
 		$('pre.prettyprint').hide();
 	});
 }
-window.isKalturaDocsIframe = false;
+window.isBorhanDocsIframe = false;
 // Detect if in an doc iframe:
 try{
 	if( document.URL.indexOf( 'noparent=') === -1 &&
 		window.parent && window.parent['mw'] && window.parent.mw.getConfig('KalutraDocContext')){
-		window.isKalturaDocsIframe = true;
+		window.isBorhanDocsIframe = true;
 		// call parent loaded if set: 
 		if(  window.parent['handleLoadedIframe'] ){
 			window.parent['handleLoadedIframe']();
@@ -85,31 +84,17 @@ try{
 }
 // clock player render time
 var kdocPlayerStartTime = new Date().getTime();
-if( typeof kWidget != 'undefined' && kWidget.addReadyCallback ){
-	var kdocTimePerPlayer = {};
-	kWidget.addReadyCallback( function( pId ){
-		if( ! $( '#' + pId ).length ){
-			return ;
-		}
-		$( '#' + pId )[0].kBind("playerReady.pTimeReady", function(){
-			if( kdocTimePerPlayer[ pId] ){
+if( typeof bWidget != 'undefined' && bWidget.addReadyCallback ){
+	var alreadyRun = false;
+	bWidget.addReadyCallback( function( pId ){
+		$( '#' + pId )[0].kBind("mediaReady.pTimeReady", function(){
+			if( alreadyRun ){
 				return ;
 			}
 			alreadyRun = true;
-			var readyTime = ( new Date().getTime() - kdocPlayerStartTime )/1000;
-			var fileName = location.pathname.split('/').pop();
-			// trigger the google track event if set:: 
-			if( window['_gaq'] ){
-				// send feature page load time event:
-				_gaq.push(['_trackEvent', 'FeaturePage', 'PlayerLoadTimeMs', fileName, readyTime*1000]);
-			}
 			// note kUnbind seems to unbind all mediaReady
 			//$( '#' + pId )[0].kUnbind(".pTimeReady");
-			kdocTimePerPlayer[ pId ] = ( new Date().getTime() - kdocPlayerStartTime )/1000;
-			// note kUnbind seems to unbind all mediaReady
-			$( '#' + pId )[0].kUnbind(".pTimeReady");
-			$('body').append( '<div class="kdocPlayerRenderTime" style="clear:both;"><span style="font-size:11px;">' + pId + ' ready in: <i>' + 
-					kdocTimePerPlayer[ pId ] + '</i> seconds</span></div>');
+			$('body').append( '<div class="kdocPlayerRenderTime" style="clear:both;"><span style="font-size:11px;">player ready in:<i>' + ( new Date().getTime() - kdocPlayerStartTime )/1000 + '</i> seconds</span></div>');
 			if( document.URL.indexOf( 'noparent=') === -1 && parent && parent.sycnIframeContentHeight ){
 				parent.sycnIframeContentHeight();
 			}
@@ -131,16 +116,16 @@ if( ! localStorage.kdocEmbedPlayer ){
 if( !window['disablePlaybackModeSelector'] ){
 	// don't set flag if any special properties are set: 
 	if( localStorage.kdocEmbedPlayer == 'html5' && window['mw'] && 
-			mw.getConfig( 'Kaltura.LeadWithHTML5') == null &&
+			mw.getConfig( 'Borhan.LeadWithHTML5') == null &&
 			mw.getConfig( 'disableForceMobileHTML5') == null && 
-			mw.getConfig( 'Kaltura.ForceFlashOnDesktop' ) !== true  
+			mw.getConfig( 'Borhan.ForceFlashOnDesktop' ) !== true  
 	){
-		mw.setConfig('Kaltura.LeadWithHTML5', true);
+		mw.setConfig('Borhan.LeadWithHTML5', true);
 	}
 }
-// support forceKDPFlashPlayer flag: 
-if( document.URL.indexOf('forceKDPFlashPlayer') !== -1 ){
-	mw.setConfig( 'Kaltura.LeadWithHTML5', false);
+// support forceBDPFlashPlayer flag: 
+if( document.URL.indexOf('forceBDPFlashPlayer') !== -1 ){
+	mw.setConfig( 'Borhan.LeadWithHTML5', false);
 	mw.setConfig( 'EmbedPlayer.DisableVideoTagSupport', true );
 }
 

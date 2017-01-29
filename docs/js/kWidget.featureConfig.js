@@ -1,15 +1,15 @@
 /**
-* Wraps jQuery.prettyKalturaConfig with a single object based config and support for custom
+* Wraps jQuery.prettyBorhanConfig with a single object based config and support for custom
 * entry, uiconf and wid ( partner )
 * 
-* @dependencies jQuery, jQuery.prettyKalturaConfig
+* @dependencies jQuery, jQuery.prettyBorhanConfig
 */
-( function( kWidget ){ "use strict"
-	// make sure kWidget is set: 
-	if( !kWidget ){
+( function( bWidget ){ "use strict"
+	// make sure bWidget is set: 
+	if( !bWidget ){
 		return ;
 	}
-	kWidget.getLocalFeatureConfig = function( embedOptions ){
+	bWidget.getLocalFeatureConfig = function( embedOptions ){
 		var localEmbedOptions = $.extend( true, {}, embedOptions );
 		// Check for any kdoc-embed localStorage setting overrides
 		var setKeys = [ 'wid', 'uiconf_id', 'entry_id' ];
@@ -33,23 +33,29 @@
 				}
 			})
 		}
-		var hashConfig;
+		function getQueryParams( qs ) {
+			qs = decodeURIComponent( qs )
+			qs = qs.split("+").join(" ");
+			var params = {}, tokens,
+				re = /[?&]?([^=]+)=([^&]*)/g;
+			while (tokens = re.exec(qs)) {
+				params[decodeURIComponent(tokens[1])]
+				= decodeURIComponent(tokens[2]);
+			}
+			return params;
+		}
+		var params = {};
 		// check if we are in an iframe or top level page: 
 		if( self == top || document.URL.indexOf( 'noparent=') !== -1 ){
-			hashConfig =  document.location.hash.substr(1) ;
+			params = getQueryParams( document.location.hash.substr(1) );
 		} else {
-			hashConfig = top.document.location.hash.substr(1) ;
-		}
-		hashConfig = decodeURIComponent( hashConfig );
-		// strip leading config= if present:( legacy config lines ) 
-		if( hashConfig.substr(0, 7) == 'config=' ){
-			hashConfig = hashConfig.substr(7);
+			params = getQueryParams( top.document.location.hash.substr(1) );
 		}
 		// parse JSON 
 		var urlOptions = {};
-		if( hashConfig ){
+		if( params['config'] ){
 			try{
-				urlOptions = JSON.parse( hashConfig );
+				urlOptions = JSON.parse( params['config'] );
 			} catch ( e ){
 				if( console )
 					console.warn( 'Error could not parse config: ' + e.message );
@@ -82,17 +88,9 @@
 		
 		return localEmbedOptions;
 	}
-	kWidget.featureConfig = function( embedOptions ){
-		
+	bWidget.featureConfig = function( embedOptions ){
 		var pageEmbed = $.extend( true, {}, embedOptions );
-		embedOptions = kWidget.getLocalFeatureConfig( embedOptions );
-		
-		// check for only display player flag: 
-		if( document.URL.indexOf( 'onlyDisplayPlayer') != -1 ){
-			// then just map directly to kWidget.embed:
-			kWidget.embed( embedOptions );
-			return ;
-		}
+		embedOptions = bWidget.getLocalFeatureConfig( embedOptions );
 		
 		// add targets for documentation config and player selection
 		$( '#' + embedOptions.targetId ).before(
@@ -100,7 +98,7 @@
 			$('<br>')
 		)
 		
-		// By convention we document the first plugin ontop ( prettyKalturaConfig initial design 
+		// By convention we document the first plugin ontop ( prettyBorhanConfig initial design 
 		// required passing a given pluginId. 
 		var firstPluginId = null;
 		$.each( embedOptions.flashvars, function( pName, pSet ) {
@@ -110,22 +108,22 @@
 			return false;
 		})
 		// Display pretty config box:
-		$( '#' + embedOptions.targetId + '_doc' ).prettyKalturaConfig(
+		$( '#' + embedOptions.targetId + '_doc' ).prettyBorhanConfig(
 				firstPluginId, 
 				embedOptions.flashvars, 
 				function( updatedFlashvars ){
 					// Destroy any existing target:
-					kWidget.destroy( $('#' + embedOptions.targetId )[0] );
+					bWidget.destroy( $('#' + embedOptions.targetId )[0] );
 					// update flashvars:
 					embedOptions.flashvars = updatedFlashvars;
 					// update player embed with any local settings:
-					kWidget.embed( kWidget.getLocalFeatureConfig( embedOptions ) );
+					bWidget.embed( bWidget.getLocalFeatureConfig( embedOptions ) );
 				},
 				true, // showSettingsTab
 				pageEmbed // the base page embed settings ( used to generate "short" share urls ) 
 		)
-		// do the actual kWidget embed
-		kWidget.embed( embedOptions );
+		// do the actual bWidget embed
+		bWidget.embed( embedOptions );
 	}
 	
-})( window.kWidget );
+})( window.bWidget );

@@ -1,31 +1,29 @@
 /*********************************************
-* A minimal wrapper for kaltura server api
+* A minimal wrapper for borhan server api
 * 
 * Supports static requests,
-* Auto includes kWidget for userKS queries ( where admin ks is not provided )
+* Auto includes bWidget for userKS queries ( where admin ks is not provided )
 * Makes use of defined: 
-* 	'Kaltura.ServiceUrl', 'http://cdnapi.kaltura.com' );
+* 	'Borhan.ServiceUrl', 'http://cdnapi.borhan.com' );
 * 		&&
-*	'Kaltura.ServiceBase'
+*	'Borhan.ServiceBase'
 **********************************************/
-(function( kWidget ){ "use strict"
-if( !kWidget ){
-	kWidget = window.kWidget = {};
+(function( bWidget ){ "use strict"
+if( !bWidget ){
+	bWidget = window.bWidget = {};
 }
-kWidget.api = function( options ){
+bWidget.api = function( options ){
 	return this.init( options );
 };
-kWidget.api.prototype = {
+bWidget.api.prototype = {
 	ks: null,
 	// the default api request method
 	// will dictate if the CDN can cache on a per url basis
 	type: 'auto',
-	// initialize callback index to zero
-	callbackIndex: 0,
 	baseParam: {
 		'apiVersion' : '3.1',
 		'expiry' : '86400',
-		'clientTag': 'kwidget:v' + window[ 'MWEMBED_VERSION' ],
+		'clientTag': 'bwidget:v' + window[ 'MWEMBED_VERSION' ],
 		'format' : 9, // 9 = JSONP format
 		'ignoreNull' : 1
 	},
@@ -39,16 +37,16 @@ kWidget.api.prototype = {
 		}
 		// check for globals if not set, use mw.getConfig
 		if( ! this.serviceUrl ){
-			this.serviceUrl = mw.getConfig( 'Kaltura.ServiceUrl' );
+			this.serviceUrl = mw.getConfig( 'Borhan.ServiceUrl' );
 		}
 		if( ! this.serviceBase ){
-			this.serviceBase = mw.getConfig( 'Kaltura.ServiceBase' ); 
+			this.serviceBase = mw.getConfig( 'Borhan.ServiceBase' ); 
 		}
 		if( ! this.statsServiceUrl ){
-			this.statsServiceUrl = mw.getConfig( 'Kaltura.StatsServiceUrl' );
+			this.statsServiceUrl = mw.getConfig( 'Borhan.StatsServiceUrl' );
 		}
 		if( typeof this.disableCache == 'undefined' ){
-			this.disableCache = mw.getConfig('Kaltura.NoApiCache');
+			this.disableCache = mw.getConfig('Borhan.NoApiCache');
 		}
 	},
 	setKs: function( ks ){
@@ -57,32 +55,13 @@ kWidget.api.prototype = {
 	getKs: function(){
 		return this.ks;
 	},
-	forceKs:function(wid,callback,errorCallback){
-		if( this.getKs() ){
-			callback( this.getKs() );
-			return true;
-		}
-		var _this = this;
-		// Add the Kaltura session ( if not already set )
-		var ksParam = {
-			'action' : 'startwidgetsession',
-			'widgetId': wid
-		};
-		// add in the base parameters:
-		var param = kWidget.extend( { 'service' : 'session' }, this.baseParam, ksParam );
-		this.doRequest( param, function( data ){
-			_this.ks = data.ks;
-			callback( _this.ks );
-		},null,errorCallback);
-	},
 	/**
 	 * Do an api request and get data in callback
 	 */
-	doRequest: function ( requestObject, callback,skipKS, errorCallback, withProxyData){
+	doRequest: function ( requestObject, callback ){
 		var _this = this;
 		var param = {};
-		var globalCBName = null;
-		// If we have Kaltura.NoApiCache flag, pass 'nocache' param to the client
+		// If we have Borhan.NoApiCache flag, pass 'nocache' param to the client
 		if( this.disableCache === true ) {
 			param['nocache'] = 'true';
 		}
@@ -93,82 +72,47 @@ kWidget.api.prototype = {
 				param[i] = this.baseParam[i];
 			}
 		};
-
 		// Check for "user" service queries ( no ks or wid is provided  )
-		if( requestObject['service'] != 'user' && !skipKS ){
-			kWidget.extend( param, this.handleKsServiceRequest( requestObject ) );
+		if( requestObject['service'] != 'user' ){
+			bWidget.extend( param, this.handleKsServiceRequest( requestObject ) );
 		} else {
-			kWidget.extend( param, requestObject );
+			bWidget.extend( param, requestObject );
 		}
-
-		// set format to JSON ( Access-Control-Allow-Origin:* )
-		param['format'] = 1;
-
 		// Add kalsig to query:
-		param[ 'kalsig' ] = this.hashCode( kWidget.param( param ) );
+		param[ 'kalsig' ] = this.hashCode( bWidget.param( param ) );
 		
 		// Remove service tag ( hard coded into the api url )
 		var serviceType = param['service'];
 		delete param['service'];
 
-		var timeoutError = setTimeout(function(){
-			if ( globalCBName ) {
-				window[globalCBName] = undefined;
-			}
-			if (errorCallback){
-				errorCallback();
-			}
-			//mw.log("Timeout occur in doApiRequest");
-		},mw.getConfig("Kaltura.APITimeout"));
-
 		var handleDataResult = function( data ){
-			clearTimeout(timeoutError);
-			// check if the base param was a session
+			// check if the base param was a session ( then directly return the data object ) 
             data = data || [];
-            if( data.length > 1 && param[ '1:service' ] == 'session' && !withProxyData){ // in case of proxyData (OTT) we request a session but KS doesn't exist
-																						 // so the response doesn't contain it so don't handle
-				//Set the returned ks
-	            _this.setKs(data[0].ks);
-	            // if original request was not a multirequest then directly return the data object
-	            // if original request was a multirequest then remove the session from the returned data objects
-	            if (data.length == 2){
-		            data = data[1];
-	            } else {
-		            data.shift();
-	            }
+            if( data.length == 2 && param[ '1:service' ] == 'session' ){
+				data = data[1];
 			}
 			// issue the local scope callback:
 			if( callback ){
 				callback( data );
 				callback = null;
 			}
-		};
-
+		}
 		// Run the request
-		// NOTE kaltura api server should return: 
+		// NOTE borhan api server should return: 
 		// Access-Control-Allow-Origin:* most browsers support this. 
 		// ( old browsers with large api payloads are not supported )
-		var userAgent = navigator.userAgent.toLowerCase();
-		var forceJSONP = document.documentMode && document.documentMode <= 10;
 		try {
-			if ( forceJSONP ){
-				throw "forceJSONP";
-			}
+			// set format to JSON ( Access-Control-Allow-Origin:* )
+			param['format'] = 1;
 			this.xhrRequest( _this.getApiUrl( serviceType ), param, function( data ){
 				handleDataResult( data );
 			});
 		} catch(e){
 			param['format'] = 9; // jsonp
-			//Delete previous kalSig
-			delete param[ 'kalsig' ];
-			//Regenerate kalSig with amended format
-			var kalSig = this.hashCode( kWidget.param( param ) );
-			// Add kalsig to query:
-			param[ 'kalsig' ] = kalSig;
 			// build the request url: 
-			var requestURL = _this.getApiUrl( serviceType ) + '&' + kWidget.param( param );
+			var requestURL = _this.getApiUrl( serviceType ) + '&' + bWidget.param( param );
 			// try with callback:
-			globalCBName = 'kapi_' + kalSig;
+			var globalCBName = 'kapi_' + Math.abs( _this.hashCode( bWidget.param( param ) ) );
 			if( window[ globalCBName ] ){
 				// Update the globalCB name inx.
 				this.callbackIndex++;
@@ -183,49 +127,40 @@ kWidget.api.prototype = {
 				}catch( e ){}
 			}
 			requestURL+= '&callback=' + globalCBName;
-			kWidget.appendScriptUrl( requestURL );
+			bWidget.appendScriptUrl( requestURL );
 		}
 	},
 	xhrRequest: function( url, param, callback ){
 		// get the request method:
 		var requestMethod = this.type == "auto" ? 
-				( ( kWidget.param( param ).length > 2000 ) ? 'xhrPost' : 'xhrGet' ) :
+				( ( bWidget.param( param ).length > 2000 ) ? 'xhrPost' : 'xhrGet' ) :
 				( (  this.type == "GET" )? 'xhrGet': 'xhrPost' );
 		// do the respective request
 		this[ requestMethod ](  url, param, callback );
 	},
-	parseResponse: function (data ){
-		var response = data;
-		try {
-			response = JSON.parse( data );
-		}catch(e){}
-		return response;
-	},
 	xhrGet: function( url, param, callback ){
-		var _this = this;
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function(){
 			if ( xmlhttp.readyState==4 && xmlhttp.status==200 ){
-				callback( _this.parseResponse( xmlhttp.responseText ) );
+				callback( JSON.parse( xmlhttp.responseText) );
 			}
 		}
-		xmlhttp.open("GET", url + '&' + kWidget.param( param ), true);
+		xmlhttp.open("GET", url + '&' + bWidget.param( param ), true);
 		xmlhttp.send();
 	},
 	/**
 	 * Do an xhr request
 	 */
 	xhrPost: function( url, param, callback ){
-		var _this = this;
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function(){
 			if ( xmlhttp.readyState==4 && xmlhttp.status==200 ){
-				callback( _this.parseResponse( xmlhttp.responseText ) );
+				callback( JSON.parse( xmlhttp.responseText) );
 			}
 		}
 		xmlhttp.open("POST", url, true);
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xmlhttp.send( kWidget.param( param ) );
+		xmlhttp.send( bWidget.param( param ) );
 	},
 	handleKsServiceRequest: function( requestObject ){
 		var param = {};
@@ -242,7 +177,7 @@ kWidget.api.prototype = {
 			param['service'] = 'multirequest';
 			param['action'] = 'null';
 
-			// Kaltura api starts with index 1 for some strange reason.
+			// Borhan api starts with index 1 for some strange reason.
 			var mulitRequestIndex = 1;
 			// check if we should add a user ks
 			if( !this.getKs() ){
@@ -264,10 +199,10 @@ kWidget.api.prototype = {
 					if( typeof requestObject[i][paramKey] == 'object' ){
 						for( var subParamKey in requestObject[i][paramKey] ){
 							param[ requestInx + ':' + paramKey + ':' +  subParamKey ] =
-								this.parseParam(requestObject[i][paramKey][subParamKey]);
+								requestObject[i][paramKey][subParamKey];
 						}
 					} else {
-						param[ requestInx + ':' + paramKey ] = this.parseParam(requestObject[i][paramKey]);
+						param[ requestInx + ':' + paramKey ] = requestObject[i][paramKey];
 					}
 				}
 			}
@@ -277,36 +212,23 @@ kWidget.api.prototype = {
 		}
 		return param;
 	},
-	parseParam: function(data){
-		var param = data;
-		//Check if we need to request session
-		if (!this.getKs() && (param !== undefined)) {
-			//check if request contains dependent params and if so then update reference object num -
-			// because reference index changed due to addition of multirequest startWidgetSession service
-			var paramParts = param.toString().match( /\{(\d+)(:result:.*)\}/ );
-			if ( paramParts ) {
-				var refObj = parseInt(paramParts[1]) + 1;
-				param = "{"+ refObj + paramParts[2] + "}"
-			}
-		}
-		return param;
-	},
 	getApiUrl : function( serviceType ){
-		var serviceUrl = mw.getConfig( 'Kaltura.ServiceUrl' );
-		if( serviceType && serviceType == 'stats' &&  mw.getConfig( 'Kaltura.StatsServiceUrl' ) ) {
-			serviceUrl = mw.getConfig( 'Kaltura.StatsServiceUrl' );
+		var serviceUrl = this.serviceUrl;
+		if( serviceType && serviceType == 'stats' && this.statsServiceUrl ) {
+			serviceUrl = this.statsServiceUrl
 		}
-		if( serviceType && serviceType == 'liveStats' &&  mw.getConfig( 'Kaltura.LiveStatsServiceUrl' ) ) {
-			serviceUrl = mw.getConfig( 'Kaltura.LiveStatsServiceUrl' );
-		}
-		if( serviceType && serviceType == 'analytics' &&  mw.getConfig( 'Kaltura.AnalyticsUrl' ) ) {
-			serviceUrl = mw.getConfig( 'Kaltura.AnalyticsUrl' );
-		}
-		return serviceUrl + mw.getConfig( 'Kaltura.ServiceBase' ) + serviceType;
+		return serviceUrl + this.serviceBase + serviceType;
 	},
 	hashCode: function( str ){
-		return md5(str);
+		var hash = 0;
+		if (str.length == 0) return hash;
+		for (var i = 0; i < str.length; i++) {
+			var currentChar = str.charCodeAt(i);
+			hash = ((hash<<5)-hash)+currentChar;
+			hash = hash & hash; // Convert to 32bit integer
+		}
+		return hash;
 	}
 }
 
-})( window.kWidget );
+})( window.bWidget );

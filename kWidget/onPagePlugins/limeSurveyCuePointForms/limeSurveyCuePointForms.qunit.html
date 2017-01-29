@@ -7,17 +7,17 @@
 <script type="text/javascript" src="../../../docs/js/doc-bootstrap.js"></script>
 <script type="text/javascript">	
 // Enable uiconf js which includes external resources 
-mw.setConfig('Kaltura.EnableEmbedUiConfJs', true);
+mw.setConfig('Borhan.EnableEmbedUiConfJs', true);
 
-function jsKalturaPlayerTest( playerId ){
+function jsBorhanPlayerTest( playerId ){
 	// Name this module
 	module( "limeSurvey Player Form Box test" );
 	
 	asyncTest("Seek Events", function(){
-		var kdp = document.getElementById( playerId );
+		var bdp = document.getElementById( playerId );
 		
 		// Add a binding for when seek is completed: 
-		kdp.kBind('playerSeekEnd', function(){
+		bdp.kBind('playerSeekEnd', function(){
 			setTimeout(function(){
 				ok( $('#k-form-container-' + playerId).length, "Found the plugin's div!");
 				start(); //Run the test
@@ -26,37 +26,37 @@ function jsKalturaPlayerTest( playerId ){
 		
 		// Once playing issue seek
 		var seekDone = false;
-		kdp.kBind('playerUpdatePlayhead', function(){
+		bdp.kBind('playerUpdatePlayhead', function(){
 			if( ! seekDone ){
-				kdp.sendNotification('doSeek', 10 );
+				bdp.sendNotification('doSeek', 10 );
 			}
 			seekDone = true;
 		});
 		
-		kdp.sendNotification('doPlay');
+		bdp.sendNotification('doPlay');
 	});
 }
 
 </script>
-<!-- qunit-kaltura must come after qunit-bootstrap.js and after mwEmbedLoader.php and after any jsCallbackReady stuff-->
-<script type="text/javascript" src="../../../modules/KalturaSupport/tests/resources/qunit-kaltura-bootstrap.js"></script>
+<!-- qunit-borhan must come after qunit-bootstrap.js and after mwEmbedLoader.php and after any jsCallbackReady stuff-->
+<script type="text/javascript" src="../../../modules/BorhanSupport/tests/resources/qunit-borhan-bootstrap.js"></script>
 </head>
 <body>
 <h2>LimeSurvey CuePoint Forms on Player </h2>
-<div id="kaltura_player" style="width:400px;height:330px;"></div>
+<div id="borhan_player" style="width:400px;height:330px;"></div>
 <div id="kdoc-more-desc"><br>This demo, shows a survey at 6 seconds into the video. This is an example of custom integration, not an out of the box feature.  
 Reports are aggregated into limeSurvay.  </div>
 <script>
-kWidget.featureConfig({
+bWidget.featureConfig({
 	'cache_st': 52345,
-	'targetId' : 'kaltura_player',
+	'targetId' : 'borhan_player',
 	'wid' : '_243342',
 	'uiconf_id' : '12644921',
 	'entry_id' : '0_uka1msg4',
 	'flashvars': {
 		'limeSurveyCuePointForms':{
 			'plugin': true,
-			'path' : "/content/uiconf/ps/kaltura/kdp/v3.6.9/plugins/facadePlugin.swf",
+			'path' : "/content/uiconf/ps/borhan/bdp/v3.6.9/plugins/facadePlugin.swf",
 			'relativeTo': 'video',
 			'position': 'before',
 			
@@ -74,7 +74,6 @@ kWidget.featureConfig({
 })
 </script>
 <h2>Sample report:</h2>
-<iframe style="width:100%;height:800px;border:none;overflow-y: hidden;" seamless="seamless" scrolling="no" 
-	src="http://surveys.kaltura.org/index.php/statistics_user/action/surveyid/864467/language/en"></iframe>
+<img src="sample_report.png">
 </body>
 </html>

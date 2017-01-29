@@ -5,22 +5,22 @@ require_once( realpath( dirname( __FILE__ ) ) . '/../includes/DefaultSettings.ph
 // start gzip compression if avaliable: 
 if(!ob_start("ob_gzhandler")) ob_start();
 
-$authPage = new kalturaAuthPage();
+$authPage = new borhanAuthPage();
 $authPage->run();
 
-class kalturaAuthPage {
+class borhanAuthPage {
 	/**
 	 * Main output page method
 	 */
 	function run(){
-		global $wgKalturaAuthHTTPS, $wgKalturaAuthDomains, $wgHTTPProtocol;
+		global $wgBorhanAuthHTTPS, $wgBorhanAuthDomains, $wgHTTPProtocol;
 		// Check for must run over https
-		if( $wgKalturaAuthHTTPS && $wgHTTPProtocol != 'https' ){
-			return $this->outputError( "Error, Kaltura Authentication page must run over <b>https</b>" );
+		if( $wgBorhanAuthHTTPS && $wgHTTPProtocol != 'https' ){
+			return $this->outputError( "Error, Borhan Authentication page must run over <b>https</b>" );
 		} 
 		// Check Domain restrictions
-		if( ! in_array($_SERVER['HTTP_HOST'], $wgKalturaAuthDomains ) ){
-			return $this->outputError( "Error, Kaltura page can't run on this domain, " .$_SERVER['HTTP_HOST'] );
+		if( ! in_array($_SERVER['HTTP_HOST'], $wgBorhanAuthDomains ) ){
+			return $this->outputError( "Error, Borhan page can't run on this domain, " .$_SERVER['HTTP_HOST'] );
 		}
 		// output the javascript driven frame:
 		$this->outputAuthPage();
@@ -40,12 +40,12 @@ class kalturaAuthPage {
 	function getServiceConfig( $name ){
 		switch( $name ){
 			case 'ServiceUrl' : 
-				global $wgKalturaServiceUrl;
-				return $wgKalturaServiceUrl;
+				global $wgBorhanServiceUrl;
+				return $wgBorhanServiceUrl;
 				break;
 			case 'ServiceBase':
-				global $wgKalturaServiceBase;
-				return $wgKalturaServiceBase;
+				global $wgBorhanServiceBase;
+				return $wgBorhanServiceBase;
 				break;
 		}
 	}

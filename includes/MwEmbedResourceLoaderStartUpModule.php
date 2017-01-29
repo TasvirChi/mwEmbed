@@ -35,7 +35,7 @@ class MwEmbedResourceLoaderStartUpModule extends ResourceLoaderStartUpModule {
 	}
 	
 	protected function getConfig( $context ) {
-		global $wgLoadScript, $psRelativePath;
+		global $wgLoadScript; 
 				
 		$vars = array(
 			'wgLoadScript' => $wgLoadScript,

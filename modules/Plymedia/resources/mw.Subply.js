@@ -5,7 +5,7 @@
 */
 mw.Subply = {
 	bindPlayer: function( embedPlayer ){
-	var intializeRestUrl = "http://services.plymedia.com/jsinitialize?platform=kaltura&video=http://www.kaltura.com/extservices/plymedia?movie=entry_";
+	var intializeRestUrl = "http://services.plymedia.com/jsinitialize?platform=borhan&video=http://www.borhan.com/extservices/plymedia?movie=entry_";
 	var entryId	= "";
 	var currentVideoUrl = "";
 	var defaultlang =  "eng";

@@ -1,10 +1,10 @@
-kWidget.addReadyCallback( function( playerId ){
-	var kdp = document.getElementById( playerId );
+bWidget.addReadyCallback( function( playerId ){
+	var bdp = document.getElementById( playerId );
 	/**
 	 * The main chaptersEdit object:
 	 */
-	var chaptersEdit = function(kdp){
-		return this.init(kdp);
+	var chaptersEdit = function(bdp){
+		return this.init(bdp);
 	}
 	chaptersEdit.prototype = {
 		// the left offset of the cuepoint 
@@ -19,12 +19,12 @@ kWidget.addReadyCallback( function( playerId ){
 		// Current time of the playhead
 		currentTime: 0,
 		
-		init: function( kdp ){
+		init: function( bdp ){
 			var _this = this;
-			this.kdp = kdp;
+			this.bdp = bdp;
 			
 			// init the cuePoints data controller with the current entryId:
-			this.cuePoints = new kWidget.cuePointsDataController({
+			this.cuePoints = new bWidget.cuePointsDataController({
 				'wid' : this.getAttr( 'configProxy.kw.id' ),
 				'entryId' : this.getAttr( 'mediaProxy.entry.id' ),
 				'tags' : this.getConfig('tags') || 'chaptering', // default cuePoint name
@@ -38,7 +38,7 @@ kWidget.addReadyCallback( function( playerId ){
 			// setup app targets:
 			this.$prop = this.getConfig( 'editPropId') ? 
 					$('#' + this.getConfig( 'editPropId') ) : 
-					$('<div>').insertAfter( kdp );
+					$('<div>').insertAfter( bdp );
 			
 			this.$timeline =  this.getConfig( 'editTimelineId' ) ?
 					$( '#' + this.getConfig( 'editTimelineId' ) ) : 
@@ -178,12 +178,12 @@ kWidget.addReadyCallback( function( playerId ){
 					var win = ( self == top ) ? window : top;
 					if( win.location.hash.indexOf( 'uiconf_id') !== -1 ){
 						error.title = "URL includes uiconf_id #config";
-						error.msg = " Kaltura Secret can not be used with uiConf URL based config." +
+						error.msg = " Borhan Secret can not be used with uiConf URL based config." +
 								"Please save settings, and remove url based config"
 						break;
 					}
-					error.title = "Missing Kaltura Secret";
-					error.msg = "The chapters editor appears to be missing a valid kaltura secret." +
+					error.title = "Missing Borhan Secret";
+					error.msg = "The chapters editor appears to be missing a valid borhan secret." +
 							" Please login."
 					break;
 				default:
@@ -211,7 +211,7 @@ kWidget.addReadyCallback( function( playerId ){
 					_this.refreshTimeline();
 				}
 				_this.updatePlayhead( 
-					kWidget.npt2seconds( $( this ).val() )
+					bWidget.npt2seconds( $( this ).val() )
 				);
 			})
 			return $editTable;
@@ -236,7 +236,7 @@ kWidget.addReadyCallback( function( playerId ){
 				_this.updatePlayhead( clickTime );
 			});
 			// add playhead tracker
-			kdp.kBind('playerUpdatePlayhead', function( ct ){
+			bdp.kBind('playerUpdatePlayhead', function( ct ){
 				_this.updatePlayheadUi( ct );
 			} )
 		},
@@ -244,7 +244,7 @@ kWidget.addReadyCallback( function( playerId ){
 			// update the current time: 
 			this.currentTime = time;
 			// seek to that time
-			kdp.sendNotification( 'doSeek', time );
+			bdp.sendNotification( 'doSeek', time );
 			// do the ui update
 			this.updatePlayheadUi( time );
 		},
@@ -257,7 +257,7 @@ kWidget.addReadyCallback( function( playerId ){
 			});
 			// Check if we can update current time: ( don't update if a chapter is selected )
 			this.$prop.find( '.k-currentTime' ).val(
-				kWidget.seconds2npt( time, true  )
+				bWidget.seconds2npt( time, true  )
 			)
 		},
 		getTimelineWidth: function(){
@@ -323,7 +323,7 @@ kWidget.addReadyCallback( function( playerId ){
 							'width' : '70px',
 							'height': '14px',
 						}).text(
-							kWidget.seconds2npt( markerTime )
+							bWidget.seconds2npt( markerTime )
 						)
 					);
 				} else {
@@ -396,7 +396,7 @@ kWidget.addReadyCallback( function( playerId ){
 			});
 		},
 		normalizeAttrValue: function( attrValue ){
-			// normalize flash kdp string values
+			// normalize flash bdp string values
 			switch( attrValue ){
 				case "null":
 					return null;
@@ -412,7 +412,7 @@ kWidget.addReadyCallback( function( playerId ){
 		},
 		getAttr: function( attr ){
 			return this.normalizeAttrValue(
-				this.kdp.evaluate( '{' + attr + '}' )
+				this.bdp.evaluate( '{' + attr + '}' )
 			);
 		},
 		getConfig : function( attr ){
@@ -420,7 +420,7 @@ kWidget.addReadyCallback( function( playerId ){
 				return this.configOverride[ attr ];
 			}
 			return this.normalizeAttrValue(
-				this.kdp.evaluate('{chaptersEdit.' + attr + '}' )
+				this.bdp.evaluate('{chaptersEdit.' + attr + '}' )
 			);
 		}
 	}
@@ -431,12 +431,12 @@ kWidget.addReadyCallback( function( playerId ){
 	window['chaptersEditMediaReady'] = function(){
 		// make sure we have jQuery
 		if( !window.jQuery ){
-			kWidget.appendScriptUrl( '//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js', function(){
-				new chaptersEdit(kdp) 
+			bWidget.appendScriptUrl( '//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js', function(){
+				new chaptersEdit(bdp) 
 			});
 			return ;
 		}
-		new chaptersEdit(kdp);
+		new chaptersEdit(bdp);
 	};
-	kdp.addJsListener( "mediaReady", "chaptersEditMediaReady" );
+	bdp.addJsListener( "mediaReady", "chaptersEditMediaReady" );
 });

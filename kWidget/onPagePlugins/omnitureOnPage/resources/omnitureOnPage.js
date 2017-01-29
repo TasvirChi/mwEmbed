@@ -1,4 +1,4 @@
-kWidget.addReadyCallback( function( playerId ){ 
+bWidget.addReadyCallback( function( playerId ){ 
 	/**
 	 * The main omnitureOnPage object:
 	 */
@@ -9,65 +9,49 @@ kWidget.addReadyCallback( function( playerId ){
 		instanceName: 'omnitureOnPage',
 		sCodeLoaded: false,
 		entryData: {},
-		
-		// event queues
-		mediaQueue:[], 
-		notificationQueue: [],
-		
-		// track waiting for scode propagation 
-		_startWaitTime: null,
-		// flasg to make sure we setup monitor only once
-		layoutReadyCalled: false,
-
 		init: function( player ){
 			var _this = this;
-			this.kdp = player;
+			this.bdp = player;
 			this.log( 'init' );
 			// unbind any existing bindings:
-			this.kdp.kUnbind( '.' + this.instanceName );
+			this.bdp.kUnbind( '.' + this.instanceName );
 			// We bind to event
 			_this.bindPlayer();
-
 			// Check for on-page s-code that already exists
 			this.bind('layoutReady', function(){
-				// check that plugin is enabled: 
-				if( _this.getConfig('plugin') == false ){
-					return ;
-				}
-				if ( !_this.layoutReadyCalled ){
-					_this.sCodeCheck(function(){
-						// process any queued events now that sCode is available:
-						_this.proccessMediaQueue();
-						_this.proccessNotificationQueue();
-					});
-					// bind for events as soon as layout is Ready ( proxy events while player checks for sCode )
+				_this.sCodeCheck(function(){
+					_this.setupMonitor();
 					_this.bindCustomEvents();
-					_this.layoutReadyCalled = true;
-				}
+				});
 			});
 		},
 		cacheEntryMetadata: function(){
 			this.entryData = {
-				id: this.kdp.evaluate( '{mediaProxy.entry.id}' ),
-				referenceId: this.kdp.evaluate( '{mediaProxy.entry.referenceId}' ),
-				mediaType: this.kdp.evaluate( '{mediaProxy.entry.mediaType}' ),
-				name: this.kdp.evaluate( '{mediaProxy.entry.name}' ),
-				duration: this.kdp.evaluate( '{mediaProxy.entry.duration}' )
+				id: this.bdp.evaluate( '{mediaProxy.entry.id}' ),
+				referenceId: this.bdp.evaluate( '{mediaProxy.entry.referenceId}' ),
+				mediaType: this.bdp.evaluate( '{mediaProxy.entry.mediaType}' ),
+				name: this.bdp.evaluate( '{mediaProxy.entry.name}' ),
+				duration: this.bdp.evaluate( '{mediaProxy.entry.duration}' )
 			};
 		},
 		getSCodeName: function(){
 			return this.getConfig('s_codeVarName') || 's';
 		},
-		sCodeCheck: function( callback, faliedCallback ){
+		sCodeCheck: function( callback ){
 			var _this = this;
-			
-			// Only run sCode check once
+
+			// Run sCode check once
 			if( this.sCodeLoaded ) {
 				return ;
 			}
-			// will check for scode in a loop for sCodeAvailableTimeout time
-			this.checkForScodeAndLoad( function(){
+
+			var doneCallback = function() {
 				_this.log( 'sCodeCheck found' );
+				// check if media module is found
+				if( !window[ _this.getSCodeName() ] || !window[ _this.getSCodeName() ]['Media'] ){
+					_this.log( "Error: s.Media module missing !!");
+					return ;
+				}
 				// Override s_code object with local configuration
 				var configFuncName = _this.getConfig('s_codeConfigFunc');
 				if( configFuncName && typeof window[ configFuncName ] == 'function' ) {
@@ -78,84 +62,46 @@ kWidget.addReadyCallback( function( playerId ){
 				}
 
 				_this.sCodeLoaded = true;
-				// once sCode is ready setup the monitor
-				_this.setupMonitor();
 
 				if(callback) {
 					callback();
 				}
-			}, function(){
-				// failed to load scode:
-				_this.kdp.sendNotification("omnitureScodeError");
-				_this.log( "Error: failed to load s-code")
-			})
-		},
-		isScodeReady: function(){
-			return ( window[ this.getSCodeName() ] && window[ this.getSCodeName() ]['Media']);
-		},
-		checkForScodeAndLoad: function( readyCallback, failedCallback ){
-			var _this = this;
-			if(  this.isScodeReady() ){
-				readyCallback();
+			};
+			// check if already on the page: 
+			if( window[ this.getSCodeName() ] && window[ this.getSCodeName() ]['Media'] ){
+				doneCallback();
+				return ; 
+			}
+			
+			// check if we have scode
+			if( !_this.getConfig('s_codeUrl') ){
+				_this.log( "Error: s_codeUrl must be set for Omniture onPage plugin");
 				return ;
 			}
-			// init startWaitTime
-			if( !this._startWaitTime){
-				this._startWaitTime = new Date().getTime();
-			}
-			var waitedTime = new Date().getTime() - this._startWaitTime
-			// check if we are waiting: 
-			if( waitedTime > this.getTimeoutMs() ){
-				// failed waitTime is > then sCodeAvailableTimeout load local copy: 
-				kWidget.appendScriptUrl( _this.getConfig('s_codeUrl'), function(){
-					if( _this.isScodeReady() ){
-						readyCallback();
-					} else {
-						failedCallback();
-					}
-				} );
-				// kWidget does not have a failed timeout, give it 10 seconds to load
-				setTimeout(function(){
-					// only issue a fail if we never got success callback: 
-					// Note this will result in two fails where s_codeUrl is invalid )
-					if( !_this.isScodeReady() ){
-						failedCallback();
-					}
-				},10000 );
-				return ;
-			}
-			// else loop
-			setTimeout(function(){
-				_this.checkForScodeAndLoad( readyCallback, failedCallback );
-			}, 50 );
-		},
-		// get timeout in Ms: 
-		getTimeoutMs: function(){
-			return ( this.getConfig( 'sCodeAvailableTimeout' ) ) ? 
-					this.getConfig( 'sCodeAvailableTimeout' ) * 1000 :
-					5000;
+			bWidget.appendScriptUrl( _this.getConfig('s_codeUrl'), doneCallback );
 		},
 		/** Getters **/
 		getMediaPlayerName: function(){
-			return 'Kaltura Omniture OnPage v' + mw.getConfig('version'); 
+			return 'Borhan Omniture OnPage v' + mw.getConfig('version'); 
 		},
-
-		trimSpaces: function(str) {
-			// shortcut to custom data with trimming spaces if exists
-			str = str.replace(/^\s+/, '');
-			for (var i = str.length - 1; i >= 0; i--) {
-				if (/\S/.test(str.charAt(i))) {
-					str = str.substring(0, i + 1);
-					break;
-				}
-			}
-			return str;
-		},
-
 		getMediaName: function(){
 	 		var _this = this;
+	 		// shortcut to custom data with trimming spaces if exists
+
+			var trimSpaces = function(str) {
+				str = str.replace(/^\s+/, '');
+				for (var i = str.length - 1; i >= 0; i--) {
+					if (/\S/.test(str.charAt(i))) {
+						str = str.substring(0, i + 1);
+						break;
+					}
+				}
+				return str;
+			}
+
+
 	 		var g = function( key ){
-	 			return _this.trimSpaces(_this.getAttr( 'mediaProxy.entryMetadata.' + key ) || '_');
+	 			return trimSpaces(_this.getAttr( 'mediaProxy.entryMetadata.' + key ) || '_');
 	 		}
  			switch( _this.getConfig( 'concatMediaName' ) ){
  				case 'doluk':
@@ -168,12 +114,6 @@ kWidget.addReadyCallback( function( playerId ){
  						].join(':').replace(/\s/g, "_");
  				break;
  			}
-			// this allows to override the media name by configuration E.G. MY_PREFIX_{mediaProxy.entry.id}
-			// will output a media name with prefix.
-			if(_this.getConfig( 'mediaName' )) {
-				return _this.kdp.evaluate(_this.getConfig( 'mediaName' ));
-			}
-
 			return this.entryData.name;
 		},
 		getDuration: function(){
@@ -183,56 +123,6 @@ kWidget.addReadyCallback( function( playerId ){
 		getCurrentTime: function(){
 			return Math.floor( parseInt(this.getAttr('video.player.currentTime')) );
 		},
-
-		setupEvarsAndProps : function(){
-			var extraEvars = [];
-			var extraEvarsValues = [];
-			var s = window[ this.getSCodeName() ];
-
-			this.log( 'setupMonitor' );
-
-			// get local ref to the sCode s var:
-
-			// Check for additional eVars and eVars values
-			var additionalEvarsAndProps = this.getConfig('additionalEvarsAndProps');
-			var additionalEvarsAndPropsValues = this.getConfig('additionalEvarsAndPropsValues');
-			if( additionalEvarsAndProps ) {
-				extraEvars = additionalEvarsAndProps.split(",");
-			}
-			if( additionalEvarsAndPropsValues ){
-				// custom delimiter is used in situations when
-				// some evaluated extraValues contain comma character
-				// because this.getConfig('additionalEvarsAndPropsValues')
-				// returns already evaluated values
-				var extraEvarsValuesDelimiter = this.getConfig('additionalEvarsAndPropsValuesDelimiter') || ',';
-				extraEvarsValues = additionalEvarsAndPropsValues.split(extraEvarsValuesDelimiter);
-				for( var j=0; j < extraEvarsValues.length; j++ ) {
-					extraEvarsValues[j] = this.kdp.evaluate(extraEvarsValues[j]);
-				}
-			}
-			// Compare length between eVars and eVars values
-			if( extraEvars.length !== extraEvarsValues.length ) {
-				this.log( 'Addtional eVars and Values length does not match' );
-			}
-			// append the custom evars and props:
-			s.Media.trackVars = undefined;
-			s.Media.trackVars += ',' + additionalEvarsAndProps;
-			var _this = this;
-
-			this.trackMediaWithExtraEvars = function() {
-				for( var i=0; i < extraEvars.length; i++ ) {
-					(function(key, val) {
-						_this.log('omnitureOnPage:: eVar: ' + key + ' - eValue: ' + val);
-						// Set extra eVars and eVars values on s object
-						s[ key ] = val;
-					})(extraEvars[i], extraEvarsValues[i]);
-				}
-				// Call s.track method
-				s.Media.track( _this.getMediaName() );
-			};
-
-		},
-
 		/*
 		Support passing global evars to all events
 		
@@ -244,12 +134,46 @@ kWidget.addReadyCallback( function( playerId ){
 		*/
 		setupMonitor: function() {
 			// Exit if sCode not loaded
-			if( !this.sCodeLoaded) {
+			if( !this.sCodeLoaded ) {
 				return ;
 			}
-			var s = window[ this.getSCodeName() ];
 
-			this.setupEvarsAndProps();
+			var _this = this;
+			var extraEvars = [];
+			var extraEvarsValues = [];
+			
+			this.log( 'setupMonitor' );
+			
+			// get local ref to the sCode s var:
+			var s = window[ this.getSCodeName() ];
+			
+			// Check for additional eVars and eVars values
+			var additionalEvarsAndProps = this.getConfig('additionalEvarsAndProps');
+			var additionalEvarsAndPropsValues = this.getConfig('additionalEvarsAndPropsValues');
+			if( additionalEvarsAndProps ) {
+				extraEvars = additionalEvarsAndProps.split(",");
+			}
+			if( additionalEvarsAndPropsValues ){
+				extraEvarsValues = additionalEvarsAndPropsValues.split(",");
+			}
+			// Compare length between eVars and eVars values
+			if( extraEvars.length !== extraEvarsValues.length ) {
+				this.log( 'Addtional eVars and Values length does not match' );
+			}
+			// append the custom evars and props:
+			s.Media.trackVars += ',' + additionalEvarsAndProps;
+			
+			var trackMediaWithExtraEvars = function() {
+				for( var i=0; i < extraEvars.length; i++ ) {
+					(function(key, val) {
+						_this.log('omnitureOnPage:: eVar: ' + key + ' - eValue: ' + val);
+						// Set extra eVars and eVars values on s object
+						s[ key ] = val;
+					})(extraEvars[i], extraEvarsValues[i]);
+				}
+				// Call s.track method
+				s.Media.track( _this.getMediaName() );
+			};
 
 			// Check if we have monitor function
 			var originalMediaFunc = s.Media.monitor;
@@ -258,32 +182,14 @@ kWidget.addReadyCallback( function( playerId ){
 			var trackEvents = ['OPEN', 'PLAY', 'STOP', 'SECONDS', 'MILESTONE'];
 			var monitorCount = 0;
 			var trackedClose = false;
-			s.Media.autoTrack= typeof this.getConfig('autoTrack') == 'undefined' ? true : this.getConfig('autoTrack') ;
-			s.Media.trackWhilePlaying = typeof this.getConfig('trackWhilePlaying')  == 'undefined' ? true : this.getConfig('trackWhilePlaying');
-			if(this.getConfig("trackMilestones")){
-				s.Media = this.getConfig("trackMilestones");
-			}else{
-				s.Media.trackMilestones="25,50,75";
-			}
-			var _this = this;
 			s.Media.monitor = function ( s, media ) {
-				var inArray = false;
-				for (var i = 0; i < trackEvents.length; i++){
-					if(media.event ===  trackEvents[i]){
-						inArray = true;
-						break;
-					}
-				}
-				if( inArray ) {
-					_this.trackMediaWithExtraEvars();
-				}
-				if( media.event == 'OPEN' ){
-					trackedClose = false;
+				if( trackEvents.indexOf( media.event ) !== -1 ) {
+					trackMediaWithExtraEvars();
 				}
 				if( media.event == 'CLOSE' ){
 					if( !trackedClose){
 						trackedClose = true;
-						_this.trackMediaWithExtraEvars();
+						trackMediaWithExtraEvars();
 					}
 				}
 				// Special case the MONITOR event.
@@ -292,11 +198,8 @@ kWidget.addReadyCallback( function( playerId ){
 					if( monitorCount == _this.getConfig( 'monitorEventInterval' ) ){
 						monitorCount = 0;
 						_this.log( "Track MONITOR" );
-						_this.trackMediaWithExtraEvars();
+						trackMediaWithExtraEvars();
 					}
-				}
-				if (media.mediaEvent == "MILESTONE"){
-					_this.runMediaCommand( "monitor", _this.getMediaName(), media.mediaEvent);
 				}
 				if( typeof originalMediaFunc == 'function' ) {
 					originalMediaFunc( s, media );
@@ -308,6 +211,7 @@ kWidget.addReadyCallback( function( playerId ){
 			var _this = this;
 			var firstPlay = true;
 			var ignoreFirstChangeMedia = true;
+
 			// setup shortcuts:
 			var stop = function(){
 				_this.runMediaCommand( "stop", _this.getMediaName(), _this.getCurrentTime() );
@@ -320,38 +224,34 @@ kWidget.addReadyCallback( function( playerId ){
 				if( firstPlay ){
 					return;
 				}
+				stop();
 				_this.runMediaCommand( "close", _this.getMediaName() );
 				firstPlay = true;
 			};
-			var adOpen = function(adID, adSystem, type, adIndex){
-				if ( type !== "overlay" ){
-					_this.runMediaCommand( "openAd",adID, -1, adSystem, _this.getMediaName(), type, adIndex);
-				}
-			};
-			var complete = function(adID, position, type){
-				if ( type !== "overlay" ){
-					_this.runMediaCommand( "complete",adID, position);
-					_this.runMediaCommand( "stop",adID, position);
-					_this.runMediaCommand( "close",adID);
-				}
-			};
+            var adOpen = function(adID, adSystem, type, adIndex){
+                _this.runMediaCommand( "openAd",adID, -1, adSystem, _this.getMediaName(), type, adIndex);
+            };
+            var complete = function(adID, position){
+                _this.runMediaCommand( "complete",adID, position);
+                _this.runMediaCommand( "stop",adID, position);
+                _this.runMediaCommand( "close",adID);
+            };
 
 			this.bind('entryReady', function() {
-				kWidget.log( 'omnitureOnPage: entryReady' );
+				bWidget.log( 'omnitureOnPage: entryReady' );
 				_this.cacheEntryMetadata();
-			});
-			// Run open on first play and replay:
-			this.bind( 'firstPlay replayEvent', function(){
+			});			
+			// Run open on first play:
+			this.bind( 'playerPlayed', function(){
 				if( firstPlay ){
-					if ( _this.getConfig( 'triggerPlayFirst' ) === true ){
-						play();
-						_this.runMediaCommand( "open", _this.getMediaName(), _this.getDuration(), _this.getMediaPlayerName() );
-					}else{
-						_this.runMediaCommand( "open", _this.getMediaName(), _this.getDuration(), _this.getMediaPlayerName() );
-						play();
-					}
+					_this.runMediaCommand( "open", 
+						_this.getMediaName(), 
+						_this.getDuration(), 
+						_this.getMediaPlayerName() 
+					)
 				}
 				firstPlay = false;
+				play();
 			});
 			this.bind( 'playerSeekStart', function() {
 				// Ignore HTML5 seek to 0 on PlayerPlayEnd
@@ -364,12 +264,6 @@ kWidget.addReadyCallback( function( playerId ){
 				play();
 			});
 			this.bind( 'doPause', stop );
-			this.bind( 'userInitiatedPlay', function(){
-				if (!firstPlay){
-					play();
-				}
-			} );
-			this.bind( 'AdSupport_midSequenceComplete', play );
 			this.bind( 'playerPlayEnd', function(){
 				close();
 			});
@@ -387,13 +281,11 @@ kWidget.addReadyCallback( function( playerId ){
 				}
 				close();
 			});
-			this.bind('onAdOpen', adOpen);
-			this.bind('onAdComplete', complete);
-			this.bind('onAdPlay', function(adName, adSystem, type, adIndex){
-				if ( type !== "overlay" ){
-					_this.runMediaCommand( "play",adName, 0);
-				}
-			});
+            this.bind('onAdOpen', adOpen);
+            this.bind('onAdComplete', complete);
+            this.bind('onAdPlay', function(adName){
+                _this.runMediaCommand( "play",adName, 0);
+            });
 		},
 
 		bindCustomEvents: function() {
@@ -415,7 +307,7 @@ kWidget.addReadyCallback( function( playerId ){
 					_this.bind( eventName, function(){
 						_this.sendNotification( eventId, eventName );
 					});
-				}(_this.trimSpaces(customEvents[i])));
+				}(customEvents[i]));
 			}		
 		},
 
@@ -451,8 +343,8 @@ kWidget.addReadyCallback( function( playerId ){
 		 * Get the media content type
 		 */
 		getCType: function(){
-			// kaltura mediaTypes are defined here: 
-			// http://www.kaltura.com/api_v3/testmeDoc/index.php?object=KalturaMediaType
+			// borhan mediaTypes are defined here: 
+			// http://www.borhan.com/api_v3/testmeDoc/index.php?object=BorhanMediaType
 			switch( this.entryData.mediaType ){
 				case 1:
 					return 'vid';
@@ -467,105 +359,56 @@ kWidget.addReadyCallback( function( playerId ){
 			// default to video if we can't detect content type from mime
 			return 'vid';
 	 	},
+
 		runMediaCommand: function(){
-			// https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope/arguments#Description
-	 		var args = Array.prototype.slice.call( arguments );
-	 		// always push event to queue: 
-	 		this.mediaQueue.push( args );
-	 		// Exit if sCode is not loaded exit
+			// Exit if sCode is not loaded
 			if( !this.sCodeLoaded ) {
 				return ;
 			}
-			// process queue: 
-			this.proccessMediaQueue();
-		},
-		proccessMediaQueue: function(){
-			if( ! this.mediaQueue.length ){
-				return ;
-			}
-			var x;
-			while(x = this.mediaQueue.shift()){ 
-				this.runMediaCommandWithArgs( x );
-			}
-		},
-		runMediaCommandWithArgs: function( args ){
-			var eventsTimeout = 0; //eventsTimeout is a new configuration, delay time in seconds
-			if (this.getConfig("eventsTimeout")){
-					eventsTimeout = this.getConfig("eventsTimeout")*1000;
-			}
-			var _this = this;
-			var _args = args;
-			if(eventsTimeout){
-				setTimeout(function(){
-					_this.executeMediaCommandWithArgs(_args);
-				} , eventsTimeout )
-			}else{
-				this.executeMediaCommandWithArgs(args);
-			}
+			// https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope/arguments#Description
+	 		var args = Array.prototype.slice.call( arguments );
+	 		var cmd = args[0];
+	 		var argSet = args.slice( 1 );
+
+	 		var s = window[ this.getSCodeName() ];
+	 		try {
+	 			// When using argSet.join we turn all arguments to string, we need to send them with the same type 
+	 			//eval( this.getSCodeName() + '.Media.' + cmd + '("' + argSet.join('","') + '");');
+	 			// not working :(
+	 			//s.Media[cmd].apply( this, args );
+		 		switch( cmd ) {
+		 			case 'open': 
+		 				s.Media.open(argSet[0], argSet[1], argSet[2]);
+		 			break;
+		 			case 'play': 
+		 				s.Media.play(argSet[0], argSet[1]);
+		 			break;
+		 			case 'stop':
+		 				s.Media.stop(argSet[0], argSet[1]);
+		 			break;
+		 			case 'close':
+		 				s.Media.close(argSet[0]);
+		 			break;
+                    case 'openAd':
+		 				s.Media.openAd(argSet[0], argSet[1], argSet[2],argSet[3], argSet[4], argSet[5]);
+		 			break;
+                    case 'complete':
+                        s.Media.complete(argSet[0], argSet[1]);
+                        break;
+		 		}
+		 	} catch( e ) {
+	 			this.log( "Error: Omniture, trying to run media command:" + cmd + " failed: \n" + e );
+	 		}
+	 		// audit if trackEventMonitor is set:
+	 		if( this.getConfig( 'trackEventMonitor') ){
+		 		try{
+		 			if( window[ this.getConfig( 'trackEventMonitor') ] ){
+		 				window[ this.getConfig( 'trackEventMonitor') ]( this.getSCodeName() + 
+		 					'.Media.' + cmd + '( "' + argSet.join('", "') + '" )' );
+		 			}
+		 		} catch ( e ){}
+	 		}
 	 	},
-		executeMediaCommandWithArgs : function(args){
-			var s = window[ this.getSCodeName() ];
-			var cmd = args[0];
-			var argSet = args.slice( 1 );
-			try {
-				// When using argSet.join we turn all arguments to string, we need to send them with the same type
-				//eval( this.getSCodeName() + '.Media.' + cmd + '("' + argSet.join('","') + '");');
-				// not working :(
-				//s.Media[cmd].apply( this, args );
-
-				if(this.getConfig("overridePlayerName") != undefined ){
-					s.Media.playerName = String(this.getConfig("overridePlayerName"));
-				}
-				if ( !s.inAd && cmd !== 'openAd') {
-					// re-evaluate mediaName even it it was already pushed to the stack
-					argSet[0] = this.getMediaName();
-				}
-				switch( cmd ) {
-					case 'open':
-						this.setupEvarsAndProps();
-						s.Media.open(argSet[0], argSet[1], argSet[2]);
-						this.previousName = argSet[0];
-						break;
-					case 'play':
-						s.Media.play(argSet[0], argSet[1]);
-						break;
-					case 'stop':
-						s.Media.stop(argSet[0], argSet[1]);
-						break;
-					case 'close':
-						if(this.getConfig("dynamicMediaName") == true){
-							s.Media.close(this.previousName);
-						}else{
-							s.Media.close(argSet[0]);
-						}
-						s.inAd = false;
-						break;
-					case 'openAd':
-						s.inAd = true;
-						s.Media.openAd(argSet[0], argSet[1], argSet[2],argSet[3], argSet[4], argSet[5]);
-						break;
-					case 'complete':
-						s.Media.complete(argSet[0], argSet[1]);
-						break;
-					case 'monitor':
-						s.Media.monitor(argSet[0], argSet[1]);
-						break;
-				}
-			} catch( e ) {
-				this.log( "Error: Omniture, trying to run media command:" + cmd + " failed: \n" + e );
-			}
-			// audit if trackEventMonitor is set:
-			if( this.getConfig( 'trackEventMonitor') ){
-				try{
-					if( window[ this.getConfig( 'trackEventMonitor') ] ){
-						window[ this.getConfig( 'trackEventMonitor') ]( this.getSCodeName() +
-						'.Media.' + cmd + '( "' + argSet.join('", "') + '" )' );
-					}
-				} catch ( e ){}
-			}
-
-		},
-
 
 		/**
 	 	 * Dispatches an event to omniture via the s.track(); call
@@ -578,24 +421,6 @@ kWidget.addReadyCallback( function( playerId ){
 	 	 * @return
 	 	 */
 	 	sendNotification: function( eventId, eventName ){
-	 		// always add: 
-	 		this.notificationQueue.push( [eventId, eventName ] );
-	 		// exit if sCode is not ready
-	 		if( !this.isScodeReady() ){
-	 			return ;
-	 		}
-	 		this.proccessNotificationQueue();
-	 	},
-	 	proccessNotificationQueue: function(){
-	 		if( !this.notificationQueue.length ){
-	 			return ;
-	 		}
-	 		var x;
-			while( x = this.notificationQueue.shift() ){ 
-				this.sendNotificationBeacon( x[0], x[1] );
-			}
-	 	},
-	 	sendNotificationBeacon: function( eventId, eventName){
 	 		var _this = this;
 	 		// get the updated s code mapping for link tracking:
 	 		var s = s_gi( s_account );
@@ -607,7 +432,7 @@ kWidget.addReadyCallback( function( playerId ){
 
 	 		// check if we have associated eVars:
 	 		s.linkTrackVars ='';
-	 		if( ! kWidget.isEmptyObject( propsAndEvars ) ){
+	 		if( ! bWidget.isEmptyObject( propsAndEvars ) ){
 	 			//s.Media.trackEvents += ',eVars';
 	 			// Build props and evars
 	 			var coma='';
@@ -641,7 +466,7 @@ kWidget.addReadyCallback( function( playerId ){
 	 		
 	 	},	 	
 		normalizeAttrValue: function( attrValue ){
-			// normalize flash kdp string values
+			// normalize flash bdp string values
 			switch( attrValue ){
 				case "null":
 					return null;
@@ -656,20 +481,20 @@ kWidget.addReadyCallback( function( playerId ){
 			return attrValue;
 		},
 		log: function( msg ){
-			kWidget.log( this.instanceName + ': ' + msg );
+			bWidget.log( this.instanceName + ': ' + msg );
 		},
 		bind: function( eventName, callback ){
 			// postfix the instanceName to namespace all the bindings
-			this.kdp.kBind( eventName + '.' + this.instanceName, callback );
+			this.bdp.kBind( eventName + '.' + this.instanceName, callback );
 		},
 		getAttr: function( attr ){
 			return this.normalizeAttrValue(
-				this.kdp.evaluate( '{' + attr + '}' )
+				this.bdp.evaluate( '{' + attr + '}' )
 			);
 		},
 		getConfig : function( attr ){
 			return this.normalizeAttrValue(
-				this.kdp.evaluate( '{' + this.instanceName + '.' + attr + '}' )
+				this.bdp.evaluate( '{' + this.instanceName + '.' + attr + '}' )
 			);
 		}
 	}

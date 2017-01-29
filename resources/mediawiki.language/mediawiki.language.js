@@ -1,5 +1,3 @@
-// storing the original VTTCue before vtt.js will override it
-window.originalVTTCue = window.VTTCue;
 /**
  * Base language object
  *

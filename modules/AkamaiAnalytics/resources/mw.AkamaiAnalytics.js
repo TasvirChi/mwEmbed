@@ -26,7 +26,7 @@
 			// Unbind any existing bindings
 			this.embedPlayer.unbindHelper( _this.bindPostFix );
 			this.embedPlayer.bindHelper( 'PlayerLoaded' + _this.bindPostFix, function() {
-				// kplayer will use flash akamaiMediaAnalyticsPlugin
+				//kplayer will use flash akamaiMediaAnalyticsPlugin
 				if ( embedPlayer.selectedPlayer.library == 'Kplayer' ) {
 					_this.sendDataToKPlayer( embedPlayer );
 				} else {
@@ -38,7 +38,7 @@
 						if ( _this.isHttps() ) {
 							jsSrc = _this.defaultJSHTTPS;
 						}
-						kWidget.appendScriptUrl( jsSrc, function() {
+						bWidget.appendScriptUrl( jsSrc, function() {
 							_this.setData( embedPlayer );
 						}, window.document );
 					}
@@ -60,8 +60,8 @@
 			var securedSwfPath = _this.getConfig( 'securedSwfPath' ) || _this.defaultSWFHTTPS;
 			var configPath = _this.getConfig( 'configPath' ) || _this.defaultConfigPath;
 			var securedConfigPath = _this.getConfig( 'securedConfigPath' ) || _this.defaultConfigPathHTTPS;
-			var kdpVars = embedPlayer.getKalturaConfig( 'kdpVars', null ) || {};
-				kdpVars.akamaiMediaAnalytics =  {
+			var bdpVars = embedPlayer.getBorhanConfig( 'bdpVars', null ) || {};
+				bdpVars.akamaiMediaAnalytics =  {
 				plugin: 'true',
 				asyncInit: 'true',
 				secured: _this.isHttps(),
@@ -70,7 +70,7 @@
 				swfPath: swfPath,
 				securedSwfPath: securedSwfPath
 			}
-			embedPlayer.setKalturaConfig( 'kdpVars', kdpVars );
+			embedPlayer.setBorhanConfig( 'bdpVars', bdpVars );
 			callback();
 		},
 
@@ -113,7 +113,7 @@
 		 */
 		setData: function( embedPlayer ) {
 			var _this = this;
-			var dataObject = this.getAkamaiDataObject( embedPlayer );
+		  	var dataObject = this.getAkamaiDataObject( embedPlayer );
 			$.each(dataObject, function(key, element) {
 				_this.sendAkamaiData( key, element );
 			});
@@ -134,8 +134,7 @@
 			}
 			//else wait for widget load event
 			else {
-				// TODO inherit the base plugin and use normal this.bind method
-				embedPlayer.bindHelper( 'playerReady.AkamaiMediaAnalytics',function(){
+				embedPlayer.bindHelper( 'playerReady',function(){
 					// add a timeout to give the parent frame a chance to update the total load time
 					setTimeout(function(){
 						callback();
@@ -148,57 +147,51 @@
 		 * @param embedPlayer
 		 */
 		sendDataToKPlayer: function( embedPlayer ) {
-			var _this = this;
 			var dataObject = this.getAkamaiDataObject( embedPlayer );
-			//log events
-			$.each(dataObject, function(key, element) {
-				_this.sendEventLog( key, element );
-			});
-
 			this.doOnPlayerLoadReady( embedPlayer, function() {
-				// confirm we are still a KDP instance: 
-				if( embedPlayer.selectedPlayer.library != 'Kplayer' ){
-					return ;
-				}
 				dataObject['playerLoadtime'] = embedPlayer.evaluate( '{playerStatusProxy.loadTime}' );
-				_this.sendEventLog( 'playerLoadtime', dataObject['playerLoadtime'] );
-				if( embedPlayer.getPlayerElement() ){
-					embedPlayer.getPlayerElement().sendNotification( 'setMediaAnalyticsData', dataObject );
-				}
-			});
+				embedPlayer.getPlayerElement().sendNotification( 'setMediaAnalyticsData', dataObject );
+			} );
 		},
 
 		sendAkamaiData: function( eventId, data ){
 			// send the data with the Akamai method: 
 			setAkamaiMediaAnalyticsData( eventId, data );
-			this.sendEventLog( eventId, data );
-
-		},
-
-		sendEventLog: function( eventId, data ) {
-			// log to the trackEventMonitor if not present:
+			// log to the trackEventMonitor if not present: 
 			if ( this.getConfig( 'trackEventMonitor' ) ) {
 				try{
 					window.parent[ this.getConfig( 'trackEventMonitor' ) ]( eventId, data );
 				} catch(e){
-					// error could not log event.
+					// error could not log event. 
 				}
 			}
-		} ,
+		},
 
 		getConfigPath: function() {
+			// Check for configuration override
+			var configPath = null;
+			if ( this.getConfig( 'configPath' ) ) {
+				configPath = this.getConfig( 'configPath' );
+			}
 			// Akamai has a special https url ( does not support protocol relative urls )
 			if ( this.isHttps() ) {
-				// If configuration path is not overridden use default secure location
-				return this.getConfig( 'securedConfigPath') || this.defaultConfigPathHTTPS;
+				// If configuration override includes https use it
+				if ( configPath && ( configPath.indexOf( 'https' ) != -1 ) ) {
+					return configPath;
+				}
+				// If configuration path is not overriden or overriden with insecure URL, use default secure location
+				return this.defaultConfigPathHTTPS;
 			}
-			//  If configuration path is not overridden use default location
+			// The default config path for borhan akami account
+			if ( configPath ){
+				return configPath;
+			}
 
-			return this.getConfig( 'configPath' ) || this.defaultConfigPath;
+			return this.defaultConfigPath;
 		},
 
 		getConfig: function( attr )  {
-			return this.embedPlayer.getKalturaConfig( 'akamaiMediaAnalytics', attr );
+			return this.embedPlayer.getBorhanConfig( 'akamaiMediaAnalytics', attr );
 		},
 		/**
 		* Set akamai custom data, if the given attribute value was set

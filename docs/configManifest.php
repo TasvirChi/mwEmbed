@@ -3,7 +3,7 @@
 require_once( realpath( dirname( __FILE__ ) )  . '/doc-base.php' );
 
 function outputConfig(){
-	global $wgMwEmbedEnabledModules, $wgKalturaPSHtml5SettingsPath;
+	global $wgMwEmbedEnabledModules, $wgBorhanPSHtml5SettingsPath;
 
 	// Support serving plugin manifest data in machine readalbe formats
 	if( !isset( $_REQUEST['plugin_id' ] ) ){
@@ -22,15 +22,15 @@ function outputConfig(){
 			'path' => array(
 				'hideEdit' => true
 			),
-			'loadInIframe' => array(
-					'doc' => "If the on-page-plugin should be loaded inside the iframe,
-				for share and embeds that don't include on-page JavaScript",
-					'type' => 'boolean',
-					'hideEdit' => true,
-			),
-			/*'width' => array(
+			'width' => array(
 				'doc' => "The width of the plugin",
 				'value' => '0%',
+				'hideEdit' => true,
+			),
+			'loadInIframe' => array(
+				'doc' => "If the on-page-plugin should be loaded inside the iframe, 
+					for share and embeds that don't include on-page JavaScript",
+				'type' => 'boolean',
 				'hideEdit' => true,
 			),
 			'height' => array(
@@ -45,7 +45,7 @@ function outputConfig(){
 			),
 			'relativeTo' => array(
 				'hideEdit' => true
-			),*/
+			),
 			'position' => array(
 				'hideEdit' => true
 			),
@@ -103,22 +103,19 @@ function outputConfig(){
 
 	# Register / load all the mwEmbed modules
 	foreach( $wgMwEmbedEnabledModules as $moduleName ){
-        $manifestPath =  realpath( dirname( __FILE__ ) ) .
-                        "/../modules/$moduleName/{$moduleName}.manifest.";
-        if( is_file( $manifestPath."json" ) ){
-            $manifest = json_decode( file_get_contents($manifestPath."json"), TRUE );
-            $configRegister = array_merge( $configRegister, $manifest );
-        } elseif( is_file( $manifestPath."php" ) ){
-            $configRegister = array_merge( $configRegister, include( $manifestPath."php" ) );
-        }
+		$manifestPath =  realpath( dirname( __FILE__ ) ) .
+						"/../modules/$moduleName/{$moduleName}.manifest.php";
+		if( is_file( $manifestPath ) ){
+			$configRegister = array_merge( $configRegister, include( $manifestPath ) );
+		}
 	}
 	
 	# Register all the onPage scripts:
 	$configRegister = array_merge( $configRegister, 
-		include( realpath( dirname( __FILE__ ) ). '/../kWidget/onPagePlugins/onPagePlugins.manifest.php' ) );
+		include( realpath( dirname( __FILE__ ) ). '/../bWidget/onPagePlugins/onPagePlugins.manifest.php' ) );
 	
-	# Register all kwidget-ps based scripts: ( if setup )
-	$html5ManifestFile = realpath( dirname( $wgKalturaPSHtml5SettingsPath ) . '/../ps/kwidget-ps.manifest.json' ) ;
+	# Register all bwidget-ps based scripts: ( if setup )
+	$html5ManifestFile = realpath( dirname( $wgBorhanPSHtml5SettingsPath ) . '/../ps/bwidget-ps.manifest.json' ) ;
 	if( is_file( $html5ManifestFile ) ){
 		$json = json_decode( file_get_contents( $html5ManifestFile), true );
 		if( $json == null){

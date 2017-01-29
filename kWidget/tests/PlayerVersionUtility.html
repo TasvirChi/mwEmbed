@@ -11,16 +11,16 @@
 <script type="text/javascript" src="resources/ace/mode-json.js" charset="utf-8"></script>
 <script>
 // don't show qunit test links
-window.isKalturaDocsIframe = true;
+window.isBorhanDocsIframe = true;
 </script>
 </head>
 <body>
 <h2>Player Version Utility</h2>
 Enables easy management of player version, based on 
-<a target="_new" href="https://github.com/kaltura/mwEmbed/releases">player releases</a>.<br> <br>
+<a target="_new" href="https://github.com/borhan/mwEmbed/releases">player releases</a>.<br> <br>
 <div class="alert" style="width:600px;"><strong>Warning:</strong> a change to player version or JSON config can break functionality.<br>
 <strong>Warning:</strong> Pre-releases are for testing only, do not use production sites!<br>
-Still have doubts? <a href="http://corp.kaltura.com/content/technical-support">Contact Kaltura Support</a></div>
+Still have doubts? <a href="http://corp.borhan.com/content/technical-support">Contact Borhan Support</a></div>
 
 <div id="hostedAuthWidget"></div>
 <br>
@@ -51,7 +51,7 @@ Still have doubts? <a href="http://corp.kaltura.com/content/technical-support">C
 		"closedCaptions": {},
 		"watermark": {
 			"cssClass": "topLeft",
-			"img": "http://www.kaltura.com/content/uiconf/kaltura/kmc/appstudio/kdp3/exampleWatermark.png"
+			"img": "http://www.borhan.com/content/uiconf/borhan/bmc/appstudio/bdp3/exampleWatermark.png"
 		},
 		"logo": {},
 		"infoScreen": {}
@@ -98,15 +98,15 @@ Still have doubts? <a href="http://corp.kaltura.com/content/technical-support">C
 	updatePlayerReq = {
 		'service': 'uiconf',
 		'action':'update',
-		'uiConf:objectType': 'KalturaUiConf'
+		'uiConf:objectType': 'BorhanUiConf'
 	},
 	aceEditor = null,
 	currentPlayerData = null,
 	kApi = null;
 	
-	kWidget.auth.getWidget( "hostedAuthWidget", function( userObject ){
+	bWidget.auth.getWidget( "hostedAuthWidget", function( userObject ){
 		// create api object: 
-		kApi = new kWidget.api( { 
+		kApi = new bWidget.api( { 
 			'wid': userObject.partnerId, 
 			'ks': userObject.ks,
 			'type': 'POST'
@@ -169,7 +169,7 @@ Still have doubts? <a href="http://corp.kaltura.com/content/technical-support">C
 				// release api is in preview mode: 
 				request.setRequestHeader("Accept", 'application/vnd.github.manifold-preview');
 			},
-			url: "https://api.github.com/repos/kaltura/mwEmbed/releases",
+			url: "https://api.github.com/repos/borhan/mwEmbed/releases",
 			processData: true,
 			success: function( releases ) {
 				setCache('gitHubReleases', releases);
@@ -200,15 +200,12 @@ Still have doubts? <a href="http://corp.kaltura.com/content/technical-support">C
 		getReleaseNotesHTML( version, releaseNotes, function( resultHTML ){
 			$('#releaseNotes').empty().append(
 				$('<h2>').html('Release Notes for <a target="_new" ' + 
-					'href="https://github.com/kaltura/mwEmbed/releases/tag/' + version +'">' + version + '</a>'),
+					'href="https://github.com/borhan/mwEmbed/releases/tag/' + version +'">' + version + '</a>'),
 				resultHTML
 			)
 		});
 	}
 	function urlExists (url, callback){
-		// append random string to avoid CDN cache response
-		url += ( url.indexOf('?') == -1 ) ? '%3F': '%26';
-		url += Math.random();
 		$.get('../../simplePhpXMLProxy.php?url=' + url, function(data) {
 			if( data.headers && data.headers['Content-Type'] == "text/javascript" ){
 				return callback( true );
@@ -250,7 +247,7 @@ Still have doubts? <a href="http://corp.kaltura.com/content/technical-support">C
 		$('#html5Url')
 			.val( '/html5/html5lib/' + version + '/mwEmbedLoader.php' );
 		// update player version ( check that its valid url, if not fallback on github check )
-		urlExists( 'http://cdnapi.kaltura.com/' + $('#html5Url').val(), function(exists){
+		urlExists( 'http://cdnapi.borhan.com/' + $('#html5Url').val(), function(exists){
 			if( exists ){
 				// ok
 				$('#updatePlayerBtn,#html5Url').removeAttr( 'disabled' );
@@ -384,7 +381,6 @@ Still have doubts? <a href="http://corp.kaltura.com/content/technical-support">C
 				}),
 				$('<br>'),
 				$('<span>').text( ' Pre-releases:' ),
-				$('<span>').text( ' ( do not use pre-releases on production players ) ' ).css('color', 'red'),
 				$('<select id="prerelease">').append(
 					$('<option>').text(' ')
 				).on('change', function(){

@@ -21,13 +21,13 @@ $myMwEmbedFrame = new mwEmbedFrame();
 
 $mwEmbedRoot = dirname( __FILE__ );
 
-// @@TODO temporary HACK to override to kalturaIframe 
+// @@TODO temporary HACK to override to borhanIframe 
 // ( need to refactor embedFrame into an abstract class )
 // @@TODO Need a php based configuration system for modules so they 
 // can extend / override entry points
 
-if( isset( $myMwEmbedFrame->kwidgetid ) || isset($_REQUEST['wid']) ){
-	require(	dirname( __FILE__ ) . '/modules/KalturaSupport/kalturaIframe.php');
+if( isset( $myMwEmbedFrame->bwidgetid ) || isset($_REQUEST['wid']) ){
+	require(	dirname( __FILE__ ) . '/modules/BorhanSupport/borhanIframe.php');
 	exit();
 }
 
@@ -51,14 +51,14 @@ class mwEmbedFrame {
 		'durationHint',
 		'poster',
 		'kentryid',
-		'kwidgetid',
+		'bwidgetid',
 		'kuiconfid',
 		'kplaylistid',
 		'skin'
 	);
 	var $playerIframeId = 'iframeVid';
 	var $debug = false;
-	var $theme = 'kdark';
+				var $theme = 'kdark';
 				
 	
 	// When used in direct source mode the source asset.
@@ -73,19 +73,19 @@ class mwEmbedFrame {
 	// Parse the embedFrame request and sanitize input
 	private function parseRequest(){
 		// Check for / attribute type request and update "REQUEST" global 
-		// ( uses kaltura standard entry_id/{entryId} request )
+		// ( uses borhan standard entry_id/{entryId} request )
 		// normalize to the REQUEST object
-		// @@FIXME: this should be moved over to a kaltura specific iframe implementation 
+		// @@FIXME: this should be moved over to a borhan specific iframe implementation 
 		if( isset( $_SERVER['PATH_INFO'] ) ){
-			$kalturaUrlMap = Array( 
+			$borhanUrlMap = Array( 
 				'entry_id' => 'kentryid',
 				'uiconf_id' => 'kuiconfid',
-				'wid' => 'kwidgetid',
+				'wid' => 'bwidgetid',
 				'playlist_id' => 'kplaylistid'
 			);
 			$urlParts = explode( '/', $_SERVER['PATH_INFO'] );
 			foreach( $urlParts as $inx => $urlPart ){
-				foreach( $kalturaUrlMap as $urlKey => $reqeustAttribute ){
+				foreach( $borhanUrlMap as $urlKey => $reqeustAttribute ){
 					if( $urlPart == $urlKey && isset( $urlParts[$inx+1] ) ){
 						$_REQUEST[ $reqeustAttribute ] = $urlParts[$inx+1];
 					}
@@ -179,6 +179,9 @@ class mwEmbedFrame {
 			//Set some iframe embed config:
 			// We can't support full screen in object context since it requires outer page DOM control
 			mw.setConfig( 'EmbedPlayer.EnableFullscreen', false );
+
+			// Enable the iframe player server:
+			mw.setConfig( 'EmbedPlayer.EnableIframeApi', true );
 
 			mw.ready(function(){
 				// Bind window resize to reize the player: 

@@ -1,6 +1,6 @@
 /**
 * NielsenCombined implemented per document outlined here:
-* https://portal.kaltura.com/product/Shared%20Documents/Solution%20Architects/_Generic%20PRDs/Nielsen/KDP%20Nielsen%20Plugin%20PRD.docx
+* https://portal.borhan.com/product/Shared%20Documents/Solution%20Architects/_Generic%20PRDs/Nielsen/BDP%20Nielsen%20Plugin%20PRD.docx
 *
 * Basic player flow:
 *
@@ -62,7 +62,7 @@
 		},
 		// Return the ggcmb370 url ( for now hard coded should be moved to config )
 		getGgCmbUrl: function(){
-			return mw.getMwEmbedPath() + 'modules/NielsenCombined/ggcmb392.js';
+			return mw.getMwEmbedPath() + 'modules/NielsenCombined/ggcmb382.js';
 			// temporarily use local copy of ggcmb
 			//return 'http://secure-us.imrworldwide.com/novms/js/2/ggcmb370.js';
 		},
@@ -266,7 +266,7 @@
 				_this.dispatchEvent( 11, String( vid.volume ) );
 			});
 
-			// Kaltura HTML5 does not really have an idle state:
+			// Borhan HTML5 does not really have an idle state:
 			// sender.onIdle( function( args ) { ggCom1.onCurrentStateChanged( args ) } );
 
 			// Monitor:
@@ -412,7 +412,7 @@
 			// A tag map that allows for ads to override content values
 			var tagMap = {};
 			// Get the current config evaluated expressions:
-			var evalConfig = this.embedPlayer.getKalturaConfig('nielsenCombined');
+			var evalConfig = this.embedPlayer.getBorhanConfig('nielsenCombined');
 			$.each( evalConfig, function( attr, evalValue ){
 				// set the tag value
 				if( !_this.inAd() && attr.indexOf('tag_') === 0 ){
@@ -437,7 +437,7 @@
 		 * Get a configuration value with full expression evaluation:
 		 */
 		getConfig: function( propAttr ){
-			return this.embedPlayer.getKalturaConfig('nielsenCombined', propAttr );
+			return this.embedPlayer.getBorhanConfig('nielsenCombined', propAttr );
 		},
 		/**
 		 * Get the gg com object:

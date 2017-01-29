@@ -370,9 +370,7 @@ var mw = ( function ( $, undefined ) {
 				// Flag indicating that document ready has occured
 				ready = false,
 				// Selector cache for the marker element. Use getMarker() to get/use the marker!
-				$marker = null,
-				isIELessThan9 = document.documentMode && document.documentMode < 9;
-
+				$marker = null;
 
 			/* Cache document ready status */
 
@@ -430,18 +428,7 @@ var mw = ( function ( $, undefined ) {
 			}
 
 			function addInlineCSS( css ) {
-				var $style, style, $newStyle, fontRegexp = /@font-face\s*\{[^\}]*\}/g, matches;
-				// IE 8 has a bug (eg: https://github.com/webpack/style-loader/issues/58)
-				// We have to create individual <style> tag for each @font-face declaration
-				// Test and match @font-face declarations
-				if ( isIELessThan9 && $.isArray( matches = css.match( fontRegexp ) ) ) {
-					// Remove @font-face declarations
-					css = css.replace( fontRegexp, '' );
-
-					// Add <style> tag containing @font-face declaration
-					// below marker to not to conflict with styles merging above
-				addStyleTag(matches.join(''));
-				}
+				var $style, style, $newStyle;
 				$style = getMarker().prev();
 				if ( $style.is( 'style' ) && $style.data( 'ResourceLoaderDynamicStyleTag' ) === true ) {
 					// There's already a dynamic <style> tag present, append to it. This recycling of
@@ -675,7 +662,7 @@ var mw = ( function ( $, undefined ) {
 			function addScript( src, callback, async ) {
 				var done = false, script, head;
 				// Always use async to add scripts.
-				// TOOD add a configuration option upstream.
+				// TOOD add a configuration option upstream. 
 				if ( true /*|| ready || async || $.browser.msie */ ) {
 					// jQuery's getScript method is NOT better than doing this the old-fashioned way
 					// because jQuery will eval the script's code, and errors will not have sane
@@ -804,7 +791,7 @@ var mw = ( function ( $, undefined ) {
 						}
 						//mw.log("done with cb:" + module );
 					};
-
+					
 					nestedAddScript = function ( arr, callback, async, i ) {
 						//mw.log( 'nestedAddScript: a:' + arr + ' ' + callback );
 						// Recursively call addScript() in its own callback
@@ -943,8 +930,7 @@ var mw = ( function ( $, undefined ) {
 				request = sortQuery( request );
 				// Asynchronously append a script tag to the end of the body
 				// Append &* to avoid triggering the IE6 extension check
-				sourceLoadScript += '?' + $.param( request ) + '&*' + '&protocol=' + location.protocol.slice(0, -1);
-				addScript(sourceLoadScript , null, async );
+				addScript( sourceLoadScript + '?' + $.param( request ) + '&*', null, async );
 			}
 
 			/* Public Methods */
@@ -955,14 +941,6 @@ var mw = ( function ( $, undefined ) {
 				 * Requests dependencies from server, loading and executing when things when ready.
 				 */
 				work: function () {
-					if ( mw.getConfig("Kaltura.ExcludedModules") ){
-						var excludedModules = mw.getConfig("Kaltura.ExcludedModules").split(",");
-						$.each(excludedModules, function( index, value ) {
-							if (registry[value]){
-								delete registry[value];
-							}
-						});
-					}
 					var	reqBase, splits, maxQueryLength, q, b, bSource, bGroup, bSourceGroup,
 						source, group, g, i, modules, maxVersion, sourceLoadScript,
 						currReqBase, currReqBaseLength, moduleMap, l,
@@ -972,8 +950,7 @@ var mw = ( function ( $, undefined ) {
 					reqBase = {
 						skin: mw.config.get( 'skin' ),
 						lang: mw.config.get( 'wgUserLanguage' ),
-						debug: mw.config.get( 'debug' ),
-						pskwidgetpath: mw.config.get( 'pskwidgetpath' )
+						debug: mw.config.get( 'debug' )
 					};
 					// Split module batch by source and by group.
 					splits = {};
@@ -1233,15 +1210,6 @@ var mw = ( function ( $, undefined ) {
 				 * @param error {Function} callback to execute when if dependencies have a errors (optional)
 				 */
 				using: function ( dependencies, ready, error ) {
-					if ( mw.getConfig("Kaltura.ExcludedModules") ){
-						var excludedModules = mw.getConfig("Kaltura.ExcludedModules").split(",");
-						$.each(excludedModules, function( index, value ) {
-							var pos = dependencies.indexOf(value);
-							if (pos !== -1){
-								dependencies.splice(pos,1);
-							}
-						});
-					}
 					var tod = typeof dependencies;
 					// Validate input
 					if ( tod !== 'object' && tod !== 'string' ) {
@@ -1324,37 +1292,6 @@ var mw = ( function ( $, undefined ) {
 					// Undefined modules are acceptable here in load(), because load() takes
 					// an array of unrelated modules, whereas the modules passed to
 					// using() are related and must all be loaded.
-
-                    // if we are in ChromeCast
-                    if ((/CrKey/.test(navigator.userAgent))) {
-						var excludeForChromeCast = ["mw.EmbedPlayerNativeComponent", "mw.EmbedPlayerSilverlight", "mw.EmbedPlayerVlc",
-							"mw.EmbedPlayerYouTube", "mw.EmbedPlayerGeneric", "mw.EmbedPlayerImageOverlay", "mw.EmbedPlayerJava",
-							"mw.EmbedPlayerKplayer", "mw.EmbedPlayerMultiDRM"];
-
-                        registry["mw.EmbedPlayer"].dependencies = registry["mw.EmbedPlayer"].dependencies.filter(function (dep) {
-                            return excludeForChromeCast.indexOf(dep) === -1;
-                        });
-
-                        for (var j = 0; j < excludeForChromeCast.length; j++) {
-                            delete registry[excludeForChromeCast[j]];
-                        }
-                    }
-
-					if (document.documentMode && document.documentMode === 8) {
-						var hlsPos = -1;
-						var hlsjs = "Hlsjs";
-						for (var i = 0; i < modules.length; i++) {
-							if (modules[i] === hlsjs) {
-								hlsPos = i;
-								break;
-							}
-						}
-						if (hlsPos !== -1) {
-							modules.splice(hlsPos, 1);
-							delete registry[hlsjs];
-						}
-					}
-
 					for ( filtered = [], m = 0; m < modules.length; m += 1 ) {
 						if ( registry[modules[m]] !== undefined ) {
 							filtered[filtered.length] = modules[m];
@@ -1471,15 +1408,6 @@ var mw = ( function ( $, undefined ) {
 				 */
 				escape: function ( s ) {
 					return s.replace( /['"<>&]/g, escapeCallback );
-				},
-
-				unescape: function ( s ) {
-					return s.replace(/&#([0-9]{1,3});/gi, function (match, numStr) {
-						var num = parseInt(numStr, 10); // read num as normal number
-						return String.fromCharCode(num);
-					})
-						.replace(/&amp;/g, '&')
-						.replace(/&lt;br\s*\/&gt;/g,'<br/>');
 				},
 
 				/**

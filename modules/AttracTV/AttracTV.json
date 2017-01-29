@@ -1,6 +1,0 @@
-{
-    "mw.AttracTV": {
-        "scripts": "resources/mw.AttracTV.js",
-        "kalturaPluginName": "AttracTV"
-    }
-}
