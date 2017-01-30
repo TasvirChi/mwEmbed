@@ -33,5 +33,10 @@
         "scripts": "resources/startOver.js",
         "dependencies": ["tvpapiRequest"] ,
         "borhanPluginName": "tvpapiStartOver"
+    },
+    "tvpapiGetlicensedUrl": {
+        "scripts": "resources/getLicensedUrl.js",
+        "dependencies": ["tvpapiRequest"] ,
+        "borhanPluginName": "tvpapiGetlicensedUrl"
     }
 }

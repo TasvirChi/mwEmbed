@@ -661,6 +661,14 @@
 				settings.readyCallback = function (playerId) {
 					// issue a play ( since we already clicked the play button )
 					var bdp = document.getElementById(playerId);
+					bdp.kBind('mediaReady', function () {
+						setTimeout(function () {
+							if (_this.isMobileDevice()) {
+								bdp.sendNotification('doPlay');
+							}
+						}, 0);
+					});
+
 					if (typeof orgEmbedCallback == 'function') {
 						orgEmbedCallback(playerId);
 					}
@@ -1065,7 +1073,11 @@
 					delete settings.flashvars.jsonConfig;
 					url += '?' + this.getIframeRequest(widgetElm, settings);
 					requestData = {"jsonConfig": jsonConfig};
+					url += "&protocol=" + location.protocol.slice(0, -1);
+				} else {
+					url += "?protocol=" + location.protocol.slice(0, -1);
 				}
+
 				$.ajax({
 					type: "POST",
 					dataType: 'text',
@@ -1081,6 +1093,7 @@
 				})
 			} else {
 				var iframeUrl = this.getIframeUrl() + '?' + iframeRequest;
+				iframeUrl += "&protocol=" + location.protocol.slice(0, -1);
 				// Store iframe urls
 				this.iframeUrls[ targetId ] = iframeUrl;
 				// do an iframe payload request:

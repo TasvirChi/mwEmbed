@@ -23,6 +23,9 @@ var playerInitialized = false;
 var isInSequence = false;
 var debugMode = false;
 var bdp;
+var maskAdEndedIdelState = false;
+var adsPluginEnabled = false;
+var protocol;
 
 onload = function () {
 	if (debugMode){
@@ -120,8 +123,18 @@ onload = function () {
 			bdp.sendNotification(payload['event'], [payload['data']]); // pass notification event to the player
 		} else if (payload['type'] === 'setLogo') {
 			document.getElementById('logo').style.backgroundImage = "url(" + payload['logo'] + ")";
+		} else if (payload['type'] === 'setBDPAttribute') {
+			bdp.setBDPAttribute(payload['plugin'], payload['property'], payload['value']);
 		} else if (payload['type'] === 'changeMedia') {
-			bdp.sendNotification('changeMedia', {"entryId": payload['entryId']});
+			var logoElem = document.getElementById('logo');
+			logoElem.style.display = 'block';
+			logoElem.style.opacity = 1;
+			if (mediaPlayer) {
+				mediaElement.pause();
+				mediaPlayer.unload();
+				mediaPlayer = null;
+			}
+			bdp.sendNotification('changeMedia', payload.data);
 		} else if (payload['type'] === 'embed') {
 			if (!playerInitialized) {
 				var playerLib = payload['lib'] + "mwEmbedLoader.php";
@@ -147,7 +160,10 @@ onload = function () {
 						mw.setConfig("chromecastReceiver", true);
 						mw.setConfig("Borhan.ExcludedModules", "chromecast");
 						var fv = {
-							"multiDrm": {
+							"dash":{
+								'plugin': false
+							},
+							"multiDrm":{
 								'plugin': false
 							},
 							"embedPlayerChromecastReceiver": {
@@ -176,6 +192,34 @@ onload = function () {
 										messageBus.broadcast(msg);
 										isInSequence = ( msg == "chromecastReceiverAdOpen" );
 									});
+									var loadContent = function () {
+										console.info("Load content");
+										if (protocol !== null) {
+											console.info("Attaching content media source");
+											mediaPlayer.load();
+
+											var updateDuration = function () {
+												if (mediaElement.duration) {
+													mediaElement.removeEventListener("durationchange", updateDuration, false);
+													var mediaInfo = mediaManager.getMediaInformation();
+													mediaInfo.duration = mediaElement.duration;
+													mediaManager.setMediaInformation(mediaInfo);
+												}
+											};
+											mediaElement.addEventListener("durationchange", updateDuration, false);
+										}
+									};
+									bdp.kBind("firstPlay", function(){
+										document.getElementById('logo').style.display = 'block';
+									});
+									bdp.kBind("onContentResumeRequested", function(){
+										console.info("Ad ended");
+										loadContent();
+									});
+									bdp.kBind("adErrorEvent", function(){
+										console.info("Ad error");
+										loadContent();
+									});
 									bdp.kBind("chromecastReceiverLoaded", function () {
 										setMediaManagerEvents();
 									});
@@ -184,6 +228,9 @@ onload = function () {
 										src = source.src;
 									});
 									bdp.kBind("widgetLoaded layoutReady", function () {
+										 if (bdp.evaluate('{doubleClick.plugin}') || bdp.evaluate('{vast.plugin}')){
+											 adsPluginEnabled = true;
+										 }
 										var msg = "readyForMedia";
 										msg = msg + "|" + src + "|" + mimeType;
 										messageBus.broadcast(msg);
@@ -206,6 +253,15 @@ onload = function () {
 
 };
 function setMediaManagerEvents() {
+	mediaManager.customizedStatusCallback= function(status){
+		console.info(status);
+		if (maskAdEndedIdelState && (status.playerState = cast.receiver.media.PlayerState.IDLE)){
+			console.info("Preventing IDLE on ad ended event, set player state to BUFFERING");
+			status.playerState = cast.receiver.media.PlayerState.PLAYING;
+			maskAdEndedIdelState = false;
+		}
+		return status;
+	};
 	/**
 	 * Called when the media ends.
 	 *
@@ -217,7 +273,15 @@ function setMediaManagerEvents() {
 	 */
 	mediaManager.onEnded = function () {
 		setDebugMessage('mediaManagerMessage', 'ENDED');
-		if (!isInSequence){
+		console.info("onEnded: sequenceProxy.isInSequence=" + bdp.evaluate("{sequenceProxy.isInSequence}"));
+		if (bdp.evaluate('{sequenceProxy.isInSequence}')) {
+			maskAdEndedIdelState = true;
+		} else {
+			var logoElement =  document.getElementById('logo');
+			logoElement.style.opacity = 1;
+			setTimeout(function() {
+				logoElement.style.display = 'block';
+			},1000);
 			mediaManager['onEndedOrig']();
 		}
 	};
@@ -326,9 +390,13 @@ function setMediaManagerEvents() {
 	 * @param {Object} event
 	 */
 	mediaManager.onPause = function (event) {
-		console.log('### Media Manager - PAUSE: ' + JSON.stringify(event));
-		setDebugMessage('mediaManagerMessage', 'PAUSE: ' + JSON.stringify(event));
-		mediaManager['onPauseOrig'](event);
+		if (bdp.evaluate("{sequenceProxy.isInSequence}")) {
+			console.info("======Prevent pause during ad!!!!!");
+		}else {
+			console.log('### Media Manager - PAUSE: ' + JSON.stringify(event));
+			setDebugMessage('mediaManagerMessage', 'PAUSE: ' + JSON.stringify(event));
+			mediaManager['onPauseOrig'](event);
+		}
 	};
 
 	/**
@@ -345,7 +413,7 @@ function setMediaManagerEvents() {
 	mediaManager.onPlay = function (event) {
 		console.log('### Media Manager - PLAY: ' + JSON.stringify(event));
 		setDebugMessage('mediaManagerMessage', 'PLAY: ' + JSON.stringify(event));
-
+		bdp.sendNotification("doPlay");
 		mediaManager['onPlayOrig'](event);
 	};
 
@@ -367,8 +435,12 @@ function setMediaManagerEvents() {
 	mediaManager.onSeek = function (event) {
 		console.log('### Media Manager - SEEK: ' + JSON.stringify(event));
 		setDebugMessage('mediaManagerMessage', 'SEEK: ' + JSON.stringify(event));
-
-		mediaManager['onSeekOrig'](event);
+		if (bdp.evaluate('{sequenceProxy.isInSequence}')) {
+			var requestId = event.data.requestId;
+			window.mediaManager.broadcastStatus(true, requestId);
+		} else {
+			mediaManager['onSeekOrig'](event);
+		}
 	};
 
 	/**
@@ -538,11 +610,17 @@ function setMediaManagerEvents() {
 				// Player registers to listen to the media element events through the
 				// mediaHost property of the  mediaElement
 				mediaPlayer = new cast.player.api.Player(mediaHost);
+				var loadMethod;
+				if (!adsPluginEnabled || (event.data['customData'] && event.data['customData']['replay'])) {
+					loadMethod = "load";
+				} else {
+					loadMethod = "preload";
+				}
 				if (liveStreaming) {
-					mediaPlayer.load(protocol, Infinity);
+					mediaPlayer[loadMethod](protocol, Infinity);
 				}
 				else {
-					mediaPlayer.load(protocol, initialTimeIndexSeconds);
+					mediaPlayer[loadMethod](protocol, initialTimeIndexSeconds);
 				}
 			}
 			messageBus.broadcast("mediaHostState: success");
@@ -682,6 +760,10 @@ function setCastReceiverManagerEvents() {
 			JSON.stringify(event));
 
 		senders = castReceiverManager.getSenders();
+		if ((senders.length === 0) &&
+			(event.reason == cast.receiver.system.DisconnectReason.REQUESTED_BY_SENDER)) {
+			castReceiverManager.stop();
+		}
 		setDebugMessage('senderCount', '' + senders.length);
 	};
 
@@ -869,8 +951,10 @@ function setDebugMessage(elementId, message) {
  */
 function getPlayerState() {
 	if (mediaPlayer){
-		var playerState = mediaPlayer.getState();
-		setDebugMessage('mediaPlayerState', 'underflow: ' + playerState['underflow']);
+		try {
+			var playerState = mediaPlayer.getState();
+			setDebugMessage('mediaPlayerState', 'underflow: ' + playerState['underflow']);
+		}catch(e){}
 	}
 }
 function extend(a, b){

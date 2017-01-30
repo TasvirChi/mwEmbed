@@ -514,9 +514,11 @@ mw.BWidgetSupport.prototype = {
 		if (srcURL && srcURL.toLowerCase().indexOf("playmanifest") === -1){
 			return srcURL;
 		}
-
+        var nativeVersion = mw.getConfig("nativeVersion");
+        nativeVersion = (nativeVersion != null && nativeVersion.length > 0) ? '_' + nativeVersion : '';
+        var clientTag = 'html5:v' + window[ 'MWEMBED_VERSION' ] + nativeVersion;
 		var qp = ( srcURL.indexOf('?') === -1) ? '?' : '&';
-		return srcURL + qp + 'playSessionId=' + this.getGUID();
+		return srcURL + qp + 'playSessionId=' + this.getGUID() + '&clientTag=' + clientTag;
 	},
 	updateVodPlayerData: function(embedPlayer, playerData){
 		embedPlayer.setLive( false );
@@ -1659,17 +1661,38 @@ mw.BWidgetSupport.prototype = {
 				var validClipAspect = this.getValidAspect(deviceSources);
 				var lowResolutionDevice = (mw.isMobileDevice() && mw.isDeviceLessThan480P() && iphoneAdaptiveFlavors.length);
 				var targetFlavors;
-				if (androidNativeAdaptiveFlavors.length && mw.isNativeApp() && mw.isAndroid()){
-					//Android h264b
-					targetFlavors = androidNativeAdaptiveFlavors;
-				} else if (lowResolutionDevice){
-					//iPhone
-					targetFlavors = iphoneAdaptiveFlavors;
-				} else if (mw.isMobileDevice() || dashAdaptiveFlavors.length == 0){
-					//iPad
-					targetFlavors = ipadAdaptiveFlavors;
-				}  else {
-					targetFlavors = dashAdaptiveFlavors;
+				if (mw.getConfig('Borhan.ForceHighResFlavors')){
+					mw.log( 'BWidgetSupport::Forcing High resolution flavours');
+					if (ipadAdaptiveFlavors.length || dashAdaptiveFlavors.length) {
+						mw.log( 'BWidgetSupport::High resolution flavours found');
+						targetFlavors = ipadAdaptiveFlavors;
+						if (dashAdaptiveFlavors.length) {
+							//Concat the dash and ipadNew tags and filter duplicates
+							targetFlavors = targetFlavors.concat(dashAdaptiveFlavors);
+							for(var i=0; i<targetFlavors.length; ++i) {
+								for(var j=i+1; j<targetFlavors.length; ++j) {
+									if(targetFlavors[i] === targetFlavors[j])
+										targetFlavors.splice(j--, 1);
+								}
+							}
+						}
+					} else {
+						mw.log( 'BWidgetSupport::High resolution flavours not found - will use low resolution flavours');
+						targetFlavors = iphoneAdaptiveFlavors;
+					}
+				} else {
+					if (androidNativeAdaptiveFlavors.length && mw.isNativeApp() && mw.isAndroid()) {
+						//Android h264b
+						targetFlavors = androidNativeAdaptiveFlavors;
+					} else if (lowResolutionDevice) {
+						//iPhone
+						targetFlavors = iphoneAdaptiveFlavors;
+					} else if (mw.isMobileDevice() || dashAdaptiveFlavors.length == 0) {
+						//iPad
+						targetFlavors = ipadAdaptiveFlavors;
+					} else {
+						targetFlavors = dashAdaptiveFlavors;
+					}
 				}
 				var assetId = targetFlavors[0];
 
@@ -1693,8 +1716,7 @@ mw.BWidgetSupport.prototype = {
 
 		}
 
-		//Only support ABR on-the-fly for DRM protected entries
-		if( mw.getConfig('Borhan.UseFlavorIdsUrls') && !$.isEmptyObject(flavorDrmData)) {
+		if( mw.getConfig('Borhan.UseFlavorIdsUrls') ) {
 			var validClipAspect = this.getValidAspect(deviceSources);
 			//Only add mpeg dash CENC on the fly if dash sources exist
 			if (dashAdaptiveFlavors.length) {
@@ -1714,7 +1736,8 @@ mw.BWidgetSupport.prototype = {
 			}
 			//Only add playready on the fly if pre-encrypted doesn't exist
 			if ((iphoneAdaptiveFlavors.length || ipadAdaptiveFlavors.length) &&
-				this.getSourcesByAttribute(deviceSources, "type", "video/playreadySmooth").length === 0) {
+				this.getSourcesByAttribute(deviceSources, "type", "video/playreadySmooth").length === 0  &&
+				!$.isEmptyObject(flavorDrmData)) {
 				var targetFlavors = ipadAdaptiveFlavors.length ? ipadAdaptiveFlavors : iphoneAdaptiveFlavors;
 				var assetId = targetFlavors[0];
 				var ismSource = this.generateAbrSource({
@@ -1751,7 +1774,7 @@ mw.BWidgetSupport.prototype = {
 				(mw.isAndroid() && !mw.isNativeApp()) &&
 				hasH264Flavor &&
 				!mw.getConfig( 'Borhan.LeadHLSOnAndroid' ) ) {
-			deviceSources = this.removeAdaptiveFlavors( deviceSources );
+			deviceSources = this.removeHlsFlavor( deviceSources );
 		}
 
 		// PRemove adaptive sources on Windows Phone
@@ -1765,7 +1788,7 @@ mw.BWidgetSupport.prototype = {
 			this.originalStreamerType &&
 			this.originalStreamerType !== "hls" &&
 			 mw.getConfig("LeadWithHLSOnFlash") === null 	){
-			    deviceSources = this.removeAdaptiveFlavors( deviceSources );
+			    deviceSources = this.removeHlsFlavor( deviceSources );
 		}
 
 		//TODO: Remove duplicate webm and h264 flavors
@@ -1826,7 +1849,7 @@ mw.BWidgetSupport.prototype = {
 	},
 	getFairplayCert: function(playerData){
 		var publicCertificate = null;
-		if (playerData.contextData.pluginData &&
+		if (playerData && playerData.contextData && playerData.contextData.pluginData &&
 			playerData.contextData.pluginData.BorhanFairplayEntryContextPluginData &&
 			playerData.contextData.pluginData.BorhanFairplayEntryContextPluginData.publicCertificate){
 			publicCertificate = playerData.contextData.pluginData.BorhanFairplayEntryContextPluginData.publicCertificate;
@@ -1868,6 +1891,13 @@ mw.BWidgetSupport.prototype = {
 		return value.replace(/\+/g, "-").replace(/\//g, "_");
 	},
 	removeAdaptiveFlavors: function( sources ){
+		this.removeHlsFlavor(sources);
+		this.removeDashFlavor(sources);
+		this.removedAdaptiveFlavors = true;
+		return sources;
+	},
+
+	removeHlsFlavor: function( sources ){
 		for( var i =0 ; i < sources.length; i++ ){
 			if( sources[i].type == 'application/vnd.apple.mpegurl' ){
 				// Remove the current source:
@@ -1875,9 +1905,20 @@ mw.BWidgetSupport.prototype = {
 				i--;
 			}
 		}
-		this.removedAdaptiveFlavors = true;
 		return sources;
 	},
+
+	removeDashFlavor: function( sources ){
+		for( var i =0 ; i < sources.length; i++ ){
+			if(	sources[i].type == "application/dash+xml" ){
+				// Remove the current source:
+				sources.splice( i, 1 );
+				i--;
+			}
+		}
+		return sources;
+	},
+
 	getValidAspect: function( sources ){
 		var _this = this;
 		for( var i=0; i < sources.length; i++ ){

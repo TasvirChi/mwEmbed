@@ -1257,6 +1257,8 @@
 						// Update the proxy data
 						embedPlayer.setBorhanConfig("proxyData", notificationData.proxyData);
 						embedPlayer.setBorhanConfig("proxyData", "data", notificationData.proxyData);
+						//Needed for changeMedia to keep base proxyData before server response is mixed into the object
+						embedPlayer.setBorhanConfig('originalProxyData', notificationData.proxyData);
 
 						// Clear player & entry meta
 						embedPlayer.borhanPlayerMetaData = null;

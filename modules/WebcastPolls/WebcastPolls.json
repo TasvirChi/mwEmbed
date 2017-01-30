@@ -1,0 +1,22 @@
+{
+    "webcastPolls": {
+        "scripts": [
+            "resources/webcastPolls.js",
+            "resources/webcastPollsBorhanProxy.js",
+            "resources/webcastPollsView.js",
+            "../BorhanSupport/resources/webcast/cuePointsManager.js",
+            "../BorhanSupport/resources/webcast/userProfile.js"
+        ],
+        "dependencies": "mw.KBaseScreen",
+        "borhanPluginName": "webcastPolls",
+	    "templates": ["../WebcastPolls/resources/webcastPolls-large.tmpl.html",
+            "../WebcastPolls/resources/webcastPolls-medium.tmpl.html",
+            "../WebcastPolls/resources/webcastPolls-small.tmpl.html"
+        ],
+        "styles": [
+            "resources/webcastPolls.css",
+            "resources/polls-fonts.css"
+        ],
+        "messageFile": "WebcastPolls.i18n.json"
+    }
+}
