@@ -337,8 +337,8 @@ bWidget.addReadyCallback( function( playerId ){
 				bWidget.log( 'omnitureOnPage: entryReady' );
 				_this.cacheEntryMetadata();
 			});
-			// Run open on first play:
-			this.bind( 'firstPlay', function(){
+			// Run open on first play and replay:
+			this.bind( 'firstPlay replayEvent', function(){
 				if( firstPlay ){
 					if ( _this.getConfig( 'triggerPlayFirst' ) === true ){
 						play();

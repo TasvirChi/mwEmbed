@@ -1215,9 +1215,6 @@ mw.BWidgetSupport.prototype = {
 	 * 		false if the media should not be played.
 	 */
 	getAccessControlStatus: function( ac, embedPlayer ){
-		if( ac.isAdmin ){
-			return true;
-		}
 		if( ac.isCountryRestricted ){
 			return embedPlayer.getBorhanMsgObject( 'UNAUTHORIZED_COUNTRY' );
 		}

@@ -328,6 +328,12 @@ $uiVars = array(
 				'default' => 'false',
 				'example' => ''
 			),
+			'loadThumbnailWithReferrer' => array(
+				'type' => 'Boolean',
+				'desc' => 'Flag indicating whether the BDP should append the referrer to the thumbnail serve request. Default value "false" to take advantage of caching.',
+				'default' => 'false',
+				'example' => ''
+			),
 			'noThumbnail' => array(
 				'type' => 'Boolean',
 				'desc' => 'Flag indicating whether the BDP should forgo loading the thumbnail',
