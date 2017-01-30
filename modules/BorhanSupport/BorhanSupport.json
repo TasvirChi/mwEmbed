@@ -140,6 +140,11 @@
 		"dependencies": "mw.KBasePlugin",
 		"borhanLoad": "always"
 	},
+   "id3Tag": {
+     "scripts": "resources/mw.id3Tag.js",
+     "dependencies": "mw.KBasePlugin",
+     "borhanLoad": "always"
+   },
 	"controlBarContainer": {
 		"scripts": "components/controlBarContainer.js",
 		"dependencies": "mw.KBasePlugin",
@@ -175,6 +180,11 @@
 		"dependencies": "mw.KBaseComponent",
 		"borhanPluginName": "largePlayBtn"
 	},
+    "pipBtn":{
+      "scripts": "components/pipBtn.js",
+      "dependencies": "mw.KBaseComponent",
+      "borhanPluginName": "pipBtn"
+    },
 	"playPauseBtn": {
 		"scripts": "components/playPauseBtn.js",
 		"dependencies": "mw.KBaseComponent",

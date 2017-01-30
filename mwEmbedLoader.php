@@ -49,6 +49,7 @@ class mwEmbedLoader {
 		'bWidget/bWidget.util.js',	
 		// bWidget basic api wrapper
 		'resources/crypto/MD5.js',
+		'bWidget/bWidget.storage.js',
 		'bWidget/bWidget.api.js'
 	);
 
@@ -279,6 +280,10 @@ class mwEmbedLoader {
 			$o.="\n".'mw.setConfig(\'Borhan.ForceFlashOnIE10\', true );' . "\n";
 		}
 
+		if( $this->getUiConfObject()->getPlayerConfig( null, 'Borhan.SupressNonProductionUrlsWarning' ) === true ){
+			$o.="\n".'mw.setConfig(\'Borhan.SupressNonProductionUrlsWarning\', true );' . "\n";
+		}
+
 		if( $this->getUiConfObject()->isJson() ) {
 			$o.="\n"."bWidget.addUserAgentRule('{$this->request()->get('uiconf_id')}', '/.*/', 'leadWithHTML5');";
 		}
@@ -383,7 +388,8 @@ class mwEmbedLoader {
 			$wgBorhanUseManifestUrls, $wgHTTPProtocol, $wgBorhanServiceUrl, $wgBorhanServiceBase,
 			$wgBorhanCDNUrl, $wgBorhanStatsServiceUrl,$wgBorhanLiveStatsServiceUrl, $wgBorhanIframeRewrite, $wgEnableIpadHTMLControls,
 			$wgBorhanAllowIframeRemoteService, $wgBorhanUseAppleAdaptive, $wgBorhanEnableEmbedUiConfJs,
-			$wgBorhanGoogleAnalyticsUA, $wgHTML5PsWebPath;
+			$wgBorhanGoogleAnalyticsUA, $wgHTML5PsWebPath, $wgAllowedVars, $wgAllowedPluginVars, $wgAllowedPluginVarsValPartials, $wgAllowedVarsKeyPartials,
+			$wgCacheTTL, $wgMaxCacheEntries, $wgBorhanSupressNonProductionUrlsWarning;
 		$exportedJS ='';
 		// Set up globals to be exported as mwEmbed config:
 		$exportedJsConfig= array(
@@ -405,8 +411,15 @@ class mwEmbedLoader {
 			'Borhan.UseAppleAdaptive' => $wgBorhanUseAppleAdaptive,
 			'Borhan.EnableEmbedUiConfJs' => $wgBorhanEnableEmbedUiConfJs,
 			'Borhan.PageGoogleAnalytics' => $wgBorhanGoogleAnalyticsUA,
+			'Borhan.SupressNonProductionUrlsWarning' => $wgBorhanSupressNonProductionUrlsWarning,
 			'Borhan.APITimeout' => 10000,
-			'Borhan.bWidgetPsUrl' => $wgHTML5PsWebPath
+			'Borhan.bWidgetPsUrl' => $wgHTML5PsWebPath,
+			'Borhan.CacheTTL' => $wgCacheTTL,
+			'Borhan.MaxCacheEntries' => $wgMaxCacheEntries,
+			'Borhan.AllowedVars' => $wgAllowedVars,
+			'Borhan.AllowedVarsKeyPartials' => $wgAllowedVarsKeyPartials,
+			'Borhan.AllowedPluginVars' => $wgAllowedPluginVars,
+			'Borhan.AllowedPluginVarsValPartials' => $wgAllowedPluginVarsValPartials
 		);
 		if( isset( $_GET['psbwidgetpath'] ) ){
 			$exportedJsConfig[ 'Borhan.BWidgetPsPath' ] = htmlspecialchars( $_GET['psbwidgetpath'] );

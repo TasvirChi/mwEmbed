@@ -19,7 +19,7 @@ mw.PluginManager = {
 
 		this.registerdPlugins[ pluginName ] = pluginClass;
 		//Only add total count for plugins which are not explicitly set to false
-		var playerConfig = mw.getConfig("BorhanSupport.PlayerConfig");
+		var playerConfig = window.borhanIframePackageData.playerConfig;//mw.getConfig("BorhanSupport.PlayerConfig");
 		if (playerConfig.plugins &&
 			playerConfig.plugins[ pluginName ] &&
 			playerConfig.plugins[ pluginName ].plugin === false){
