@@ -52,18 +52,20 @@ mw.isIOS = function(){
 <script type="text/javascript" src="resources/qunit-borhan-bootstrap.js"></script>
 </head>
 <body>
-<h2> Use HLS Where Available test ( including android ) </h2>
+<h2> Use HLS Where Available ( including android, desktop flash ) </h2>
 
 <br />
 <div id="borhan_player" style="width:400px;height:333px;"></div>
+<div id="kdoc-more-desc">Use HLS for android, and on desktop via flash</div>
 <script>
-	bWidget.embed( {
+	bWidget.featureConfig( {
 		'targetId' :'borhan_player',
 		'wid': '_243342',
 		'uiconf_id' : '12905712',
 		'entry_id': '0_uka1msg4',
 		'flashvars': {
-			'Borhan.LeadHLSOnAndroid' : true
+			'Borhan.LeadHLSOnAndroid' : true,
+			'LeadWithHLSOnFlash': true
 		}
 	});
 </script>

@@ -1,12 +1,13 @@
 <?php
-// Include configuration 
+// Include configuration
 require_once( realpath( dirname( __FILE__ ) ) . '/includes/DefaultSettings.php' );
 require_once( realpath( dirname( __FILE__ ) ) . '/modules/BorhanSupport/BorhanCommon.php' );
 
 // only include the iframe if we need to: 
 // Include MwEmbedWebStartSetup.php for all of mediawiki support
 if( isset( $_GET['autoembed'] ) ){
-	require_once( realpath( dirname( __FILE__ ) ) . '/modules/ExternalPlayers/ExternalPlayers.php' );
+	$externalPlayersPath =  realpath( dirname( __FILE__ ) ) . '/modules/ExternalPlayers/ExternalPlayers.json';
+	$plugins = json_decode( file_get_contents($externalPlayersPath ), TRUE );
 	require ( dirname( __FILE__ ) . '/includes/MwEmbedWebStartSetup.php' );
 	require_once( realpath( dirname( __FILE__ ) ) . '/modules/BorhanSupport/borhanIframeClass.php' );
 }
@@ -47,8 +48,8 @@ class mwEmbedLoader {
 		// Get bWidget utilities:
 		'bWidget/bWidget.util.js',	
 		// bWidget basic api wrapper
-		//'resources/crypto/MD5.js', // currently commented out sig on api requests 
-		'bWidget/bWidget.api.js',
+		'resources/crypto/MD5.js',
+		'bWidget/bWidget.api.js'
 	);
 
 	function request() {
@@ -276,7 +277,7 @@ class mwEmbedLoader {
 		}
 		if( $this->getUiConfObject()->getPlayerConfig( null, 'Borhan.ForceFlashOnIE10' ) === true ){
 			$o.="\n".'mw.setConfig(\'Borhan.ForceFlashOnIE10\', true );' . "\n";
-		} 
+		}
 
 		if( $this->getUiConfObject()->isJson() ) {
 			$o.="\n"."bWidget.addUserAgentRule('{$this->request()->get('uiconf_id')}', '/.*/', 'leadWithHTML5');";
@@ -380,9 +381,9 @@ class mwEmbedLoader {
 	private function getExportedConfig(){
 		global $wgEnableScriptDebug, $wgResourceLoaderUrl, $wgMwEmbedVersion, $wgMwEmbedProxyUrl, $wgBorhanUseManifestUrls,
 			$wgBorhanUseManifestUrls, $wgHTTPProtocol, $wgBorhanServiceUrl, $wgBorhanServiceBase,
-			$wgBorhanCDNUrl, $wgBorhanStatsServiceUrl, $wgBorhanIframeRewrite, $wgEnableIpadHTMLControls,
+			$wgBorhanCDNUrl, $wgBorhanStatsServiceUrl,$wgBorhanLiveStatsServiceUrl, $wgBorhanIframeRewrite, $wgEnableIpadHTMLControls,
 			$wgBorhanAllowIframeRemoteService, $wgBorhanUseAppleAdaptive, $wgBorhanEnableEmbedUiConfJs,
-			$wgBorhanGoogleAnalyticsUA;
+			$wgBorhanGoogleAnalyticsUA, $wgHTML5PsWebPath;
 		$exportedJS ='';
 		// Set up globals to be exported as mwEmbed config:
 		$exportedJsConfig= array(
@@ -395,6 +396,7 @@ class mwEmbedLoader {
 			'Borhan.ServiceBase' => $wgBorhanServiceBase,
 			'Borhan.CdnUrl' => $wgBorhanCDNUrl,
 			'Borhan.StatsServiceUrl' => $wgBorhanStatsServiceUrl,
+			'Borhan.LiveStatsServiceUrl'=>$wgBorhanLiveStatsServiceUrl,
 			'Borhan.IframeRewrite' => $wgBorhanIframeRewrite,
 			'EmbedPlayer.EnableIpadHTMLControls' => $wgEnableIpadHTMLControls,
 			'EmbedPlayer.UseFlashOnAndroid' => true,
@@ -402,10 +404,16 @@ class mwEmbedLoader {
 			'Borhan.AllowIframeRemoteService' => $wgBorhanAllowIframeRemoteService,
 			'Borhan.UseAppleAdaptive' => $wgBorhanUseAppleAdaptive,
 			'Borhan.EnableEmbedUiConfJs' => $wgBorhanEnableEmbedUiConfJs,
-			'Borhan.PageGoogleAalytics' => $wgBorhanGoogleAnalyticsUA,
+			'Borhan.PageGoogleAnalytics' => $wgBorhanGoogleAnalyticsUA,
+			'Borhan.APITimeout' => 10000,
+			'Borhan.bWidgetPsUrl' => $wgHTML5PsWebPath
 		);
 		if( isset( $_GET['psbwidgetpath'] ) ){
 			$exportedJsConfig[ 'Borhan.BWidgetPsPath' ] = htmlspecialchars( $_GET['psbwidgetpath'] );
+		}
+		//For embed services pass "AllowIframeRemoteService" to client so it will be able to pass back the alternative service URL
+		if ($this->request()->isEmbedServicesEnabled()){
+		    $exportedJsConfig['Borhan.AllowIframeRemoteService'] = true;
 		}
 		
 		// Append Custom config:
@@ -452,6 +460,7 @@ class mwEmbedLoader {
 			header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 			header("Pragma: no-cache");
 			header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
+			header("Access-Control-Allow-Origin: *"); // allow 3rd party domains to access. 
 		} else if ( isset($_GET['autoembed']) && $this->iframeHeaders ){
 			// Grab iframe headers and pass them to our loader
 			foreach( $this->iframeHeaders as $header ) {
@@ -462,8 +471,9 @@ class mwEmbedLoader {
 				}
 			}
 		} else {
-			// Default expire time for the loader to 3 hours ( borhan version always have diffrent version tags; for new versions )
-			$max_age = 60*60*3;
+			
+			// Default expire time for the loader to 10 min ( we support 304 not modified so no need for long expire )
+			$max_age = 60*10;
 			// if the loader request includes uiConf set age to 10 min ( uiConf updates should propgate in ~10 min )
 			if( $this->request()->get('uiconf_id') ){
 				$max_age = 60*10;
@@ -473,8 +483,8 @@ class mwEmbedLoader {
 				$max_age = 60; 
 			}
 			header("Cache-Control: public, max-age=$max_age max-stale=0");
-			header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $max_age) . 'GMT');
-			header('Last-Modified: ' . gmdate('D, d M Y H:i:s', time()) . 'GMT');
+			header('Expires: ' . gmdate('D, d M Y H:i:s', time() + $max_age) . ' GMT');
+			header('Last-Modified: ' . gmdate('D, d M Y H:i:s', time()) . ' GMT');
 		}
 	}
 }

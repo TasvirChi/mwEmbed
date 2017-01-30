@@ -28,6 +28,21 @@
 // ===================================================================================================
 
 /**
+* @package Borhan
+* @subpackage Client
+*/
+class BorhanFlavorAssetUrlOptions extends BorhanObjectBase
+{
+		/**
+ 		* The name of the downloaded file
+		*
+		*
+		* @var string
+		*/
+		public $fileName = null;
+}
+
+/**
  * @package Borhan
  * @subpackage Client
  */

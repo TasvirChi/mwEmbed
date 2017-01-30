@@ -1,6 +1,6 @@
 <?php
 /**
-* This file enables slow javascript response for testing blocking scripts relative to player embeds
+* This demonstrates grabbing a admin KS for a particular action ( sview ) being granted to the current user / session.
 */
 $wgMwEmbedApiServices['KSTest'] = 'mweApiKSTest';
 
@@ -9,30 +9,32 @@ require_once( dirname( __FILE__ ) . '../../Client/BorhanClientHelper.php' );
 
 class mweApiKSTest {
 	function run(){
-		global $wgBorhanAdminSecret;
+		global $wgBorhanUserSecret;
 		// validate params ( hard coded to test a particular test file / account )
 		if( !isset( $_REQUEST['wid'] ) ||  $_REQUEST['wid'] != '_243342' ){
 			$this->outputError( 'bad widget param');
 		}
 		$this->partnerId = '243342';
-		if( !isset( $_REQUEST['entry_id'] ) || $_REQUEST['entry_id'] != '1_20x0ca3l' ){
+
+		if( !isset( $_REQUEST['entry_id'] ) ){
 			$this->outputError( 'bad entry_id param');
 		}
-		$this->entryId = '1_20x0ca3l';
-		
+		$this->entryId = $_REQUEST['entry_id'];
+
 		// load library and get ks for given entry:
-		if( !isset( $wgBorhanAdminSecret ) || ( $wgBorhanAdminSecret == null ) ) {
-			$this->outputError( 'no admin ks configured');
+		if( !isset( $wgBorhanUserSecret ) || ( $wgBorhanUserSecret == null ) ) {
+			$this->outputError( 'no user ks configured');
 		}
 	
 		$client = $this->getClient();
-		$ks = $client->session->start ( $wgBorhanAdminSecret, 
+		$ks = $client->session->start ( $wgBorhanUserSecret, 
 				$_SERVER['REMOTE_ADDR'], 
-				BorhanSessionType::ADMIN, 
+				BorhanSessionType::USER, 
 				$this->partnerId, 
-				null, 
-				"sview:{$this->entryId}"
+				3600, // expire in one hour
+				"sview:{$this->entryId}" // give permision to "view" the entry
 			);
+		
 		header( 'Content-type: text/javascript');
 		echo json_encode(array('ks' => $ks ) );
 	}

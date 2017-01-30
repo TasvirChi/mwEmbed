@@ -52,12 +52,12 @@ bWidget.addReadyCallback(function(videoId){
 	// change media run at the start of the changeMedia sequence
 	bdp.kBind('changeMedia', function(data){
 		if( data.entryId ){
-			$("#changeLog").append( "EntryId: " + data.entryId );
+			$("#changeLog").append( "\nEntryId: " + data.entryId + "\n\n");
 		}
 	})
 	// entry ready is run once the entry data has been loaded
 	bdp.kBind('entryReady', function(){
-		$("#changeLog").append( " Name: " + bdp.evaluate('{mediaProxy.entry.name}') + "\n" );
+		$("#changeLog").append( "Name: " + bdp.evaluate('{mediaProxy.entry.name}') );
 	})
 });
 </script>
@@ -94,17 +94,12 @@ Change Media Log: <pre style="max-width:800px" id="changeLog"></pre>
 
 <div id="borhan_player" style="height:333px;width:400px"></div>
 <script>
-	function doEmbedPlayer( autoPlay ){
-		bWidget.embed( 'borhan_player', {
-			'wid' : '_243342',
-			'uiconf_id': '12905712',
-			'entry_id': '0_swup5zao',
-			'flashvars': {
-				'autoPlay': !! autoPlay
-			}
-		});
-	}
-	doEmbedPlayer();
+	bWidget.embed( 'borhan_player', {
+		'wid' : '_243342',
+		'uiconf_id': '12905712',
+		'entry_id': '0_swup5zao',
+		'flashvars':{}
+	});
 </script>
 
 </body>

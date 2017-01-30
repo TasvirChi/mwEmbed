@@ -1,310 +1,392 @@
 <?php
-	$listeners1 = array(
-        'startUp' => array(
-            'props' => 'Root of the application',
-            'desc' => 'The first command that registers the main proxys and main view mediator.',
-            'availability' => 'bdp'
-        ),
-        'initiatApp' => array(
-            'props' => 'None',
-            'desc' => 'Start the init macro commands.',
-            'availability' => 'bdp'
-        ),
-        'skinLoaded' => array(
-            'props' => 'None',
-            'desc' => 'Dispatched when the skin is loaded.',
-            'availability' => 'bdp'
-        ),
-        'skinLoadFailed' => array(
-            'props' => 'None',
-            'desc' => 'Dispatched when the skin load failed.',
-            'availability' => 'bdp'
-        ),
-        'sourceReady' => array(
-            'props' => 'None',
-            'desc' => 'When the source is ready use to set the media element to the media player.',
-            'availability' => 'bdp'
-        ),
-        'bdpReady' => array(
-            'props' => 'None',
-            'desc' => 'Notify that the application is ready to be used and events can be listened to and that the loaded entry is ready to be played.'
-        ),
-        'bdpEmpty' => array(
-            'props' => 'None',
-            'desc' => 'Notify that the application is ready to be used and events can be listened to, but no media was loaded'
-        ),
-        'layoutReady' => array(
-            'props' => 'None',
-            'desc' => 'Dispatched when the init macro command is done and the layout is ready'
-        ),
-        'playerReady' => array(
-            'props' => 'None',
-            'desc' => 'Dispatches when the player is ready to play the media'
-        ),
-        'pluginsLoaded' => array(
-            'props' => 'Plugins map object. Every key is a plugin ID, value is the status of the plugin (see PluginStatus class)',
-            'desc' => 'Notification fired when all plugins finished the loading process.',
-            'availability' => 'bdp'
-        ),
-        'singlePluginLoaded' => array(
-            'props' => 'The plugin ID',
-            'desc' => 'Notification fired when a single plugin is ready',
-            'availability' => 'bdp'
-        ),
-        'singlePluginFailedToLoad' => array(
-            'props' => 'The plugin ID',
-            'desc' => 'Notification fired when a single plugin failed to load',
-            'availability' => 'bdp'
-        ),
-        'readyToPlay' => array(
-            'props' => 'None',
-            'desc' => 'Notification added with version 3.5.0, signifies that an entry / media is ready to be played in the BDP',
-            'availability' => 'bdp'
-        ),
-        'readyToLoad' => array(
-            'props' => 'None',
-            'desc' => 'Dispatched when the skin is loaded.'
-        ),
-        'entryReady' => array(
-            'props' => 'The entry object (BorhanBaseEntry)',
-            'desc' => 'The Entry is set'
-        ),
-        'entryFailed' => array(
-            'props' => 'None',
-            'desc' => 'Get Entry failed'
-        ),
-        'entryNotAvailable' => array(
-            'props' => 'entryId: The new entry ID',
-            'desc' => "Notification fired when the BaseEntry object has been retrieved but BDP can't play the entry. Possible reasons: status not ready / moderation status/ access control",
-            'availability' => 'bdp'
-        ),
-        'mediaReady' => array(
-            'props' => 'None',
-            'desc' => 'The loadable media has completed loading'
-        ),
-        'mediaError' => array(
-            'props' => 'errorEvent: the media error event (MediaErrorEvent)',
-            'desc' => 'The player notify on media error'
-        ),
-        'mediaLoaded' => array(
-            'props' => 'None',
-            'desc' => 'From version 3.5.0, this notification replaces the MEDIA_READY notification as the catalyst for the MediaReadyCommand. This notification is indicative that the MediaElement constructed under the MediaProxy function prepareMediaElement is loaded into the OSMF MediaPlayer.'
-        )
-    );
+	$eventsPlayerLifeCycle = array(
+		'startUp' => array(
+			'callbackArgs' => 'Root of the application',
+			'callbackType' => 'Object',
+			'desc' => 'The first command that registers the main proxys and main view mediator.',
+			'availability' => 'bdp'
+		),
+		'initiatApp' => array(
+			'desc' => 'Start the init macro commands.',
+			'availability' => 'bdp'
+		),
+		'skinLoaded' => array(
+			'desc' => 'Dispatched when the skin is loaded.',
+			'availability' => 'bdp'
+		),
+		'skinLoadFailed' => array(
+			'desc' => 'Dispatched when the skin load failed.',
+			'availability' => 'bdp'
+		),
+		'sourceReady' => array(
+			'desc' => 'When the source is ready use to set the media element to the media player.',
+			'availability' => 'bdp'
+		),
+		'bdpReady' => array(
+			'desc' => 'Notify that the application is ready to be used and events can be listened to and that the loaded entry is ready to be played.'
+		),
+		'bdpEmpty' => array(
+			'desc' => 'Notify that the application is ready to be used and events can be listened to, but no media was loaded'
+		),
+		'layoutReady' => array(
+			'desc' => 'Dispatched when the init macro command is done and the layout is ready'
+		),
+		'layoutBuildDone' => array(
+			'desc' => 'Dispatched when the player layout is ready and rendered on the screen'
+		),
+		'playerReady' => array(
+			'desc' => 'Dispatches when the player is ready to play the media. playerReady event is dispatched  each time media is changed.'
+		),
+		'pluginsLoaded' => array(
+			'callbackArgs' => 'Plugins map object. Every key is a plugin ID, value is the status of the plugin (see PluginStatus class)',
+			'desc' => 'Notification fired when all plugins finished the loading process.',
+			'availability' => 'bdp'
+		),
+		'singlePluginLoaded' => array(
+			'callbackArgs' => 'The plugin ID',
+			'desc' => 'Notification fired when a single plugin is ready',
+			'availability' => 'bdp'
+		),
+		'singlePluginFailedToLoad' => array(
+			'callbackArgs' => 'The plugin ID',
+			'desc' => 'Notification fired when a single plugin failed to load',
+			'availability' => 'bdp'
+		),
+		'readyToPlay' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Notification added with version 3.5.0, signifies that an entry / media is ready to be played in the BDP',
+			'availability' => 'bdp'
+		),
+		'readyToLoad' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Dispatched when the skin is loaded.'
+		),
+		'entryReady' => array(
+			'callbackArgs' => 'The entry object (BorhanBaseEntry)',
+			'desc' => 'The Entry is set'
+		),
+		'entryFailed' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Get Entry failed'
+		),
+		'entryNotAvailable' => array(
+			'callbackArgs' => 'entryId: The new entry ID',
+			'desc' => "Notification fired when the BaseEntry object has been retrieved but BDP can't play the entry. Possible reasons: status not ready / moderation status/ access control",
+			'availability' => 'bdp'
+		),
+		'mediaReady' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'The loadable media has completed loading'
+		),
+		'mediaError' => array(
+			'callbackArgs' => 'errorEvent: the media error event (MediaErrorEvent)',
+			'desc' => 'The player notify on media error'
+		),
+		'mediaLoaded' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'MediaLoaded is triggered between each content load. i.e once between every item in a playlist. 
+				It indicates the mediaProxy is populated with entry metadata and the metadata from the content media asset or manifest has been loaded'
+		)
+	);
+	$eventsPlayerStates = array(
+		'firstPlay' => array(
+			'desc' => 'Triggered once per content entry when first played. If user initiates a replay this is a new content playback sequence and will triger firstPlay again.'
+		),
+		'firstQuartile' => array(
+			'desc' => 'The player reached 25% of the entry playback'
+		),
+		'secondQuartile' => array(
+			'desc' => 'The player reached 50% of the entry playback'
+		),
+		'thirdQuartile' => array(
+			'desc' => 'The player reached 75% of the entry playback'
+		),
+		'playerPlayEnd' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'The played media has reached the end of content playback.'
+		),
+		'durationChange' => array(
+			'callbackArgs' => 'New duration value',
+			'desc' => 'Notify a change in the playing entry duration'
+		),
+		'rootResize' => array(
+			'callbackArgs' => 'width: new width, height: new height',
+			'desc' => 'The player parent was resized',
+			'availability' => 'bdp'
+		),
+		'mediaViewableChange' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Used mainly to know when OSMF Media Player is viewable',
+			'availability' => 'bdp'
+		),
+		'playerStateChange' => array(
+			'callbackArgs' => 'The new state (MediaPlayerState)',
+			'desc' => "Dispatched when media player's state has changed (OSMF MediaPlayerState: uninitialized / loading / ready / playing / paused / buffering / playbackError"
+		),
+		'playerPaused' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'The player is now in pause state'
+		),
+		'playerPlayed' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Triggered when the player enters a play state. This event be triggered multiple times during a single playback session.
+				For example, playerPlayed will be triggered between ads and when the user plays content after pausing it.'
+		),
+		'playerSeekStart' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Notify about a seek activity that started'
+		),
+		'playerSeekEnd' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Notify that the seek activity has finished'
+		),
+		'playerUpdatePlayhead' => array(
+			'callbackArgs' => 'Player current time',
+			'desc' => 'An update event that notifies about the progress in time when playback is running'
+		),
+		'openFullScreen' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Player entered full screen mode',
+            'example' => '../modules/BorhanSupport/tests/FullscreenOnPlay.html'
+		),
+		'closeFullScreen' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Player exited from full screen mode',
+            'example' => '../modules/BorhanSupport/tests/FullscreenOnPlay.html'
+		),
+		'hasCloseFullScreen' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'The fullscreen has just closed',
+            'example' => '../modules/BorhanSupport/tests/FullscreenOnPlay.html'
+		),
+		'hasOpenedFullScreen' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'The fullscreen was just activated',
+            'example' => '../modules/BorhanSupport/tests/FullscreenOnPlay.html'
+		),
+		'volumeChanged' => array(
+			'callbackArgs' => 'New volume value',
+			'desc' => 'Notification about a change in the player volume'
+		),
+		'volumeChangedEnd' => array(
+			'callbackArgs' => 'New volume value',
+			'desc' => 'Notification fired when volumeChanged process ended (volume slider thumb release / volume button click). Saves value to cookie if possible',
+			'availability' => 'bdp'
+		),
+		'mute' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Notification fired when the player is muted'
+		),
+		'unmute' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Notification fired when the player is unmuted'
+		),
+		'bytesDownloadedChange' => array(
+			'callbackArgs' => 'newValue: bytes loaded',
+			'desc' => 'Notify the current and the previous value of bytesDownloaded'
+		),
+		'bytesTotalChange' => array(
+			'callbackArgs' => 'newValue: total bytes',
+			'desc' => "Dispatched by the player when the value of the property 'bytesTotal' has changed"
+		),
+		'bufferProgress' => array(
+			'callbackArgs' => 'newTime: new buffer time',
+			'desc' => 'The player dispatches this event when the buffer time has changed'
+		),
+		'bufferChange' => array(
+			'callbackArgs' => 'true / false',
+			'desc' => 'Dispatches when the player starts or stops buffering'
+		),
+		'bufferStartEvent' => array(
+			'desc' => 'Dispatches when the player starts buffering',
+			'example' => '../modules/BorhanSupport/tests/PlayerBufferTest.qunit.html'
+		),
+		'bufferEndEvent' => array(
+			'callbackArgs' => 'bufferTime: The amount of time since last buffer start event.',
+			'desc' => 'Dispatches when the player starts buffering',
+			'example' => '../modules/BorhanSupport/tests/PlayerBufferTest.qunit.html'
+		),
+		'scrubberDragStart' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'The scrubber had started being dragged',
+			'availability' => 'bdp'
+		),
+		'scrubberDragEnd' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'The scrubber had stopped being dragged',
+			'availability' => 'bdp'
+		),
+		'intelliSeek' => array(
+			'callbackArgs' => 'intelliseekTo: new position to seek to',
+			'desc' => 'Notification fired when the player has started intelligent seeking',
+			'availability' => 'bdp'
+		),
+		'freePreviewEnd' => array(
+			'callbackArgs' => 'id of the viewed entry',
+			'desc' => 'A notification that is called on the hosting page with content that should be purchased after a short preview'
+		),
+		'changeMediaProcessStarted' => array(
+			'callbackArgs' => 'entryId: The new entry ID',
+			'desc' => 'Notification fired when the first mini-command of the ChangeMedia macro command has started',
+			'availability' => 'bdp'
+		),
+		'metadataReceived' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Notification fired when entry custom data was received'
+		),
+		'cuePointsReceived' => array(
+			'callbackArgs' => 'Cue Points Map. Object mapping between start-times and arrays of the cue points found on that start-time',
+			'desc' => "Notification fired when the player has successfully loaded an entry's cue-point configuration"
+		),
+		'cuePointReached' => array(
+			'callbackArgs' => 'Current cuePoint object. Return Object with context and a cuePoint object',
+			'desc' => "Notification fired when the player reaches a cuePoint",
+			'example' => '../modules/BorhanSupport/components/related/CuePointsMidrollVast.html'
+		),
+		'switchingChangeStarted' => array(
+			'callbackArgs' => 'newIndex: The index of the bitrate the player started switching to. If auto, send -1, newBitrate: The bitrate the player started switching to. If auto, send null',
+			'desc' => 'Notification dispatched when the player has started switching to a different dynamic bitrate'
+		),
+		'switchingChangeComplete' => array(
+			'callbackArgs' => 'currentIndex: The index of the bitrate that the player finished switching to, currentBitrate: The bitrate the player finished switching to',
+			'desc' => 'Notification dispatched when the player has finished switching to a different dynamic bitrate'
+		),
+		'playbackComplete' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Signifies the end of a media in the player (can be either ad or content)'
+		),
+		'closedCaptionsHidden' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Notification dispatched when captions are hidden'
+		),
+		'closedCaptionsDisplayed' => array(
+			'callbackArgs' => 'language: the selected language',
+			'desc' => 'Notification dispatched when captions are displayed'
+		),
+		'changedClosedCaptions' => array(
+			'callbackArgs' => 'language: the new selected language',
+			'desc' => 'Notification dispatched when captions language is changed'
+		)
+	);
 
-	$listeners2 = array(
-        'durationChange' => array(
-            'props' => 'ewValue: new duration value',
-            'desc' => 'Notify a change in the playing entry duration'
-        ),
-        'rootResize' => array(
-            'props' => 'width: new width, height: new height',
-            'desc' => 'The player parent was resized',
-            'availability' => 'bdp'
-        ),
-        'mediaViewableChange' => array(
-            'props' => 'None',
-            'desc' => 'Used mainly to know when OSMF Media Player is viewable',
-            'availability' => 'bdp'
-        ),
-        'playerStateChange' => array(
-            'props' => 'The new state (MediaPlayerState)',
-            'desc' => "Dispatched when media player's state has changed (OSMF MediaPlayerState: uninitialized / loading / ready / playing / paused / buffering / playbackError"
-        ),
-        'playerPaused' => array(
-            'props' => 'None',
-            'desc' => 'The player is now in pause state'
-        ),
-        'playerPlayed' => array(
-            'props' => 'None',
-            'desc' => 'The player is now in play state'
-        ),
-        'playerSeekStart' => array(
-            'props' => 'None',
-            'desc' => 'Notify about a seek activity that started'
-        ),
-        'playerSeekEnd' => array(
-            'props' => 'None',
-            'desc' => 'Notify that the seek activity has finished'
-        ),
-        'playerPlayEnd' => array(
-            'props' => 'None',
-            'desc' => 'The played media has reached the end of playback'
-        ),
-        'playerUpdatePlayhead' => array(
-            'props' => 'Player current time',
-            'desc' => 'An update event that notifies about the progress in time when playback is running'
-        ),
-        'openFullScreen' => array(
-            'props' => 'None',
-            'desc' => 'Player entered full screen mode'
-        ),
-        'closeFullScreen' => array(
-            'props' => 'None',
-            'desc' => 'Player exited from full screen mode'
-        ),
-        'hasCloseFullScreen' => array(
-            'props' => 'None',
-            'desc' => 'The fullscreen has just closed'
-        ),
-        'hasOpenedFullScreen' => array(
-            'props' => 'None',
-            'desc' => 'The fullscreen was just activated'
-        ),
-        'volumeChanged' => array(
-            'props' => 'New volume value',
-            'desc' => 'Notification about a change in the player volume'
-        ),
-        'volumeChangedEnd' => array(
-            'props' => 'New volume value',
-            'desc' => 'Notification fired when volumeChanged process ended (volume slider thumb release / volume button click). Saves value to cookie if possible',
-            'availability' => 'bdp'
-        ),
-        'mute' => array(
-            'props' => 'None',
-            'desc' => 'Notification fired when the player is muted'
-        ),
-        'unmute' => array(
-            'props' => 'None',
-            'desc' => 'Notification fired when the player is unmuted'
-        ),
-        'bytesDownloadedChange' => array(
-            'props' => 'newValue: bytes loaded',
-            'desc' => 'Notify the current and the previous value of bytesDownloaded'
-        ),
-        'bytesTotalChange' => array(
-            'props' => 'newValue: total bytes',
-            'desc' => "Dispatched by the player when the value of the property 'bytesTotal' has changed"
-        ),
-        'bufferProgress' => array(
-            'props' => 'newTime: new buffer time',
-            'desc' => 'The player dispatches this event when the buffer time has changed'
-        ),
-        'bufferChange' => array(
-            'props' => 'true / false',
-            'desc' => 'Dispatches when the player starts or stops buffering'
-        ),
-        'scrubberDragStart' => array(
-            'props' => 'None',
-            'desc' => 'The scrubber had started being dragged',
-            'availability' => 'bdp'
-        ),
-        'scrubberDragEnd' => array(
-            'props' => 'None',
-            'desc' => 'The scrubber had stopped being dragged',
-            'availability' => 'bdp'
-        ),
-        'intelliSeek' => array(
-            'props' => 'intelliseekTo: new position to seek to',
-            'desc' => 'Notification fired when the player has started intelligent seeking',
-            'availability' => 'bdp'
-        ),
-        'freePreviewEnd' => array(
-            'props' => 'id of the viewed entry',
-            'desc' => 'A notification that is called on the hosting page with content that should be purchased after a short preview'
-        ),
-        'changeMediaProcessStarted' => array(
-            'props' => 'entryId: The new entry ID',
-            'desc' => 'Notification fired when the first mini-command of the ChangeMedia macro command has started',
-            'availability' => 'bdp'
-        ),
-        'metadataReceived' => array(
-            'props' => 'None',
-            'desc' => 'Notification fired when entry custom data was received'
-        ),
-        'cuePointsReceived' => array(
-            'props' => 'Cue Points Map. Object mapping between start-times and arrays of the cue points found on that start-time',
-            'desc' => "Notification fired when the player has successfully loaded an entry's cue-point configuration"
-        ),
-        'switchingChangeStarted' => array(
-            'props' => 'newIndex: The index of the bitrate the player started switching to. If auto, send -1, newBitrate: The bitrate the player started switching to. If auto, send null',
-            'desc' => 'Notification dispatched when the player has started switching to a different dynamic bitrate'
-        ),
-        'switchingChangeComplete' => array(
-            'props' => 'currentIndex: The index of the bitrate that the player finished switching to, currentBitrate: The bitrate the player finished switching to',
-            'desc' => 'Notification dispatched when the player has finished switching to a different dynamic bitrate'
-        ),
-        'playbackComplete' => array(
-            'props' => 'None',
-            'desc' => 'Signifies the end of a media in the player (can be either ad or content)'
-        )
-    );
-
-	$listeners3 = array(
-        'adOpportunity' => array(
-            'props' => 'context: context of the ad opportunity: pre, post, mid, cuePoint: the cue point object',
-            'desc' => "Notification fired when the player's time progress reaches an ad cue point"
-        ),
-        'sequenceItemPlayStart' => array(
-            'props' => 'sequenceContext: pre / post / mid / main (see SequenceContextType class), currentIndex: index of current item',
-            'desc' => 'Signifies the start of an entry that is part of a sequence',
-            'availability' => 'bdp'
-        ),
-        'sequenceItemPlayEnd' => array(
-            'props' => 'sequenceContext: pre / post / mid / main (see SequenceContextType class), currentIndex: index of current item',
-            'desc' => 'Signifies the end of an entry that is part of a sequence as opposed to the end of a regular entry',
-            'availability' => 'bdp'
-        ),
-        'preSequenceStart' => array(
-            'props' => 'None',
-            'desc' => 'Signifies the start of the pre-sequence'
-        ),
-        'preSequenceComplete' => array(
-            'props' => 'None',
-            'desc' => 'Signifies the end of the pre-sequence'
-        ),
-        'postSequenceStart' => array(
-            'props' => 'None',
-            'desc' => 'Signifies the start of the post-sequence'
-        ),
-        'postSequenceComplete' => array(
-            'props' => 'None',
-            'desc' => 'Signifies the end of the post-sequence'
-        ),
-        'midSequenceStart' => array(
-            'props' => 'None',
-            'desc' => 'Notification fired when the midroll sequence starts'
-        ),
-        'midSequenceComplete' => array(
-            'props' => 'None',
-            'desc' => 'Notification fired when the midroll sequence ends'
-        ),
-        'bumperStarted' => array(
-            'props' => 'timeSlot: preroll / postroll',
-            'desc' => 'Defines the value of the type property of a bumper start notification',
-            'availability' => 'bdp'
-        ),
-        'bumperClicked' => array(
-            'props' => 'None',
-            'desc' => 'Defines the value of the type property of a bumper click notification',
-            'availability' => 'bdp'
-        ),
-        'adStart' => array(
-            'props' => 'timeSlot: pre / post / mid / main (see SequenceContextType class)',
-            'desc' => 'Defines the value of the type property of an ad start notification'
-        ),
-        'adClick' => array(
-            'props' => 'timeSlot: pre / post / mid / main (see SequenceContextType class)',
-            'desc' => 'Defines the value of the type property of an ad click notification'
-        ),
-        'adEnd' => array(
-            'props' => 'timeSlot: pre / post / mid / main (see SequenceContextType class)',
-            'desc' => 'Defines the value of the type property of an ad end notification'
-        ),
-        'firstQuartileOfAd' => array(
-            'props' => 'timeSlot: pre / post / mid / main (see SequenceContextType class)',
-            'desc' => 'Defines the value of the type property of 25% of ad notification',
-            'availability' => 'bdp'
-        ),
-        'midOfAd' => array(
-            'props' => 'timeSlot: pre / post / mid / main (see SequenceContextType class)',
-            'desc' => 'Defines the value of the type property of 50% of ad notification',
-            'availability' => 'bdp'
-        ),
-        'ThirdQuartileOfAd' => array(
-            'props' => 'timeSlot: pre / post / mid / main (see SequenceContextType class)',
-            'desc' => 'Defines the value of the type property of 75% of ad notification',
-            'availability' => 'bdp'
-        )
-    );
+	$eventAds = array(
+		'adOpportunity' => array(
+			'callbackArgs' => 'context: context of the ad opportunity: pre, post, mid, cuePoint: the cue point object',
+			'desc' => "Notification fired when the player's time progress reaches an ad cue point",
+			"example" => "../modules/BorhanSupport/tests/CuePointsMidrollVast.html"
+		),
+		'sequenceItemPlayStart' => array(
+			'callbackArgs' => 'sequenceContext: pre / post / mid / main (see SequenceContextType class), currentIndex: index of current item',
+			'desc' => 'Signifies the start of an entry that is part of a sequence',
+			'availability' => 'bdp'
+		),
+		'sequenceItemPlayEnd' => array(
+			'callbackArgs' => 'sequenceContext: pre / post / mid / main (see SequenceContextType class), currentIndex: index of current item',
+			'desc' => 'Signifies the end of an entry that is part of a sequence as opposed to the end of a regular entry',
+			'availability' => 'bdp'
+		),
+		'preSequenceStart' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Signifies the start of the pre-sequence'
+		),
+		'preSequenceComplete' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Signifies the end of the pre-sequence'
+		),
+		'postSequenceStart' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Signifies the start of the post-sequence'
+		),
+		'postSequenceComplete' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Signifies the end of the post-sequence'
+		),
+		'midSequenceStart' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Notification fired when the midroll sequence starts'
+		),
+		'midSequenceComplete' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Notification fired when the midroll sequence ends'
+		),
+		'bumperStarted' => array(
+			'callbackArgs' => 'timeSlot: preroll / postroll',
+			'desc' => 'Defines the value of the type property of a bumper start notification',
+			'availability' => 'bdp'
+		),
+		'bumperClicked' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Defines the value of the type property of a bumper click notification',
+			'availability' => 'bdp'
+		),
+		'adStart' => array(
+			'callbackArgs' => 'timeSlot: pre / post / mid / main (see SequenceContextType class)',
+			'desc' => 'Defines the value of the type property of an ad start notification'
+		),
+		'adClick' => array(
+			'callbackArgs' => 'timeSlot: pre / post / mid / main (see SequenceContextType class)',
+			'desc' => 'Defines the value of the type property of an ad click notification'
+		),
+		'adEnd' => array(
+			'callbackArgs' => 'timeSlot: pre / post / mid / main (see SequenceContextType class)',
+			'desc' => 'Defines the value of the type property of an ad end notification'
+		),
+		'firstQuartileOfAd' => array(
+			'callbackArgs' => 'timeSlot: pre / post / mid / main (see SequenceContextType class)',
+			'desc' => 'Defines the value of the type property of 25% of ad notification',
+			'availability' => 'bdp'
+		),
+		'midOfAd' => array(
+			'callbackArgs' => 'timeSlot: pre / post / mid / main (see SequenceContextType class)',
+			'desc' => 'Defines the value of the type property of 50% of ad notification',
+			'availability' => 'bdp'
+		),
+		'ThirdQuartileOfAd' => array(
+			'callbackArgs' => 'timeSlot: pre / post / mid / main (see SequenceContextType class)',
+			'desc' => 'Defines the value of the type property of 75% of ad notification',
+			'availability' => 'bdp'
+		),
+		'adErrorEvent' => array(
+			'callbackArgs' => 'None',
+			'desc' => 'Fired when an ad fails to load (applicable to all ad systems)'
+		)
+	);
+	$playlists = array(
+		'relatedVideoSelect' => array(
+			'callbackArgs' => 'An object with "entryId" property with the current selected entry as a value.',
+			'callbackType' => 'object',
+			'desc' => 'Called when user clicks or auto continues to a related video.',
+			'example' => '../modules/BorhanSupport/components/related/Related.html'
+		),
+		'playlistReady' => array(
+			'props' => 'None',
+			'desc' => 'The playlist layout is ready.',
+			'example' => '../modules/BorhanSupport/tests/PlaylistEvents.qunit.html'
+		),
+		'playlistPlayNext' => array(
+			'props' => 'None',
+			'desc' => 'The next clip was requested.',
+			'example' => '../modules/BorhanSupport/tests/PlaylistEvents.qunit.html'
+		),
+		'playlistPlayPrevious' => array(
+			'props' => 'None',
+			'desc' => 'The previous clip was requested.',
+			'example' => '../modules/BorhanSupport/tests/PlaylistEvents.qunit.html'
+		),
+		'playlistFirstEntry' => array(
+			'props' => 'None',
+			'desc' => 'The first clip in the playlist was loaded.',
+			'example' => '../modules/BorhanSupport/tests/PlaylistEvents.qunit.html'
+		),
+		'playlistMiddleEntry' => array(
+			'props' => 'None',
+			'desc' => 'A clip that is not the first or the last clip in the playlist was loaded.',
+			'example' => '../modules/BorhanSupport/tests/PlaylistEvents.qunit.html'
+		),
+		'playlistLastEntry' => array(
+			'props' => 'None',
+			'desc' => 'The last clip in the playlist was loaded.',
+			'example' => '../modules/BorhanSupport/tests/PlaylistEvents.qunit.html'
+		)
+	);
 ?>

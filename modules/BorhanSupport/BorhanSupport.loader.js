@@ -15,6 +15,7 @@
 			'kentryid' : null, // mediaProxy.entry.id
 			'bwidgetid' : null,
 			'kuiconfid' : null,
+			'referenceId': null,
 			// helps emulate the bdp behavior of not updating currentTime until a seek is complete.
 			'kPreSeekTime': null,
 			// Borhan player Metadata exported across the iframe

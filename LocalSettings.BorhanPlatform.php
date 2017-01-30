@@ -28,12 +28,16 @@ $wgBorhanServiceUrl = wgGetUrl('cdn_api_host');
 $wgBorhanCDNUrl = wgGetUrl('cdn_host');
 // Default Stats URL
 $wgBorhanStatsServiceUrl = wgGetUrl('stats_host');
+// Default Live Stats URL
+$wgBorhanLiveStatsServiceUrl = wgGetUrl('live_stats_host');
 
 // SSL host names
 if( $wgHTTPProtocol == 'https' ){
 	$wgBorhanServiceUrl = wgGetUrl('cdn_api_host_https');
 	$wgBorhanCDNUrl = wgGetUrl('cdn_host_https');
 	$wgBorhanStatsServiceUrl = wgGetUrl('stats_host_https');
+	$wgBorhanLiveStatsServiceUrl = wgGetUrl('live_stats_host_https');
+
 }
 
 // Default Asset CDN Path (used in ResouceLoader.php):
@@ -42,8 +46,10 @@ $wgCDNAssetPath = $wgBorhanCDNUrl;
 // Default Borhan Cache Path
 $wgScriptCacheDirectory = $kConf->get('cache_root_path') . '/html5/' . $wgBorhanVersion;
 
-$wgLoadScript = $wgBorhanServiceUrl . '/html5/html5lib/' . $wgBorhanVersion . '/load.php';
-$wgResourceLoaderUrl = $wgLoadScript;
+if (strpos($_SERVER["HTTP_HOST"], "borhan.com")){
+	$wgLoadScript = $wgBorhanServiceUrl . '/html5/html5lib/' . $wgBorhanVersion . '/load.php';
+	$wgResourceLoaderUrl = $wgLoadScript;
+}
 
 // Salt for proxy the user IP address to Borhan API
 if( $kConf->hasParam('remote_addr_header_salt') ) {
@@ -71,6 +77,21 @@ if( $kConf->hasMap('playReady') ) {
 	$playReadyMap = $kConf->getMap('playReady');
 	if($playReadyMap)
 		$wgBorhanLicenseServerUrl = $playReadyMap['license_server_url'];
+}
+
+// Get PlayReady License URL
+if( $kConf->hasMap('drm') ) {
+	$drmMap = $kConf->getMap('drm');
+	if($drmMap)
+		$wgBorhanUdrmLicenseServerUrl = $drmMap['license_server_url'];
+}
+
+if( $kConf->hasParam('overrideDomain') ) {
+	$wgEnableBorhanOverrideDomain = $kConf->get('overrideDomain');
+}
+
+if( $kConf->hasParam('enableEmbedServicesRouting') ) {
+	$wgEnableBorhanEmbedServicesRouting = $kConf->get('enableEmbedServicesRouting');
 }
 
 // A helper function to get full URL of host

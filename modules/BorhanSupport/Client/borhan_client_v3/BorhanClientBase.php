@@ -245,7 +245,7 @@ class BorhanClientBase
 
 		$params = array();
 		$files = array();
-		$this->log("service url: [" . $this->config->serviceUrl . "]");
+        $this->log("service url: [" . $this->config->serviceUrl . "]");
 
 		// append the basic params
 		$this->addParam($params, "apiVersion", $this->apiVersion);
@@ -259,7 +259,7 @@ class BorhanClientBase
 		$signature = $this->signature($params);
 		$this->addParam($params, "kalsig", $signature);
 
-		$url = $this->config->serviceUrl . "/api_v3/index.php?service={$call->service}&action={$call->action}";
+        $url = $this->config->serviceUrl . "/api_v3/index.php?service={$call->service}&action={$call->action}";
 		$url .= '&' . http_build_query($params);
 		$this->log("Returned url [$url]");
 		return $url;
@@ -292,7 +292,7 @@ class BorhanClientBase
 	 */
 	public function doQueue()
 	{
-		if($this->isMultiRequest && ($this->destinationPath || $this->returnServedResult))
+	    if($this->isMultiRequest && ($this->destinationPath || $this->returnServedResult))
 		{
 			$this->resetRequest();
 			throw new BorhanClientException("Downloading files is not supported as part of multi-request.", BorhanClientException::ERROR_DOWNLOAD_IN_MULTIREQUEST);
@@ -308,7 +308,8 @@ class BorhanClientBase
 
 		$params = array();
 		$files = array();
-		$this->log("service url: [" . $this->config->serviceUrl . "]");
+
+        $this->log("service url: [" . $this->config->serviceUrl . "]");
 
 		// append the basic params
 		$this->addParam($params, "apiVersion", $this->apiVersion);

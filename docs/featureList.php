@@ -76,34 +76,46 @@
 							'title' => 'Playlist API',
 							'path' => 'BorhanSupport/tests/PlaylistBorhanApi.qunit.html'
 						),
-						'playlistOnPage' => array(
-							'title' => 'Playlist On Page',
-							'path' => '../bWidget/onPagePlugins/playlistOnPage/playlistOnPage.qunit.html'
-						),
 						'ServerSidePlaylist' => array(
 							'title' => "Server Side Playlist",
 							'path' => '../bWidget/onPagePlugins/serverSidePlaylist/ServerSidePlaylist.php'
 						),
-						'PlaylistVertical' => array(
-							'title' => "Vertical Layout",
-							'path' => 'BorhanSupport/tests/PlaylistVertical.html'
+						'PlaylistFeatures' => array(
+							'title' => "Playlist features",
+							'path' => 'BorhanSupport/tests/PlaylistFeatures.qunit.html'
 						),
-						'Carousel' => array(
-							'title' => "Carousel",
-							'path' => 'BorhanSupport/tests/Carousel.html'
+						'PlaylistEvents' => array(
+							'title' => "Playlist events",
+							'path' => 'BorhanSupport/tests/PlaylistEvents.qunit.html'
+						),
+						'PlaylistOnPage' => array(
+							'title' => "Playlist on page",
+							'path' => 'BorhanSupport/tests/PlaylistOnPage.qunit.html'
 						),
 						'PlaylistNoClipList' => array(
 							'title' => "Playlist No Clip List",
-							'path' => 'BorhanSupport/tests/PlaylistNoClipList.html'
+							'path' => 'BorhanSupport/tests/PlaylistNoClipList.qunit.html'
 						),
-						/*'PlaylistBorhanMRSS' => array(
+						'PlaylistBorhanMRSS' => array(
 							'title' => "Media RSS source",
-							'path' => 'BorhanSupport/tests/PlaylistBorhanMRSS.html'
-						),*/
+							'path' => 'BorhanSupport/tests/PlaylistBorhanMRSS.qunit.html'
+						),
 						'PlaylistInitItemEntryId' => array(
 							'title' => "Initial EntryId",
-							'path' => 'BorhanSupport/tests/PlaylistInitItemEntryId.html'
-						)
+							'path' => 'BorhanSupport/tests/PlaylistInitItemEntryId.qunit.html'
+						),
+						'PlaylistVAST' => array(
+							'title' => "Playlist VAST ads",
+							'path' => 'BorhanSupport/tests/PlaylistVAST.qunit.html'
+						),
+						'PlaylistDoubleclick' => array(
+							'title' => "Playlist Doubleclick ads",
+							'path' => 'BorhanSupport/tests/PlaylistDoubleclick.qunit.html'
+						),
+                        'PlaylistSideBar' => array(
+                            'title' => "Playlist within side bar",
+                            'path' => 'BorhanSupport/tests/PlaylistSideBar.qunit.html'
+                        )
 					)
 				),
 			)
@@ -209,10 +221,10 @@
 							'title' => 'Chapters Editor',
 							'path' => '../bWidget/onPagePlugins/chapters/chaptersEdit.qunit.html'
 						),
-						'AttracTV' => array(
+						/*'AttracTV' => array(
 							'title' => 'AttracTV',
 							'path' => 'AttracTV/tests/AttracTV.qunit.html'
-						),
+						),*/
 						'LimeSurvey' => array(
 							'title' => 'LimeSurvey On Video',
 							'path' => '../bWidget/onPagePlugins/limeSurveyCuePointForms/limeSurveyCuePointForms.qunit.html'
@@ -220,6 +232,24 @@
 						'videoDetailsBlock' => array(
 							'title' => 'Video Details Block',
 							'path' => '../bWidget/onPagePlugins/videoDetailsBlock/videoDetailsBlock.qunit.html'
+						),
+					)
+				),
+				'CallToAction' => array(
+					'title' => 'Call To Action',
+					'desc' => 'Call to action plugins.',
+					'testfiles' => array(
+						'ActionButtons' => array(
+							'title' => 'Basic Buttons',
+							'path' => 'CallToAction/tests/ActionButtons.qunit.html'
+						),
+						'RelatedButtons' => array(
+							'title' => 'Related Buttons',
+							'path' => 'CallToAction/tests/ActionButtonsRelated.qunit.html'
+						),
+						'ActionForm' => array(
+							'title' => 'Submit Form',
+							'path' => 'CallToAction/tests/ActionForm.qunit.html'
 						),
 					)
 				),
@@ -251,10 +281,10 @@
 							'title' => 'Chromeless No Controls',
 							'path' => 'BorhanSupport/tests/ChromelessPlayer.qunit.html'
 						),
-						/*'CustomSkin' => array(
-							'title' => 'Custom Skin',
-							'path' => 'BorhanSupport/tests/CustomSkin.html'
-						),
+						'Strings' => array(
+							'title' => 'Custom Strings',
+							'path' => 'BorhanSupport/tests/Strings.html'
+						),/*
 						'CustomSkinAudioPlayer' => array(
 							'title' => 'Custom Audio Player Skin',
 							'path' => 'BorhanSupport/tests/CustomSkinAudioPlayer.html'
@@ -322,6 +352,14 @@
 						'thumb' => array( 
 							'title' => 'Thumbnail embed',
 							'path' => 'BorhanSupport/tests/ThumbnailEmbedManyPlayers.qunit.html',
+						),
+						'responsive' => array(
+							'title' => "Responsive embed",
+							'path' => 'BorhanSupport/tests/RWDMinimal.html',
+						),
+						'NativeCallout'=> array(
+							'title' => 'Native callout',
+							'path' => 'BorhanSupport/tests/NativeCalloutComingSoon.html',
 						),
 						'referenceId' => array(
 							'title' => 'Reference Id',

@@ -56,43 +56,30 @@ function jsBorhanPlayerTest( videoId ){
 </head>
 <body>
 <h2> Play Stop </h2>
-Once the player is ready it will start to play for 3 sec and then stop, the test will verify that the right events are triggered <br>
-Mobile devices that require click gestures for playback won't seek without first playing.
+Demonstrates basic usage of the play, stop & pause API.
 <br>
 <pre class="prettyprint linenums">
-bWidget.addReadyCallback( function( playerId ){<br/>
-	var bdp = document.getElementById( playerId );<br/>
-	// Add a binding for when seek is completed: <br/>	bdp.kBind('playerSeekEnd', function(){<br/>		if( console ) <br/>		console.log( 'playerSeekEnd, playhead should be at 30 seconds');<br/>		<br/>		// Pause player after 2 second <br/>		setTimeout(function(){<br/>			bdp.sendNotification('doPause' );<br/>		},2000)<br/>	});<br/>	// Once playing issue seek<br/>	var seekDone = false;<br/>	bdp.kBind('playerUpdatePlayhead', function(){<br/>		if( ! seekDone ){<br/>		bdp.sendNotification('doSeek', 30 );<br/>		}<br/>		seekDone = true;<br/>	});<br/>	// Wait for &quot;media ready&quot; before starting playback: <br/>	bdp.kBind('mediaReady', function(){<br/>		bdp.sendNotification('doPlay');<br/>	})<br/>});
-</pre>
-<br />
-<script>
-if( !window.QUnit ){
-	bWidget.addReadyCallback( function( playerId ){
-		var bdp = document.getElementById( playerId );
-		// Add a binding for when seek is completed: 
-		bdp.kBind('playerSeekEnd', function(){
-			if( console ){ 
-				console.log( 'playerSeekEnd, playhead should be at 30 seconds');
-			}
-			// Pause player after 2 second 
-			setTimeout(function(){
-			bdp.sendNotification('doPause' );
-			},2000)
-		});
-		// Once playing issue seek
-		var seekDone = false;
-		bdp.kBind('playerUpdatePlayhead', function(){
-			if( ! seekDone ){
-			bdp.sendNotification('doSeek', 30 );
-			}
-			seekDone = true;
-		});
-		// Wait for "media ready" before starting playback: 
-		bdp.kBind('mediaReady', function(){
-			bdp.sendNotification('doPlay');
-		})
+bWidget.addReadyCallback( function( playerId ){
+	var bdp = document.getElementById( playerId );
+	$('#sampleActions .btn').click(function(){
+		bdp.sendNotfication( $(this).text() );
 	});
-}
+});
+</pre>
+<h3> Sample actions: </h3>
+<div id="sampleActions">
+	<a class="btn">doPlay</a> 
+	<a class="btn">doPause</a>
+	<a class="btn">doStop</a> 
+</div>
+<br>
+<script>
+bWidget.addReadyCallback( function( playerId ){
+	var bdp = document.getElementById( playerId );
+	$('#sampleActions .btn').click(function(){
+		bdp.sendNotification( $(this).text() );
+	});
+});
 </script>
 
 <div id="borhan_player_1360356455" style="width: 400px; height: 333px"></div>

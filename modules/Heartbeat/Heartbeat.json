@@ -1,0 +1,14 @@
+{
+  "heartbeat": {
+    "scripts": [
+      "resources/VideoHeartbeat.min.js",
+      "resources/BorhanVideoPlayerPluginDelegate.js",
+      "resources/BorhanAdobeAnalyticsPluginDelegate.js",
+      "resources/BorhanHeartbeatPluginDelegate.js",
+      "resources/BorhanHeartbeatDelegate.js",
+      "resources/heartbeat.js"
+    ],
+    "dependencies": "mw.KBasePlugin",
+    "borhanPluginName": "heartbeat"
+  }
+}

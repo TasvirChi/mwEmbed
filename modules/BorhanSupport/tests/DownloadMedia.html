@@ -20,11 +20,18 @@
 		'flashvars':{
 			'download':{
 				'plugin': true ,
-                'downloadName' : 'myDownload'
+				'downloadName' : 'myDownload'
 			}
+		},
+		'readyCallback': function(playerId){
+			var bdp = $("#" + playerId )[0];
+			$('#chagneToImage').click(function(){
+				bdp.sendNotification('changeMedia', { 'entryId' : '0_59x7sgqo' } );
+			});
 		}
 	});
-</script>
+</script><br>
+<a id="chagneToImage" href="#">Change to image entry</a>
 <br />
 
 </body>

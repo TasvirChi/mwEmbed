@@ -1,0 +1,13 @@
+{
+    "multiDrm": {
+	    "label": "Universal DRM",
+        "description": "Borhan Universal DRM, enables multiple DRM engines to run within the Borhan player based on the capabilities of the browser or packaged native applications. Learn more about <a href='http://knowledge.borhan.com/borhan-universal-digital-rights-management-drm' target='_blank'>Borhan Universal DRM</a>",
+	    "attributes": {
+		    "plugin": {
+			    "doc": "If the multi drm should be activated.",
+			    "label": "Enable multi drm",
+			    "type": "hiddenValue"
+		    }
+	    }
+    }
+}

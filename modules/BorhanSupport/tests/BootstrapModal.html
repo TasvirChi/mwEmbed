@@ -58,6 +58,36 @@ window['disablePlaybackModeSelector'] = true;
 			$('#myModal').on( 'hide', function(){
 				bWidget.destroy('borhan_player');
 			});
-		</script>
+		</script><br><br>
+		<b>Code example of modal usage:</b>
+		<pre class="prettyprint linenums">$('#myModal').on( 'show', function(){
+	$('#video_wrap').html(
+		'&lt;div id="borhan_player" style="width:525px;height:330px;"&gt;&lt;/div&gt;'
+	);
+	bWidget.embed({
+		'targetId': 'borhan_player',
+		'wid': '_243342',
+		'uiconf_id' : '12905712',
+		'entry_id' : '0_uka1msg4',
+		
+		// for autoplay on iOS:
+		'captureClickEventForiOS': $('#autoplay').attr("checked"),
+		'readyCallback': function( playerId ){
+			if( ! $('#autoplay').attr("checked") ){
+				// no ready callback binding needed if no autoplay: 
+				return ;
+			}
+			// AutoPlay: issue a play on mediaReady
+			var bdp = document.getElementById( playerId );
+			bdp.kBind('mediaReady', function(){
+				bdp.sendNotification( 'doPlay' );
+			});
+		}
+	});
+});
+$('#myModal').on( 'hide', function(){
+	bWidget.destroy('borhan_player');
+});
+</pre>
 	</body>
 </html>

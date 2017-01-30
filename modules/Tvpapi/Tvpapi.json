@@ -1,0 +1,17 @@
+{
+    "tvpapiGetLicensedLinks": {
+        "scripts": "resources/getLicensedLinks.js",
+        "dependencies": ["mw.KBasePlugin"] ,
+        "borhanPluginName": "tvpapiGetLicensedLinks"
+    },
+    "tvpapiGetLicenseData": {
+        "scripts": "resources/getLicenseData.js",
+        "dependencies": ["mw.KBasePlugin"],
+        "borhanPluginName": "tvpapiGetLicenseData"
+    },
+    "tvpapiAnalytics": {
+        "scripts": "resources/tvpapiAnalytics.js",
+        "dependencies": ["mw.KBasePlugin"],
+        "borhanPluginName": "tvpapiAnalytics"
+    }
+}
