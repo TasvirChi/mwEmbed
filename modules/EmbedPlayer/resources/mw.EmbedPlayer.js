@@ -2200,7 +2200,7 @@
 		},
 
 		isMobileSkin: function(){
-			var skin = this.getRawBorhanConfig("layout") ? this.getRawBorhanConfig("layout").skin : "kdark";
+			var skin = this.getRawBorhanConfig("layout") ? this.getRawBorhanConfig("layout").skin : window["borhanIframePackageData"].playerConfig.layout ? window["borhanIframePackageData"].playerConfig.layout.skin : "kdark";
 			return ( mw.getConfig("EmbedPlayer.EnableMobileSkin") === true && skin === "kdark" && mw.isMobileDevice() && !mw.isWindowsPhone() );
 		},
 
