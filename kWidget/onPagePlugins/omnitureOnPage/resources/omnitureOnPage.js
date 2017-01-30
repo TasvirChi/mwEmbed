@@ -277,6 +277,9 @@ bWidget.addReadyCallback( function( playerId ){
 				if( inArray ) {
 					_this.trackMediaWithExtraEvars();
 				}
+				if( media.event == 'OPEN' ){
+					trackedClose = false;
+				}
 				if( media.event == 'CLOSE' ){
 					if( !trackedClose){
 						trackedClose = true;

@@ -13,7 +13,8 @@
 			"matchMedia",
 			"mw.KEntryLoader",
 			"mw.BDPMapping",
-			"mw.KCuePoints"
+			"mw.KCuePoints",
+			"polyfill_Array_filter"
 		],
 		"borhanLoad": "always",
 		"messageFile": "BorhanSupport.i18n.json"
