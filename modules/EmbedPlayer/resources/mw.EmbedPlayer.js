@@ -733,7 +733,7 @@
 		getPlayerByStreamerType: function (source) {
 			var targetPlayer;
 			// if currently casting - always return the Chromecast player
-			if ( this.casting ){
+			if ( this.casting && !mw.getConfig('EmbedPlayer.ForceNativeComponent') === true){
 				return mw.EmbedTypes.getMediaPlayers().getPlayerById('chromecast');
 			}
 			//currently only kplayer can handle other streamerTypes
@@ -3108,6 +3108,9 @@
 		isDVR: function () {
 			if (this.borhanPlayerMetaData && this.borhanPlayerMetaData[ 'dvrStatus' ]) {
 				return this.borhanPlayerMetaData[ 'dvrStatus' ];
+			}
+			if (mw.getConfig("forceDVR")){
+				return true;
 			}
 
 			return false;
