@@ -504,7 +504,7 @@ mw.BWidgetSupport.prototype = {
 			playerData.meta.partnerData["isLive"] == "true" ) {
 			embedPlayer.setLive( true );
 		}
-
+		embedPlayer.setBorhanConfig('originalProxyData', embedPlayer.getBorhanConfig('proxyData'));
 		//Set proxyData response data
 		embedPlayer.setBorhanConfig( 'proxyData', playerData.meta.partnerData);
 	},
