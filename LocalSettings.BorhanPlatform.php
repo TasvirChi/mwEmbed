@@ -30,6 +30,8 @@ $wgBorhanCDNUrl = wgGetUrl('cdn_host');
 $wgBorhanStatsServiceUrl = wgGetUrl('stats_host');
 // Default Live Stats URL
 $wgBorhanLiveStatsServiceUrl = wgGetUrl('live_stats_host');
+// Default Borhan Analytics URL
+$wgBorhanAnalyticsServiceUrl = wgGetUrl('analytics_host');
 
 // SSL host names
 if( $wgHTTPProtocol == 'https' ){
@@ -37,6 +39,7 @@ if( $wgHTTPProtocol == 'https' ){
 	$wgBorhanCDNUrl = wgGetUrl('cdn_host_https');
 	$wgBorhanStatsServiceUrl = wgGetUrl('stats_host_https');
 	$wgBorhanLiveStatsServiceUrl = wgGetUrl('live_stats_host_https');
+	$wgBorhanAnalyticsServiceUrl = wgGetUrl('analytics_host_https');
 
 }
 

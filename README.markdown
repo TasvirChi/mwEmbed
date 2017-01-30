@@ -1,4 +1,4 @@
-## Library Overview
+## Library Overview 
 
 __Borhan's HTML5 Media Library__ enables you leverage a unified configuration and development API for both HTML5 and Flash. It enables delivery of rich on page and in player experiences backed by robust metadata and per device asset delivery of the [borhan platform](http://corp.borhan.com/). It supports a [wide range of features](http://html5video.org/borhan-player/docs/), an external and internal plugin model, advanced html5 player, and custom skins. 
 
@@ -20,7 +20,7 @@ Can't find what your looking for in the documentation, ran into an issue check t
 
 ## Hacking on mwEmbed
 
-* Pull requests can be sent to <a href="https://github.com/borhan/mwEmbed/">our git hub repo</a>. 
+* Pull requests can be sent to <a href="https://github.com/borhan/mwEmbed/">our git hub repo</a>. Pull requests should be open against the master branch.
 * Our coding conventions <a href="http://www.mediawiki.org/wiki/Manual:Coding_conventions/JavaScript">follow mediaWiki js guidelines</a>. 
 * See [getting strated guide](http://knowledge.borhan.com/borhan-player-toolkit-theme-skin-and-plugins-guide)
 * Also see [Yeoman project](https://github.com/borhan/generator-borhanplayer-module) for auto generating skeleton borhan player plugins.  

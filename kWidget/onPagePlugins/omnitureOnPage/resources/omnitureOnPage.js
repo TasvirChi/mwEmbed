@@ -200,7 +200,12 @@ bWidget.addReadyCallback( function( playerId ){
 				extraEvars = additionalEvarsAndProps.split(",");
 			}
 			if( additionalEvarsAndPropsValues ){
-				extraEvarsValues = additionalEvarsAndPropsValues.split(",");
+				// custom delimiter is used in situations when
+				// some evaluated extraValues contain comma character
+				// because this.getConfig('additionalEvarsAndPropsValues')
+				// returns already evaluated values
+				var extraEvarsValuesDelimiter = this.getConfig('additionalEvarsAndPropsValuesDelimiter') || ',';
+				extraEvarsValues = additionalEvarsAndPropsValues.split(extraEvarsValuesDelimiter);
 				for( var j=0; j < extraEvarsValues.length; j++ ) {
 					extraEvarsValues[j] = this.bdp.evaluate(extraEvarsValues[j]);
 				}
@@ -356,6 +361,11 @@ bWidget.addReadyCallback( function( playerId ){
 				play();
 			});
 			this.bind( 'doPause', stop );
+			this.bind( 'userInitiatedPlay', function(){
+				if (!firstPlay){
+					play();
+				}
+			} );
 			this.bind( 'AdSupport_midSequenceComplete', play );
 			this.bind( 'playerPlayEnd', function(){
 				close();

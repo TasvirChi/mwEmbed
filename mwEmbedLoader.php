@@ -386,7 +386,7 @@ class mwEmbedLoader {
 	private function getExportedConfig(){
 		global $wgEnableScriptDebug, $wgResourceLoaderUrl, $wgMwEmbedVersion, $wgMwEmbedProxyUrl, $wgBorhanUseManifestUrls,
 			$wgBorhanUseManifestUrls, $wgHTTPProtocol, $wgBorhanServiceUrl, $wgBorhanServiceBase,
-			$wgBorhanCDNUrl, $wgBorhanStatsServiceUrl,$wgBorhanLiveStatsServiceUrl, $wgBorhanIframeRewrite, $wgEnableIpadHTMLControls,
+			$wgBorhanCDNUrl, $wgBorhanStatsServiceUrl,$wgBorhanLiveStatsServiceUrl, $wgBorhanAnalyticsServiceUrl, $wgBorhanIframeRewrite, $wgEnableIpadHTMLControls,
 			$wgBorhanAllowIframeRemoteService, $wgBorhanUseAppleAdaptive, $wgBorhanEnableEmbedUiConfJs,
 			$wgBorhanGoogleAnalyticsUA, $wgHTML5PsWebPath, $wgAllowedVars, $wgAllowedPluginVars, $wgAllowedPluginVarsValPartials, $wgAllowedVarsKeyPartials,
 			$wgCacheTTL, $wgMaxCacheEntries, $wgBorhanSupressNonProductionUrlsWarning;
@@ -403,6 +403,7 @@ class mwEmbedLoader {
 			'Borhan.CdnUrl' => $wgBorhanCDNUrl,
 			'Borhan.StatsServiceUrl' => $wgBorhanStatsServiceUrl,
 			'Borhan.LiveStatsServiceUrl'=>$wgBorhanLiveStatsServiceUrl,
+			'Borhan.AnalyticsUrl'=>$wgBorhanAnalyticsServiceUrl,
 			'Borhan.IframeRewrite' => $wgBorhanIframeRewrite,
 			'EmbedPlayer.EnableIpadHTMLControls' => $wgEnableIpadHTMLControls,
 			'EmbedPlayer.UseFlashOnAndroid' => true,

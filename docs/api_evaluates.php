@@ -56,7 +56,7 @@
 			'desc' => 'Timestamp of last buffer start, in ms.',
 			'example' => '../modules/BorhanSupport/tests/PlayerBufferTest.qunit.html'
 		),
-		'video.buffer.bufferedPercent' => array(
+		'video.buffer.percent' => array(
 			'desc' => 'Percentage of the video that has been buffered.',
 			'example' => '../modules/BorhanSupport/tests/PlayerBufferTest.qunit.html'
 		), 

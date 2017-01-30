@@ -1,17 +1,37 @@
 {
+    "tvpapiAPI": {
+        "scripts": "resources/tvpapiAPI.js",
+        "dependencies": ["mw.KBasePlugin"] ,
+        "borhanPluginName": "tvpapiAPI"
+    },
+    "tvpapiRequest": {
+        "scripts": "resources/tvpapiRequest.js",
+        "dependencies": ["mw.KBasePlugin"],
+        "borhanPluginName": "tvpapiRequest"
+    },
     "tvpapiGetLicensedLinks": {
         "scripts": "resources/getLicensedLinks.js",
-        "dependencies": ["mw.KBasePlugin"] ,
+        "dependencies": ["tvpapiRequest"] ,
         "borhanPluginName": "tvpapiGetLicensedLinks"
     },
     "tvpapiGetLicenseData": {
         "scripts": "resources/getLicenseData.js",
-        "dependencies": ["mw.KBasePlugin"],
+        "dependencies": ["tvpapiRequest"],
         "borhanPluginName": "tvpapiGetLicenseData"
     },
     "tvpapiAnalytics": {
         "scripts": "resources/tvpapiAnalytics.js",
-        "dependencies": ["mw.KBasePlugin"],
+        "dependencies": ["tvpapiRequest"],
         "borhanPluginName": "tvpapiAnalytics"
+    },
+    "tvpapiCatchUp": {
+        "scripts": "resources/catchUp.js",
+        "dependencies": ["tvpapiRequest"] ,
+        "borhanPluginName": "tvpapiCatchUp"
+    },
+    "tvpapiStartOver": {
+        "scripts": "resources/startOver.js",
+        "dependencies": ["tvpapiRequest"] ,
+        "borhanPluginName": "tvpapiStartOver"
     }
 }

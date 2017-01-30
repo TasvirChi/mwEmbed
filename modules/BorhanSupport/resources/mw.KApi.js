@@ -190,6 +190,9 @@ mw.KApi.prototype = {
 		if( serviceType && serviceType == 'liveStats' &&  mw.getConfig( 'Borhan.LiveStatsServiceUrl' ) ) {
 			serviceUrl = mw.getConfig( 'Borhan.LiveStatsServiceUrl' );
 		}
+		if( serviceType && serviceType == 'analytics' &&  mw.getConfig( 'Borhan.AnalyticsUrl' ) ) {
+			serviceUrl = mw.getConfig( 'Borhan.AnalyticsUrl' );
+		}
 		return serviceUrl + mw.getConfig( 'Borhan.ServiceBase' ) + serviceType;
 	},
 	getSignature: function( params ){
