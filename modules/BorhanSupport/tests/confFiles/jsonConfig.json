@@ -1,0 +1,40 @@
+{
+   "plugins":{
+      "topBarContainer": {},
+      "titleLabel": {},
+      "controlBarContainer": {
+         "hover": true
+      },
+     "largePlayBtn": {},
+     "pipBtn":{},
+      "scrubber": {},
+      "playPauseBtn": {},
+      "volumeControl": {},
+      "fullScreenBtn": {},
+      "durationLabel": {},
+      "currentTimeLabel": {},
+      "sourceSelector": {},
+      "closedCaptions": {},
+      "watermark": {
+         "cssClass": "topLeft",
+         "img": "http://www.borhan.com/content/uiconf/borhan/bmc/appstudio/bdp3/exampleWatermark.png"
+      },
+      "logo": {},
+	   "moderation":{},
+      "infoScreen": {},
+      "share": {},
+      "related": {},
+	   "playbackRateSelector" :{}
+   },
+   "uiVars":[
+      {
+         "key":"Borhan.UseAppleAdaptive",
+         "value":false,
+         "overrideFlashvar":false
+      }
+   ],
+   "layout":{
+      "skin": "kdark",
+	   "cssFiles":[ ]
+   }
+}

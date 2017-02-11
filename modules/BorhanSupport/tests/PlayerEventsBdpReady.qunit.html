@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Player Events BdpReady test</title>
+<script type="text/javascript" src="../../../tests/qunit/qunit-bootstrap.js"></script>
+<script type="text/javascript" src="../../../mwEmbedLoader.php"></script>
+<script type="text/javascript" src="../../../docs/js/doc-bootstrap.js"></script>
+<script type="text/javascript">	
+function jsBorhanPlayerTest( videoId ){
+	
+	// Name this module
+	module( "Player Events BdpReady" );
+	asyncTest("bdpReady callback fired", function(){
+		borhanQunitWaitForPlayer(function(){
+			equal( theBdpReadyEventWasFired, videoId, " bdpReady fired with id:" + videoId );
+			// done with async
+			start();
+		});
+	});
+}
+var theBdpReadyEventWasFired = false;
+function onBdpReady( videoId ){
+	theBdpReadyEventWasFired = videoId;
+}
+</script>
+<script>
+	function jsCallbackReady( playerId ){
+		var bdp = $( '#' + playerId )[0];
+		bdp.addJsListener( 'bdpReady', 'onBdpReady');
+	}
+</script>
+<!-- qunit-borhan must come after qunit-bootstrap.js and after mwEmbedLoader.php and after any jsCallbackReady stuff-->
+<script type="text/javascript" src="resources/qunit-borhan-bootstrap.js"></script>
+</head>
+<body>
+<h2> Player Events BdpReady test </h2>
+
+<br />
+
+<object id="borhan_player" name="borhan_player" type="application/x-shockwave-flash" allowFullScreen="true" 
+allowNetworking="all" allowScriptAccess="always" height="333" width="400" xmlns:dc="http://purl.org/dc/terms/" 
+xmlns:media="http://search.yahoo.com/searchmonkey/media/" rel="media:video" 
+resource="http://www.borhan.com/index.php/bwidget/cache_st/1292436446/wid/_243342/uiconf_id/12905712/entry_id/0_uka1msg4" 
+data="http://www.borhan.com/index.php/bwidget/cache_st/1292436446/wid/_243342/uiconf_id/12905712/entry_id/0_uka1msg4">
+	<param name="allowFullScreen" value="true" />
+	<param name="allowNetworking" value="all" />
+	<param name="allowScriptAccess" value="always" />
+	<param name="bgcolor" value="#000000" />
+	<param name="flashVars" value="&externalInterfaceDisabled=false" />
+	<param name="movie" value="http://www.borhan.com/index.php/bwidget/cache_st/1292436446/wid/_243342/uiconf_id/12905712/entry_id/0_uka1msg4" />
+</object>
+
+</body>
+</html>

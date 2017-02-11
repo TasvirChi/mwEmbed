@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>ReadyCallback Test</title>
+<script type="text/javascript" src="../../../mwEmbedLoader.php"></script>
+<script type="text/javascript" src="../../../docs/js/doc-bootstrap.js"></script>
+</head>
+<body>
+<h2> ReadyCallback Test </h2>
+
+<br />
+<div id="myVideoTarget" style="width:400px;height:257px;"></div>
+<script type="text/javascript">
+	window['doPlayCallback'] = function( playerId ) {
+		console.log( 'bwidget doPlayCallback ' + playerId );
+		alert( 'bwidget doPlayCallback ' + playerId );
+	};
+	window['openFull'] = function() {
+		console.log( 'Entering full screen' );
+		alert( 'Entering full screen' );
+	}
+	window['closeFull'] = function() {
+		console.log( 'Exiting full screen' );
+		alert( 'Exiting full screen' );
+	}
+	bWidget.embed({
+		'targetId': 'myVideoTarget',
+		'wid': '_861182',
+		'uiconf_id' : '7645091',
+		'entry_id' : '1_wjdhr96i',
+		'flashvars':{
+			'externalInterfaceDisabled' : false,
+			'autoPlay' : true
+		},
+		'readyCallback': function( playerId ){
+			alert( "bWidget player ready: " + playerId );
+			var bdp = document.getElementById( playerId );
+			bdp.addJsListener( 'doPlay', 'doPlayCallback');
+			bdp.addJsListener( 'openFullScreen', 'openFull');
+			bdp.addJsListener( 'closeFullScreen', 'closeFull');			
+		}
+	});
+</script>
+
+<!-- Static player
+
+<object id="borhan_player_1332852244"
+	name="borhan_player_1332852244"
+	type="application/x-shockwave-flash"
+	allowFullScreen="true"
+	allowNetworking="all"
+	allowScriptAccess="always"
+	height="257"
+	width="400"
+	bgcolor="#000000"
+	xmlns:dc="http://purl.org/dc/terms/"
+	xmlns:media="http://search.yahoo.com/searchmonkey/media/"
+	rel="media:video"
+	resource="http://www.borhan.com/index.php/bwidget/cache_st/1332852244/wid/_861182/uiconf_id/7645091/entry_id/1_wjdhr96i"
+	data="http://www.borhan.com/index.php/bwidget/cache_st/1332852244/wid/_861182/uiconf_id/7645091/entry_id/1_wjdhr96i">
+	<param name="allowFullScreen" value="true" />
+	<param name="allowNetworking" value="all" />
+	<param name="allowScriptAccess" value="always" />
+	<param name="bgcolor" value="#000000" />
+	<param name="flashVars" value="&" />
+	<param name="movie" value="http://www.borhan.com/index.php/bwidget/cache_st/1332852244/wid/_861182/uiconf_id/7645091/entry_id/1_wjdhr96i" />
+</object>-->
+
+</body>
+</html>

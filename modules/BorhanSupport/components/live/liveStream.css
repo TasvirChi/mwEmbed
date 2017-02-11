@@ -1,0 +1,46 @@
+.back-to-live {
+	display: inline;
+	border: none;
+}
+
+.play_head_dvr .ui-slider-handle {
+	width:10px;
+	height:15px;
+	margin-left:-5px;
+	margin-top: -0px;
+	z-index: 2;	
+}
+
+.live-icon {
+	font-size: 0.7em !important;
+	margin-left: 10px !important;
+	margin-right: 2px !important;
+}
+
+.online-icon {
+	color: #FF0000 !important;
+}
+
+.offline-icon {
+	color: #A4A4A4 !important;
+	background-color: transparent;
+}
+
+ .live-off-sync-icon {
+	 color: #FF0000 !important;
+	 background-color: transparent;
+ }
+
+.back-to-live-text {
+	color: #FFFFFF !important;
+	font-family: "Arial Narrow", Arial;
+}
+
+.not-clickable {
+	cursor: default !important;
+}
+
+.not-clickable:hover {
+	cursor: default !important;
+	text-shadow: none !important;
+}
